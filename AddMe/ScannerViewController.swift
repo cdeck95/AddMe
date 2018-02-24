@@ -93,23 +93,22 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     func found(code: String) {
         do {
+            print(code)
             // convert String to NSData
             let data: Data = code.data(using: String.Encoding.utf8)!
             // convert NSData to 'AnyObject'
             do {
                  guard let result = (try JSONSerialization.jsonObject(with: data, options: [])
-                    as? [String: Int]) else {
+                    as? [String: String]) else {
                         print("error trying to convert data to JSON")
                         return
                 }
                 print(result)
+                openPlatforms(result: result)
         }
             catch let error as NSError {
                 print(error.localizedDescription)
             }
-//        UIApplication.shared.open(URL(string : code)!, options: [:], completionHandler: { (status) in
-//
-//        })
         }
     }
     
@@ -119,5 +118,15 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
+    }
+    
+    func openPlatforms(result: [String:String]){
+        let keys = result.keys
+        for key in keys {
+            print(key)
+            UIApplication.shared.open(URL(string : result[key]!)!, options: [:], completionHandler: { (status) in
+                
+            })
+        }
     }
 }
