@@ -46,7 +46,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Scan"/>
                                 <connections>
-                                    <segue destination="gfS-lj-f3Q" kind="show" id="SgK-gS-eIF"/>
+                                    <action selector="scan:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vGc-9a-VgS"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -119,7 +119,4 @@
             <point key="canvasLocation" x="1180" y="122"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="SgK-gS-eIF"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -8,14 +8,17 @@
 
 import UIKit
 import AVFoundation
+import SafariServices
 
-class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, SFSafariViewControllerDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
+    var dict: [String:String]!
+    var twitter = 0
+    var facebook = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
@@ -87,7 +90,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
         }
-        
         dismiss(animated: true)
     }
     
@@ -103,7 +105,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                         print("error trying to convert data to JSON")
                         return
                 }
-                print(result)
+                dict = result
+                print(dict)
                 openPlatforms(result: result)
         }
             catch let error as NSError {
@@ -121,12 +124,49 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func openPlatforms(result: [String:String]){
-        let keys = result.keys
-        for key in keys {
-            print(key)
-            UIApplication.shared.open(URL(string : result[key]!)!, options: [:], completionHandler: { (status) in
-                
-            })
+        openSnapchat(result: result)
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController)
+    {
+        controller.dismiss(animated: true, completion: nil)
+        //self.navigationController?.popViewController(animated: true)
+        if(twitter == 0){
+            openTwitter(result: dict)
         }
+        else if(facebook == 0){
+            openFacebook(result: dict)
+        }
+        else {
+            print("popping...")
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        dismiss(animated: true)
+    }
+    
+    func openSnapchat(result: [String:String]) {
+        let svc = SFSafariViewController(url: URL(string: result["snapchat"]!)!)
+        svc.delegate = self
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.pushViewController(svc, animated: true)
+    }
+    
+    func openTwitter(result: [String:String]) {
+        print("opening twitter...")
+        let url = URL(string: result["twitter"]!)
+        let svc2 = SFSafariViewController(url: url!)
+        svc2.delegate = self
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.pushViewController(svc2, animated: true)
+        twitter = 1
+    }
+    func openFacebook(result: [String:String]) {
+        print("opening FB...")
+        let url = URL(string: result["facebook"]!)
+        let svc2 = SFSafariViewController(url: url!)
+        svc2.delegate = self
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.pushViewController(svc2, animated: true)
+        facebook = 1
     }
 }

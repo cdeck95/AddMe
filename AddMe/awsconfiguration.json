@@ -38,6 +38,6 @@
   },
   "FacebookSignIn": {
     "AppId": "365979163888235",
-    "Permissions": "public_profile"
+    "Permissions": "public_profile,email"
   }
 }

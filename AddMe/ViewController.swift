@@ -90,10 +90,12 @@ class ViewController: UIViewController {
 //            UIApplication.shared.open(URL(string : "http://graph.facebook.com/\(userID)")!, options: [:], completionHandler: { (status) in
 //                
 //            })
+            let userid = "10215531025812257"
             let jsonStringAsArray =
                 "{\n" +
                 "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
-                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\"\n" +
+                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
+                "\"facebook\":\"http://facebook.com/cporchie\"\n" +
                 "}"
             print(jsonStringAsArray)
              let image = generateQRCode(from: jsonStringAsArray)
@@ -173,5 +175,9 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func scan(_ sender: Any) {
+        let scannerVC = ScannerViewController()
+        self.navigationController?.pushViewController(scannerVC, animated: true)
+    }
 }
 
