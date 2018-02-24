@@ -92,9 +92,25 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func found(code: String) {
-        UIApplication.shared.open(URL(string : code)!, options: [:], completionHandler: { (status) in
-            
-        })
+        do {
+            // convert String to NSData
+            let data: Data = code.data(using: String.Encoding.utf8)!
+            // convert NSData to 'AnyObject'
+            do {
+                 guard let result = (try JSONSerialization.jsonObject(with: data, options: [])
+                    as? [String: Int]) else {
+                        print("error trying to convert data to JSON")
+                        return
+                }
+                print(result)
+        }
+            catch let error as NSError {
+                print(error.localizedDescription)
+            }
+//        UIApplication.shared.open(URL(string : code)!, options: [:], completionHandler: { (status) in
+//
+//        })
+        }
     }
     
     override var prefersStatusBarHidden: Bool {

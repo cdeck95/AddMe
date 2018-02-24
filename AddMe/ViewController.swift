@@ -90,7 +90,13 @@ class ViewController: UIViewController {
 //            UIApplication.shared.open(URL(string : "http://graph.facebook.com/\(userID)")!, options: [:], completionHandler: { (status) in
 //                
 //            })
-             let image = generateQRCode(from: "http://www.twitter.com/cporchie")
+            let jsonStringAsArray =
+                "{\n" +
+                "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
+                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\"\n" +
+                "}"
+            print(jsonStringAsArray)
+             let image = generateQRCode(from: jsonStringAsArray)
              QRCode.image = image
         }
     }
