@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         print("----in view did load----")
         sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
         sideMenuViewController.view.frame = UIScreen.main.bounds
-        presentAuthUIViewController()
+        //presentAuthUIViewController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
