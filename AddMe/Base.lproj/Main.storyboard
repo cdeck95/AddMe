@@ -189,7 +189,7 @@
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="KWI-4r-Mh0"/>
+                                            <segue destination="PSs-OA-1VE" kind="show" id="oEA-Ff-Vb0"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jj2-5I-qPx">
@@ -311,6 +311,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="0fo-N0-SsQ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aZm-Jq-Woc">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -391,6 +392,6 @@
         <image name="launch_logo" width="450" height="422"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KWI-4r-Mh0"/>
+        <segue reference="oEA-Ff-Vb0"/>
     </inferredMetricsTieBreakers>
 </document>

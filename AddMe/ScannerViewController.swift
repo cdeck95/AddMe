@@ -144,6 +144,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         controller.dismiss(animated: true, completion: nil)
         if keys.count == 0 {
             print("popping...")
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationController?.popToRootViewController(animated: true)
         }
         else {

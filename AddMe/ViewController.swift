@@ -27,6 +27,7 @@ class ViewController: UIViewController {
     var token: String!
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
+    var dataset: AWSCognitoDataset!
     
     
     override func viewDidLoad() {
@@ -34,12 +35,18 @@ class ViewController: UIViewController {
         print("----in view did load----")
         sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
         sideMenuViewController.view.frame = UIScreen.main.bounds
-        //presentAuthUIViewController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("----in view will appear----")
+        if(isMenuOpened == true){
+            isMenuOpened = false
+            sideMenuViewController.willMove(toParentViewController: nil)
+            sideMenuViewController.view.removeFromSuperview()
+            sideMenuViewController.removeFromParentViewController()
+        }
         presentAuthUIViewController()
+        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
     func presentAuthUIViewController() {
@@ -68,6 +75,7 @@ class ViewController: UIViewController {
         // Initialize the Amazon Cognito credentials provider
         
         if AWSSignInManager.sharedInstance().isLoggedIn {
+            self.navigationController?.popToRootViewController(animated: true)
             let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
                                                                     identityPoolId:"us-east-1:99eed9b4-f0a9-4f6d-b34c-5f05a1a5fa6b")
             
@@ -76,7 +84,7 @@ class ViewController: UIViewController {
             
             // Initialize the Cognito Sync client
             let syncClient = AWSCognito.default()
-            let dataset = syncClient.openOrCreateDataset("AddMeDataSet")
+            dataset = syncClient.openOrCreateDataset("AddMeDataSet")
             dataset.setString(token, forKey:"token")
             dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
                 // Your handler code here
@@ -101,22 +109,6 @@ class ViewController: UIViewController {
                 print("user pool sign in confirmed")
             }
         }
-    }
-    
-    //test
-    func generateQRCode(from string: String) -> UIImage? {
-        let data = string.data(using: String.Encoding.ascii)
-        
-        if let filter = CIFilter(name: "CIQRCodeGenerator") {
-            filter.setValue(data, forKey: "inputMessage")
-            let transform = CGAffineTransform(scaleX: 3, y: 3)
-            
-            if let output = filter.outputImage?.transformed(by: transform) {
-                return UIImage(ciImage: output)
-            }
-        }
-        
-        return nil
     }
 
     override func didReceiveMemoryWarning() {
@@ -157,17 +149,7 @@ class ViewController: UIViewController {
             self.view.addSubview(sideMenuViewController.view)
             sideMenuViewController.didMove(toParentViewController: self)
         }
-        let transition = CATransition()
-        
-        let withDuration = 0.5
-        
-        transition.duration = withDuration
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        
-        sideMenuViewController.view.layer.add(transition, forKey: kCATransition)
-        //UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
+        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
     @IBAction func scan(_ sender: Any) {
@@ -176,32 +158,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func createQRCode(_ sender: Any) {
-        
-        //            UIApplication.shared.open(URL(string : "http://www.snapchat.com/add/cporchie")!, options: [:], completionHandler: { (status) in
-        //
-        //            })
-        //            UIApplication.shared.open(URL(string : "http://www.twitter.com/cporchie")!, options: [:], completionHandler: { (status) in
-        //
-        //            })
-        //let userID = dataset.string(forKey: "userID")
-        //            UIApplication.shared.open(URL(string : "http://graph.facebook.com/\(userID)")!, options: [:], completionHandler: { (status) in
-        //
-        //            })
-        
-//        let userid = "10215531025812257"
-//        let jsonStringAsArray =
-//            "{\n" +
-//                "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
-//                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
-//                "\"facebook\":\"http://facebook.com/cporchie\"\n" +
-//        "}"
-//        print(jsonStringAsArray)
-//        let image = generateQRCode(from: jsonStringAsArray)
-//        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-//        let imageView:UIImageView = UIImageView()
-//        imageView.image = image
-//        VC1.QRCode = imageView
-        //self.navigationController!.present(VC1, animated: true, completion: nil)
+        let jsonStringAsArray =
+            "{\n" +
+                "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
+                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
+                "\"facebook\":\"http://facebook.com/cporchie\",\n" +
+                "\"instagram\":\"http://instagram.com/chris_deck\"\n" +
+        "}"
+       dataset.setString(jsonStringAsArray, forKey: "jsonStringAsArray")
     }
     
     

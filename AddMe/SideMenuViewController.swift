@@ -61,6 +61,7 @@ class SideMenuViewController: UIViewController {
     
 //    @IBAction func goHome(_ sender: Any) {
 //        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! ViewController
+//        VC1.isMenuOpened = false
 //        self.navigationController!.popToViewController(VC1, animated: true)
 //    }
     

@@ -7,28 +7,39 @@
 //
 
 import UIKit
+import AWSCognito
 
 class QRCodeViewController: UIViewController {
 
     @IBOutlet weak var QRCode: UIImageView!
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
+    var dataset: AWSCognitoDataset!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
         sideMenuViewController.view.frame = UIScreen.main.bounds
-        // Do any additional setup after loading the view.
         
-        let userid = "10215531025812257"
-        let jsonStringAsArray =
-            "{\n" +
-                "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
-                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
-                "\"facebook\":\"http://facebook.com/cporchie\",\n" +
-                "\"instagram\":\"http://instagram.com/chris_deck\"\n" +
-        "}"
-        print(jsonStringAsArray)
+        // Initialize the Cognito Sync client
+        let syncClient = AWSCognito.default()
+        dataset = syncClient.openOrCreateDataset("AddMeDataSet")
+        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
+            // Your handler code here
+            return nil
+            
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard let jsonStringAsArray: String = dataset.string(forKey: "jsonStringAsArray")
+            else {
+                print("code has not been created yet")
+                let image = UIImage(named: "launch_logo")
+                QRCode.image = image
+                return
+        }
+        print("json from data set: \(jsonStringAsArray)")
         let image = generateQRCode(from: jsonStringAsArray)
         QRCode.image = image
     }
