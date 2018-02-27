@@ -88,6 +88,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //test
     func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
         
