@@ -131,6 +131,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         if(keys.count > 0){
             let currentKey = keys.first as! String
             print("current key: \(currentKey)")
+            self.tabBarController?.hidesBottomBarWhenPushed = true
             let svc = SFSafariViewController(url: URL(string: dict[currentKey]!)!)
             svc.delegate = self
             self.navigationController?.setNavigationBarHidden(true, animated: true)
