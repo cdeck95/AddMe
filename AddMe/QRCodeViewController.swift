@@ -25,7 +25,8 @@ class QRCodeViewController: UIViewController {
             "{\n" +
                 "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
                 "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
-                "\"facebook\":\"http://facebook.com/cporchie\"\n" +
+                "\"facebook\":\"http://facebook.com/cporchie\",\n" +
+                "\"instagram\":\"http://instagram.com/chris_deck\"\n" +
         "}"
         print(jsonStringAsArray)
         let image = generateQRCode(from: jsonStringAsArray)

@@ -16,6 +16,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var dict: [String:String]!
     var twitter = 0
     var facebook = 0
+    var keys: Dictionary<String, String>.Keys!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,7 +108,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 }
                 dict = result
                 print(dict)
-                openPlatforms(result: result)
+                openPlatforms()
         }
             catch let error as NSError {
                 print(error.localizedDescription)
@@ -123,50 +124,31 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         return .portrait
     }
     
-    func openPlatforms(result: [String:String]){
-        openSnapchat(result: result)
+    func openPlatforms(){
+        //openSnapchat(result: result)
+        keys = dict.keys
+        print("all keys: \(keys)")
+        if(keys.count > 0){
+            let currentKey = keys.first as! String
+            print("current key: \(currentKey)")
+            let svc = SFSafariViewController(url: URL(string: dict[currentKey]!)!)
+            svc.delegate = self
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            self.navigationController?.pushViewController(svc, animated: true)
+            dict.removeValue(forKey: currentKey)
+        }
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)
     {
         controller.dismiss(animated: true, completion: nil)
-        //self.navigationController?.popViewController(animated: true)
-        if(twitter == 0){
-            openTwitter(result: dict)
-        }
-        else if(facebook == 0){
-            openFacebook(result: dict)
-        }
-        else {
+        if keys.count == 0 {
             print("popping...")
             self.navigationController?.popToRootViewController(animated: true)
         }
+        else {
+            openPlatforms()
+        }
         dismiss(animated: true)
-    }
-    
-    func openSnapchat(result: [String:String]) {
-        let svc = SFSafariViewController(url: URL(string: result["snapchat"]!)!)
-        svc.delegate = self
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        self.navigationController?.pushViewController(svc, animated: true)
-    }
-    
-    func openTwitter(result: [String:String]) {
-        print("opening twitter...")
-        let url = URL(string: result["twitter"]!)
-        let svc2 = SFSafariViewController(url: url!)
-        svc2.delegate = self
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        self.navigationController?.pushViewController(svc2, animated: true)
-        twitter = 1
-    }
-    func openFacebook(result: [String:String]) {
-        print("opening FB...")
-        let url = URL(string: result["facebook"]!)
-        let svc2 = SFSafariViewController(url: url!)
-        svc2.delegate = self
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        self.navigationController?.pushViewController(svc2, animated: true)
-        facebook = 1
     }
 }
