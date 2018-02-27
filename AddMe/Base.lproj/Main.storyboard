@@ -71,6 +71,9 @@
                                         <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="mz7-JQ-d65" kind="show" id="TDn-qU-gLp"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AwF-UR-EQ6" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
                                 <rect key="frame" x="123" y="514" width="129" height="43"/>
@@ -91,6 +94,13 @@
                                     <action selector="createQRCode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fkE-p3-hLx"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMn-9D-F4h">
+                                <rect key="frame" x="16" y="96" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -126,6 +136,8 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="QRCode" destination="wrW-6v-ex3" id="T4R-Iz-oIR"/>
+                        <outlet property="addAppButton" destination="Mcb-uz-Dd0" id="9LX-nB-vNa"/>
+                        <outlet property="labelMessage" destination="dMn-9D-F4h" id="e4P-V8-34a"/>
                         <outlet property="scanButton" destination="HVX-h3-D0q" id="hjO-uz-JSt"/>
                     </connections>
                 </viewController>
@@ -231,7 +243,7 @@
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="ISd-IL-6IN" kind="show" id="Gcx-PA-FGA"/>
+                                            <segue destination="ISd-IL-6IN" kind="show" id="ABM-K1-AQF"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="toj-5D-8ID">
@@ -306,6 +318,71 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Hd-Pa-52X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1990" y="801"/>
+        </scene>
+        <!--Add App View Controller-->
+        <scene sceneID="Z3c-z0-opO">
+            <objects>
+                <viewController id="mz7-JQ-d65" customClass="AddAppViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NcS-7u-nAg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="atW-cd-F6S">
+                                <rect key="frame" x="16" y="72" width="343" height="483"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NRO-7D-2rp">
+                                    <size key="itemSize" width="159" height="97"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PlainCell" reuseIdentifier="collectionViewCell" id="Ofn-ZG-ilf" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="159" height="97"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="159" height="97"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fb-icon" translatesAutoresizingMaskIntoConstraints="NO" id="qss-Ov-AW5">
+                                                    <rect key="frame" x="5" y="5" width="149" height="87"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="qss-Ov-AW5" secondAttribute="bottom" constant="5" id="4ks-Y6-6oa"/>
+                                            <constraint firstAttribute="trailing" secondItem="qss-Ov-AW5" secondAttribute="trailing" constant="5" id="J3m-qr-5Cd"/>
+                                            <constraint firstItem="qss-Ov-AW5" firstAttribute="leading" secondItem="Ofn-ZG-ilf" secondAttribute="leading" constant="5" id="kAL-a6-hQS"/>
+                                            <constraint firstItem="qss-Ov-AW5" firstAttribute="top" secondItem="Ofn-ZG-ilf" secondAttribute="top" constant="5" id="raW-NZ-eV9"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="appImage" destination="qss-Ov-AW5" id="Qc2-sV-lti"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="mz7-JQ-d65" id="CpK-wM-zGy"/>
+                                    <outlet property="delegate" destination="mz7-JQ-d65" id="oam-YX-oS0"/>
+                                    <outlet property="prefetchDataSource" destination="mz7-JQ-d65" id="dQk-Cx-nXg"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="atW-cd-F6S" firstAttribute="leading" secondItem="NcS-7u-nAg" secondAttribute="leadingMargin" id="36Q-D2-nAi"/>
+                            <constraint firstItem="atW-cd-F6S" firstAttribute="trailing" secondItem="NcS-7u-nAg" secondAttribute="trailingMargin" id="6EO-nn-c75"/>
+                            <constraint firstItem="ysH-Cy-L8G" firstAttribute="bottom" secondItem="atW-cd-F6S" secondAttribute="bottom" constant="19" id="W3y-Rj-1Ni"/>
+                            <constraint firstItem="atW-cd-F6S" firstAttribute="top" secondItem="ysH-Cy-L8G" secondAttribute="top" constant="8" id="oCZ-sV-n8F"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ysH-Cy-L8G"/>
+                    </view>
+                    <connections>
+                        <outlet property="collection" destination="atW-cd-F6S" id="pBz-3p-uYd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9bU-St-ilb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2778.4000000000001" y="800.14992503748135"/>
         </scene>
         <!--Scanner View Controller-->
         <scene sceneID="MOV-aS-bBM">
@@ -409,6 +486,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="fb-icon" width="45" height="45"/>
         <image name="ic_add_circle" width="24" height="24"/>
         <image name="ic_camera_alt" width="24" height="24"/>
         <image name="ic_exit_to_app" width="24" height="24"/>

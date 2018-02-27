@@ -23,6 +23,9 @@
 		DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CF72043522C00F1525E /* SettingsViewController.swift */; };
 		DAD96CFA2044B13C00F1525E /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CF92044B13C00F1525E /* SideMenuViewController.swift */; };
 		DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CFB2044C1FF00F1525E /* CustomButton.swift */; };
+		DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */; };
+		DAD96D002045F59F00F1525E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */; };
+		DAD96D082045FA2F00F1525E /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96D072045FA2F00F1525E /* DataStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		DAD96CF72043522C00F1525E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DAD96CF92044B13C00F1525E /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		DAD96CFB2044C1FF00F1525E /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAppViewController.swift; sourceTree = "<group>"; };
+		DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		DAD96D072045FA2F00F1525E /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.debug.xcconfig"; sourceTree = "<group>"; };
 		FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,9 +109,12 @@
 			isa = PBXGroup;
 			children = (
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
+				DAD96D072045FA2F00F1525E /* DataStore.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
+				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA6A7EED2037859800E79B47 /* Main.storyboard */,
+				DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */,
 				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
 				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
 				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
@@ -286,7 +295,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD96CFA2044B13C00F1525E /* SideMenuViewController.swift in Sources */,
+				DAD96D082045FA2F00F1525E /* DataStore.swift in Sources */,
 				DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */,
+				DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */,
 				DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */,
 				DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */,
 				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
@@ -294,6 +305,7 @@
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
 				DAD432F9203D03F70033EF35 /* User.swift in Sources */,
+				DAD96D002045F59F00F1525E /* CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

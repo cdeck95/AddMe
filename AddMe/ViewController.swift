@@ -22,12 +22,13 @@ class ViewController: UIViewController {
 
 
     @IBOutlet weak var scanButton: UIBarButtonItem!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var profilePicture: UIImageView!
     var token: String!
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
+    
+    @IBOutlet weak var addAppButton: CustomButton!
+    @IBOutlet weak var labelMessage: UILabel!
     
     
     override func viewDidLoad() {
@@ -167,7 +168,5 @@ class ViewController: UIViewController {
         "}"
        dataset.setString(jsonStringAsArray, forKey: "jsonStringAsArray")
     }
-    
-    
 }
 
