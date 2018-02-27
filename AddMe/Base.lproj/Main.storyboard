@@ -15,17 +15,19 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sax-Zr-BDN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected Apps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bff-rV-gaH">
+                                <rect key="frame" x="123" y="96" width="129" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sax-Zr-BDN">
                                 <rect key="frame" x="0.0" y="146" width="375" height="331"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="331" id="euI-ra-qlN"/>
-                                    <constraint firstAttribute="height" constant="375" id="moQ-rK-aav"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RRG-Yo-1BK">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -54,17 +56,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Connected Apps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bff-rV-gaH">
-                                <rect key="frame" x="123" y="96" width="129" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mcb-uz-Dd0" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mcb-uz-Dd0" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
                                 <rect key="frame" x="123" y="485" width="129" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="JKD-Fj-M6N"/>
+                                    <constraint firstAttribute="height" constant="40" id="TyM-iX-1QT"/>
                                 </constraints>
                                 <state key="normal" title="Add App" image="ic_add_circle">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -76,11 +72,11 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AwF-UR-EQ6" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AwF-UR-EQ6" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
                                 <rect key="frame" x="123" y="563" width="129" height="43"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="TBs-tN-q4V"/>
+                                    <constraint firstAttribute="height" constant="43" id="KMI-Ek-q3B"/>
                                 </constraints>
                                 <state key="normal" title="Create Code">
                                     <color key="titleColor" red="0.022106788589999999" green="0.62808561360000004" blue="0.14253416469999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -98,18 +94,18 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="sax-Zr-BDN" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0tM-QG-IvI"/>
-                            <constraint firstItem="AwF-UR-EQ6" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-17" id="CdP-jC-iIc"/>
-                            <constraint firstItem="Mcb-uz-Dd0" firstAttribute="top" secondItem="sax-Zr-BDN" secondAttribute="bottom" constant="8" symbolic="YES" id="DQ5-Nv-SNV"/>
-                            <constraint firstItem="sax-Zr-BDN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="KjR-X1-ptc"/>
-                            <constraint firstItem="sax-Zr-BDN" firstAttribute="top" secondItem="Bff-rV-gaH" secondAttribute="bottom" constant="29" id="Las-Tp-EnN"/>
-                            <constraint firstItem="Mcb-uz-Dd0" firstAttribute="leading" secondItem="AwF-UR-EQ6" secondAttribute="leading" id="Lxp-cw-Q9o"/>
-                            <constraint firstItem="AwF-UR-EQ6" firstAttribute="centerX" secondItem="sax-Zr-BDN" secondAttribute="centerX" id="RAa-uk-FzV"/>
-                            <constraint firstItem="AwF-UR-EQ6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Sy7-IA-Po0"/>
-                            <constraint firstItem="AwF-UR-EQ6" firstAttribute="leading" secondItem="Bff-rV-gaH" secondAttribute="leading" id="U9i-tx-EYE"/>
-                            <constraint firstItem="AwF-UR-EQ6" firstAttribute="top" secondItem="Mcb-uz-Dd0" secondAttribute="bottom" constant="38" id="cZh-v2-HPf"/>
-                            <constraint firstItem="Mcb-uz-Dd0" firstAttribute="trailing" secondItem="AwF-UR-EQ6" secondAttribute="trailing" id="lZn-Ho-mdj"/>
-                            <constraint firstItem="AwF-UR-EQ6" firstAttribute="trailing" secondItem="Bff-rV-gaH" secondAttribute="trailing" id="lpQ-TQ-bLp"/>
+                            <constraint firstItem="Bff-rV-gaH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="0GN-3d-cIh"/>
+                            <constraint firstItem="AwF-UR-EQ6" firstAttribute="top" secondItem="Mcb-uz-Dd0" secondAttribute="bottom" constant="38" id="4Id-mG-BGQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="AwF-UR-EQ6" secondAttribute="bottom" constant="17" id="5iX-cy-tHB"/>
+                            <constraint firstAttribute="trailing" secondItem="sax-Zr-BDN" secondAttribute="trailing" id="Iqk-tr-Hd5"/>
+                            <constraint firstItem="sax-Zr-BDN" firstAttribute="top" secondItem="Bff-rV-gaH" secondAttribute="bottom" constant="29" id="KH9-95-NaR"/>
+                            <constraint firstItem="Mcb-uz-Dd0" firstAttribute="trailing" secondItem="AwF-UR-EQ6" secondAttribute="trailing" id="NzJ-SX-zX9"/>
+                            <constraint firstItem="sax-Zr-BDN" firstAttribute="centerX" secondItem="Mcb-uz-Dd0" secondAttribute="centerX" id="P4u-tw-g0a"/>
+                            <constraint firstItem="Mcb-uz-Dd0" firstAttribute="leading" secondItem="AwF-UR-EQ6" secondAttribute="leading" id="ZKH-eQ-G9c"/>
+                            <constraint firstItem="Bff-rV-gaH" firstAttribute="leading" secondItem="Mcb-uz-Dd0" secondAttribute="leading" id="ZuV-mK-QBj"/>
+                            <constraint firstItem="Bff-rV-gaH" firstAttribute="trailing" secondItem="Mcb-uz-Dd0" secondAttribute="trailing" id="aNl-ur-RWW"/>
+                            <constraint firstItem="sax-Zr-BDN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="k21-N2-Lr8"/>
+                            <constraint firstItem="Mcb-uz-Dd0" firstAttribute="top" secondItem="sax-Zr-BDN" secondAttribute="bottom" constant="8" symbolic="YES" id="oq3-af-MsN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -193,7 +189,7 @@
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="KWI-4r-Mh0"/>
+                                            <segue destination="PSs-OA-1VE" kind="show" id="oEA-Ff-Vb0"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jj2-5I-qPx">
@@ -207,7 +203,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHT-TW-9qq">
                                         <rect key="frame" x="0.0" y="68" width="91" height="24"/>
-                                        <state key="normal" title="Help" image="ic_exit_to_app">
+                                        <state key="normal" title="Help" image="ic_help">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
@@ -315,6 +311,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="0fo-N0-SsQ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aZm-Jq-Woc">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -388,12 +385,13 @@
         <image name="ic_add_circle" width="24" height="24"/>
         <image name="ic_camera_alt" width="24" height="24"/>
         <image name="ic_exit_to_app" width="24" height="24"/>
+        <image name="ic_help" width="24" height="24"/>
         <image name="ic_home" width="24" height="24"/>
         <image name="ic_menu" width="24" height="24"/>
         <image name="ic_settings" width="24" height="24"/>
         <image name="launch_logo" width="450" height="422"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KWI-4r-Mh0"/>
+        <segue reference="oEA-Ff-Vb0"/>
     </inferredMetricsTieBreakers>
 </document>

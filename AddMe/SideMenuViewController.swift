@@ -36,6 +36,7 @@ class SideMenuViewController: UIViewController {
         config.backgroundColor = UIColor.white
         config.font = UIFont (name: "Helvetica Neue", size: 14)
         config.canCancel = true
+        
         if (AWSSignInManager.sharedInstance().isLoggedIn) {
             AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, error: Error?) in
                 DispatchQueue.main.async(execute: {
@@ -50,9 +51,8 @@ class SideMenuViewController: UIViewController {
                                                 }
                         })
                 })
-                //SessionController.sharedInstance.resetSession()
             })
-            // print("Logout Successful: \(signInProvider.getDisplayName)");
+            //print("Logout Successful: \(signInProvider.getDisplayName)");
         } else {
             //assert(false)
         }
@@ -61,6 +61,7 @@ class SideMenuViewController: UIViewController {
     
 //    @IBAction func goHome(_ sender: Any) {
 //        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! ViewController
+//        VC1.isMenuOpened = false
 //        self.navigationController!.popToViewController(VC1, animated: true)
 //    }
     

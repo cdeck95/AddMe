@@ -27,13 +27,26 @@ class ViewController: UIViewController {
     var token: String!
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
+    var dataset: AWSCognitoDataset!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("----in view did load----")
         sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
         sideMenuViewController.view.frame = UIScreen.main.bounds
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("----in view will appear----")
+        if(isMenuOpened == true){
+            isMenuOpened = false
+            sideMenuViewController.willMove(toParentViewController: nil)
+            sideMenuViewController.view.removeFromSuperview()
+            sideMenuViewController.removeFromParentViewController()
+        }
         presentAuthUIViewController()
+        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
     func presentAuthUIViewController() {
@@ -46,6 +59,7 @@ class ViewController: UIViewController {
         config.font = UIFont (name: "Helvetica Neue", size: 14)
         config.canCancel = true
         
+        print("in present auth ui method")
         if !AWSSignInManager.sharedInstance().isLoggedIn {
             AWSAuthUIViewController
                 .presentViewController(with: self.navigationController!,
@@ -61,47 +75,40 @@ class ViewController: UIViewController {
         // Initialize the Amazon Cognito credentials provider
         
         if AWSSignInManager.sharedInstance().isLoggedIn {
+            self.navigationController?.popToRootViewController(animated: true)
             let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
                                                                     identityPoolId:"us-east-1:99eed9b4-f0a9-4f6d-b34c-5f05a1a5fa6b")
             
             let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
-            
             AWSServiceManager.default().defaultServiceConfiguration = configuration
             
-            let fbProvider = FacebookProvider.init()
-            let fbCredentialsProvider = fbProvider.logins()
-            let dict: NSDictionary = fbCredentialsProvider.value(forKey: "result") as! NSDictionary
-            let token: String = dict.value(forKey: "graph.facebook.com") as! String
-            print(token)
             // Initialize the Cognito Sync client
             let syncClient = AWSCognito.default()
-            let dataset = syncClient.openOrCreateDataset("AddMeDataSet")
+            dataset = syncClient.openOrCreateDataset("AddMeDataSet")
             dataset.setString(token, forKey:"token")
             dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
                 // Your handler code here
                 return nil
                 
             }
-            let params: String = "name,email,picture"
-            getFBUserInfo(params: params, dataset: dataset)
-
-        }
-    }
-    
-    //test
-    func generateQRCode(from string: String) -> UIImage? {
-        let data = string.data(using: String.Encoding.ascii)
-        
-        if let filter = CIFilter(name: "CIQRCodeGenerator") {
-            filter.setValue(data, forKey: "inputMessage")
-            let transform = CGAffineTransform(scaleX: 3, y: 3)
             
-            if let output = filter.outputImage?.transformed(by: transform) {
-                return UIImage(ciImage: output)
+            if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
+                print("facebook sign in confirmed")
+                let fbProvider = FacebookProvider.init()
+                let fbCredentialsProvider = fbProvider.logins()
+                let dict: NSDictionary = fbCredentialsProvider.value(forKey: "result") as! NSDictionary
+                let token: String = dict.value(forKey: "graph.facebook.com") as! String
+                print(token)
+                let params: String = "name,email,picture"
+                getFBUserInfo(params: params, dataset: dataset)
+            }
+            if AWSGoogleSignInProvider.sharedInstance().isLoggedIn {
+                print("google sign in confirmed")
+            }
+            if AWSCognitoUserPoolsSignInProvider.sharedInstance().isLoggedIn() {
+                print("user pool sign in confirmed")
             }
         }
-        
-        return nil
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,17 +149,7 @@ class ViewController: UIViewController {
             self.view.addSubview(sideMenuViewController.view)
             sideMenuViewController.didMove(toParentViewController: self)
         }
-        let transition = CATransition()
-        
-        let withDuration = 0.5
-        
-        transition.duration = withDuration
-        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        transition.type = kCATransitionPush
-        transition.subtype = kCATransitionFromLeft
-        
-        sideMenuViewController.view.layer.add(transition, forKey: kCATransition)
-        //UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
+        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
     @IBAction func scan(_ sender: Any) {
@@ -161,32 +158,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func createQRCode(_ sender: Any) {
-        
-        //            UIApplication.shared.open(URL(string : "http://www.snapchat.com/add/cporchie")!, options: [:], completionHandler: { (status) in
-        //
-        //            })
-        //            UIApplication.shared.open(URL(string : "http://www.twitter.com/cporchie")!, options: [:], completionHandler: { (status) in
-        //
-        //            })
-        //let userID = dataset.string(forKey: "userID")
-        //            UIApplication.shared.open(URL(string : "http://graph.facebook.com/\(userID)")!, options: [:], completionHandler: { (status) in
-        //
-        //            })
-        
-        let userid = "10215531025812257"
         let jsonStringAsArray =
             "{\n" +
                 "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
                 "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
-                "\"facebook\":\"http://facebook.com/cporchie\"\n" +
+                "\"facebook\":\"http://facebook.com/cporchie\",\n" +
+                "\"instagram\":\"http://instagram.com/chris_deck\"\n" +
         "}"
-        print(jsonStringAsArray)
-        let image = generateQRCode(from: jsonStringAsArray)
-        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-        let imageView:UIImageView = UIImageView()
-        imageView.image = image
-        VC1.QRCode = imageView
-        //self.navigationController!.present(VC1, animated: true, completion: nil)
+       dataset.setString(jsonStringAsArray, forKey: "jsonStringAsArray")
     }
     
     
