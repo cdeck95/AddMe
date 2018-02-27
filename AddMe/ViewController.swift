@@ -20,15 +20,19 @@ import FacebookCore
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var scanButton: UIButton!
+
+    @IBOutlet weak var scanButton: UIBarButtonItem!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profilePicture: UIImageView!
     var token: String!
-    @IBOutlet weak var logoutButton: UIButton!
-    @IBOutlet weak var QRCode: UIImageView!
+    var sideMenuViewController = SideMenuViewController()
+    var isMenuOpened:Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
+        sideMenuViewController.view.frame = UIScreen.main.bounds
         presentAuthUIViewController()
     }
     
@@ -80,26 +84,7 @@ class ViewController: UIViewController {
             }
             let params: String = "name,email,picture"
             getFBUserInfo(params: params, dataset: dataset)
-//            UIApplication.shared.open(URL(string : "http://www.snapchat.com/add/cporchie")!, options: [:], completionHandler: { (status) in
-//
-//            })
-//            UIApplication.shared.open(URL(string : "http://www.twitter.com/cporchie")!, options: [:], completionHandler: { (status) in
-//
-//            })
-            //let userID = dataset.string(forKey: "userID")
-//            UIApplication.shared.open(URL(string : "http://graph.facebook.com/\(userID)")!, options: [:], completionHandler: { (status) in
-//                
-//            })
-            let userid = "10215531025812257"
-            let jsonStringAsArray =
-                "{\n" +
-                "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
-                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
-                "\"facebook\":\"http://facebook.com/cporchie\"\n" +
-                "}"
-            print(jsonStringAsArray)
-             let image = generateQRCode(from: jsonStringAsArray)
-             QRCode.image = image
+
         }
     }
     
@@ -117,13 +102,12 @@ class ViewController: UIViewController {
         
         return nil
     }
-    
-   
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
         request.start { (response, result) in
@@ -134,50 +118,76 @@ class ViewController: UIViewController {
                     dataset.setString(userID, forKey: "userID")
                     let facebookProfileUrl = URL(string: "http://graph.facebook.com/\(userID)/picture?type=large")
                     if let data = NSData(contentsOf: facebookProfileUrl!) {
-                        self.profilePicture.image = UIImage(data: data as Data)
+                       // self.profilePicture.image = UIImage(data: data as Data)
                         
                     }
-                    self.nameLabel.text = value.dictionaryValue?["name"] as? String
+                    //self.nameLabel.text = value.dictionaryValue?["name"] as? String
             case .failed(let error):
                 print(error)
             }
         }
     }
     
-    @IBAction func logout(_ sender: Any) {
-        let config = AWSAuthUIConfiguration()
-        config.enableUserPoolsUI = true
-        config.addSignInButtonView(class: AWSFacebookSignInButton.self)
-        config.addSignInButtonView(class: AWSGoogleSignInButton.self)
-        config.logoImage = UIImage(named: "launch_logo")
-        config.backgroundColor = UIColor.white
-        config.font = UIFont (name: "Helvetica Neue", size: 14)
-        config.canCancel = true
-        if (AWSSignInManager.sharedInstance().isLoggedIn) {
-            AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, error: Error?) in
-                DispatchQueue.main.async(execute: {
-                    AWSAuthUIViewController
-                        .presentViewController(with: self.navigationController!,
-                                               configuration: config,
-                                               completionHandler: { (provider: AWSSignInProvider, error: Error?) in
-                                                if error != nil {
-                                                    print("Error occurred: \(String(describing: error))")
-                                                } else {
-                                                    // Sign in successful.
-                                                }
-                        })
-                })
-                //SessionController.sharedInstance.resetSession()
-            })
-            // print("Logout Successful: \(signInProvider.getDisplayName)");
-        } else {
-            //assert(false)
+    @IBAction func menuClicked(_ sender: Any) {
+        if(isMenuOpened){
+            isMenuOpened = false
+            sideMenuViewController.willMove(toParentViewController: nil)
+            sideMenuViewController.view.removeFromSuperview()
+            sideMenuViewController.removeFromParentViewController()
         }
+        else{
+            isMenuOpened = true
+            self.addChildViewController(sideMenuViewController)
+            self.view.addSubview(sideMenuViewController.view)
+            sideMenuViewController.didMove(toParentViewController: self)
+        }
+        let transition = CATransition()
+        
+        let withDuration = 0.5
+        
+        transition.duration = withDuration
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        
+        sideMenuViewController.view.layer.add(transition, forKey: kCATransition)
+        //UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
     @IBAction func scan(_ sender: Any) {
         let scannerVC = ScannerViewController()
         self.navigationController?.pushViewController(scannerVC, animated: true)
     }
+    
+    @IBAction func createQRCode(_ sender: Any) {
+        
+        //            UIApplication.shared.open(URL(string : "http://www.snapchat.com/add/cporchie")!, options: [:], completionHandler: { (status) in
+        //
+        //            })
+        //            UIApplication.shared.open(URL(string : "http://www.twitter.com/cporchie")!, options: [:], completionHandler: { (status) in
+        //
+        //            })
+        //let userID = dataset.string(forKey: "userID")
+        //            UIApplication.shared.open(URL(string : "http://graph.facebook.com/\(userID)")!, options: [:], completionHandler: { (status) in
+        //
+        //            })
+        
+        let userid = "10215531025812257"
+        let jsonStringAsArray =
+            "{\n" +
+                "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
+                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
+                "\"facebook\":\"http://facebook.com/cporchie\"\n" +
+        "}"
+        print(jsonStringAsArray)
+        let image = generateQRCode(from: jsonStringAsArray)
+        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+        let imageView:UIImageView = UIImageView()
+        imageView.image = image
+        VC1.QRCode = imageView
+        //self.navigationController!.present(VC1, animated: true, completion: nil)
+    }
+    
+    
 }
 

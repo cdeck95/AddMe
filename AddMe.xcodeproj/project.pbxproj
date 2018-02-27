@@ -19,6 +19,10 @@
 		DAD432FD203F98A30033EF35 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD432FC203F98A20033EF35 /* SystemConfiguration.framework */; };
 		DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */; };
 		DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4330420411FB60033EF35 /* ScannerViewController.swift */; };
+		DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CF52043458000F1525E /* QRCodeViewController.swift */; };
+		DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CF72043522C00F1525E /* SettingsViewController.swift */; };
+		DAD96CFA2044B13C00F1525E /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CF92044B13C00F1525E /* SideMenuViewController.swift */; };
+		DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CFB2044C1FF00F1525E /* CustomButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +40,10 @@
 		DAD432FC203F98A20033EF35 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookProvider.swift; sourceTree = "<group>"; };
 		DAD4330420411FB60033EF35 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		DAD96CF52043458000F1525E /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
+		DAD96CF72043522C00F1525E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DAD96CF92044B13C00F1525E /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		DAD96CFB2044C1FF00F1525E /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.debug.xcconfig"; sourceTree = "<group>"; };
 		FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,12 +106,16 @@
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA6A7EED2037859800E79B47 /* Main.storyboard */,
+				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
+				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
+				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
+				DAD96CF92044B13C00F1525E /* SideMenuViewController.swift */,
+				DAD96CF52043458000F1525E /* QRCodeViewController.swift */,
 				DA6A7EF02037859800E79B47 /* Assets.xcassets */,
 				DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */,
 				DAD432F8203D03F70033EF35 /* User.swift */,
 				DA6A7EF52037859800E79B47 /* Info.plist */,
 				DAD432F6203D02240033EF35 /* awsconfiguration.json */,
-				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
 			);
 			path = AddMe;
 			sourceTree = "<group>";
@@ -273,7 +285,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAD96CFA2044B13C00F1525E /* SideMenuViewController.swift in Sources */,
+				DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */,
+				DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */,
 				DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */,
+				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
