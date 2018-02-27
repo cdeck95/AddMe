@@ -26,7 +26,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sax-Zr-BDN">
-                                <rect key="frame" x="0.0" y="146" width="375" height="331"/>
+                                <rect key="frame" x="0.0" y="146" width="375" height="282"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RRG-Yo-1BK">
@@ -57,7 +57,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mcb-uz-Dd0" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
-                                <rect key="frame" x="123" y="485" width="129" height="40"/>
+                                <rect key="frame" x="123" y="436" width="129" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="TyM-iX-1QT"/>
@@ -73,7 +73,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AwF-UR-EQ6" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
-                                <rect key="frame" x="123" y="563" width="129" height="43"/>
+                                <rect key="frame" x="123" y="514" width="129" height="43"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="KMI-Ek-q3B"/>
@@ -171,6 +171,30 @@
             </objects>
             <point key="canvasLocation" x="1990" y="1493"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="ROI-b7-Jnk">
+            <objects>
+                <viewController id="ISd-IL-6IN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zUU-Hi-49w">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Help" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2P-KO-UgG">
+                                <rect key="frame" x="166" y="323" width="36" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="92C-2X-VTB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KHJ-Nh-tTM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2781.5999999999999" y="1492.8035982008996"/>
+        </scene>
         <!--Side Menu View Controller-->
         <scene sceneID="8X8-SO-Lst">
             <objects>
@@ -189,7 +213,7 @@
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="PSs-OA-1VE" kind="show" id="oEA-Ff-Vb0"/>
+                                            <segue destination="0fo-N0-SsQ" kind="show" id="b29-pf-68b"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jj2-5I-qPx">
@@ -206,6 +230,9 @@
                                         <state key="normal" title="Help" image="ic_help">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="ISd-IL-6IN" kind="show" id="Gcx-PA-FGA"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="toj-5D-8ID">
                                         <rect key="frame" x="0.0" y="102" width="91" height="24"/>
@@ -391,7 +418,4 @@
         <image name="ic_settings" width="24" height="24"/>
         <image name="launch_logo" width="450" height="422"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="oEA-Ff-Vb0"/>
-    </inferredMetricsTieBreakers>
 </document>
