@@ -173,19 +173,19 @@ class ViewController: UIViewController {
         //
         //            })
         
-        let userid = "10215531025812257"
-        let jsonStringAsArray =
-            "{\n" +
-                "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
-                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
-                "\"facebook\":\"http://facebook.com/cporchie\"\n" +
-        "}"
-        print(jsonStringAsArray)
-        let image = generateQRCode(from: jsonStringAsArray)
-        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-        let imageView:UIImageView = UIImageView()
-        imageView.image = image
-        VC1.QRCode = imageView
+//        let userid = "10215531025812257"
+//        let jsonStringAsArray =
+//            "{\n" +
+//                "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
+//                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
+//                "\"facebook\":\"http://facebook.com/cporchie\"\n" +
+//        "}"
+//        print(jsonStringAsArray)
+//        let image = generateQRCode(from: jsonStringAsArray)
+//        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+//        let imageView:UIImageView = UIImageView()
+//        imageView.image = image
+//        VC1.QRCode = imageView
         //self.navigationController!.present(VC1, animated: true, completion: nil)
     }
     

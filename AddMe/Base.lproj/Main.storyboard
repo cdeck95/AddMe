@@ -207,7 +207,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHT-TW-9qq">
                                         <rect key="frame" x="0.0" y="68" width="91" height="24"/>
-                                        <state key="normal" title="Help" image="ic_exit_to_app">
+                                        <state key="normal" title="Help" image="ic_help">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
@@ -388,6 +388,7 @@
         <image name="ic_add_circle" width="24" height="24"/>
         <image name="ic_camera_alt" width="24" height="24"/>
         <image name="ic_exit_to_app" width="24" height="24"/>
+        <image name="ic_help" width="24" height="24"/>
         <image name="ic_home" width="24" height="24"/>
         <image name="ic_menu" width="24" height="24"/>
         <image name="ic_settings" width="24" height="24"/>
