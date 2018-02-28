@@ -102,6 +102,13 @@
                                     <action selector="createQRCode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fkE-p3-hLx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VnD-mX-xdH">
+                                <rect key="frame" x="310" y="91" width="53" height="30"/>
+                                <state key="normal" title="Refresh"/>
+                                <connections>
+                                    <action selector="refreshTableView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SUB-Q1-pOS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -117,6 +124,8 @@
                             <constraint firstItem="Bff-rV-gaH" firstAttribute="trailing" secondItem="Mcb-uz-Dd0" secondAttribute="trailing" id="aNl-ur-RWW"/>
                             <constraint firstItem="sax-Zr-BDN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="k21-N2-Lr8"/>
                             <constraint firstItem="Mcb-uz-Dd0" firstAttribute="top" secondItem="sax-Zr-BDN" secondAttribute="bottom" constant="8" symbolic="YES" id="oq3-af-MsN"/>
+                            <constraint firstItem="VnD-mX-xdH" firstAttribute="leading" secondItem="Bff-rV-gaH" secondAttribute="trailing" constant="58" id="p8Z-MC-7oJ"/>
+                            <constraint firstItem="VnD-mX-xdH" firstAttribute="centerY" secondItem="Bff-rV-gaH" secondAttribute="centerY" id="vCD-wt-g9l"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -168,6 +177,14 @@
                                     <navigationItem title="Title" id="feF-h9-eZU"/>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kPv-vc-8Td">
+                                <rect key="frame" x="137" y="141" width="101" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Delete all apps"/>
+                                <connections>
+                                    <action selector="deleteApps:" destination="MaD-TQ-yjv" eventType="touchUpInside" id="enf-jw-C9J"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4eX-4P-GeW"/>

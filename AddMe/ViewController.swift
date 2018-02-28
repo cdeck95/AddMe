@@ -20,7 +20,6 @@ import FacebookCore
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-
     @IBOutlet weak var appsTableView: UITableView!
     @IBOutlet weak var scanButton: UIBarButtonItem!
     var token: String!
@@ -172,14 +171,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func createQRCode(_ sender: Any) {
-        let jsonStringAsArray =
-            "{\n" +
-                "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
-                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
-                "\"facebook\":\"http://facebook.com/cporchie\",\n" +
-                "\"instagram\":\"http://instagram.com/chris_deck\"\n" +
-        "}"
-       dataset.setString(jsonStringAsArray, forKey: "jsonStringAsArray")
+        var jsonStringAsArray = "{\n"
+        
+        for app in apps {
+            switch app {
+            case "Facebook":
+                jsonStringAsArray += "\"facebook\":\"http://facebook.com/cporchie\",\n"
+            case "Twitter":
+                jsonStringAsArray += "\"twitter\":\"http://www.twitter.com/cporchie\",\n"
+            case "Instagram":
+                jsonStringAsArray += "\"instagram\":\"http://instagram.com/chris_deck\",\n"
+            case "Snapchat":
+                jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n"
+            default:
+                print("unknown app found: \(app)")
+            }
+        }
+        jsonStringAsArray += "}"
+        let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
+                                                              with: "")
+        print(result)
+       dataset.setString(result, forKey: "jsonStringAsArray")
     }
     
     func tableView(_ ExpensesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -192,6 +204,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
         cell.NameLabel.text = apps[indexPath.row]
         return cell
+    }
+    @IBAction func refreshTableView(_ sender: Any) {
+        appsTableView.reloadData()
+    }
+}
+
+extension String
+{
+    func replacingLastOccurrenceOfString(_ searchString: String,
+                                         with replacementString: String,
+                                         caseInsensitive: Bool = true) -> String
+    {
+        let options: String.CompareOptions
+        if caseInsensitive {
+            options = [.backwards, .caseInsensitive]
+        } else {
+            options = [.backwards]
+        }
+        
+        if let range = self.range(of: searchString,
+                                  options: options,
+                                  range: nil,
+                                  locale: nil) {
+            
+            return self.replacingCharacters(in: range, with: replacementString)
+        }
+        return self
     }
 }
 

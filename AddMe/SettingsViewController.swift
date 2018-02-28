@@ -41,7 +41,10 @@ class SettingsViewController: UIViewController {
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
-
+    @IBAction func deleteApps(_ sender: Any) {
+        UserDefaults.standard.set([], forKey: "apps")
+    }
+    
     /*
     // MARK: - Navigation
 
