@@ -29,7 +29,7 @@
                                 <rect key="frame" x="0.0" y="146" width="375" height="282"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RRG-Yo-1BK">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainCell" id="RRG-Yo-1BK" customClass="AppsTableViewCell" customModule="AddMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RRG-Yo-1BK" id="Y7B-Sh-cjJ">
@@ -53,8 +53,16 @@
                                                 <constraint firstItem="LXq-4h-sZ4" firstAttribute="centerY" secondItem="LTB-Tq-9Gj" secondAttribute="centerY" id="oN9-TM-n83"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="NameLabel" destination="LXq-4h-sZ4" id="GL3-pS-QnP"/>
+                                            <outlet property="appSwitch" destination="LTB-Tq-9Gj" id="LOy-k3-IJb"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Vah-yJ-gyV"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="vLj-St-qSp"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mcb-uz-Dd0" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
                                 <rect key="frame" x="123" y="436" width="129" height="40"/>
@@ -94,13 +102,6 @@
                                     <action selector="createQRCode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fkE-p3-hLx"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMn-9D-F4h">
-                                <rect key="frame" x="16" y="96" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -137,7 +138,7 @@
                     <connections>
                         <outlet property="QRCode" destination="wrW-6v-ex3" id="T4R-Iz-oIR"/>
                         <outlet property="addAppButton" destination="Mcb-uz-Dd0" id="9LX-nB-vNa"/>
-                        <outlet property="labelMessage" destination="dMn-9D-F4h" id="e4P-V8-34a"/>
+                        <outlet property="appsTableView" destination="sax-Zr-BDN" id="i6n-Ly-NMu"/>
                         <outlet property="scanButton" destination="HVX-h3-D0q" id="hjO-uz-JSt"/>
                     </connections>
                 </viewController>

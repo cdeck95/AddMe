@@ -18,9 +18,10 @@ import GoogleSignIn
 import FacebookCore
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 
+    @IBOutlet weak var appsTableView: UITableView!
     @IBOutlet weak var scanButton: UIBarButtonItem!
     var token: String!
     var sideMenuViewController = SideMenuViewController()
@@ -28,7 +29,7 @@ class ViewController: UIViewController {
     var dataset: AWSCognitoDataset!
     
     @IBOutlet weak var addAppButton: CustomButton!
-    @IBOutlet weak var labelMessage: UILabel!
+    var apps: [String]!
     
     
     override func viewDidLoad() {
@@ -47,6 +48,7 @@ class ViewController: UIViewController {
             sideMenuViewController.removeFromParentViewController()
         }
         presentAuthUIViewController()
+        loadApps()
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
@@ -117,6 +119,17 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func loadApps(){
+        let appsData = UserDefaults.standard.array(forKey: "apps") as? [String]
+        if appsData == nil {
+            print("no apps yet")
+            apps = []
+        } else {
+            apps = appsData
+            print(apps)
+        }
+    }
+    
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
         request.start { (response, result) in
@@ -167,6 +180,18 @@ class ViewController: UIViewController {
                 "\"instagram\":\"http://instagram.com/chris_deck\"\n" +
         "}"
        dataset.setString(jsonStringAsArray, forKey: "jsonStringAsArray")
+    }
+    
+    func tableView(_ ExpensesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return apps.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Create an object of the dynamic cell “PlainCell”
+        let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
+        cell.NameLabel.text = apps[indexPath.row]
+        return cell
     }
 }
 
