@@ -176,13 +176,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         for app in apps {
             switch app {
             case "Facebook":
-                jsonStringAsArray += "\"facebook\":\"http://facebook.com/cporchie\",\n"
+                let username = dataset.string(forKey: app)
+                jsonStringAsArray += "\"facebook\":\"http://facebook.com/\(username!)\",\n"
             case "Twitter":
-                jsonStringAsArray += "\"twitter\":\"http://www.twitter.com/cporchie\",\n"
+                let username = dataset.string(forKey: app)
+                jsonStringAsArray += "\"twitter\":\"http://www.twitter.com/\(username!)\",\n"
             case "Instagram":
-                jsonStringAsArray += "\"instagram\":\"http://instagram.com/chris_deck\",\n"
+                let username = dataset.string(forKey: app)
+                jsonStringAsArray += "\"instagram\":\"http://instagram.com/\(username!)\",\n"
             case "Snapchat":
-                jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n"
+                let username = dataset.string(forKey: app)
+                jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/\(username!)\",\n"
             default:
                 print("unknown app found: \(app)")
             }
