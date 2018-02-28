@@ -9,17 +9,19 @@
 import UIKit
 import AWSCognito
 
-class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collection: UICollectionView!
     var dataset: AWSCognitoDataset!
-    var reuseIdentifier:String = "collectionViewCell"
-    var store = DataStore.sharedInstance
+    //var reuseIdentifier:String = "collectionViewCell"
+    //var store = DataStore.sharedInstance
+    var appIDs = ["facebook", "instagram", "snapchat", "twitter"]
+    let cellSizes = Array( repeatElement(CGSize(width:160, height:110), count: 4))
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        store.storeApps()
+        //store.storeApps()
         collection.delegate = self
         collection.dataSource = self
         // Initialize the Cognito Sync client
@@ -34,7 +36,9 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.collection.reloadData()
+//        let indexSet = IndexSet(0...1)
+//        self.collection.deleteSections(indexSet)
+//        self.collection.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,38 +76,47 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("count: \(store.apps.count)")
-        return store.apps.count
+//        print("count: \(store.apps.count)")
+//        return store.apps.count
+        return appIDs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collection.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
-        let app = store.apps[indexPath.row]
-        print("in array method")
-        print(app.appLabel)
-        print(app.appImage.image)
-        cell.displayContent(image: app.appImage, title: app.appLabel)
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddAppViewController.connected(_:)))
-        
-        cell.appImage.isUserInteractionEnabled = true
-        cell.appImage.tag = indexPath.row
-        cell.appImage.addGestureRecognizer(tapGestureRecognizer)
-        return cell
+        return collection.dequeueReusableCell(withReuseIdentifier: appIDs[indexPath.item], for: indexPath) as! CollectionViewCell
+//        let app = store.apps[indexPath.row]
+//        print("in array method")
+//        print(app.appLabel)
+//        print(app.appImage.image)
+//        cell.displayContent(image: app.appImage, title: app.appLabel)
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddAppViewController.connected(_:)))
+//
+//        cell.isUserInteractionEnabled = true
+//        cell.tag = indexPath.row
+//        cell.addGestureRecognizer(tapGestureRecognizer)
+//        return cell
     }
     
     @objc func connected(_ sender:AnyObject){
         print("you tap image number : \(sender.view.tag)")
-        switch sender.view.tag {
-        case 0:
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return cellSizes[indexPath.item]
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("User tapped on \(appIDs[indexPath.row])")
+        switch appIDs[indexPath.row] {
+        case "twitter":
             //twitter
             showInputDialog()
-        case 1:
+        case "snapchat":
             //snapchat
             showInputDialog()
-        case 2:
+        case "instagram":
             //instagram
             showInputDialog()
-        case 3:
+        case "facebook":
             //facebook
             showInputDialog()
         default:

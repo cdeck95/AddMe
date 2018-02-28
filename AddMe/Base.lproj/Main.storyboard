@@ -331,21 +331,21 @@
                                 <rect key="frame" x="16" y="72" width="343" height="483"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NRO-7D-2rp">
-                                    <size key="itemSize" width="159" height="97"/>
+                                    <size key="itemSize" width="159" height="110"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PlainCell" reuseIdentifier="collectionViewCell" id="Ofn-ZG-ilf" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="159" height="97"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="facebook" id="Ofn-ZG-ilf" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="159" height="110"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="159" height="97"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="159" height="110"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fb-icon" translatesAutoresizingMaskIntoConstraints="NO" id="qss-Ov-AW5">
-                                                    <rect key="frame" x="5" y="5" width="149" height="87"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="fb-icon" translatesAutoresizingMaskIntoConstraints="NO" id="qss-Ov-AW5">
+                                                    <rect key="frame" x="5" y="5" width="150" height="100"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
@@ -357,6 +357,72 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="appImage" destination="qss-Ov-AW5" id="Qc2-sV-lti"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="instagram" id="BQY-q9-tzd" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
+                                        <rect key="frame" x="184" y="0.0" width="159" height="110"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="159" height="110"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Instagram_icon" translatesAutoresizingMaskIntoConstraints="NO" id="EaH-bg-xoB">
+                                                    <rect key="frame" x="5" y="5" width="149" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="EaH-bg-xoB" firstAttribute="leading" secondItem="BQY-q9-tzd" secondAttribute="leading" constant="5" id="Iql-jH-Hds"/>
+                                            <constraint firstItem="EaH-bg-xoB" firstAttribute="top" secondItem="BQY-q9-tzd" secondAttribute="top" constant="5" id="N8Y-Km-Jwp"/>
+                                            <constraint firstAttribute="trailing" secondItem="EaH-bg-xoB" secondAttribute="trailing" constant="5" id="ZMI-bz-up3"/>
+                                            <constraint firstAttribute="bottom" secondItem="EaH-bg-xoB" secondAttribute="bottom" constant="5" id="wUd-xN-7Ud"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="appImage" destination="EaH-bg-xoB" id="ag2-ku-dnI"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="snapchat" id="Eg0-Es-P3k" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="120" width="159" height="110"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="159" height="110"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="snapchat_icon" translatesAutoresizingMaskIntoConstraints="NO" id="PeO-hQ-SWy">
+                                                    <rect key="frame" x="5" y="5" width="149" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="PeO-hQ-SWy" firstAttribute="top" secondItem="Eg0-Es-P3k" secondAttribute="top" constant="5" id="8Qd-Nv-6EI"/>
+                                            <constraint firstItem="PeO-hQ-SWy" firstAttribute="leading" secondItem="Eg0-Es-P3k" secondAttribute="leading" constant="5" id="98G-pd-OgE"/>
+                                            <constraint firstAttribute="bottom" secondItem="PeO-hQ-SWy" secondAttribute="bottom" constant="5" id="hJv-SH-Xxu"/>
+                                            <constraint firstAttribute="trailing" secondItem="PeO-hQ-SWy" secondAttribute="trailing" constant="5" id="w1b-Ve-9XI"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="appImage" destination="PeO-hQ-SWy" id="gCe-Rc-Bca"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="twitter" id="WqC-Vb-Bcq" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
+                                        <rect key="frame" x="184" y="120" width="159" height="110"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="159" height="110"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter_icon" translatesAutoresizingMaskIntoConstraints="NO" id="bTJ-rZ-QJE">
+                                                    <rect key="frame" x="5" y="5" width="149" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="bTJ-rZ-QJE" firstAttribute="top" secondItem="WqC-Vb-Bcq" secondAttribute="top" constant="5" id="4Bf-ou-YIg"/>
+                                            <constraint firstAttribute="trailing" secondItem="bTJ-rZ-QJE" secondAttribute="trailing" constant="5" id="Xce-y1-LuF"/>
+                                            <constraint firstAttribute="bottom" secondItem="bTJ-rZ-QJE" secondAttribute="bottom" constant="5" id="fVZ-N2-9gZ"/>
+                                            <constraint firstItem="bTJ-rZ-QJE" firstAttribute="leading" secondItem="WqC-Vb-Bcq" secondAttribute="leading" constant="5" id="tU3-eQ-hIZ"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="appImage" destination="bTJ-rZ-QJE" id="v4X-NJ-55Q"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -486,6 +552,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Instagram_icon" width="599" height="600"/>
         <image name="fb-icon" width="45" height="45"/>
         <image name="ic_add_circle" width="24" height="24"/>
         <image name="ic_camera_alt" width="24" height="24"/>
@@ -495,5 +562,7 @@
         <image name="ic_menu" width="24" height="24"/>
         <image name="ic_settings" width="24" height="24"/>
         <image name="launch_logo" width="450" height="422"/>
+        <image name="snapchat_icon" width="400" height="400"/>
+        <image name="twitter_icon" width="1687" height="1687"/>
     </resources>
 </document>
