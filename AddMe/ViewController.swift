@@ -14,6 +14,7 @@ import AWSFacebookSignIn
 import AWSGoogleSignIn
 import AWSCore
 import AWSCognito
+import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
 
@@ -26,9 +27,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
+    var identityProvider:String!
+    var credentialsProvider:AWSCognitoCredentialsProvider!
     
     @IBOutlet weak var addAppButton: CustomButton!
-    var apps: [String]!
+    var apps: [String] = []
     
     
     override func viewDidLoad() {
@@ -47,7 +50,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             sideMenuViewController.removeFromParentViewController()
         }
         presentAuthUIViewController()
-        loadApps()
+        appsTableView.reloadData()
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
@@ -78,16 +81,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if AWSSignInManager.sharedInstance().isLoggedIn {
             self.navigationController?.popToRootViewController(animated: true)
-            let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
+            credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
                                                                     identityPoolId:"us-east-1:99eed9b4-f0a9-4f6d-b34c-5f05a1a5fa6b")
             
             let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
             AWSServiceManager.default().defaultServiceConfiguration = configuration
-            
+            loadApps()
+
             // Initialize the Cognito Sync client
             let syncClient = AWSCognito.default()
             dataset = syncClient.openOrCreateDataset("AddMeDataSet")
-            dataset.setString(token, forKey:"token")
             dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
                 // Your handler code here
                 return nil
@@ -96,6 +99,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
                 print("facebook sign in confirmed")
+                identityProvider = "facebook"
+                dataset.setString(identityProvider, forKey: "identityProvider")
                 let fbProvider = FacebookProvider.init()
                 let fbCredentialsProvider = fbProvider.logins()
                 let dict: NSDictionary = fbCredentialsProvider.value(forKey: "result") as! NSDictionary
@@ -106,9 +111,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             if AWSGoogleSignInProvider.sharedInstance().isLoggedIn {
                 print("google sign in confirmed")
+                identityProvider = "google"
+                dataset.setString(identityProvider, forKey: "identityProvider")
             }
             if AWSCognitoUserPoolsSignInProvider.sharedInstance().isLoggedIn() {
                 print("user pool sign in confirmed")
+                identityProvider = "user pool"
+                dataset.setString(identityProvider, forKey: "identityProvider")
             }
         }
     }
@@ -119,11 +128,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func loadApps(){
-        let appsData = UserDefaults.standard.array(forKey: "apps") as? [String]
-        if appsData == nil {
+        let appsDataString = dataset.string(forKey: "apps")    //UserDefaults.standard.array(forKey: "appsFacebook") as? [String]
+        print(appsDataString)
+        if(appsDataString == nil || appsDataString == "") {
             print("no apps yet")
             apps = []
         } else {
+            let appsData: [String] = (appsDataString?.components(separatedBy: ","))!
             apps = appsData
             print(apps)
         }
@@ -142,6 +153,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                        // self.profilePicture.image = UIImage(data: data as Data)
                         
                     }
+                dataset.setString(value.dictionaryValue?["id"] as? String, forKey: "Facebook")
                     //self.nameLabel.text = value.dictionaryValue?["name"] as? String
             case .failed(let error):
                 print(error)

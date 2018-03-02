@@ -7,16 +7,25 @@
 //
 
 import UIKit
+import AWSCognito
 
 class SettingsViewController: UIViewController {
 
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
+    var dataset: AWSCognitoDataset!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
         sideMenuViewController.view.frame = UIScreen.main.bounds
+        let syncClient = AWSCognito.default()
+        dataset = syncClient.openOrCreateDataset("AddMeDataSet")
+        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
+            // Your handler code here
+            return nil
+            
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -42,7 +51,7 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func deleteApps(_ sender: Any) {
-        UserDefaults.standard.set([], forKey: "apps")
+        dataset.removeObject(forKey: "apps")
     }
     
     /*
