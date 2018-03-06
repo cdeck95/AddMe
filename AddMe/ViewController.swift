@@ -82,20 +82,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if AWSSignInManager.sharedInstance().isLoggedIn {
             self.navigationController?.popToRootViewController(animated: true)
             credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
-                                                                    identityPoolId:"us-east-1:99eed9b4-f0a9-4f6d-b34c-5f05a1a5fa6b")
+                                                                    identityPoolId:"us-east-1_6iZujg5TH")
             
             let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
             AWSServiceManager.default().defaultServiceConfiguration = configuration
+            
             loadApps()
-
-            // Initialize the Cognito Sync client
-            let syncClient = AWSCognito.default()
-            dataset = syncClient.openOrCreateDataset("AddMeDataSet")
-            dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
-                // Your handler code here
-                return nil
-                
-            }
             
             if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
                 print("facebook sign in confirmed")
@@ -112,6 +104,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if AWSGoogleSignInProvider.sharedInstance().isLoggedIn {
                 print("google sign in confirmed")
                 identityProvider = "google"
+                let google = AWSGoogleSignInProvider.init()
+                let token = google.token()
+                print(token.result)
                 dataset.setString(identityProvider, forKey: "identityProvider")
             }
             if AWSCognitoUserPoolsSignInProvider.sharedInstance().isLoggedIn() {
@@ -128,7 +123,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func loadApps(){
-        let appsDataString = dataset.string(forKey: "apps")    //UserDefaults.standard.array(forKey: "appsFacebook") as? [String]
+        // Initialize the Cognito Sync client
+        let syncClient = AWSCognito.default()
+        dataset = syncClient.openOrCreateDataset("AddMeDataSet")
+        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
+            // Your handler code here
+            return nil
+            
+        }
+        let appsDataString = dataset.string(forKey: "apps")
         print(appsDataString)
         if(appsDataString == nil || appsDataString == "") {
             print("no apps yet")

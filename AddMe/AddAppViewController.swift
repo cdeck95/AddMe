@@ -53,7 +53,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     func showInputDialog(key: String) {
         //Creating UIAlertController and
         //Setting title and message for the alert dialog
-        let alertController = UIAlertController(title: "Enter details?", message: "Enter your username", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Enter details", message: "Enter your username", preferredStyle: .alert)
         
         //the confirm action taking the inputs
         let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
@@ -136,17 +136,20 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             //adding the action to dialogbox
             alertController.addAction(confirmAction)
             //alertController.addAction(cancelAction)
-            let appsData = UserDefaults.standard.array(forKey: "appsFacebook") as? [String]
-            if appsData == nil {
+            var appsDataString = self.dataset.string(forKey: "apps")
+            if(appsDataString == nil) {
                 print("no apps yet")
                 self.apps = []
             } else {
+                let appsData: [String] = (appsDataString?.components(separatedBy: ","))!
                 self.apps = appsData
+                print(self.apps)
             }
             self.apps.append(key)
             print(self.apps)
-            UserDefaults.standard.set(self.apps, forKey: "appsFacebook")
-            //finally presenting the dialog box
+            appsDataString = self.apps.joined(separator: ",")
+            print(appsDataString)
+            self.dataset.setString(appsDataString, forKey: "apps")
             self.present(alertController, animated: true, completion: nil)
         } else {
             //login through facebook
