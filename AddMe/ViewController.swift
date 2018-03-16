@@ -28,7 +28,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
     var identityProvider:String!
-    var credentialsProvider:AWSCognitoCredentialsProvider!
+    var credentialsManager = CredentialsManager.sharedInstance
+   
     
     @IBOutlet weak var addAppButton: CustomButton!
     var apps: [String] = []
@@ -80,40 +81,74 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Initialize the Amazon Cognito credentials provider
         
         if AWSSignInManager.sharedInstance().isLoggedIn {
-            self.navigationController?.popToRootViewController(animated: true)
-            credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
-                                                                    identityPoolId:"us-east-1_6iZujg5TH")
+            self.navigationController?.popToRootViewController(animated: true)// Initialize the Cognito Sync client
+            credentialsManager.createCredentialsProvider()
+            //credentialsManager.credentialsProvider.getIdentityId()
             
-            let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
-            AWSServiceManager.default().defaultServiceConfiguration = configuration
-            
-            loadApps()
-            
+    
+            credentialsManager.credentialsProvider.identityProvider.logins().continueWith { (task: AWSTask!) -> AnyObject! in
+                
+                if (task.error != nil) {
+                    print("ERROR: Unable to get logins. Description: \(task.error!)")
+                    
+                } else {
+                    if task.result != nil{
+//                        let prevLogins = task.result as! [NSString:NSString]
+//                        print("Previous logins: " + String(prevLogins))
+//                        logins = prevLogins
+                    }
+//                    logins[loginKey] = name
+//                    let manager = IdentityProviderManager(tokens: logins)
+//                    self.credentialsProvider!.setIdentityProviderManagerOnce(manager)
+                    self.credentialsManager.credentialsProvider.getIdentityId().continueWith { (task: AWSTask!) -> AnyObject! in
+                        
+                        if (task.error != nil) {
+                            print("ERROR: Unable to get ID. Error description: \(task.error!)")
+                            
+                        } else {
+                            print("Signed in user with the following ID:")
+                            let id = task.result! as? String
+                            self.credentialsManager.setIdentityID(id: id!)
+                            print(self.credentialsManager.identityID)
+                            let syncClient = AWSCognito.default()
+                            self.dataset = syncClient.openOrCreateDataset("AddMeDataSet\(self.credentialsManager.identityID)")
+                            self.dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
+                                // Your handler code here
+                                return nil
+                               
+                            }
+                            self.loadApps()
+                        }
+                        return nil
+                    }
+                    return nil
+                }
+                return nil
+            }
             if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
                 print("facebook sign in confirmed")
-                identityProvider = "facebook"
-                dataset.setString(identityProvider, forKey: "identityProvider")
-                let fbProvider = FacebookProvider.init()
-                let fbCredentialsProvider = fbProvider.logins()
-                let dict: NSDictionary = fbCredentialsProvider.value(forKey: "result") as! NSDictionary
-                let token: String = dict.value(forKey: "graph.facebook.com") as! String
-                print(token)
+                //dataset.setString(identityProvider, forKey: "identityProvider")
+//                let fbProvider = FacebookProvider.init()
+//                let fbCredentialsProvider = fbProvider.logins()
+//                let dict: NSDictionary = fbCredentialsProvider.value(forKey: "result") as! NSDictionary
+//                let token: String = dict.value(forKey: "graph.facebook.com") as! String
+//                print(token)
                 let params: String = "name,email,picture"
                 getFBUserInfo(params: params, dataset: dataset)
             }
-            if AWSGoogleSignInProvider.sharedInstance().isLoggedIn {
-                print("google sign in confirmed")
-                identityProvider = "google"
-                let google = AWSGoogleSignInProvider.init()
-                let token = google.token()
-                print(token.result)
-                dataset.setString(identityProvider, forKey: "identityProvider")
-            }
-            if AWSCognitoUserPoolsSignInProvider.sharedInstance().isLoggedIn() {
-                print("user pool sign in confirmed")
-                identityProvider = "user pool"
-                dataset.setString(identityProvider, forKey: "identityProvider")
-            }
+//            if AWSGoogleSignInProvider.sharedInstance().isLoggedIn {
+//                print("google sign in confirmed")
+//                identityProvider = "google"
+//                let google = AWSGoogleSignInProvider.init()
+//                let token = google.token()
+//                print(token.result)
+//                dataset.setString(identityProvider, forKey: "identityProvider")
+//            }
+//            if AWSCognitoUserPoolsSignInProvider.sharedInstance().isLoggedIn() {
+//                print("user pool sign in confirmed")
+//                identityProvider = "user pool"
+//                dataset.setString(identityProvider, forKey: "identityProvider")
+//            }
         }
     }
 
@@ -123,14 +158,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func loadApps(){
-        // Initialize the Cognito Sync client
-        let syncClient = AWSCognito.default()
-        dataset = syncClient.openOrCreateDataset("AddMeDataSet")
-        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
-            // Your handler code here
-            return nil
-            
-        }
         let appsDataString = dataset.string(forKey: "apps")
         print(appsDataString)
         if(appsDataString == nil || appsDataString == "") {

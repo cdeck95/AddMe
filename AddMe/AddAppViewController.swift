@@ -21,6 +21,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     var appIDs = ["facebook", "instagram", "snapchat", "twitter"]
     let cellSizes = Array( repeatElement(CGSize(width:160, height:110), count: 4))
     var apps: [String]!
+    var credentialsManager = CredentialsManager.sharedInstance
     
     
     override func viewDidLoad() {
@@ -30,7 +31,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         collection.dataSource = self
         // Initialize the Cognito Sync client
         let syncClient = AWSCognito.default()
-        dataset = syncClient.openOrCreateDataset("AddMeDataSet")
+        dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
         dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
             // Your handler code here
             return nil
