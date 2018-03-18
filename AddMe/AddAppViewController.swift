@@ -15,7 +15,7 @@ import FacebookCore
 class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collection: UICollectionView!
-    var dataset: AWSCognitoDataset!
+    var datasetManager = Dataset.sharedInstance
     //var reuseIdentifier:String = "collectionViewCell"
     //var store = DataStore.sharedInstance
     var appIDs = ["facebook", "instagram", "snapchat", "twitter"]
@@ -30,13 +30,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         collection.delegate = self
         collection.dataSource = self
         // Initialize the Cognito Sync client
-        let syncClient = AWSCognito.default()
-        dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
-        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
-            // Your handler code here
-            return nil
-            
-        }
+        
+        self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
     }
     
@@ -62,7 +57,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             let username = alertController.textFields?[0].text
             print(username!)
             print(key)
-            var appsDataString = self.dataset.string(forKey: "apps")
+            var appsDataString = self.datasetManager.dataset.string(forKey: "apps")
             if(appsDataString == nil) {
                 print("no apps yet")
                 self.apps = []
@@ -74,8 +69,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             self.apps.append(key)
             appsDataString = self.apps.joined(separator: ",")
             print(appsDataString)
-            self.dataset.setString(appsDataString, forKey: "apps")
-            self.dataset.setString(username, forKey: key)
+            self.datasetManager.dataset.setString(appsDataString, forKey: "apps")
+            self.datasetManager.dataset.setString(username, forKey: key)
         }
         
         //the cancel action doing nothing
@@ -137,7 +132,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             //adding the action to dialogbox
             alertController.addAction(confirmAction)
             //alertController.addAction(cancelAction)
-            var appsDataString = self.dataset.string(forKey: "apps")
+            var appsDataString = self.datasetManager.dataset.string(forKey: "apps")
             if(appsDataString == nil) {
                 print("no apps yet")
                 self.apps = []
@@ -150,7 +145,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             print(self.apps)
             appsDataString = self.apps.joined(separator: ",")
             print(appsDataString)
-            self.dataset.setString(appsDataString, forKey: "apps")
+            self.datasetManager.dataset.setString(appsDataString, forKey: "apps")
             self.present(alertController, animated: true, completion: nil)
         } else {
             //login through facebook
@@ -163,7 +158,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 let username = alertController.textFields?[0].text
                 print(username!)
                 print(key)
-                var appsDataString = self.dataset.string(forKey: "apps")
+                var appsDataString = self.datasetManager.dataset.string(forKey: "apps")
                 if(appsDataString == nil) {
                     print("no apps yet")
                     self.apps = []
@@ -175,8 +170,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 self.apps.append(key)
                 appsDataString = self.apps.joined(separator: ",")
                 print(appsDataString)
-                self.dataset.setString(appsDataString, forKey: "apps")
-                self.dataset.setString(username, forKey: key)
+                self.datasetManager.dataset.setString(appsDataString, forKey: "apps")
+                self.datasetManager.dataset.setString(username, forKey: key)
             }
             
             //the cancel action doing nothing

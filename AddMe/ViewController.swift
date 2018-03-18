@@ -26,11 +26,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var token: String!
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
-    var dataset: AWSCognitoDataset!
     var identityProvider:String!
     var credentialsManager = CredentialsManager.sharedInstance
-   
+    var datasetManager = Dataset.sharedInstance
+    private let refreshControl = UIRefreshControl()
     
+    @IBOutlet weak var messageLabel: UILabel!
+   // @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var addAppButton: CustomButton!
     var apps: [String] = []
     
@@ -40,6 +42,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("----in view did load----")
         sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
         sideMenuViewController.view.frame = UIScreen.main.bounds
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *) {
+            appsTableView.refreshControl = refreshControl
+        } else {
+            appsTableView.addSubview(refreshControl)
+        }
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,14 +121,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             let id = task.result! as? String
                             self.credentialsManager.setIdentityID(id: id!)
                             print(self.credentialsManager.identityID)
-                            let syncClient = AWSCognito.default()
-                            self.dataset = syncClient.openOrCreateDataset("AddMeDataSet\(self.credentialsManager.identityID)")
-                            self.dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
-                                // Your handler code here
-                                return nil
-                               
-                            }
-                            self.loadApps()
+                            self.datasetManager.createDataset()
+                            self.fetchAppData()
                         }
                         return nil
                     }
@@ -134,7 +139,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //                let token: String = dict.value(forKey: "graph.facebook.com") as! String
 //                print(token)
                 let params: String = "name,email,picture"
-                getFBUserInfo(params: params, dataset: dataset)
+                getFBUserInfo(params: params, dataset: datasetManager.dataset)
             }
 //            if AWSGoogleSignInProvider.sharedInstance().isLoggedIn {
 //                print("google sign in confirmed")
@@ -158,7 +163,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func loadApps(){
-        let appsDataString = dataset.string(forKey: "apps")
+        let appsDataString = datasetManager.dataset.string(forKey: "apps")
         print(appsDataString)
         if(appsDataString == nil || appsDataString == "") {
             print("no apps yet")
@@ -218,16 +223,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         for app in apps {
             switch app {
             case "Facebook":
-                let username = dataset.string(forKey: app)
+                let username = datasetManager.dataset.string(forKey: app)
                 jsonStringAsArray += "\"facebook\":\"http://facebook.com/\(username!)\",\n"
             case "Twitter":
-                let username = dataset.string(forKey: app)
+                let username = datasetManager.dataset.string(forKey: app)
                 jsonStringAsArray += "\"twitter\":\"http://www.twitter.com/\(username!)\",\n"
             case "Instagram":
-                let username = dataset.string(forKey: app)
+                let username = datasetManager.dataset.string(forKey: app)
                 jsonStringAsArray += "\"instagram\":\"http://instagram.com/\(username!)\",\n"
             case "Snapchat":
-                let username = dataset.string(forKey: app)
+                let username = datasetManager.dataset.string(forKey: app)
                 jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/\(username!)\",\n"
             default:
                 print("unknown app found: \(app)")
@@ -237,7 +242,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
                                                               with: "")
         print(result)
-       dataset.setString(result, forKey: "jsonStringAsArray")
+       datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
     }
     
     func tableView(_ ExpensesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -254,6 +259,63 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func refreshTableView(_ sender: Any) {
         appsTableView.reloadData()
     }
+    
+    @IBAction func addApp(_ sender: Any) {
+        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
+        self.navigationController!.pushViewController(VC1, animated: true)
+    }
+    
+    @objc private func refreshAppData(_ sender: Any) {
+        // Fetch Weather Data
+        fetchAppData()
+    }
+    
+    private func fetchAppData() {
+        loadApps()
+        self.updateView()
+        self.refreshControl.endRefreshing()
+//        self.activityIndicatorView.stopAnimating()
+    }
+    
+    private func setupView() {
+        setupTableView()
+        setupMessageLabel()
+        setupActivityIndicatorView()
+    }
+    
+    private func updateView() {
+        let hasApps = apps.count > 0
+        appsTableView.isHidden = !hasApps
+        //messageLabel.isHidden = hasApps
+        if hasApps {
+            appsTableView.reloadData()
+            messageLabel.isHidden = false
+            messageLabel.text = "Connected Apps"
+        } else {
+            messageLabel.isHidden = false
+            messageLabel.text = "No Connected Apps"
+        }
+    }
+    
+    // MARK: -
+    private func setupTableView() {
+        appsTableView.isHidden = true
+    }
+    
+    private func setupMessageLabel() {
+        if apps.count > 0 {
+            messageLabel.isHidden = false
+            messageLabel.text = "Connected Apps"
+        } else {
+            messageLabel.isHidden = false
+            messageLabel.text = "No Connected Apps"
+        }
+    }
+    
+    private func setupActivityIndicatorView() {
+  //      activityIndicatorView.startAnimating()
+    }
+
 }
 
 extension String
