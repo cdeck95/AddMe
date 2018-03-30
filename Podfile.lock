@@ -55,6 +55,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.13)
   - GTMSessionFetcher/Full (1.1.13):
     - GTMSessionFetcher/Core (= 1.1.13)
+  - SideMenu (3.1.5)
 
 DEPENDENCIES:
   - AWSAuthUI
@@ -65,6 +66,7 @@ DEPENDENCIES:
   - AWSUserPoolsSignIn (~> 2.6.6)
   - FacebookCore
   - GoogleSignIn (~> 4.0)
+  - SideMenu
 
 SPEC CHECKSUMS:
   AWSAuthCore: 55376d5a47c2b5cefdd3f78d247e0a5496fc25c4
@@ -85,7 +87,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
+  SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
 
-PODFILE CHECKSUM: 69ec0f8631c4b28992531c15ae1b11cc78cf51e2
+PODFILE CHECKSUM: 17bbc658102e6901134ce73345dc06533c73d2da
 
 COCOAPODS: 1.4.0

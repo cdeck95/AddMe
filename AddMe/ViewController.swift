@@ -17,6 +17,7 @@ import AWSCognito
 import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
+import SideMenu
 
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {

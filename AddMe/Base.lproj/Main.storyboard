@@ -26,7 +26,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sax-Zr-BDN">
-                                <rect key="frame" x="0.0" y="146" width="375" height="282"/>
+                                <rect key="frame" x="0.0" y="146" width="375" height="331"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainCell" id="RRG-Yo-1BK" customClass="AppsTableViewCell" customModule="AddMe" customModuleProvider="target">
@@ -65,7 +65,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mcb-uz-Dd0" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
-                                <rect key="frame" x="123" y="436" width="129" height="40"/>
+                                <rect key="frame" x="123" y="485" width="129" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="TyM-iX-1QT"/>
@@ -84,7 +84,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AwF-UR-EQ6" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
-                                <rect key="frame" x="123" y="514" width="129" height="43"/>
+                                <rect key="frame" x="123" y="563" width="129" height="43"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="KMI-Ek-q3B"/>
@@ -125,7 +125,7 @@
                     <navigationItem key="navigationItem" id="1SJ-TI-oFz">
                         <barButtonItem key="leftBarButtonItem" title="Hamburger" image="ic_menu" id="10c-kY-tZn">
                             <connections>
-                                <action selector="menuClicked:" destination="BYZ-38-t0r" id="r01-EU-x6L"/>
+                                <segue destination="30M-NW-2cH" kind="presentation" id="1zI-c6-7uB"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="ic_camera_alt" id="HVX-h3-D0q">
@@ -184,7 +184,7 @@
                     <navigationItem key="navigationItem" id="9Q1-80-q7X">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="ic_menu" id="oUc-n2-vET">
                             <connections>
-                                <action selector="menuClicked:" destination="MaD-TQ-yjv" id="Zb2-xC-yIv"/>
+                                <segue destination="30M-NW-2cH" kind="presentation" id="S6U-Ws-6Mc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -271,20 +271,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Rxv-gw-zwM">
-                                <rect key="frame" x="16" y="209" width="91" height="126"/>
+                                <rect key="frame" x="16" y="64" width="125" height="279"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktb-H1-acn">
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="143"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="rpA-kv-xeQ">
+                                                <rect key="frame" x="8" y="20" width="110" height="102"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93t-bv-z0u">
-                                        <rect key="frame" x="0.0" y="0.0" width="91" height="24"/>
+                                        <rect key="frame" x="0.0" y="153" width="125" height="24"/>
                                         <state key="normal" title="Home" image="ic_home">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="0fo-N0-SsQ" kind="show" id="b29-pf-68b"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="BMw-Cr-WtQ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jj2-5I-qPx">
-                                        <rect key="frame" x="0.0" y="34" width="91" height="24"/>
+                                        <rect key="frame" x="0.0" y="187" width="125" height="24"/>
                                         <state key="normal" title="Settings" image="ic_settings">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -293,16 +303,16 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHT-TW-9qq">
-                                        <rect key="frame" x="0.0" y="68" width="91" height="24"/>
+                                        <rect key="frame" x="0.0" y="221" width="125" height="24"/>
                                         <state key="normal" title="Help" image="ic_help">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="ISd-IL-6IN" kind="show" id="ABM-K1-AQF"/>
+                                            <segue destination="ISd-IL-6IN" kind="show" id="r2v-jc-wTw"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="toj-5D-8ID">
-                                        <rect key="frame" x="0.0" y="102" width="91" height="24"/>
+                                        <rect key="frame" x="0.0" y="255" width="125" height="24"/>
                                         <state key="normal" title="Log Out" image="ic_exit_to_app">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -312,17 +322,6 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktb-H1-acn">
-                                <rect key="frame" x="0.0" y="64" width="125" height="143"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="rpA-kv-xeQ">
-                                        <rect key="frame" x="8" y="20" width="110" height="102"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="N2T-pd-AL9"/>
@@ -357,7 +356,7 @@
                     <navigationItem key="navigationItem" id="hG9-2K-tS0">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="ic_menu" id="JlF-YX-39z">
                             <connections>
-                                <action selector="menuClicked:" destination="z9Z-Ha-ZBC" id="bDc-4D-a2X"/>
+                                <segue destination="30M-NW-2cH" kind="presentation" id="E8e-Qq-i3a"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="ic_camera_alt" id="ApB-rp-gLo">
@@ -568,16 +567,19 @@
             </objects>
             <point key="canvasLocation" x="1153" y="135"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Side Menu Navigation Controller-->
         <scene sceneID="pKm-oq-239">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="30M-NW-2cH" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="30M-NW-2cH" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Qsf-N6-843">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="azE-0G-wBd" kind="relationship" relationship="rootViewController" id="FHq-aF-afV"/>
                     </connections>
@@ -620,4 +622,8 @@
         <image name="snapchat_icon" width="400" height="400"/>
         <image name="twitter_icon" width="1687" height="1687"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="S6U-Ws-6Mc"/>
+        <segue reference="BMw-Cr-WtQ"/>
+    </inferredMetricsTieBreakers>
 </document>
