@@ -458,7 +458,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="twitter" id="WqC-Vb-Bcq" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
-                                        <rect key="frame" x="208" y="120" width="135" height="110"/>
+                                        <rect key="frame" x="0.0" y="240" width="135" height="110"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="135" height="110"/>
@@ -479,6 +479,26 @@
                                             <outlet property="appImage" destination="bTJ-rZ-QJE" id="v4X-NJ-55Q"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ZBZ-IT-XSV" userLabel="linkedin">
+                                        <rect key="frame" x="208" y="120" width="135" height="110"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="135" height="110"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="linked_in_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Jfh-DV-ZHE" userLabel="App Image">
+                                                    <rect key="frame" x="5" y="5" width="125" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Jfh-DV-ZHE" firstAttribute="leading" secondItem="ZBZ-IT-XSV" secondAttribute="leading" constant="5" id="27C-bO-EGj"/>
+                                            <constraint firstAttribute="trailing" secondItem="Jfh-DV-ZHE" secondAttribute="trailing" constant="5" id="5rj-4Q-g13"/>
+                                            <constraint firstItem="Jfh-DV-ZHE" firstAttribute="top" secondItem="ZBZ-IT-XSV" secondAttribute="top" constant="5" id="9vW-AF-oJv"/>
+                                            <constraint firstAttribute="bottom" secondItem="Jfh-DV-ZHE" secondAttribute="bottom" constant="5" id="c31-wH-D4B"/>
+                                            <constraint firstItem="Jfh-DV-ZHE" firstAttribute="leading" secondItem="ZBZ-IT-XSV" secondAttribute="leading" constant="5" id="zJ2-T0-UvS"/>
+                                        </constraints>
+                                    </collectionViewCell>
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="mz7-JQ-d65" id="CpK-wM-zGy"/>
@@ -497,7 +517,7 @@
                         <viewLayoutGuide key="safeArea" id="ysH-Cy-L8G"/>
                     </view>
                     <connections>
-                        <outlet property="collection" destination="atW-cd-F6S" id="pBz-3p-uYd"/>
+                        <outlet property="collection" destination="atW-cd-F6S" id="mUL-3g-bbm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9bU-St-ilb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -619,11 +639,12 @@
         <image name="ic_menu" width="24" height="24"/>
         <image name="ic_settings" width="24" height="24"/>
         <image name="launch_logo" width="450" height="422"/>
+        <image name="linked_in_logo" width="597" height="336"/>
         <image name="snapchat_icon" width="400" height="400"/>
         <image name="twitter_icon" width="1687" height="1687"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="S6U-Ws-6Mc"/>
+        <segue reference="1zI-c6-7uB"/>
         <segue reference="BMw-Cr-WtQ"/>
     </inferredMetricsTieBreakers>
 </document>
