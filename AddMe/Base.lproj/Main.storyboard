@@ -479,6 +479,28 @@
                                             <outlet property="appImage" destination="bTJ-rZ-QJE" id="v4X-NJ-55Q"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="linkedIn" id="iKx-4t-Qtz" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="240" width="135" height="110"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="135" height="110"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="linked_in_logo" translatesAutoresizingMaskIntoConstraints="NO" id="8u3-aU-NgC">
+                                                    <rect key="frame" x="5" y="5" width="125" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="8u3-aU-NgC" firstAttribute="leading" secondItem="iKx-4t-Qtz" secondAttribute="leading" constant="5" id="Jcs-6e-oxH"/>
+                                            <constraint firstItem="8u3-aU-NgC" firstAttribute="top" secondItem="iKx-4t-Qtz" secondAttribute="top" constant="5" id="fyy-rk-tDE"/>
+                                            <constraint firstAttribute="trailing" secondItem="8u3-aU-NgC" secondAttribute="trailing" constant="5" id="jmo-gI-Ebh"/>
+                                            <constraint firstAttribute="bottom" secondItem="8u3-aU-NgC" secondAttribute="bottom" constant="5" id="mVe-Gm-eRa"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="appImage" destination="8u3-aU-NgC" id="nAc-SC-se6"/>
+                                        </connections>
+                                    </collectionViewCell>
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="mz7-JQ-d65" id="CpK-wM-zGy"/>
@@ -619,6 +641,7 @@
         <image name="ic_menu" width="24" height="24"/>
         <image name="ic_settings" width="24" height="24"/>
         <image name="launch_logo" width="450" height="422"/>
+        <image name="linked_in_logo" width="597" height="336"/>
         <image name="snapchat_icon" width="400" height="400"/>
         <image name="twitter_icon" width="1687" height="1687"/>
     </resources>
