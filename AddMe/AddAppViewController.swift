@@ -25,6 +25,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     
     override func viewDidLoad() {
+        print("Loaded AddAppViewController")
         super.viewDidLoad()
         //store.storeApps()
         collection.delegate = self
