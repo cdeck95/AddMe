@@ -17,8 +17,11 @@ class SideMenuViewController: UIViewController {
     @IBOutlet weak var LogoutButton: UIButton!
     @IBOutlet weak var SettingsButton: UIButton!
     @IBOutlet weak var HomeButton: UIButton!
+    var credentialsManager = CredentialsManager.sharedInstance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        credentialsManager.createCredentialsProvider()
         // Do any additional setup after loading the view.
     }
 
@@ -50,6 +53,9 @@ class SideMenuViewController: UIViewController {
                                                     // Sign in successful.
                                                 }
                         })
+                    self.credentialsManager.credentialsProvider.clearKeychain()
+                    self.credentialsManager.credentialsProvider.clearCredentials()
+                    print(result)
                 })
             })
             //print("Logout Successful: \(signInProvider.getDisplayName)");

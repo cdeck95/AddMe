@@ -15,6 +15,7 @@ class QRCodeViewController: UIViewController {
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
+    var credentialsManager = CredentialsManager.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,7 @@ class QRCodeViewController: UIViewController {
         
         // Initialize the Cognito Sync client
         let syncClient = AWSCognito.default()
-        dataset = syncClient.openOrCreateDataset("AddMeDataSet")
+        dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
         dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
             // Your handler code here
             return nil

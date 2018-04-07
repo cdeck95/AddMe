@@ -14,21 +14,28 @@ import AWSFacebookSignIn
 import AWSGoogleSignIn
 import AWSCore
 import AWSCognito
+import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
+import SideMenu
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-
+    @IBOutlet weak var appsTableView: UITableView!
     @IBOutlet weak var scanButton: UIBarButtonItem!
     var token: String!
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
-    var dataset: AWSCognitoDataset!
+    var identityProvider:String!
+    var credentialsManager = CredentialsManager.sharedInstance
+    var datasetManager = Dataset.sharedInstance
+    private let refreshControl = UIRefreshControl()
     
+    @IBOutlet weak var messageLabel: UILabel!
+   // @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var addAppButton: CustomButton!
-    @IBOutlet weak var labelMessage: UILabel!
+    var apps: [String] = []
     
     
     override func viewDidLoad() {
@@ -36,6 +43,15 @@ class ViewController: UIViewController {
         print("----in view did load----")
         sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
         sideMenuViewController.view.frame = UIScreen.main.bounds
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *) {
+            appsTableView.refreshControl = refreshControl
+        } else {
+            appsTableView.addSubview(refreshControl)
+        }
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +63,7 @@ class ViewController: UIViewController {
             sideMenuViewController.removeFromParentViewController()
         }
         presentAuthUIViewController()
+        appsTableView.reloadData()
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
@@ -76,45 +93,87 @@ class ViewController: UIViewController {
         // Initialize the Amazon Cognito credentials provider
         
         if AWSSignInManager.sharedInstance().isLoggedIn {
-            self.navigationController?.popToRootViewController(animated: true)
-            let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USEast1,
-                                                                    identityPoolId:"us-east-1:99eed9b4-f0a9-4f6d-b34c-5f05a1a5fa6b")
+            self.navigationController?.popToRootViewController(animated: true)// Initialize the Cognito Sync client
+            credentialsManager.createCredentialsProvider()
+            //credentialsManager.credentialsProvider.getIdentityId()
             
-            let configuration = AWSServiceConfiguration(region:.USEast1, credentialsProvider:credentialsProvider)
-            AWSServiceManager.default().defaultServiceConfiguration = configuration
-            
-            // Initialize the Cognito Sync client
-            let syncClient = AWSCognito.default()
-            dataset = syncClient.openOrCreateDataset("AddMeDataSet")
-            dataset.setString(token, forKey:"token")
-            dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
-                // Your handler code here
-                return nil
+    
+            credentialsManager.credentialsProvider.identityProvider.logins().continueWith { (task: AWSTask!) -> AnyObject! in
                 
+                if (task.error != nil) {
+                    print("ERROR: Unable to get logins. Description: \(task.error!)")
+                    
+                } else {
+                    if task.result != nil{
+//                        let prevLogins = task.result as! [NSString:NSString]
+//                        print("Previous logins: " + String(prevLogins))
+//                        logins = prevLogins
+                    }
+//                    logins[loginKey] = name
+//                    let manager = IdentityProviderManager(tokens: logins)
+//                    self.credentialsProvider!.setIdentityProviderManagerOnce(manager)
+                    self.credentialsManager.credentialsProvider.getIdentityId().continueWith { (task: AWSTask!) -> AnyObject! in
+                        
+                        if (task.error != nil) {
+                            print("ERROR: Unable to get ID. Error description: \(task.error!)")
+                            
+                        } else {
+                            print("Signed in user with the following ID:")
+                            let id = task.result! as? String
+                            self.credentialsManager.setIdentityID(id: id!)
+                            print(self.credentialsManager.identityID)
+                            self.datasetManager.createDataset()
+                            self.fetchAppData()
+                        }
+                        return nil
+                    }
+                    return nil
+                }
+                return nil
             }
-            
             if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
                 print("facebook sign in confirmed")
-                let fbProvider = FacebookProvider.init()
-                let fbCredentialsProvider = fbProvider.logins()
-                let dict: NSDictionary = fbCredentialsProvider.value(forKey: "result") as! NSDictionary
-                let token: String = dict.value(forKey: "graph.facebook.com") as! String
-                print(token)
+                //dataset.setString(identityProvider, forKey: "identityProvider")
+//                let fbProvider = FacebookProvider.init()
+//                let fbCredentialsProvider = fbProvider.logins()
+//                let dict: NSDictionary = fbCredentialsProvider.value(forKey: "result") as! NSDictionary
+//                let token: String = dict.value(forKey: "graph.facebook.com") as! String
+//                print(token)
                 let params: String = "name,email,picture"
-                getFBUserInfo(params: params, dataset: dataset)
+                getFBUserInfo(params: params, dataset: datasetManager.dataset)
             }
-            if AWSGoogleSignInProvider.sharedInstance().isLoggedIn {
-                print("google sign in confirmed")
-            }
-            if AWSCognitoUserPoolsSignInProvider.sharedInstance().isLoggedIn() {
-                print("user pool sign in confirmed")
-            }
+//            if AWSGoogleSignInProvider.sharedInstance().isLoggedIn {
+//                print("google sign in confirmed")
+//                identityProvider = "google"
+//                let google = AWSGoogleSignInProvider.init()
+//                let token = google.token()
+//                print(token.result)
+//                dataset.setString(identityProvider, forKey: "identityProvider")
+//            }
+//            if AWSCognitoUserPoolsSignInProvider.sharedInstance().isLoggedIn() {
+//                print("user pool sign in confirmed")
+//                identityProvider = "user pool"
+//                dataset.setString(identityProvider, forKey: "identityProvider")
+//            }
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func loadApps(){
+        let appsDataString = datasetManager.dataset.string(forKey: "apps")
+        print(appsDataString)
+        if(appsDataString == nil || appsDataString == "") {
+            print("no apps yet")
+            apps = []
+        } else {
+            let appsData: [String] = (appsDataString?.components(separatedBy: ","))!
+            apps = appsData
+            print(apps)
+        }
     }
     
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
@@ -130,6 +189,7 @@ class ViewController: UIViewController {
                        // self.profilePicture.image = UIImage(data: data as Data)
                         
                     }
+                dataset.setString(value.dictionaryValue?["id"] as? String, forKey: "Facebook")
                     //self.nameLabel.text = value.dictionaryValue?["name"] as? String
             case .failed(let error):
                 print(error)
@@ -159,14 +219,127 @@ class ViewController: UIViewController {
     }
     
     @IBAction func createQRCode(_ sender: Any) {
-        let jsonStringAsArray =
-            "{\n" +
-                "\"twitter\":\"http://www.twitter.com/cporchie\",\n" +
-                "\"snapchat\":\"http://www.snapchat.com/add/cporchie\",\n" +
-                "\"facebook\":\"http://facebook.com/cporchie\",\n" +
-                "\"instagram\":\"http://instagram.com/chris_deck\"\n" +
-        "}"
-       dataset.setString(jsonStringAsArray, forKey: "jsonStringAsArray")
+        var jsonStringAsArray = "{\n"
+        
+        for app in apps {
+            switch app {
+            case "Facebook":
+                let username = datasetManager.dataset.string(forKey: app)
+                jsonStringAsArray += "\"facebook\":\"http://facebook.com/\(username!)\",\n"
+            case "Twitter":
+                let username = datasetManager.dataset.string(forKey: app)
+                jsonStringAsArray += "\"twitter\":\"http://www.twitter.com/\(username!)\",\n"
+            case "Instagram":
+                let username = datasetManager.dataset.string(forKey: app)
+                jsonStringAsArray += "\"instagram\":\"http://instagram.com/\(username!)\",\n"
+            case "Snapchat":
+                let username = datasetManager.dataset.string(forKey: app)
+                jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/\(username!)\",\n"
+            default:
+                print("unknown app found: \(app)")
+            }
+        }
+        jsonStringAsArray += "}"
+        let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
+                                                              with: "")
+        print(result)
+       datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
+    }
+    
+    func tableView(_ ExpensesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return apps.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Create an object of the dynamic cell “PlainCell”
+        let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
+        cell.NameLabel.text = apps[indexPath.row]
+        return cell
+    }
+    @IBAction func refreshTableView(_ sender: Any) {
+        appsTableView.reloadData()
+    }
+    
+    @IBAction func addApp(_ sender: Any) {
+        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
+        self.navigationController!.pushViewController(VC1, animated: true)
+    }
+    
+    @objc private func refreshAppData(_ sender: Any) {
+        // Fetch Weather Data
+        fetchAppData()
+    }
+    
+    private func fetchAppData() {
+        loadApps()
+        self.updateView()
+        self.refreshControl.endRefreshing()
+//        self.activityIndicatorView.stopAnimating()
+    }
+    
+    private func setupView() {
+        setupTableView()
+        setupMessageLabel()
+        setupActivityIndicatorView()
+    }
+    
+    private func updateView() {
+        let hasApps = apps.count > 0
+        appsTableView.isHidden = !hasApps
+        //messageLabel.isHidden = hasApps
+        if hasApps {
+            appsTableView.reloadData()
+            messageLabel.isHidden = false
+            messageLabel.text = "Connected Apps"
+        } else {
+            messageLabel.isHidden = false
+            messageLabel.text = "No Connected Apps"
+        }
+    }
+    
+    // MARK: -
+    private func setupTableView() {
+        appsTableView.isHidden = true
+    }
+    
+    private func setupMessageLabel() {
+        if apps.count > 0 {
+            messageLabel.isHidden = false
+            messageLabel.text = "Connected Apps"
+        } else {
+            messageLabel.isHidden = false
+            messageLabel.text = "No Connected Apps"
+        }
+    }
+    
+    private func setupActivityIndicatorView() {
+  //      activityIndicatorView.startAnimating()
+    }
+
+}
+
+extension String
+{
+    func replacingLastOccurrenceOfString(_ searchString: String,
+                                         with replacementString: String,
+                                         caseInsensitive: Bool = true) -> String
+    {
+        let options: String.CompareOptions
+        if caseInsensitive {
+            options = [.backwards, .caseInsensitive]
+        } else {
+            options = [.backwards]
+        }
+        
+        if let range = self.range(of: searchString,
+                                  options: options,
+                                  range: nil,
+                                  locale: nil) {
+            
+            return self.replacingCharacters(in: range, with: replacementString)
+        }
+        return self
     }
 }
 

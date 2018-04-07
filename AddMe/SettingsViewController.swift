@@ -7,16 +7,26 @@
 //
 
 import UIKit
+import AWSCognito
 
 class SettingsViewController: UIViewController {
 
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
+    var dataset: AWSCognitoDataset!
+    var credentialsManager = CredentialsManager.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
         sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
         sideMenuViewController.view.frame = UIScreen.main.bounds
+        let syncClient = AWSCognito.default()
+        dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
+        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
+            // Your handler code here
+            return nil
+            
+        }
         // Do any additional setup after loading the view.
     }
 
@@ -41,7 +51,10 @@ class SettingsViewController: UIViewController {
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
-
+    @IBAction func deleteApps(_ sender: Any) {
+        dataset.removeObject(forKey: "apps")
+    }
+    
     /*
     // MARK: - Navigation
 
