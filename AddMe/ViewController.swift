@@ -17,7 +17,7 @@ import AWSCognito
 import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
-import SideMenu
+//import SideMenu
 
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -36,6 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
    // @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var addAppButton: CustomButton!
     var apps: [String] = []
+    var cellSwitches: [AppsTableViewCell] = []
     
     
     override func viewDidLoad() {
@@ -68,6 +69,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func presentAuthUIViewController() {
+        print("presentAuthUIViewController()")
         let config = AWSAuthUIConfiguration()
         config.enableUserPoolsUI = true
         config.addSignInButtonView(class: AWSFacebookSignInButton.self)
@@ -164,6 +166,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func loadApps(){
+        print("loadApps()")
         let appsDataString = datasetManager.dataset.string(forKey: "apps")
         print(appsDataString)
         if(appsDataString == nil || appsDataString == "") {
@@ -177,6 +180,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
+        print("getFBUserInfo()")
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
         request.start { (response, result) in
             switch result {
@@ -198,6 +202,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func menuClicked(_ sender: Any) {
+        print("menuClicked()")
         if(isMenuOpened){
             isMenuOpened = false
             sideMenuViewController.willMove(toParentViewController: nil)
@@ -218,10 +223,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.navigationController?.pushViewController(scannerVC, animated: true)
     }
     
+    // Goes through the list of table cells that contain the switches for which apps
+    // to use in the QR Code being made. It checks their label and UISwitch.
+    // If the switch is "On" then it will be included in the QR codes creation.
     @IBAction func createQRCode(_ sender: Any) {
         var jsonStringAsArray = "{\n"
+     print("createQRCode()")
         
-        for app in apps {
+        for index in 0...cellSwitches.count - 1{
+            var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+            var app = cellSwitches[index].NameLabel.text! + ""
+            print(app)
+            print(isSelectedForQRCode)
+            if (isSelectedForQRCode){
             switch app {
             case "Facebook":
                 let username = datasetManager.dataset.string(forKey: app)
@@ -235,8 +249,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             case "Snapchat":
                 let username = datasetManager.dataset.string(forKey: app)
                 jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/\(username!)\",\n"
+            case "LinkedIn":
+                let username = datasetManager.dataset.string(forKey: app)
+                jsonStringAsArray += "\"linkedin\":\"http://www.linkedin.com/in/\(username!)\",\n"
             default:
                 print("unknown app found: \(app)")
+            }
             }
         }
         jsonStringAsArray += "}"
@@ -247,31 +265,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ ExpensesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("tableView() return apps.count")
         return apps.count
     }
     
-    
+    // This is where the table cells on the main page are modeled from.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create an object of the dynamic cell “PlainCell”
         let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
+        cellSwitches.append(cell)
         cell.NameLabel.text = apps[indexPath.row]
         return cell
     }
     @IBAction func refreshTableView(_ sender: Any) {
+        print("refreshTableView()")
         appsTableView.reloadData()
     }
     
+    // Launches the AddAppViewController, which is where the user will select which apps to include
+    // on their main screen.
     @IBAction func addApp(_ sender: Any) {
+        print("addApp()")
         let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
         self.navigationController!.pushViewController(VC1, animated: true)
     }
     
     @objc private func refreshAppData(_ sender: Any) {
         // Fetch Weather Data
+        print("refreshAppData()")
         fetchAppData()
     }
     
     private func fetchAppData() {
+        print("fetchAppData()")
         loadApps()
         self.updateView()
         self.refreshControl.endRefreshing()
@@ -279,12 +305,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     private func setupView() {
+        print("setUpView()")
         setupTableView()
         setupMessageLabel()
         setupActivityIndicatorView()
     }
     
     private func updateView() {
+        print("updateView()")
         let hasApps = apps.count > 0
         appsTableView.isHidden = !hasApps
         //messageLabel.isHidden = hasApps
@@ -300,10 +328,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // MARK: -
     private func setupTableView() {
+        print("setuptableView()")
         appsTableView.isHidden = true
     }
     
     private func setupMessageLabel() {
+        print("setupMessageLabel()")
         if apps.count > 0 {
             messageLabel.isHidden = false
             messageLabel.text = "Connected Apps"
