@@ -519,7 +519,7 @@
                         <viewLayoutGuide key="safeArea" id="ysH-Cy-L8G"/>
                     </view>
                     <connections>
-                        <outlet property="collection" destination="atW-cd-F6S" id="mUL-3g-bbm"/>
+                        <outlet property="collection" destination="atW-cd-F6S" id="pBz-3p-uYd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9bU-St-ilb" userLabel="First Responder" sceneMemberID="firstResponder"/>
