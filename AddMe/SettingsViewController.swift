@@ -28,6 +28,14 @@ class SettingsViewController: UIViewController {
             
         }
         // Do any additional setup after loading the view.
+        print("Loading list of installed apps in Settings.")
+        // This is only here as a reference to know how to access the apps the user has.
+        for index in 0...cellSwitches.count - 1{
+            var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+            var app = cellSwitches[index].NameLabel.text! + ""
+            print(app)
+            print(isSelectedForQRCode)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,6 +61,7 @@ class SettingsViewController: UIViewController {
     
     @IBAction func deleteApps(_ sender: Any) {
         dataset.removeObject(forKey: "apps")
+        cellSwitches = []
     }
     
     /*

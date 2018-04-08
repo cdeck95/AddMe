@@ -20,13 +20,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected Apps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bff-rV-gaH">
-                                <rect key="frame" x="123" y="52" width="129" height="21"/>
+                                <rect key="frame" x="123" y="96" width="129" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sax-Zr-BDN">
-                                <rect key="frame" x="0.0" y="102" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="146" width="375" height="331"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainCell" id="RRG-Yo-1BK" customClass="AppsTableViewCell" customModule="AddMe" customModuleProvider="target">
@@ -202,14 +202,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQU-21-1Ph">
-                                <rect key="frame" x="163" y="540" width="49" height="30"/>
+                                <rect key="frame" x="163" y="584" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="sendEmail:" destination="ISd-IL-6IN" eventType="touchUpInside" id="hzp-Bq-snK"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gjt-hL-noZ">
-                                <rect key="frame" x="16" y="277" width="343" height="255"/>
+                                <rect key="frame" x="16" y="321" width="343" height="255"/>
                                 <color key="backgroundColor" white="0.949515463679941" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="255" id="YTL-ME-wfg"/>
@@ -218,19 +218,19 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select a general issue." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e32-31-cO3">
-                                <rect key="frame" x="75" y="33" width="225" height="21"/>
+                                <rect key="frame" x="75" y="77" width="225" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yj5-0X-ORb">
-                                <rect key="frame" x="0.0" y="78" width="375" height="162"/>
+                                <rect key="frame" x="0.0" y="122" width="375" height="162"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="162" id="hSz-0Z-sx2"/>
                                 </constraints>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please describe the issue in detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQs-DM-ue1">
-                                <rect key="frame" x="58" y="248" width="259" height="21"/>
+                                <rect key="frame" x="58" y="292" width="259" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -458,7 +458,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="twitter" id="WqC-Vb-Bcq" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="240" width="135" height="110"/>
+                                        <rect key="frame" x="208" y="120" width="135" height="110"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="135" height="110"/>
@@ -646,7 +646,7 @@
         <image name="twitter_icon" width="1687" height="1687"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1zI-c6-7uB"/>
+        <segue reference="S6U-Ws-6Mc"/>
         <segue reference="BMw-Cr-WtQ"/>
     </inferredMetricsTieBreakers>
 </document>

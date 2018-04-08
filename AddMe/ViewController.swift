@@ -19,6 +19,7 @@ import GoogleSignIn
 import FacebookCore
 //import SideMenu
 
+var cellSwitches: [AppsTableViewCell] = []
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -36,8 +37,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
    // @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var addAppButton: CustomButton!
     var apps: [String] = []
-    var cellSwitches: [AppsTableViewCell] = []
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -273,7 +272,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create an object of the dynamic cell “PlainCell”
         let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
-        cellSwitches.append(cell)
+        if (!cellSwitches.contains(cell)) {
+            cellSwitches.append(cell)
+        }
         cell.NameLabel.text = apps[indexPath.row]
         return cell
     }
