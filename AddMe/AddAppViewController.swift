@@ -90,6 +90,9 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         self.present(alertController, animated: true, completion: nil)
     }
     
+    @IBAction func dismiss(_ sender: Any) {
+        self.dismiss(animated: true, completion: {})
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return appIDs.count
     }

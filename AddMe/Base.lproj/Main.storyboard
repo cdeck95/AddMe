@@ -80,7 +80,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="7yd-6K-JVF" kind="presentation" id="0aK-BO-E35"/>
+                                    <segue destination="mz7-JQ-d65" kind="presentation" id="8VW-U1-OtW"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AwF-UR-EQ6" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
@@ -382,7 +382,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="atW-cd-F6S">
-                                <rect key="frame" x="16" y="72" width="343" height="532"/>
+                                <rect key="frame" x="16" y="28" width="343" height="576"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NRO-7D-2rp">
                                     <size key="itemSize" width="135" height="110"/>
@@ -508,6 +508,14 @@
                                     <outlet property="prefetchDataSource" destination="mz7-JQ-d65" id="dQk-Cx-nXg"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkC-gt-mOq">
+                                <rect key="frame" x="169" y="574" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="dismiss:" destination="mz7-JQ-d65" eventType="touchUpInside" id="KFT-nI-kUe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -533,7 +541,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9bU-St-ilb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3570" y="800"/>
+            <point key="canvasLocation" x="2777" y="800"/>
         </scene>
         <!--Scanner View Controller-->
         <scene sceneID="MOV-aS-bBM">
@@ -563,7 +571,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="zew-Wa-OvN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Q3I-Y6-pgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="0fo-N0-SsQ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aZm-Jq-Woc">
@@ -576,13 +583,13 @@
                         <segue destination="BUn-kf-D3d" kind="relationship" relationship="viewControllers" id="ydW-Xk-PIh"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q3I-Y6-pgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="386" y="463"/>
         </scene>
         <!--Create Code-->
         <scene sceneID="lsL-v6-eL9">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wsu-SV-iWl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PSs-OA-1VE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Create Code" id="WfC-rH-r1E"/>
                     <toolbarItems/>
@@ -595,6 +602,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="HRK-Iv-e6Y"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wsu-SV-iWl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1153" y="135"/>
         </scene>
@@ -622,7 +630,6 @@
         <!--Scan Code-->
         <scene sceneID="wI8-lx-tJY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="czj-eO-26a" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BUn-kf-D3d" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Scan Code" id="dMM-KV-Wr0"/>
                     <toolbarItems/>
@@ -635,26 +642,9 @@
                         <segue destination="z9Z-Ha-ZBC" kind="relationship" relationship="rootViewController" id="RYg-qd-xZZ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="czj-eO-26a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1153" y="801"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="V2D-1a-eJm">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7yd-6K-JVF" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="E1I-VP-niu">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="mz7-JQ-d65" kind="relationship" relationship="rootViewController" id="tWU-0P-YdB"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="z06-bc-sBd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2777.5999999999999" y="799.70014992503752"/>
         </scene>
     </scenes>
     <resources>
