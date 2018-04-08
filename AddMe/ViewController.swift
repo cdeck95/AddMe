@@ -285,11 +285,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // Launches the AddAppViewController, which is where the user will select which apps to include
     // on their main screen.
-    @IBAction func addApp(_ sender: Any) {
-        print("addApp()")
-        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
-        self.navigationController!.pushViewController(VC1, animated: true)
-    }
+//    @IBAction func addApp(_ sender: Any) {
+//        print("addApp()")
+//        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
+//        self.navigationController!.pushViewController(VC1, animated: true)
+//    }
     
     @objc private func refreshAppData(_ sender: Any) {
         // Fetch Weather Data
