@@ -119,8 +119,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             //showInputDialog(key: "Facebook")
             facebookInput(key: "Facebook")
         case "linkedIn":
-            print("linked in")
-            //tom insert code here!!!!!!!!!!
+            //LinkedIn
+            showInputDialog(key: "LinkedIn")
         default:
             print("error")
         }

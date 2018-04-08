@@ -28,6 +28,14 @@ class SettingsViewController: UIViewController {
             
         }
         // Do any additional setup after loading the view.
+        print("Loading list of installed apps in Settings.")
+        // This is only here as a reference to know how to access the apps the user has.
+        for index in 0...cellSwitches.count - 1{
+            var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+            var app = cellSwitches[index].NameLabel.text! + ""
+            print(app)
+            print(isSelectedForQRCode)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,8 +59,20 @@ class SettingsViewController: UIViewController {
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
+    // Going to connect this to a button on the Settings view.
+    // Will delete all apps that the user has selected.
+    func deleteSelectedApps()
+    {
+        // Planning on having a tableview with the custom cells on the screen.
+        // It will be populated from the cellSwitches array.
+        // The custom cells will have a toggle switch, a label for the name (facebook,etc.)
+        // and a button to launch another view for editting the info about that selected cell.
+    }
+    
+    // TODO: Probably should add a Confirm Delete? button.
     @IBAction func deleteApps(_ sender: Any) {
         dataset.removeObject(forKey: "apps")
+        cellSwitches = []
     }
     
     /*
