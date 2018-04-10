@@ -17,8 +17,9 @@ import AWSCognito
 import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
-import SideMenu
+//import SideMenu
 
+var cellSwitches: [AppsTableViewCell] = []
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -36,7 +37,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
    // @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var addAppButton: CustomButton!
     var apps: [String] = []
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,12 +62,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             sideMenuViewController.view.removeFromSuperview()
             sideMenuViewController.removeFromParentViewController()
         }
+        cellSwitches = []
         presentAuthUIViewController()
         appsTableView.reloadData()
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
     func presentAuthUIViewController() {
+        print("presentAuthUIViewController()")
         let config = AWSAuthUIConfiguration()
         config.enableUserPoolsUI = true
         config.addSignInButtonView(class: AWSFacebookSignInButton.self)
@@ -96,8 +98,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.navigationController?.popToRootViewController(animated: true)// Initialize the Cognito Sync client
             credentialsManager.createCredentialsProvider()
             //credentialsManager.credentialsProvider.getIdentityId()
-            
-    
             credentialsManager.credentialsProvider.identityProvider.logins().continueWith { (task: AWSTask!) -> AnyObject! in
                 
                 if (task.error != nil) {
@@ -105,13 +105,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     
                 } else {
                     if task.result != nil{
-//                        let prevLogins = task.result as! [NSString:NSString]
-//                        print("Previous logins: " + String(prevLogins))
-//                        logins = prevLogins
                     }
-//                    logins[loginKey] = name
-//                    let manager = IdentityProviderManager(tokens: logins)
-//                    self.credentialsProvider!.setIdentityProviderManagerOnce(manager)
                     self.credentialsManager.credentialsProvider.getIdentityId().continueWith { (task: AWSTask!) -> AnyObject! in
                         
                         if (task.error != nil) {
@@ -124,6 +118,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             print(self.credentialsManager.identityID)
                             self.datasetManager.createDataset()
                             self.fetchAppData()
+                            if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
+                                print("facebook sign in confirmed")
+                                
+                                let params: String = "name,email,picture"
+                                self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
+                            }
                         }
                         return nil
                     }
@@ -131,30 +131,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
                 return nil
             }
-            if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
-                print("facebook sign in confirmed")
-                //dataset.setString(identityProvider, forKey: "identityProvider")
-//                let fbProvider = FacebookProvider.init()
-//                let fbCredentialsProvider = fbProvider.logins()
-//                let dict: NSDictionary = fbCredentialsProvider.value(forKey: "result") as! NSDictionary
-//                let token: String = dict.value(forKey: "graph.facebook.com") as! String
-//                print(token)
-                let params: String = "name,email,picture"
-                getFBUserInfo(params: params, dataset: datasetManager.dataset)
-            }
-//            if AWSGoogleSignInProvider.sharedInstance().isLoggedIn {
-//                print("google sign in confirmed")
-//                identityProvider = "google"
-//                let google = AWSGoogleSignInProvider.init()
-//                let token = google.token()
-//                print(token.result)
-//                dataset.setString(identityProvider, forKey: "identityProvider")
-//            }
-//            if AWSCognitoUserPoolsSignInProvider.sharedInstance().isLoggedIn() {
-//                print("user pool sign in confirmed")
-//                identityProvider = "user pool"
-//                dataset.setString(identityProvider, forKey: "identityProvider")
-//            }
         }
     }
 
@@ -164,6 +140,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func loadApps(){
+        print("loadApps()")
         let appsDataString = datasetManager.dataset.string(forKey: "apps")
         print(appsDataString)
         if(appsDataString == nil || appsDataString == "") {
@@ -177,6 +154,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
+        print("getFBUserInfo()")
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
         request.start { (response, result) in
             switch result {
@@ -198,6 +176,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func menuClicked(_ sender: Any) {
+        print("menuClicked()")
         if(isMenuOpened){
             isMenuOpened = false
             sideMenuViewController.willMove(toParentViewController: nil)
@@ -218,10 +197,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.navigationController?.pushViewController(scannerVC, animated: true)
     }
     
+    // Goes through the list of table cells that contain the switches for which apps
+    // to use in the QR Code being made. It checks their label and UISwitch.
+    // If the switch is "On" then it will be included in the QR codes creation.
     @IBAction func createQRCode(_ sender: Any) {
         var jsonStringAsArray = "{\n"
+     print("createQRCode()")
         
-        for app in apps {
+        for index in 0...cellSwitches.count - 1{
+            var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+            var app = cellSwitches[index].NameLabel.text! + ""
+            print(app)
+            print(isSelectedForQRCode)
+            if (isSelectedForQRCode){
             switch app {
             case "Facebook":
                 let username = datasetManager.dataset.string(forKey: app)
@@ -235,8 +223,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             case "Snapchat":
                 let username = datasetManager.dataset.string(forKey: app)
                 jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/\(username!)\",\n"
+            case "LinkedIn":
+                let username = datasetManager.dataset.string(forKey: app)
+                jsonStringAsArray += "\"linkedin\":\"http://www.linkedin.com/in/\(username!)\",\n"
             default:
                 print("unknown app found: \(app)")
+            }
             }
         }
         jsonStringAsArray += "}"
@@ -247,31 +239,41 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ ExpensesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("tableView() return apps.count")
         return apps.count
     }
     
-    
+    // This is where the table cells on the main page are modeled from.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create an object of the dynamic cell “PlainCell”
         let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
+        if (!cellSwitches.contains(cell)) {
+            cellSwitches.append(cell)
+        }
         cell.NameLabel.text = apps[indexPath.row]
         return cell
     }
     @IBAction func refreshTableView(_ sender: Any) {
+        print("refreshTableView()")
         appsTableView.reloadData()
     }
     
-    @IBAction func addApp(_ sender: Any) {
-        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
-        self.navigationController!.pushViewController(VC1, animated: true)
-    }
+    // Launches the AddAppViewController, which is where the user will select which apps to include
+    // on their main screen.
+//    @IBAction func addApp(_ sender: Any) {
+//        print("addApp()")
+//        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
+//        self.navigationController!.pushViewController(VC1, animated: true)
+//    }
     
     @objc private func refreshAppData(_ sender: Any) {
         // Fetch Weather Data
+        print("refreshAppData()")
         fetchAppData()
     }
     
     private func fetchAppData() {
+        print("fetchAppData()")
         loadApps()
         self.updateView()
         self.refreshControl.endRefreshing()
@@ -279,12 +281,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     private func setupView() {
+        print("setUpView()")
         setupTableView()
         setupMessageLabel()
         setupActivityIndicatorView()
     }
     
     private func updateView() {
+        print("updateView()")
         let hasApps = apps.count > 0
         appsTableView.isHidden = !hasApps
         //messageLabel.isHidden = hasApps
@@ -300,10 +304,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // MARK: -
     private func setupTableView() {
+        print("setuptableView()")
         appsTableView.isHidden = true
     }
     
     private func setupMessageLabel() {
+        print("setupMessageLabel()")
         if apps.count > 0 {
             messageLabel.isHidden = false
             messageLabel.text = "Connected Apps"

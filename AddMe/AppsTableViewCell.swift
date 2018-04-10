@@ -20,12 +20,14 @@ class AppsTableViewCell: UITableViewCell {
     @IBOutlet weak var appSwitch: UISwitch!
     
     override func awakeFromNib() {
+        print("AppTableViewCell.swift awakeFromNib()")
         super.awakeFromNib()
         // Initialization code
         self.bringSubview(toFront: appSwitch)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
+        print("AppTableViewCell.swift setSelected()")
         super.setSelected(selected, animated: animated)
         
         layer.cornerRadius = cornerRadius

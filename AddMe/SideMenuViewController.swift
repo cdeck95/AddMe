@@ -30,6 +30,10 @@ class SideMenuViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func goHome(_ sender: Any) {
+        print("going home")
+        self.navigationController?.popToRootViewController(animated: true)
+    }
     @IBAction func logout(_ sender: Any) {
         let config = AWSAuthUIConfiguration()
         config.enableUserPoolsUI = true
@@ -65,11 +69,7 @@ class SideMenuViewController: UIViewController {
     }
 
     
-//    @IBAction func goHome(_ sender: Any) {
-//        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! ViewController
-//        VC1.isMenuOpened = false
-//        self.navigationController!.popToViewController(VC1, animated: true)
-//    }
+
     
 //    @IBAction func openSettings(_ sender: Any) {
 //        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
