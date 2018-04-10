@@ -27,6 +27,7 @@ class SettingsViewController: UIViewController {
             return nil
             
         }
+       self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
         print("Loading list of installed apps in Settings.")
         // This is only here as a reference to know how to access the apps the user has.
