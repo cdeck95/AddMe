@@ -63,6 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             sideMenuViewController.removeFromParentViewController()
         }
         cellSwitches = []
+        self.tabBarController?.tabBar.isHidden = false
         presentAuthUIViewController()
         appsTableView.reloadData()
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
