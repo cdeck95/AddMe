@@ -18,8 +18,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     var datasetManager = Dataset.sharedInstance
     //var reuseIdentifier:String = "collectionViewCell"
     //var store = DataStore.sharedInstance
-    var appIDs = ["facebook", "instagram", "snapchat", "twitter", "linkedIn"]
-    let cellSizes = Array( repeatElement(CGSize(width:160, height:110), count: 5))
+    var appIDs = ["facebook", "instagram", "snapchat", "twitter", "linkedIn", "googlePlus"]
+    let cellSizes = Array( repeatElement(CGSize(width:160, height:110), count: 6))
     var apps: [String]!
     var credentialsManager = CredentialsManager.sharedInstance
     
@@ -128,6 +128,9 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         case "linkedIn":
             //LinkedIn
             showInputDialog(key: "LinkedIn")
+        case "googlePlus":
+            print("googe plus tapped")
+            showInputDialog(key: "GooglePlus")
         default:
             print("error")
         }
