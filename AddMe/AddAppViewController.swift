@@ -67,7 +67,11 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 self.apps = appsData
                 print(self.apps)
             }
-            self.apps.append(key)
+            if(self.apps.contains(key)){
+                print("already have that key")
+            } else {
+                self.apps.append(key)
+            }
             appsDataString = self.apps.joined(separator: ",")
             print(appsDataString)
             self.datasetManager.dataset.setString(appsDataString, forKey: "apps")
@@ -148,7 +152,11 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 self.apps = appsData
                 print(self.apps)
             }
-            self.apps.append(key)
+            if(self.apps.contains(key)){
+                print("already have that key")
+            } else {
+                self.apps.append(key)
+            }
             print(self.apps)
             appsDataString = self.apps.joined(separator: ",")
             print(appsDataString)
