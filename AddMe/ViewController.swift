@@ -62,6 +62,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             sideMenuViewController.view.removeFromSuperview()
             sideMenuViewController.removeFromParentViewController()
         }
+        cellSwitches = []
         presentAuthUIViewController()
         appsTableView.reloadData()
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
