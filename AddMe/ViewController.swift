@@ -97,8 +97,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.navigationController?.popToRootViewController(animated: true)// Initialize the Cognito Sync client
             credentialsManager.createCredentialsProvider()
             //credentialsManager.credentialsProvider.getIdentityId()
-            
-    
             credentialsManager.credentialsProvider.identityProvider.logins().continueWith { (task: AWSTask!) -> AnyObject! in
                 
                 if (task.error != nil) {
@@ -106,13 +104,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     
                 } else {
                     if task.result != nil{
-//                        let prevLogins = task.result as! [NSString:NSString]
-//                        print("Previous logins: " + String(prevLogins))
-//                        logins = prevLogins
                     }
-//                    logins[loginKey] = name
-//                    let manager = IdentityProviderManager(tokens: logins)
-//                    self.credentialsProvider!.setIdentityProviderManagerOnce(manager)
                     self.credentialsManager.credentialsProvider.getIdentityId().continueWith { (task: AWSTask!) -> AnyObject! in
                         
                         if (task.error != nil) {
@@ -125,6 +117,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             print(self.credentialsManager.identityID)
                             self.datasetManager.createDataset()
                             self.fetchAppData()
+                            if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
+                                print("facebook sign in confirmed")
+                                
+                                let params: String = "name,email,picture"
+                                self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
+                            }
                         }
                         return nil
                     }
@@ -132,30 +130,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
                 return nil
             }
-            if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
-                print("facebook sign in confirmed")
-                //dataset.setString(identityProvider, forKey: "identityProvider")
-//                let fbProvider = FacebookProvider.init()
-//                let fbCredentialsProvider = fbProvider.logins()
-//                let dict: NSDictionary = fbCredentialsProvider.value(forKey: "result") as! NSDictionary
-//                let token: String = dict.value(forKey: "graph.facebook.com") as! String
-//                print(token)
-                let params: String = "name,email,picture"
-                getFBUserInfo(params: params, dataset: datasetManager.dataset)
-            }
-//            if AWSGoogleSignInProvider.sharedInstance().isLoggedIn {
-//                print("google sign in confirmed")
-//                identityProvider = "google"
-//                let google = AWSGoogleSignInProvider.init()
-//                let token = google.token()
-//                print(token.result)
-//                dataset.setString(identityProvider, forKey: "identityProvider")
-//            }
-//            if AWSCognitoUserPoolsSignInProvider.sharedInstance().isLoggedIn() {
-//                print("user pool sign in confirmed")
-//                identityProvider = "user pool"
-//                dataset.setString(identityProvider, forKey: "identityProvider")
-//            }
         }
     }
 
@@ -285,11 +259,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // Launches the AddAppViewController, which is where the user will select which apps to include
     // on their main screen.
-    @IBAction func addApp(_ sender: Any) {
-        print("addApp()")
-        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
-        self.navigationController!.pushViewController(VC1, animated: true)
-    }
+//    @IBAction func addApp(_ sender: Any) {
+//        print("addApp()")
+//        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
+//        self.navigationController!.pushViewController(VC1, animated: true)
+//    }
     
     @objc private func refreshAppData(_ sender: Any) {
         // Fetch Weather Data
