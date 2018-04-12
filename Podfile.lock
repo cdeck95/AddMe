@@ -11,6 +11,8 @@ PODS:
     - AWSCore (= 2.6.12)
   - AWSCognitoIdentityProviderASF (1.0.1)
   - AWSCore (2.6.12)
+  - AWSDynamoDB (2.6.12):
+    - AWSCore (= 2.6.12)
   - AWSFacebookSignIn (2.6.12):
     - AWSAuthCore (= 2.6.12)
     - FBSDKCoreKit (~> 4.0)
@@ -60,6 +62,7 @@ PODS:
 DEPENDENCIES:
   - AWSAuthUI
   - AWSCognito
+  - AWSDynamoDB
   - AWSFacebookSignIn (~> 2.6.6)
   - AWSGoogleSignIn (~> 2.6.6)
   - AWSMobileClient (~> 2.6.6)
@@ -75,6 +78,7 @@ SPEC CHECKSUMS:
   AWSCognitoIdentityProvider: 2b7f74c4d6b63c9e5a3ba55db7453e997afa0566
   AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
   AWSCore: d0d6e4f6831754aaf98058d2306a016ae71510fe
+  AWSDynamoDB: a1626a8e025a12fa71723da8eee0c1ff51da5dc0
   AWSFacebookSignIn: 7330b696e17d5ff9fd47617adc85643c71c30541
   AWSGoogleSignIn: 757670544a74714892062f6c24f83f4764a48070
   AWSMobileClient: 5972fea7b8b7a9eae8790386700b8a7f330f8ee3
@@ -89,6 +93,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
 
-PODFILE CHECKSUM: 17bbc658102e6901134ce73345dc06533c73d2da
+PODFILE CHECKSUM: 27ddd69eff3122fd73156c1ebbf5f42b9a1cf16c
 
 COCOAPODS: 1.4.0

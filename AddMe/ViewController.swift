@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     private let refreshControl = UIRefreshControl()
     
     @IBOutlet weak var messageLabel: UILabel!
-   // @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var addAppButton: CustomButton!
     var apps: [String] = []
     
@@ -292,6 +292,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("updateView()")
         let hasApps = apps.count > 0
         appsTableView.isHidden = !hasApps
+        activityIndicatorView.stopAnimating()
+        activityIndicatorView.isHidden = true
         //messageLabel.isHidden = hasApps
         if hasApps {
             appsTableView.reloadData()
@@ -301,12 +303,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             messageLabel.isHidden = false
             messageLabel.text = "No Connected Apps"
         }
+        
     }
     
     // MARK: -
     private func setupTableView() {
         print("setuptableView()")
         appsTableView.isHidden = true
+        activityIndicatorView.isHidden = false
     }
     
     private func setupMessageLabel() {
@@ -321,7 +325,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     private func setupActivityIndicatorView() {
-  //      activityIndicatorView.startAnimating()
+        activityIndicatorView.startAnimating()
     }
 
 }
