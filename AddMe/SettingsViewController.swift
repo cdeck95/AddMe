@@ -9,8 +9,42 @@
 import UIKit
 import AWSCognito
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
+    // Test fields for DB
+    @IBOutlet var userIdTextBox: UITextField!
+    @IBOutlet var displayNameTextBox: UITextField!
+    @IBOutlet var platformTextBox: UITextField!
+    @IBOutlet var urlTextBox: UITextField!
+    
+    let collectionView: UICollectionView = {
+        let frame = CGRect(x: UIScreen.main.bounds.size.width / 2, y: UIScreen.main.bounds.size.height / 2, width: UIScreen.main.bounds.size.width / 2, height: UIScreen.main.bounds.size.height / 2)
+        let col = UICollectionView(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
+        col.layer.borderColor = UIColor.red.cgColor
+        col.layer.borderWidth = 1.0
+        col.backgroundColor = UIColor.yellow
+        return col
+    }()
+    
+    let switchView = UISwitch()
+
+    
+    
+    @IBOutlet var settingsAppsTableView: UITableView!
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("SETTINGS tableView() return cellSwitches.count")
+        return cellSwitches.count
+    }
+    
+    // This is where the table cells on the main page are modeled from.
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("creating cells for table view in settings")
+        let cell:SettingsTableViewCell = settingsAppsTableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsTableViewCell
+        cell.appName.text = cellSwitches[indexPath.row].NameLabel.text! + ""
+        return cell
+    }
+    
     var sideMenuViewController = SideMenuViewController()
     var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
@@ -29,20 +63,119 @@ class SettingsViewController: UIViewController {
         }
        self.tabBarController?.tabBar.isHidden = true
         // Do any additional setup after loading the view.
-        print("Loading list of installed apps in Settings.")
-        // This is only here as a reference to know how to access the apps the user has.
-        for index in 0...cellSwitches.count - 1{
-            var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
-            var app = cellSwitches[index].NameLabel.text! + ""
-            print(app)
-            print(isSelectedForQRCode)
+        ////////////////////////////
+        if (cellSwitches.count > 0){
+            for index in 0...cellSwitches.count - 1{
+                var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+                var app = cellSwitches[index].NameLabel.text! + ""
+                print(app)
+                print(isSelectedForQRCode)
+            }
+        }
+        ////////////////////////////
+        
+        switchView.frame = CGRect(x: 0, y: 20, width: 10, height: 5)
+        switchView.addTarget(self, action: #selector(switched), for: .valueChanged)
+        
+        view.addSubview(switchView)
+        //view.addSubview(collectionView)
+    }
+    
+    @objc func switched(s: UISwitch){
+        let origin: CGFloat = s.isOn ? view.frame.height : 50
+        UIView.animate(withDuration: 0.35) {
+            self.collectionView.frame.origin.y = origin
         }
     }
 
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("----in settings view will appear----")
+        if(isMenuOpened == true){
+            isMenuOpened = false
+            sideMenuViewController.willMove(toParentViewController: nil)
+            sideMenuViewController.view.removeFromSuperview()
+            sideMenuViewController.removeFromParentViewController()
+        }
+        //cellSwitches = []
+        self.tabBarController?.tabBar.isHidden = false
+        settingsAppsTableView.reloadData()
+        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
+        settingsAppsTableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // Send in info
+    @IBAction func updateStuff(_ sender: Any) {
+        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/setUserInfo.php")!)
+        request.httpMethod = "POST"
+        let postString = "a=\(userIdTextBox.text!)&b=\(displayNameTextBox.text!)&c=\(platformTextBox.text!)&d=\(urlTextBox.text!)"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            var responseOne = responseString
+            print(responseOne!)
+        })
+        task.resume()
+    }
+    
+    // Send in user Id to get back all the info for that user
+    @IBAction func GetUserInfo(_ sender: Any) {
+        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
+        request.httpMethod = "POST"
+        let postString = "a=\(userIdTextBox.text!)"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            var responseOne = responseString
+            print(responseOne!)
+        })
+        task.resume()
+    }
+    
+    @IBAction func addUser(_ sender: Any) {
+        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php")!)
+        request.httpMethod = "POST"
+        let postString = "a=\(displayNameTextBox.text!)&b=\(platformTextBox.text!)&c=\(urlTextBox.text!)"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            var responseOne = responseString
+            print(responseOne!)
+        })
+        task.resume()
+    }
+    
+    // Just here
+    //https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php      SEND IN ALL BUT ID
+    //https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php     SEND IN ID
+    //https://tommillerswebsite.000webhostapp.com/AddMe/setUserInfo.php     SEND IN ALL 4
+    
     
     @IBAction func menuClicked(_ sender: Any) {
         if(isMenuOpened){
