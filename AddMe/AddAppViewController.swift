@@ -11,6 +11,7 @@ import AWSCognito
 import AWSFacebookSignIn
 import AWSAuthUI
 import FacebookCore
+import AWSDynamoDB
 
 class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -50,36 +51,76 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     func showInputDialog(key: String) {
         //Creating UIAlertController and
         //Setting title and message for the alert dialog
-        let alertController = UIAlertController(title: "Enter details", message: "Enter your username", preferredStyle: .alert)
+   
+        var alertController:UIAlertController!
+        switch key {
+            case "Facebook":
+                if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
+                    let alertController = UIAlertController(title: "Good News!", message: "You are already authenticated with Facebook. Please reload the home screen.", preferredStyle: .alert)
+                    
+                    //the confirm action taking the inputs
+                    let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in }
+                    
+                    //adding the action to dialogbox
+                    alertController.addAction(confirmAction)
+                    
+                    //finally presenting the dialog box
+                    self.present(alertController, animated: true, completion: nil)
+                    return
+                } else {
+                     alertController = UIAlertController(title: "Enter details", message: "Facebook special instructions", preferredStyle: .alert)
+                }
+            default:
+                alertController = UIAlertController(title: "Enter details", message: "Enter your username", preferredStyle: .alert)
+        }
+        
         
         //the confirm action taking the inputs
         let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
             //getting the input values from user
-            let username = alertController.textFields?[0].text
-            print(username!)
+            let username:String = (alertController.textFields?[1].text)!
+            let displayName:String = (alertController.textFields?[0].text)!
+            let userID:String = self.credentialsManager.identityID
+            print(username)
+            print(displayName)
             print(key)
-            var appsDataString = self.datasetManager.dataset.string(forKey: "apps")
-            if(appsDataString == nil) {
-                print("no apps yet")
-                self.apps = []
-            } else {
-                let appsData: [String] = (appsDataString?.components(separatedBy: ","))!
-                self.apps = appsData
-                print(self.apps)
+            let objectMapper = AWSDynamoDBObjectMapper.default()
+            let app:Apps = Apps()
+            app._userId = userID
+            app._displayName = displayName
+            app._platform = key
+            switch key {
+            case "Facebook":
+                app._uRL = "http://facebook.com/\(username)"
+            case "Twitter":
+                app._uRL = "http://www.twitter.com/\(username)"
+            case "Instagram":
+                app._uRL = "http://instagram.com/\(username)"
+            case "Snapchat":
+                app._uRL = "http://www.snapchat.com/add/\(username)"
+            case "LinkedIn":
+                app._uRL = "http://www.linkedin.com/in/\(username)"
+            default:
+                print("unknown app found: \(key)")
             }
-            if(self.apps.contains(key)){
-                print("already have that key")
-            } else {
-                self.apps.append(key)
-            }
-            appsDataString = self.apps.joined(separator: ",")
-            print(appsDataString)
-            self.datasetManager.dataset.setString(appsDataString, forKey: "apps")
-            self.datasetManager.dataset.setString(username, forKey: key)
+            
+            objectMapper.save(app, completionHandler: { (error: Error?) in
+                if let error = error {
+                    print("AWS DynamoDB save error: \(error)")
+                    return
+                }
+                
+                print("app saved: \(app)")
+            })
         }
         
         //the cancel action doing nothing
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Enter Your Custom Display Name (i.e Personal Facebook)"
+        }
         
         //adding textfields to our dialog box
         alertController.addTextField { (textField) in
@@ -113,101 +154,22 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         print("User tapped on \(appIDs[indexPath.row])")
         switch appIDs[indexPath.row] {
         case "twitter":
-            //twitter
             showInputDialog(key: "Twitter")
         case "snapchat":
-            //snapchat
             showInputDialog(key: "Snapchat")
         case "instagram":
-            //instagram
             showInputDialog(key: "Instagram")
         case "facebook":
-            //facebook
-            //showInputDialog(key: "Facebook")
-            facebookInput(key: "Facebook")
+            showInputDialog(key: "Facebook")
         case "linkedIn":
-            //LinkedIn
             showInputDialog(key: "LinkedIn")
         case "googlePlus":
-            print("googe plus tapped")
             showInputDialog(key: "GooglePlus")
         default:
             print("error")
         }
     }
-    
-    func facebookInput(key: String){
-        if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
-            let alertController = UIAlertController(title: "Good News!", message: "You are already authenticated with Facebook. Please reload the home screen.", preferredStyle: .alert)
-            
-            //the confirm action taking the inputs
-            let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in }
-            
-            //adding the action to dialogbox
-            alertController.addAction(confirmAction)
-            //alertController.addAction(cancelAction)
-            var appsDataString = self.datasetManager.dataset.string(forKey: "apps")
-            if(appsDataString == nil) {
-                print("no apps yet")
-                self.apps = []
-            } else {
-                let appsData: [String] = (appsDataString?.components(separatedBy: ","))!
-                self.apps = appsData
-                print(self.apps)
-            }
-            if(self.apps.contains(key)){
-                print("already have that key")
-            } else {
-                self.apps.append(key)
-            }
-            print(self.apps)
-            appsDataString = self.apps.joined(separator: ",")
-            print(appsDataString)
-            self.datasetManager.dataset.setString(appsDataString, forKey: "apps")
-            self.present(alertController, animated: true, completion: nil)
-        } else {
-            //login through facebook
-            let alertController = UIAlertController(title: "Action Needed", message: "Please copy & paste the username for your facebook account. This is located in your profile url: \"www.facebook.com/[username here]\"", preferredStyle: .alert)
-            
-            
-            //the confirm action taking the inputs
-            let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
-                //getting the input values from user
-                let username = alertController.textFields?[0].text
-                print(username!)
-                print(key)
-                var appsDataString = self.datasetManager.dataset.string(forKey: "apps")
-                if(appsDataString == nil) {
-                    print("no apps yet")
-                    self.apps = []
-                } else {
-                    let appsData: [String] = (appsDataString?.components(separatedBy: ","))!
-                    self.apps = appsData
-                    print(self.apps)
-                }
-                self.apps.append(key)
-                appsDataString = self.apps.joined(separator: ",")
-                print(appsDataString)
-                self.datasetManager.dataset.setString(appsDataString, forKey: "apps")
-                self.datasetManager.dataset.setString(username, forKey: key)
-            }
-            
-            //the cancel action doing nothing
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-            
-            //adding textfields to our dialog box
-            alertController.addTextField { (textField) in
-                textField.placeholder = "Enter Facebook Username"
-            }
-            
-            //adding the action to dialogbox
-            alertController.addAction(confirmAction)
-            alertController.addAction(cancelAction)
-            
-            //finally presenting the dialog box
-            self.present(alertController, animated: true, completion: nil)
-        }
-    }
+
     
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)

@@ -102,6 +102,10 @@
                                     <action selector="createQRCode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fkE-p3-hLx"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ypT-PN-FRO">
+                                <rect key="frame" x="177" y="132" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -137,6 +141,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="QRCode" destination="wrW-6v-ex3" id="T4R-Iz-oIR"/>
+                        <outlet property="activityIndicatorView" destination="ypT-PN-FRO" id="HaU-NM-QMg"/>
                         <outlet property="addAppButton" destination="Mcb-uz-Dd0" id="9LX-nB-vNa"/>
                         <outlet property="appsTableView" destination="sax-Zr-BDN" id="i6n-Ly-NMu"/>
                         <outlet property="messageLabel" destination="Bff-rV-gaH" id="442-jw-u3K"/>
