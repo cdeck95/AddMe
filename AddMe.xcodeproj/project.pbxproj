@@ -31,6 +31,7 @@
 		DAD96D082045FA2F00F1525E /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96D072045FA2F00F1525E /* DataStore.swift */; };
 		DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96D092046399500F1525E /* AppsTableViewCell.swift */; };
 		DAE8E583205EC30D003FE099 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE8E582205EC30D003FE099 /* Dataset.swift */; };
+		E2152EB0207D8DD30018FAB7 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2152EAF207D8DD30018FAB7 /* SettingsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		DAD96D072045FA2F00F1525E /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		DAD96D092046399500F1525E /* AppsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsTableViewCell.swift; sourceTree = "<group>"; };
 		DAE8E582205EC30D003FE099 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
+		E2152EAF207D8DD30018FAB7 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.debug.xcconfig"; sourceTree = "<group>"; };
 		FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,7 +121,6 @@
 			isa = PBXGroup;
 			children = (
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
-				DA646EF8207EE4560000F475 /* Apps.swift */,
 				DAD96D072045FA2F00F1525E /* DataStore.swift */,
 				DAE8E582205EC30D003FE099 /* Dataset.swift */,
 				DA2B25F6204E2623004D3160 /* CredentialsManager.swift */,
@@ -325,6 +326,7 @@
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
+				E2152EB0207D8DD30018FAB7 /* SettingsTableViewCell.swift in Sources */,
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
 				DAD432F9203D03F70033EF35 /* User.swift in Sources */,
