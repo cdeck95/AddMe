@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		CCE90FC70675E381BDDE5FC7 /* Pods_AddMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */; };
 		DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B25F6204E2623004D3160 /* CredentialsManager.swift */; };
-		DA646EF9207EE4560000F475 /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA646EF8207EE4560000F475 /* Apps.swift */; };
 		DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68505C205B5FA300BA36DE /* HelpViewController.swift */; };
 		DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EE92037859800E79B47 /* AppDelegate.swift */; };
 		DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EEB2037859800E79B47 /* ViewController.swift */; };
 		DA6A7EEF2037859800E79B47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EED2037859800E79B47 /* Main.storyboard */; };
 		DA6A7EF12037859800E79B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF02037859800E79B47 /* Assets.xcassets */; };
 		DA6A7EF42037859800E79B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */; };
+		DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4DE208568F000E62E04 /* Apps.swift */; };
+		DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */; };
 		DAD432F7203D02240033EF35 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DAD432F6203D02240033EF35 /* awsconfiguration.json */; };
 		DAD432F9203D03F70033EF35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD432F8203D03F70033EF35 /* User.swift */; };
 		DAD432FB203F989B0033EF35 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD432FA203F989B0033EF35 /* SafariServices.framework */; };
@@ -31,13 +32,11 @@
 		DAD96D082045FA2F00F1525E /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96D072045FA2F00F1525E /* DataStore.swift */; };
 		DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96D092046399500F1525E /* AppsTableViewCell.swift */; };
 		DAE8E583205EC30D003FE099 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE8E582205EC30D003FE099 /* Dataset.swift */; };
-		E2152EB0207D8DD30018FAB7 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2152EAF207D8DD30018FAB7 /* SettingsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AddMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2B25F6204E2623004D3160 /* CredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsManager.swift; sourceTree = "<group>"; };
-		DA646EF8207EE4560000F475 /* Apps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Apps.swift; sourceTree = "<group>"; };
 		DA68505C205B5FA300BA36DE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DA6A7EE62037859800E79B47 /* AddMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AddMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A7EE92037859800E79B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +45,8 @@
 		DA6A7EF02037859800E79B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA6A7EF32037859800E79B47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA6A7EF52037859800E79B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAA7D4DE208568F000E62E04 /* Apps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apps.swift; sourceTree = "<group>"; };
+		DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		DAD432F6203D02240033EF35 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		DAD432F8203D03F70033EF35 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DAD432FA203F989B0033EF35 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
@@ -61,7 +62,6 @@
 		DAD96D072045FA2F00F1525E /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		DAD96D092046399500F1525E /* AppsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsTableViewCell.swift; sourceTree = "<group>"; };
 		DAE8E582205EC30D003FE099 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
-		E2152EAF207D8DD30018FAB7 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.debug.xcconfig"; sourceTree = "<group>"; };
 		FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +106,7 @@
 				DA6A7EE72037859800E79B47 /* Products */,
 				62E4FB17A984E8771B0E270D /* Pods */,
 				8E946C241D05378BF40C442A /* Frameworks */,
+				DAA7D4D5208567BB00E62E04 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
+				DAA7D4DE208568F000E62E04 /* Apps.swift */,
 				DAD96D072045FA2F00F1525E /* DataStore.swift */,
 				DAE8E582205EC30D003FE099 /* Dataset.swift */,
 				DA2B25F6204E2623004D3160 /* CredentialsManager.swift */,
@@ -134,6 +136,7 @@
 				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
 				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
 				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
+				DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */,
 				DAD96CF92044B13C00F1525E /* SideMenuViewController.swift */,
 				DAD96CF52043458000F1525E /* QRCodeViewController.swift */,
 				DA6A7EF02037859800E79B47 /* Assets.xcassets */,
@@ -143,6 +146,13 @@
 				DAD432F6203D02240033EF35 /* awsconfiguration.json */,
 			);
 			path = AddMe;
+			sourceTree = "<group>";
+		};
+		DAA7D4D5208567BB00E62E04 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,7 +328,6 @@
 				DAD96D082045FA2F00F1525E /* DataStore.swift in Sources */,
 				DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */,
 				DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */,
-				DA646EF9207EE4560000F475 /* Apps.swift in Sources */,
 				DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */,
 				DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */,
 				DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */,
@@ -326,11 +335,12 @@
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
-				E2152EB0207D8DD30018FAB7 /* SettingsTableViewCell.swift in Sources */,
+				DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */,
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
 				DAD432F9203D03F70033EF35 /* User.swift in Sources */,
 				DAE8E583205EC30D003FE099 /* Dataset.swift in Sources */,
+				DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */,
 				DAD96D002045F59F00F1525E /* CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

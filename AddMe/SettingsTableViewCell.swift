@@ -1,16 +1,14 @@
 //
 //  SettingsTableViewCell.swift
-//  AddMe
+//  AWSAuthCore
 //
-//  Created by Tom Miller on 4/10/18.
-//  Copyright © 2018 Christopher Deck. All rights reserved.
+//  Created by Christopher Deck on 4/16/18.
 //
 
-import Foundation
 import UIKit
 
 class SettingsTableViewCell: UITableViewCell {
-    
+
     @IBInspectable var cornerRadius: CGFloat = 2
     @IBInspectable var shadowOffsetWidth: Int = 0
     @IBInspectable var shadowOffsetHeight: Int = 3
@@ -40,5 +38,5 @@ class SettingsTableViewCell: UITableViewCell {
         layer.shadowOpacity = shadowOpacity
         layer.shadowPath = shadowPath.cgPath
     }
-}
 
+}
