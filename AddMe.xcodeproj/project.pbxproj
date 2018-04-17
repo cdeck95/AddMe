@@ -17,6 +17,7 @@
 		DA6A7EF42037859800E79B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */; };
 		DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4DE208568F000E62E04 /* Apps.swift */; };
 		DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */; };
+		DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E8208598D800E62E04 /* ProfileImage.swift */; };
 		DAD432F7203D02240033EF35 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DAD432F6203D02240033EF35 /* awsconfiguration.json */; };
 		DAD432F9203D03F70033EF35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD432F8203D03F70033EF35 /* User.swift */; };
 		DAD432FB203F989B0033EF35 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD432FA203F989B0033EF35 /* SafariServices.framework */; };
@@ -47,6 +48,7 @@
 		DA6A7EF52037859800E79B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAA7D4DE208568F000E62E04 /* Apps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apps.swift; sourceTree = "<group>"; };
 		DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		DAA7D4E8208598D800E62E04 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		DAD432F6203D02240033EF35 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		DAD432F8203D03F70033EF35 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DAD432FA203F989B0033EF35 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
@@ -126,14 +128,15 @@
 				DAD96D072045FA2F00F1525E /* DataStore.swift */,
 				DAE8E582205EC30D003FE099 /* Dataset.swift */,
 				DA2B25F6204E2623004D3160 /* CredentialsManager.swift */,
+				DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */,
+				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
 				DAD96D092046399500F1525E /* AppsTableViewCell.swift */,
 				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA6A7EED2037859800E79B47 /* Main.storyboard */,
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
-				DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */,
-				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
+				DAA7D4E8208598D800E62E04 /* ProfileImage.swift */,
 				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
 				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
 				DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */,
@@ -335,6 +338,7 @@
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
+				DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */,
 				DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */,
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,

@@ -23,6 +23,8 @@ var cellSwitches: [AppsTableViewCell] = []
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var appsTableView: UITableView!
     @IBOutlet weak var scanButton: UIBarButtonItem!
     var token: String!
@@ -35,7 +37,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet weak var addAppButton: CustomButton!
+   
+    @IBOutlet weak var addAppButton: UIBarButtonItem!
     var apps: [String] = []
     
     override func viewDidLoad() {
@@ -52,6 +55,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
         setupView()
+        profileImage.layer.borderWidth = 1
+        profileImage.layer.masksToBounds = false
+        profileImage.layer.borderColor = UIColor.black.cgColor
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
+        profileImage.clipsToBounds = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -145,8 +153,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let appsDataString = datasetManager.dataset.string(forKey: "apps")
         print(appsDataString)
         if(appsDataString == nil || appsDataString == "") {
-            print("no apps yet")
-            apps = []
+            print("no apps yet, but hardcoding facebook")
+            apps = ["facebook"]
         } else {
             let appsData: [String] = (appsDataString?.components(separatedBy: ","))!
             apps = appsData
@@ -165,11 +173,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     dataset.setString(userID, forKey: "userID")
                     let facebookProfileUrl = URL(string: "http://graph.facebook.com/\(userID)/picture?type=large")
                     if let data = NSData(contentsOf: facebookProfileUrl!) {
-                       // self.profilePicture.image = UIImage(data: data as Data)
+                        self.profileImage.image = UIImage(data: data as Data)
                         
                     }
                 dataset.setString(value.dictionaryValue?["id"] as? String, forKey: "Facebook")
-                    //self.nameLabel.text = value.dictionaryValue?["name"] as? String
+                self.nameLabel.text = value.dictionaryValue?["name"] as? String
             case .failed(let error):
                 print(error)
             }
@@ -259,13 +267,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         appsTableView.reloadData()
     }
     
-    // Launches the AddAppViewController, which is where the user will select which apps to include
-    // on their main screen.
-//    @IBAction func addApp(_ sender: Any) {
-//        print("addApp()")
-//        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
-//        self.navigationController!.pushViewController(VC1, animated: true)
-//    }
     
     @objc private func refreshAppData(_ sender: Any) {
         // Fetch Weather Data
@@ -297,11 +298,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //messageLabel.isHidden = hasApps
         if hasApps {
             appsTableView.reloadData()
-            messageLabel.isHidden = false
-            messageLabel.text = "Connected Apps"
+          //  messageLabel.isHidden = false
+         //   messageLabel.text = "Connected Apps"
         } else {
-            messageLabel.isHidden = false
-            messageLabel.text = "No Connected Apps"
+         //   messageLabel.isHidden = false
+         //   messageLabel.text = "No Connected Apps"
         }
         
     }
@@ -314,14 +315,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     private func setupMessageLabel() {
-        print("setupMessageLabel()")
-        if apps.count > 0 {
-            messageLabel.isHidden = false
-            messageLabel.text = "Connected Apps"
-        } else {
-            messageLabel.isHidden = false
-            messageLabel.text = "No Connected Apps"
-        }
+//        print("setupMessageLabel()")
+//        if apps.count > 0 {
+//            messageLabel.isHidden = false
+//            messageLabel.text = "Connected Apps"
+//        } else {
+//            messageLabel.isHidden = false
+//            messageLabel.text = "No Connected Apps"
+//        }
     }
     
     private func setupActivityIndicatorView() {
