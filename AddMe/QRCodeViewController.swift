@@ -16,6 +16,8 @@ class QRCodeViewController: UIViewController {
     var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
     var credentialsManager = CredentialsManager.sharedInstance
+    var datasetManager = Dataset.sharedInstance
+    var qrCode:CIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +60,7 @@ class QRCodeViewController: UIViewController {
             let transform = CGAffineTransform(scaleX: 3, y: 3)
             
             if let output = filter.outputImage?.transformed(by: transform) {
+                qrCode = output
                 return UIImage(ciImage: output)
             }
         }
@@ -87,14 +90,59 @@ class QRCodeViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func createQRCode(_ sender: Any) {
+        var jsonStringAsArray = "{\n"
+        print("createQRCode()")
+        
+        if(cellSwitches.count > 0){
+            for index in 0...cellSwitches.count - 1{
+                var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+                var app = cellSwitches[index].NameLabel.text! + ""
+                print(app)
+                print(isSelectedForQRCode)
+                if (isSelectedForQRCode){
+                    switch app {
+                    case "Facebook":
+                        let username = datasetManager.dataset.string(forKey: app)
+                        jsonStringAsArray += "\"facebook\":\"http://facebook.com/\(username!)\",\n"
+                    case "Twitter":
+                        let username = datasetManager.dataset.string(forKey: app)
+                        jsonStringAsArray += "\"twitter\":\"http://www.twitter.com/\(username!)\",\n"
+                    case "Instagram":
+                        let username = datasetManager.dataset.string(forKey: app)
+                        jsonStringAsArray += "\"instagram\":\"http://instagram.com/\(username!)\",\n"
+                    case "Snapchat":
+                        let username = datasetManager.dataset.string(forKey: app)
+                        jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/\(username!)\",\n"
+                    case "LinkedIn":
+                        let username = datasetManager.dataset.string(forKey: app)
+                        jsonStringAsArray += "\"linkedin\":\"http://www.linkedin.com/in/\(username!)\",\n"
+                    default:
+                        print("unknown app found: \(app)")
+                    }
+                }
+            }
+        } else {
+            print("no apps - casnnot create code")
+        }
+        jsonStringAsArray += "}"
+        let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
+                                                                       with: "")
+        print(result)
+        datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
+        generateQRCode(from: result)
     }
-    */
+    
+    @IBAction func shareButtonClicked(sender: UIButton) {
+        let textToShare = "Swift is awesome!  Check out this website about it!"
+        
+        if let myQRCode = qrCode {
+            let objectsToShare = [textToShare, qrCode] as [Any]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            activityVC.excludedActivityTypes = [UIActivityType.addToReadingList]
+            activityVC.popoverPresentationController?.sourceView = sender
+            self.present(activityVC, animated: true, completion: nil)
+        }
+    }
 
 }

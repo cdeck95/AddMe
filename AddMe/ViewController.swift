@@ -74,6 +74,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tabBarController?.tabBar.isHidden = false
         presentAuthUIViewController()
         appsTableView.reloadData()
+        createQRCode(self)
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
@@ -212,33 +213,36 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func createQRCode(_ sender: Any) {
         var jsonStringAsArray = "{\n"
      print("createQRCode()")
-        
-        for index in 0...cellSwitches.count - 1{
-            var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
-            var app = cellSwitches[index].NameLabel.text! + ""
-            print(app)
-            print(isSelectedForQRCode)
-            if (isSelectedForQRCode){
-            switch app {
-            case "Facebook":
-                let username = datasetManager.dataset.string(forKey: app)
-                jsonStringAsArray += "\"facebook\":\"http://facebook.com/\(username!)\",\n"
-            case "Twitter":
-                let username = datasetManager.dataset.string(forKey: app)
-                jsonStringAsArray += "\"twitter\":\"http://www.twitter.com/\(username!)\",\n"
-            case "Instagram":
-                let username = datasetManager.dataset.string(forKey: app)
-                jsonStringAsArray += "\"instagram\":\"http://instagram.com/\(username!)\",\n"
-            case "Snapchat":
-                let username = datasetManager.dataset.string(forKey: app)
-                jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/\(username!)\",\n"
-            case "LinkedIn":
-                let username = datasetManager.dataset.string(forKey: app)
-                jsonStringAsArray += "\"linkedin\":\"http://www.linkedin.com/in/\(username!)\",\n"
-            default:
-                print("unknown app found: \(app)")
+        if(cellSwitches.count > 0){
+            for index in 0...cellSwitches.count - 1{
+                var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+                var app = cellSwitches[index].NameLabel.text! + ""
+                print(app)
+                print(isSelectedForQRCode)
+                if (isSelectedForQRCode){
+                    switch app {
+                    case "Facebook":
+                        let username = datasetManager.dataset.string(forKey: app)
+                        jsonStringAsArray += "\"facebook\":\"http://facebook.com/\(username!)\",\n"
+                    case "Twitter":
+                        let username = datasetManager.dataset.string(forKey: app)
+                        jsonStringAsArray += "\"twitter\":\"http://www.twitter.com/\(username!)\",\n"
+                    case "Instagram":
+                        let username = datasetManager.dataset.string(forKey: app)
+                        jsonStringAsArray += "\"instagram\":\"http://instagram.com/\(username!)\",\n"
+                    case "Snapchat":
+                        let username = datasetManager.dataset.string(forKey: app)
+                        jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/\(username!)\",\n"
+                    case "LinkedIn":
+                        let username = datasetManager.dataset.string(forKey: app)
+                        jsonStringAsArray += "\"linkedin\":\"http://www.linkedin.com/in/\(username!)\",\n"
+                    default:
+                        print("unknown app found: \(app)")
+                    }
+                }
             }
-            }
+        } else {
+            print("no apps - casnnot create code")
         }
         jsonStringAsArray += "}"
         let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",

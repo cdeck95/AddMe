@@ -492,6 +492,7 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="createQRCode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fkE-p3-hLx"/>
+                                                    <action selector="createQRCode:" destination="z9Z-Ha-ZBC" eventType="touchUpInside" id="jlw-G0-2zX"/>
                                                 </connections>
                                             </button>
                                         </barButtonItem>
@@ -509,6 +510,9 @@
                                 <state key="normal" title="Share" image="ic_screen_share">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="shareButtonClickedWithSender:" destination="z9Z-Ha-ZBC" eventType="touchUpInside" id="Cb4-p2-pua"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
