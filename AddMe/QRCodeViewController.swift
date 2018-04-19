@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSCognito
+import Foundation
 
 class QRCodeViewController: UIViewController {
 
@@ -17,7 +18,7 @@ class QRCodeViewController: UIViewController {
     var dataset: AWSCognitoDataset!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
-    var qrCode:CIImage!
+    var qrCode:UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +44,8 @@ class QRCodeViewController: UIViewController {
                 return
         }
         print("json from data set: \(jsonStringAsArray)")
-        let image = generateQRCode(from: jsonStringAsArray)
-        QRCode.image = image
+        qrCode = generateQRCode(from: jsonStringAsArray)
+        QRCode.image = qrCode
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,7 +61,6 @@ class QRCodeViewController: UIViewController {
             let transform = CGAffineTransform(scaleX: 3, y: 3)
             
             if let output = filter.outputImage?.transformed(by: transform) {
-                qrCode = output
                 return UIImage(ciImage: output)
             }
         }

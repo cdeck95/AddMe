@@ -725,6 +725,39 @@
             </objects>
             <point key="canvasLocation" x="2913" y="134"/>
         </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="maj-zh-HXM">
+            <objects>
+                <viewController id="beM-FT-25w" customClass="CameraViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UTD-hu-S6f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-Df-W87">
+                                <rect key="frame" x="162" y="374" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Upload"/>
+                                <connections>
+                                    <action selector="takePhotoWithSender:" destination="beM-FT-25w" eventType="touchUpInside" id="GxP-HJ-2UO"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Y8-JR-wqc">
+                                <rect key="frame" x="67" y="196" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="4lS-AO-B9d"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="4n3-Fh-z2H"/>
+                    <connections>
+                        <outlet property="loadedImage" destination="1Y8-JR-wqc" id="EcN-QF-z4Y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8vV-N5-84A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1990" y="-1254"/>
+        </scene>
         <!--Scan Code-->
         <scene sceneID="MOV-aS-bBM">
             <objects>
@@ -765,6 +798,7 @@
                         <segue destination="PSs-OA-1VE" kind="relationship" relationship="viewControllers" id="8ed-IC-1cp"/>
                         <segue destination="z9Z-Ha-ZBC" kind="relationship" relationship="viewControllers" id="MSP-jJ-DYX"/>
                         <segue destination="gfS-lj-f3Q" kind="relationship" relationship="viewControllers" id="npR-Pi-Ol7"/>
+                        <segue destination="9KD-63-wPU" kind="relationship" relationship="viewControllers" id="mSL-rw-g95"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3I-Y6-pgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -811,6 +845,25 @@
             </objects>
             <point key="canvasLocation" x="1153" y="1561"/>
         </scene>
+        <!--Import Code-->
+        <scene sceneID="TXp-eo-6Rg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9KD-63-wPU" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Import Code" image="ic_file_upload" id="BPH-av-TW6"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MMN-IA-Rni">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="beM-FT-25w" kind="relationship" relationship="rootViewController" id="9N0-do-VQ5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g1b-t2-259" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1153" y="-1254"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Instagram_icon" width="599" height="600"/>
@@ -819,6 +872,7 @@
         <image name="ic_add_circle" width="24" height="24"/>
         <image name="ic_camera_alt" width="24" height="24"/>
         <image name="ic_exit_to_app" width="24" height="24"/>
+        <image name="ic_file_upload" width="24" height="24"/>
         <image name="ic_help" width="24" height="24"/>
         <image name="ic_home" width="24" height="24"/>
         <image name="ic_menu" width="24" height="24"/>
