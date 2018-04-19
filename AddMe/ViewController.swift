@@ -39,7 +39,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
    
     @IBOutlet weak var addAppButton: UIBarButtonItem!
-    var apps: [String] = []
+    var apps: [Apps] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,8 +166,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     // Tom 2018/04/18
-    func loadAppsFromDB() -> [String] {
-        var returnList: [String] = []
+    func loadAppsFromDB() -> [Apps] {
+        var returnList: [Apps] = []
         let idString = self.credentialsManager.credentialsProvider.getIdentityId().result!
             var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
             request.httpMethod = "POST"
@@ -184,19 +184,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             var responseOne = responseString
                 
                 let lines = responseOne!.components(separatedBy: "\n")
-            print(lines)
+                print(lines)
                 
                 // Goes through and picks out the platforms.
                 if (lines.count > 3){
                     var count = 0
-                    for index in 0...lines.count - 1{
-                        count = count + 1
-                        if (count == 2) {
-                           returnList.append(lines[index])
-                        }else if (count == 4) {
-                            count = 0
-                        }
-                    }
+                    var app = Apps()
+                    app?._userId = lines[1]
+                    app?._displayName = lines[2]
+                    app?._platform = lines[3]
+                    app?._uRL = lines[4]
+                    print(app)
+                    returnList.append(app!)
+//                    for index in 0...lines.count - 1{
+//                        count = count + 1
+//                        if (count == 2) {
+//                           returnList.append(lines[index])
+//                        }else if (count == 4) {
+//                            count = 0
+//                        }
+//                    }
                 }
         })
         task.resume()
@@ -304,7 +311,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (!cellSwitches.contains(cell)) {
             cellSwitches.append(cell)
         }
-        cell.NameLabel.text = apps[indexPath.row]
+        cell.NameLabel.text = apps[indexPath.row]._displayName
         return cell
     }
     @IBAction func refreshTableView(_ sender: Any) {

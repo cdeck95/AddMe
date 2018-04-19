@@ -84,41 +84,42 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             print(username)
             print(displayName)
             print(key)
-            let app:App = App()
-            app.userId = userID
-            app.displayName = displayName
-            app.platform = key
+            let app:Apps = Apps()
+            app._userId = userID
+            app._displayName = displayName
+            app._platform = key
             switch key {
             case "Facebook":
-                app.uRL = "http://facebook.com/\(username)"
+                app._uRL = "http://facebook.com/\(username)"
             case "Twitter":
-                app.uRL = "http://www.twitter.com/\(username)"
+                app._uRL = "http://www.twitter.com/\(username)"
             case "Instagram":
-                app.uRL = "http://instagram.com/\(username)"
+                app._uRL = "http://instagram.com/\(username)"
             case "Snapchat":
-                app.uRL = "http://www.snapchat.com/add/\(username)"
+                app._uRL = "http://www.snapchat.com/add/\(username)"
             case "LinkedIn":
-                app.uRL = "http://www.linkedin.com/in/\(username)"
+                app._uRL = "http://www.linkedin.com/in/\(username)"
             default:
                 print("unknown app found: \(key)")
             }
             
             var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php")!)
             request.httpMethod = "POST"
-            let postString = "a=\(self.credentialsManager.identityID)&b=\(app.displayName)&c=\(app.platform)&d=\(app.uRL)"
+            let postString = "a=\(self.credentialsManager.identityID)&b=\(app._displayName)&c=\(app._platform)&d=\(app._uRL)"
             request.httpBody = postString.data(using: String.Encoding.utf8)
             
             let task = URLSession.shared.dataTask(with: request, completionHandler: {
                 data, response, error in
                 if error != nil {
                     print("error=\(error)")
-
-            // Tom - 4/18/2018
-            self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
-                
-                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                var responseOne = responseString
-                print(responseOne!)
+                } else {
+                    // Tom - 4/18/2018
+                    self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
+                    
+                    let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                    var responseOne = responseString
+                    print(responseOne!)
+                }
             })
             task.resume()
         }
