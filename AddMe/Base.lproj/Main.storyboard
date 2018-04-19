@@ -26,7 +26,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sax-Zr-BDN">
-                                <rect key="frame" x="0.0" y="146" width="375" height="331"/>
+                                <rect key="frame" x="0.0" y="146" width="375" height="282"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainCell" id="RRG-Yo-1BK" customClass="AppsTableViewCell" customModule="AddMe" customModuleProvider="target">
@@ -835,6 +835,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="S6U-Ws-6Mc"/>
-        <segue reference="XTG-76-LkZ"/>
+        <segue reference="HRK-Iv-e6Y"/>
     </inferredMetricsTieBreakers>
 </document>

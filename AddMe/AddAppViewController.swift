@@ -104,6 +104,9 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 print("unknown app found: \(key)")
             }
             
+            // Tom - 4/18/2018
+            self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
+            
             objectMapper.save(app, completionHandler: { (error: Error?) in
                 if let error = error {
                     print("AWS DynamoDB save error: \(error)")
@@ -190,5 +193,26 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 print(error)
             }
         }
+    }
+    
+    // Adds a users account to the DB.
+    func addToDB(userName: String, displayName: String, platform: String, url: String){
+        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php")!)
+        request.httpMethod = "POST"
+        let postString = "a=\(displayName)&b=\(platform)&c=\(url)&d=\(userName)"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            var responseOne = responseString
+            print(responseOne!)
+        })
+        task.resume()
     }
 }
