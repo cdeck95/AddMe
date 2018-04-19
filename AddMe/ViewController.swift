@@ -151,16 +151,56 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func loadApps(){
         print("loadApps()")
-        let appsDataString = datasetManager.dataset.string(forKey: "apps")
-        print(appsDataString)
-        if(appsDataString == nil || appsDataString == "") {
-            print("no apps yet, but hardcoding facebook")
-            apps = ["facebook"]
-        } else {
-            let appsData: [String] = (appsDataString?.components(separatedBy: ","))!
-            apps = appsData
-            print(apps)
-        }
+
+        apps = loadAppsFromDB()
+        // let appsDataString = datasetManager.dataset.string(forKey: "apps")
+//        print(appsDataString)
+//        if(appsDataString == nil || appsDataString == "") {
+//            print("no apps yet")
+//            apps = []
+//        } else {
+//            let appsData: [String] = (appsDataString?.components(separatedBy: ","))!
+//            apps = appsData
+//            print(apps)
+//        }
+    }
+    
+    // Tom 2018/04/18
+    func loadAppsFromDB() -> [String] {
+        var returnList: [String] = []
+        let idString = self.credentialsManager.credentialsProvider.getIdentityId().result!
+            var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
+            request.httpMethod = "POST"
+            let postString = "a=\(idString)"
+            request.httpBody = postString.data(using: String.Encoding.utf8)
+
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            var responseOne = responseString
+                
+                let lines = responseOne!.components(separatedBy: "\n")
+            print(lines)
+                
+                // Goes through and picks out the platforms.
+                if (lines.count > 3){
+                    var count = 0
+                    for index in 0...lines.count - 1{
+                        count = count + 1
+                        if (count == 2) {
+                           returnList.append(lines[index])
+                        }else if (count == 4) {
+                            count = 0
+                        }
+                    }
+                }
+        })
+        task.resume()
+        return returnList
     }
     
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
@@ -252,7 +292,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ ExpensesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("tableView() return apps.count")
+        print("tableView() return apps.count = \(apps.count)")
         return apps.count
     }
     
@@ -260,6 +300,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Create an object of the dynamic cell “PlainCell”
         let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
+        print("Adding to table view now: \(cell)")
         if (!cellSwitches.contains(cell)) {
             cellSwitches.append(cell)
         }
