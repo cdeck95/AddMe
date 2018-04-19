@@ -84,37 +84,43 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             print(username)
             print(displayName)
             print(key)
-            let objectMapper = AWSDynamoDBObjectMapper.default()
-            let app:Apps = Apps()
-            app._userId = userID
-            app._displayName = displayName
-            app._platform = key
+            let app:App = App()
+            app.userId = userID
+            app.displayName = displayName
+            app.platform = key
             switch key {
             case "Facebook":
-                app._uRL = "http://facebook.com/\(username)"
+                app.uRL = "http://facebook.com/\(username)"
             case "Twitter":
-                app._uRL = "http://www.twitter.com/\(username)"
+                app.uRL = "http://www.twitter.com/\(username)"
             case "Instagram":
-                app._uRL = "http://instagram.com/\(username)"
+                app.uRL = "http://instagram.com/\(username)"
             case "Snapchat":
-                app._uRL = "http://www.snapchat.com/add/\(username)"
+                app.uRL = "http://www.snapchat.com/add/\(username)"
             case "LinkedIn":
-                app._uRL = "http://www.linkedin.com/in/\(username)"
+                app.uRL = "http://www.linkedin.com/in/\(username)"
             default:
                 print("unknown app found: \(key)")
             }
             
+            var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php")!)
+            request.httpMethod = "POST"
+            let postString = "a=\(self.credentialsManager.identityID)&b=\(app.displayName)&c=\(app.platform)&d=\(app.uRL)"
+            request.httpBody = postString.data(using: String.Encoding.utf8)
+            
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                data, response, error in
+                if error != nil {
+                    print("error=\(error)")
+
             // Tom - 4/18/2018
             self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
-            
-            objectMapper.save(app, completionHandler: { (error: Error?) in
-                if let error = error {
-                    print("AWS DynamoDB save error: \(error)")
-                    return
-                }
                 
-                print("app saved: \(app)")
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                var responseOne = responseString
+                print(responseOne!)
             })
+            task.resume()
         }
         
         //the cancel action doing nothing
@@ -172,7 +178,10 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             print("error")
         }
     }
-
+    
+    @IBAction func addApp(_ sender: Any) {
+       
+    }
     
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
