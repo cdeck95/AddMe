@@ -20,6 +20,7 @@ import FacebookCore
 //import SideMenu
 
 var cellSwitches: [AppsTableViewCell] = []
+ var apps: [Apps] = []
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -39,7 +40,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
    
     @IBOutlet weak var addAppButton: UIBarButtonItem!
-    var apps: [String] = []
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,56 +152,49 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func loadApps(){
         print("loadApps()")
-
-        apps = loadAppsFromDB()
-        // let appsDataString = datasetManager.dataset.string(forKey: "apps")
-//        print(appsDataString)
-//        if(appsDataString == nil || appsDataString == "") {
-//            print("no apps yet")
-//            apps = []
-//        } else {
-//            let appsData: [String] = (appsDataString?.components(separatedBy: ","))!
-//            apps = appsData
-//            print(apps)
-//        }
+        loadAppsFromDB()
     }
     
     // Tom 2018/04/18
-    func loadAppsFromDB() -> [String] {
-        var returnList: [String] = []
-        let idString = self.credentialsManager.credentialsProvider.getIdentityId().result!
+    func loadAppsFromDB() {
+        var returnList: [Apps] = []
+        let idString = self.credentialsManager.identityID!
+        print(idString)
             var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
             request.httpMethod = "POST"
             let postString = "a=\(idString)"
             request.httpBody = postString.data(using: String.Encoding.utf8)
-
             let task = URLSession.shared.dataTask(with: request, completionHandler: {
             data, response, error in
             if error != nil {
                 print("error=\(error)")
                 return
+            } else {
+                print("---no error----")
             }
+                
             let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             var responseOne = responseString
-                
-                let lines = responseOne!.components(separatedBy: "\n")
+            let lines = responseOne!.components(separatedBy: "\n")
             print(lines)
                 
                 // Goes through and picks out the platforms.
                 if (lines.count > 3){
-                    var count = 0
-                    for index in 0...lines.count - 1{
-                        count = count + 1
-                        if (count == 2) {
-                           returnList.append(lines[index])
-                        }else if (count == 4) {
-                            count = 0
-                        }
+                    for index in stride(from:0, to: lines.count-1, by: 4) {
+                        print(index)
+                        let app = Apps()
+                        app?._userId = lines[index]
+                        app?._displayName = lines[index+1]
+                        app?._platform = lines[index+2]
+                        app?._uRL = lines[index+3]
+                        print(app)
+                        returnList.append(app!)
                     }
+                    apps = returnList
                 }
         })
         task.resume()
-        return returnList
+        
     }
     
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
@@ -255,29 +249,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
      print("createQRCode()")
         if(cellSwitches.count > 0){
             for index in 0...cellSwitches.count - 1{
-                var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
-                var app = cellSwitches[index].NameLabel.text! + ""
-                print(app)
+                let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+                let appID = cellSwitches[index].id
+                print(appID)
                 print(isSelectedForQRCode)
                 if (isSelectedForQRCode){
-                    switch app {
-                    case "Facebook":
-                        let username = datasetManager.dataset.string(forKey: app)
-                        jsonStringAsArray += "\"facebook\":\"http://facebook.com/\(username!)\",\n"
-                    case "Twitter":
-                        let username = datasetManager.dataset.string(forKey: app)
-                        jsonStringAsArray += "\"twitter\":\"http://www.twitter.com/\(username!)\",\n"
-                    case "Instagram":
-                        let username = datasetManager.dataset.string(forKey: app)
-                        jsonStringAsArray += "\"instagram\":\"http://instagram.com/\(username!)\",\n"
-                    case "Snapchat":
-                        let username = datasetManager.dataset.string(forKey: app)
-                        jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/\(username!)\",\n"
-                    case "LinkedIn":
-                        let username = datasetManager.dataset.string(forKey: app)
-                        jsonStringAsArray += "\"linkedin\":\"http://www.linkedin.com/in/\(username!)\",\n"
-                    default:
-                        print("unknown app found: \(app)")
+                    for app in apps {
+                        if(Int(app._userId!) == appID){
+                             jsonStringAsArray += "\(app._uRL!),\n"
+                        } else {
+                            print("app not found to make QR code")
+                        }
                     }
                 }
             }
@@ -304,7 +286,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (!cellSwitches.contains(cell)) {
             cellSwitches.append(cell)
         }
-        cell.NameLabel.text = apps[indexPath.row]
+        cell.NameLabel.text = apps[indexPath.row]._displayName
+        cell.id = Int(apps[indexPath.row]._userId!)
         return cell
     }
     @IBAction func refreshTableView(_ sender: Any) {
@@ -337,7 +320,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     private func updateView() {
         print("updateView()")
         let hasApps = apps.count > 0
-        appsTableView.isHidden = !hasApps
+        print("has apps: \(hasApps)")
+        appsTableView.isHidden = false //!hasApps
         activityIndicatorView.stopAnimating()
         activityIndicatorView.isHidden = true
         //messageLabel.isHidden = hasApps
@@ -355,7 +339,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: -
     private func setupTableView() {
         print("setuptableView()")
-        appsTableView.isHidden = true
+        appsTableView.isHidden = false// true
         activityIndicatorView.isHidden = false
     }
     

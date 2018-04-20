@@ -16,6 +16,7 @@ class AppsTableViewCell: UITableViewCell {
     @IBInspectable var shadowColor: UIColor? = UIColor.gray
     @IBInspectable var shadowOpacity: Float = 0.3
     @IBOutlet weak var NameLabel: UILabel!
+    var id:Int!
    
     @IBOutlet weak var appSwitch: UISwitch!
     

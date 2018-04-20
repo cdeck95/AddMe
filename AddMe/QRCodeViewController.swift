@@ -36,16 +36,17 @@ class QRCodeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let jsonStringAsArray: String = dataset.string(forKey: "jsonStringAsArray")
-            else {
-                print("code has not been created yet")
-                let image = UIImage(named: "launch_logo")
-                QRCode.image = image
-                return
-        }
-        print("json from data set: \(jsonStringAsArray)")
-        qrCode = generateQRCode(from: jsonStringAsArray)
-        QRCode.image = qrCode
+//        guard let jsonStringAsArray: String = dataset.string(forKey: "jsonStringAsArray")
+//            else {
+//                print("code has not been created yet")
+//                let image = UIImage(named: "launch_logo")
+//                QRCode.image = image
+//                return
+//        }
+//        print("json from data set: \(jsonStringAsArray)")
+//        qrCode = generateQRCode(from: jsonStringAsArray)
+//        QRCode.image = qrCode
+        createQRCode(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,44 +94,31 @@ class QRCodeViewController: UIViewController {
     @IBAction func createQRCode(_ sender: Any) {
         var jsonStringAsArray = "{\n"
         print("createQRCode()")
-        
         if(cellSwitches.count > 0){
             for index in 0...cellSwitches.count - 1{
-                var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
-                var app = cellSwitches[index].NameLabel.text! + ""
-                print(app)
+                let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+                let appID = cellSwitches[index].id
+                print(appID)
                 print(isSelectedForQRCode)
                 if (isSelectedForQRCode){
-                    switch app {
-                    case "Facebook":
-                        let username = datasetManager.dataset.string(forKey: app)
-                        jsonStringAsArray += "\"facebook\":\"http://facebook.com/\(username!)\",\n"
-                    case "Twitter":
-                        let username = datasetManager.dataset.string(forKey: app)
-                        jsonStringAsArray += "\"twitter\":\"http://www.twitter.com/\(username!)\",\n"
-                    case "Instagram":
-                        let username = datasetManager.dataset.string(forKey: app)
-                        jsonStringAsArray += "\"instagram\":\"http://instagram.com/\(username!)\",\n"
-                    case "Snapchat":
-                        let username = datasetManager.dataset.string(forKey: app)
-                        jsonStringAsArray += "\"snapchat\":\"http://www.snapchat.com/add/\(username!)\",\n"
-                    case "LinkedIn":
-                        let username = datasetManager.dataset.string(forKey: app)
-                        jsonStringAsArray += "\"linkedin\":\"http://www.linkedin.com/in/\(username!)\",\n"
-                    default:
-                        print("unknown app found: \(app)")
+                    for app in apps {
+                        if(Int(app._userId!) == appID){
+                            jsonStringAsArray += "\(app._uRL!),\n"
+                        } else {
+                            print("app not found to make QR code")
+                        }
                     }
                 }
             }
         } else {
-            print("no apps - casnnot create code")
+            print("no apps - cannot create code")
         }
         jsonStringAsArray += "}"
         let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
                                                                        with: "")
         print(result)
         datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
-        generateQRCode(from: result)
+        QRCode.image = generateQRCode(from: result)
     }
     
     @IBAction func shareButtonClicked(sender: UIButton) {
