@@ -55,8 +55,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Requires access to the camera</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Requires access to photo library</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Requires access to photo library</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
