@@ -123,9 +123,9 @@ class QRCodeViewController: UIViewController {
     
     @IBAction func shareButtonClicked(sender: UIButton) {
         print("share button clicked")
-        let textToShare = "Swift is awesome!  Check out this website about it!"
-        
-            let objectsToShare = [textToShare, QRCode.image] as [Any]
+        //let textToShare = "Swift is awesome!  Check out this website about it!"
+       
+            let objectsToShare = [QRCode.image] as [AnyObject]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             activityVC.excludedActivityTypes = [UIActivityType.addToReadingList]
             activityVC.popoverPresentationController?.sourceView = sender
