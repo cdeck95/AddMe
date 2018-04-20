@@ -102,26 +102,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             default:
                 print("unknown app found: \(key)")
             }
-            
-            var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php")!)
-            request.httpMethod = "POST"
-            let postString = "a=\(self.credentialsManager.identityID)&b=\(app._displayName)&c=\(app._platform)&d=\(app._uRL)"
-            request.httpBody = postString.data(using: String.Encoding.utf8)
-            
-            let task = URLSession.shared.dataTask(with: request, completionHandler: {
-                data, response, error in
-                if error != nil {
-                    print("error=\(error)")
-                } else {
-                    // Tom - 4/18/2018
-                    self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
-                    
-                    let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                    var responseOne = responseString
-                    print(responseOne!)
-                }
-            })
-            task.resume()
+        self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
+
         }
         
         //the cancel action doing nothing
