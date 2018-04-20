@@ -757,6 +757,32 @@
             </objects>
             <point key="canvasLocation" x="1990" y="-1254"/>
         </scene>
+        <!--Item-->
+        <scene sceneID="dM9-Wn-2BS">
+            <objects>
+                <viewController id="KiM-v3-Gnw" customClass="ScanTabViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bJs-92-M9S">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="adD-b5-LQT">
+                                <rect key="frame" x="170" y="318" width="35" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Scan"/>
+                                <connections>
+                                    <segue destination="gfS-lj-f3Q" kind="show" id="R5P-Dw-LTy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="eX2-XK-btS"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="rXI-Ui-kXi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c1M-Xo-yXd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1968.8" y="-542.87856071964018"/>
+        </scene>
         <!--Scan Code-->
         <scene sceneID="MOV-aS-bBM">
             <objects>
@@ -781,7 +807,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUR-wf-mN4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1990" y="-559"/>
+            <point key="canvasLocation" x="2913" y="-543"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="zew-Wa-OvN">
@@ -796,8 +822,8 @@
                     <connections>
                         <segue destination="PSs-OA-1VE" kind="relationship" relationship="viewControllers" id="8ed-IC-1cp"/>
                         <segue destination="z9Z-Ha-ZBC" kind="relationship" relationship="viewControllers" id="MSP-jJ-DYX"/>
-                        <segue destination="gfS-lj-f3Q" kind="relationship" relationship="viewControllers" id="npR-Pi-Ol7"/>
                         <segue destination="9KD-63-wPU" kind="relationship" relationship="viewControllers" id="mSL-rw-g95"/>
+                        <segue destination="KiM-v3-Gnw" kind="relationship" relationship="viewControllers" id="3Xd-fs-14M"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3I-Y6-pgv" userLabel="First Responder" sceneMemberID="firstResponder"/>

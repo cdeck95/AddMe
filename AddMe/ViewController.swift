@@ -269,8 +269,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
                                                               with: "")
         print(result)
-       datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
+        if(datasetManager.dataset != nil){
+            datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
+        }
     }
+      
     
     func tableView(_ ExpensesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("tableView() return apps.count = \(apps.count)")

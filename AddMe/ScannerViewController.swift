@@ -13,10 +13,9 @@ import SafariServices
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, SFSafariViewControllerDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    var dict: [String:String]!
+    var dict: [String]!
     var twitter = 0
     var facebook = 0
-    var keys: Dictionary<String, String>.Keys!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,15 +100,16 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             print(code)
             // convert String to NSData
             let data: Data = code.data(using: String.Encoding.utf8)!
+            print("data converted")
             // convert NSData to 'AnyObject'
             do {
                  guard let result = (try JSONSerialization.jsonObject(with: data, options: [])
-                    as? [String: String]) else {
+                    as? [String]) else {
                         print("error trying to convert data to JSON")
                         return
                 }
                 dict = result
-                print(dict)
+                print("dict:  \(dict)")
                 openPlatforms()
         }
             catch let error as NSError {
@@ -127,25 +127,22 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func openPlatforms(){
-        //openSnapchat(result: result)
-        keys = dict.keys
-        print("all keys: \(keys)")
-        if(keys.count > 0){
-            let currentKey = keys.first as! String
-            print("current key: \(currentKey)")
+        if(dict.count > 0){
+            let currentURL = dict.first as! String
+            print("current url: \(currentURL)")
             self.tabBarController?.hidesBottomBarWhenPushed = true
-            let svc = SFSafariViewController(url: URL(string: dict[currentKey]!)!)
+            let svc = SFSafariViewController(url: URL(string: currentURL)!)
             svc.delegate = self
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.navigationController?.pushViewController(svc, animated: true)
-            dict.removeValue(forKey: currentKey)
+            dict.removeFirst()
         }
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)
     {
         controller.dismiss(animated: true, completion: nil)
-        if keys.count == 0 {
+        if dict.count == 0 {
             print("popping...")
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationController?.popToRootViewController(animated: true)
