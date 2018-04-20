@@ -122,15 +122,14 @@ class QRCodeViewController: UIViewController {
     }
     
     @IBAction func shareButtonClicked(sender: UIButton) {
+        print("share button clicked")
         let textToShare = "Swift is awesome!  Check out this website about it!"
         
-        if let myQRCode = qrCode {
-            let objectsToShare = [textToShare, qrCode] as [Any]
+            let objectsToShare = [textToShare, QRCode.image] as [Any]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             activityVC.excludedActivityTypes = [UIActivityType.addToReadingList]
             activityVC.popoverPresentationController?.sourceView = sender
             self.present(activityVC, animated: true, completion: nil)
-        }
     }
 
 }

@@ -103,9 +103,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                         }
                 })
         }
-        // Initialize the Amazon Cognito credentials provider
-        
-        if AWSSignInManager.sharedInstance().isLoggedIn {
+        else {
             self.navigationController?.popToRootViewController(animated: true)// Initialize the Cognito Sync client
             credentialsManager.createCredentialsProvider()
             //credentialsManager.credentialsProvider.getIdentityId()
@@ -138,6 +136,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         }
                         return nil
                     }
+                    
                     return nil
                 }
                 return nil
