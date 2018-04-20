@@ -255,7 +255,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 if (isSelectedForQRCode){
                     for app in apps {
                         if(Int(app._userId!) == appID){
-                             jsonStringAsArray += "\(app._uRL!),\n"
+                              jsonStringAsArray += "\"\(app._userId!)\": \"\(app._uRL!)\",\n"
                         } else {
                             print("app not found to make QR code")
                         }

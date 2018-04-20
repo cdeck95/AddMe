@@ -103,7 +103,7 @@ class QRCodeViewController: UIViewController {
                 if (isSelectedForQRCode){
                     for app in apps {
                         if(Int(app._userId!) == appID){
-                            jsonStringAsArray += "\(app._uRL!),\n"
+                            jsonStringAsArray += "\"\(app._userId!)\": \"\(app._uRL!)\",\n"
                         } else {
                             print("app not found to make QR code")
                         }
@@ -111,13 +111,15 @@ class QRCodeViewController: UIViewController {
                 }
             }
         } else {
-            print("no apps - cannot create code")
+            print("no apps - casnnot create code")
         }
         jsonStringAsArray += "}"
         let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
                                                                        with: "")
         print(result)
-        datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
+        if(datasetManager.dataset != nil){
+            datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
+        }
         QRCode.image = generateQRCode(from: result)
     }
     

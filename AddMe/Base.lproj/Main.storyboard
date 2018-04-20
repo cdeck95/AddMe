@@ -757,33 +757,7 @@
             </objects>
             <point key="canvasLocation" x="1990" y="-1254"/>
         </scene>
-        <!--Item-->
-        <scene sceneID="dM9-Wn-2BS">
-            <objects>
-                <viewController id="KiM-v3-Gnw" customClass="ScanTabViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bJs-92-M9S">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="adD-b5-LQT">
-                                <rect key="frame" x="170" y="318" width="35" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Scan"/>
-                                <connections>
-                                    <segue destination="gfS-lj-f3Q" kind="show" id="R5P-Dw-LTy"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="eX2-XK-btS"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="rXI-Ui-kXi"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c1M-Xo-yXd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1968.8" y="-542.87856071964018"/>
-        </scene>
-        <!--Scan Code-->
+        <!--Scanner View Controller-->
         <scene sceneID="MOV-aS-bBM">
             <objects>
                 <viewController id="gfS-lj-f3Q" customClass="ScannerViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
@@ -802,12 +776,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="V37-6w-hqC"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Scan Code" image="ic_camera_alt" id="fBj-yv-nYp"/>
                     <navigationItem key="navigationItem" id="Vbi-25-4ab"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUR-wf-mN4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2913" y="-543"/>
+            <point key="canvasLocation" x="1990" y="-570"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="zew-Wa-OvN">
@@ -823,7 +796,7 @@
                         <segue destination="PSs-OA-1VE" kind="relationship" relationship="viewControllers" id="8ed-IC-1cp"/>
                         <segue destination="z9Z-Ha-ZBC" kind="relationship" relationship="viewControllers" id="MSP-jJ-DYX"/>
                         <segue destination="9KD-63-wPU" kind="relationship" relationship="viewControllers" id="mSL-rw-g95"/>
-                        <segue destination="KiM-v3-Gnw" kind="relationship" relationship="viewControllers" id="3Xd-fs-14M"/>
+                        <segue destination="sqC-UD-qBu" kind="relationship" relationship="viewControllers" id="D5d-vb-GIT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3I-Y6-pgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -889,6 +862,25 @@
             </objects>
             <point key="canvasLocation" x="1153" y="-1254"/>
         </scene>
+        <!--Scan Code-->
+        <scene sceneID="MDG-be-OEe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sqC-UD-qBu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Scan Code" image="ic_camera_alt" id="fBj-yv-nYp"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bte-Vr-fui">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gfS-lj-f3Q" kind="relationship" relationship="rootViewController" id="NVt-OS-7sw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wg3-M0-Vbt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1153" y="-571"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Instagram_icon" width="599" height="600"/>
@@ -910,7 +902,7 @@
         <image name="twitter_icon" width="1687" height="1687"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jcH-Gu-r8W"/>
+        <segue reference="1zI-c6-7uB"/>
         <segue reference="2CE-da-Gsd"/>
     </inferredMetricsTieBreakers>
 </document>

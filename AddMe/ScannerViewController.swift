@@ -13,9 +13,10 @@ import SafariServices
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, SFSafariViewControllerDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    var dict: [String]!
+    var dict: [String: String]!
     var twitter = 0
     var facebook = 0
+    var keys: Dictionary<String, String>.Keys!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +105,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             // convert NSData to 'AnyObject'
             do {
                  guard let result = (try JSONSerialization.jsonObject(with: data, options: [])
-                    as? [String]) else {
+                    as? [String: String]) else {
                         print("error trying to convert data to JSON")
                         return
                 }
@@ -127,22 +128,26 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func openPlatforms(){
+        keys = dict.keys
         if(dict.count > 0){
-            let currentURL = dict.first as! String
+            
+            let currentKey = keys.first!
+            print("current key: \(currentKey)")
+            let currentURL = dict[currentKey]!
             print("current url: \(currentURL)")
             self.tabBarController?.hidesBottomBarWhenPushed = true
             let svc = SFSafariViewController(url: URL(string: currentURL)!)
             svc.delegate = self
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.navigationController?.pushViewController(svc, animated: true)
-            dict.removeFirst()
+            dict.removeValue(forKey: currentKey)
         }
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)
     {
         controller.dismiss(animated: true, completion: nil)
-        if dict.count == 0 {
+        if keys.count == 0 {
             print("popping...")
             self.navigationController?.setNavigationBarHidden(false, animated: true)
             self.navigationController?.popToRootViewController(animated: true)
