@@ -94,7 +94,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             case "Twitter":
                 app._uRL = "http://www.twitter.com/\(username)"
             case "Instagram":
-                app._uRL = "http://instagram.com/\(username)"
+                app._uRL = "http://www.instagram.com/\(username)"
             case "Snapchat":
                 app._uRL = "http://www.snapchat.com/add/\(username)"
             case "LinkedIn":
