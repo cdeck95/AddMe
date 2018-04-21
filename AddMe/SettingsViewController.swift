@@ -17,6 +17,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet var platformTextBox: UITextField!
     @IBOutlet var urlTextBox: UITextField!
     var onButtonTapped : (() -> Void)? = nil
+    private let refreshControl = UIRefreshControl()
     
     
     let collectionView: UICollectionView = {
@@ -36,15 +37,15 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("SETTINGS tableView() return cellSwitches.count")
-        return cellSwitches.count
+        return apps.count
     }
     
     // This is where the table cells on the main page are modeled from.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("creating cells for table view in settings")
         let cell:SettingsTableViewCell = settingsAppsTableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsTableViewCell
-        cell.appName.text = cellSwitches[indexPath.row].NameLabel.text! + ""
-        cell.appID = cellSwitches[indexPath.row].id
+        cell.appName.text = apps[indexPath.row]._displayName!
+        cell.appID = Int(apps[indexPath.row]._userId!)
         cell.onButtonTapped = {
             let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "EditAppViewController") as! EditAppViewController
             VC1.AppID = cell.appID
@@ -71,18 +72,14 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }
        self.tabBarController?.tabBar.isHidden = true
-        // Do any additional setup after loading the view.
-        ////////////////////////////
-        if (cellSwitches.count > 0){
-            for index in 0...cellSwitches.count - 1{
-                let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
-                let app = cellSwitches[index].NameLabel.text! + ""
-                print(app)
-                print(isSelectedForQRCode)
-            }
-        }
-        ////////////////////////////
         
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *) {
+            settingsAppsTableView.refreshControl = refreshControl
+        } else {
+            settingsAppsTableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
         switchView.frame = CGRect(x: 0, y: 20, width: 10, height: 5)
         switchView.addTarget(self, action: #selector(switched), for: .valueChanged)
         
@@ -108,9 +105,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         //cellSwitches = []
         self.tabBarController?.tabBar.isHidden = false
-        settingsAppsTableView.reloadData()
+        refreshAppData(self)
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-        settingsAppsTableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -265,6 +261,63 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             
         })
         task.resume()
+    }
+    
+    @objc private func refreshAppData(_ sender: Any) {
+        // Fetch Weather Data
+        print("refreshAppData()")
+        loadAppsFromDB()
+        settingsAppsTableView.reloadData()
+        self.refreshControl.endRefreshing()
+    }
+    
+    func loadAppsFromDB() {
+        var returnList: [Apps] = []
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
+        request.httpMethod = "POST"
+        let postString = "a=\(idString)"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                sema.signal()
+                return
+            } else {
+                print("---no error----")
+            }
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            var responseOne = responseString
+            let lines = responseOne!.components(separatedBy: "\n")
+            print(lines)
+            
+            // Goes through and picks out the platforms.
+            if (lines.count > 3){
+                for index in stride(from:0, to: lines.count-1, by: 4) {
+                    print(index)
+                    let app = Apps()
+                    app?._userId = lines[index]
+                    app?._displayName = lines[index+1]
+                    app?._platform = lines[index+2]
+                    app?._uRL = lines[index+3]
+                    print(app)
+                    returnList.append(app!)
+                }
+                apps = returnList
+                sema.signal();
+            }
+            else {
+                apps = returnList
+                sema.signal()
+            }
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        self.settingsAppsTableView.reloadData()
     }
     
 

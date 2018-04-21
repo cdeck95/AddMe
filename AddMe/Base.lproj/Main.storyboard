@@ -129,6 +129,46 @@
             </objects>
             <point key="canvasLocation" x="1989.5999999999999" y="133.5832083958021"/>
         </scene>
+        <!--Table View Controller-->
+        <scene sceneID="pbX-Ql-qTf">
+            <objects>
+                <tableViewController id="xgQ-Wt-h4G" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZiM-KQ-jzd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlainCell" id="IS8-qK-UFA" customClass="ChooseSettingsTableViewCell" customModule="AddMe" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IS8-qK-UFA" id="bwh-vg-LLP" customClass="UITableViewCell">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Edit/Remove Apps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Anf-fW-hqw">
+                                            <rect key="frame" x="16" y="11" width="140" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="settingName" destination="Anf-fW-hqw" id="pbE-JC-HDP"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xgQ-Wt-h4G" id="S1w-nt-P8P"/>
+                            <outlet property="delegate" destination="xgQ-Wt-h4G" id="h3s-7u-NtZ"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ta8-Vw-guu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1976" y="2343"/>
+        </scene>
         <!--Settings View Controller-->
         <scene sceneID="qZz-Rd-2lI">
             <objects>
@@ -137,32 +177,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxi-eo-IGf">
-                                <rect key="frame" x="155" y="99" width="64" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cd5-dm-HeZ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Title" id="feF-h9-eZU"/>
-                                </items>
-                            </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kPv-vc-8Td">
-                                <rect key="frame" x="137" y="162" width="101" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Delete all apps"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kPv-vc-8Td">
+                                <rect key="frame" x="137" y="617" width="101" height="30"/>
+                                <state key="normal" title="Delete all apps">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="deleteApps:" destination="MaD-TQ-yjv" eventType="touchUpInside" id="enf-jw-C9J"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DYa-gX-2oo">
-                                <rect key="frame" x="0.0" y="249" width="375" height="226"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit/Remove Apps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLr-8Z-sl9">
+                                <rect key="frame" x="117" y="83" width="140" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DYa-gX-2oo">
+                                <rect key="frame" x="0.0" y="146" width="375" height="463"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="463" id="YGA-8d-dCt"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingsCell" id="tC2-ub-PHW" customClass="SettingsTableViewCell" customModule="AddMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -171,22 +206,30 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9H8-Iy-K8u">
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9H8-Iy-K8u">
                                                     <rect key="frame" x="322" y="6" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="ojw-OH-Bwg"/>
+                                                    </constraints>
                                                     <state key="normal" title="Edit"/>
                                                     <connections>
                                                         <action selector="showDetails:" destination="tC2-ub-PHW" eventType="touchUpInside" id="sVZ-Tn-4ar"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdb-9u-Q2w">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdb-9u-Q2w">
                                                     <rect key="frame" x="15" y="10" width="282" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Sdb-9u-Q2w" firstAttribute="baseline" secondItem="9H8-Iy-K8u" secondAttribute="baseline" id="0hJ-q7-CZe"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9H8-Iy-K8u" secondAttribute="trailing" constant="7" id="LqG-1t-jHU"/>
+                                                <constraint firstItem="9H8-Iy-K8u" firstAttribute="leading" secondItem="Sdb-9u-Q2w" secondAttribute="trailing" constant="25" id="TVS-F5-kup"/>
+                                                <constraint firstItem="9H8-Iy-K8u" firstAttribute="centerY" secondItem="UfX-Qf-bmB" secondAttribute="centerY" id="cHK-ug-lK6"/>
+                                                <constraint firstItem="Sdb-9u-Q2w" firstAttribute="leading" secondItem="UfX-Qf-bmB" secondAttribute="leadingMargin" constant="-1" id="xiY-Oe-6GD"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="appName" destination="Sdb-9u-Q2w" id="0ww-QG-lT5"/>
@@ -199,15 +242,17 @@
                                     <outlet property="delegate" destination="MaD-TQ-yjv" id="rGs-94-MPq"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Edit/Remove Apps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLr-8Z-sl9">
-                                <rect key="frame" x="114" y="220" width="146" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YLr-8Z-sl9" firstAttribute="centerX" secondItem="DYa-gX-2oo" secondAttribute="centerX" id="1U9-pA-v6g"/>
+                            <constraint firstItem="DYa-gX-2oo" firstAttribute="top" secondItem="qzt-oJ-2eq" secondAttribute="top" constant="146" id="8Ts-xr-jdw"/>
+                            <constraint firstItem="kPv-vc-8Td" firstAttribute="centerX" secondItem="DYa-gX-2oo" secondAttribute="centerX" id="K3I-ZR-C4A"/>
+                            <constraint firstItem="YLr-8Z-sl9" firstAttribute="top" secondItem="4eX-4P-GeW" secondAttribute="top" constant="19" id="OfI-af-Rum"/>
+                            <constraint firstAttribute="trailing" secondItem="DYa-gX-2oo" secondAttribute="trailing" id="g6O-IY-nQx"/>
+                            <constraint firstItem="DYa-gX-2oo" firstAttribute="leading" secondItem="qzt-oJ-2eq" secondAttribute="leading" id="gso-aW-a0v"/>
+                            <constraint firstItem="kPv-vc-8Td" firstAttribute="top" secondItem="DYa-gX-2oo" secondAttribute="bottom" constant="8" symbolic="YES" id="xGK-f7-zYD"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="4eX-4P-GeW"/>
                     </view>
                     <navigationItem key="navigationItem" id="9Q1-80-q7X">
@@ -223,7 +268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nQf-Lz-txx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1989.5999999999999" y="2387.8560719640182"/>
+            <point key="canvasLocation" x="2852" y="2367"/>
         </scene>
         <!--Edit App View Controller-->
         <scene sceneID="Jjp-ej-VfU">
@@ -270,7 +315,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emP-9e-5fT">
-                                <rect key="frame" x="16" y="617" width="48" height="30"/>
+                                <rect key="frame" x="174" y="617" width="48" height="30"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="dismiss:" destination="FPh-yG-zZn" eventType="touchUpInside" id="Lmn-8o-7k0"/>
@@ -291,16 +336,26 @@
                                     <action selector="runCustomSQL:" destination="MaD-TQ-yjv" eventType="touchUpInside" id="BAD-Wm-yPX"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="je3-Of-Q7d">
+                                <rect key="frame" x="17" y="617" width="45" height="30"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteApp:" destination="FPh-yG-zZn" eventType="touchUpInside" id="vAq-yq-Maf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HbU-gg-bB4" firstAttribute="centerY" secondItem="sP7-gu-BK9" secondAttribute="centerY" id="04F-u6-US7"/>
                             <constraint firstItem="Xdt-LW-eYL" firstAttribute="centerY" secondItem="Mm0-3l-mT2" secondAttribute="centerY" id="0Dg-w4-TXp"/>
-                            <constraint firstItem="4xk-BN-vHq" firstAttribute="leading" secondItem="emP-9e-5fT" secondAttribute="leading" id="2HH-kF-ynW"/>
+                            <constraint firstItem="4xk-BN-vHq" firstAttribute="leading" secondItem="emP-9e-5fT" secondAttribute="leading" constant="-158" id="2HH-kF-ynW"/>
                             <constraint firstItem="sP7-gu-BK9" firstAttribute="trailing" secondItem="T3b-8e-9CI" secondAttribute="trailingMargin" id="68p-Af-8Ks"/>
                             <constraint firstItem="emP-9e-5fT" firstAttribute="baseline" secondItem="ww6-x6-cdY" secondAttribute="baseline" id="6q7-6f-2MB"/>
                             <constraint firstItem="Mm0-3l-mT2" firstAttribute="leading" secondItem="OwH-km-Lf3" secondAttribute="leading" id="954-tR-ele"/>
                             <constraint firstItem="OwH-km-Lf3" firstAttribute="top" secondItem="Mm0-3l-mT2" secondAttribute="bottom" constant="47" id="Eal-nM-OFH"/>
+                            <constraint firstItem="je3-Of-Q7d" firstAttribute="leading" secondItem="6H0-AO-mak" secondAttribute="leading" constant="17" id="GXa-Ze-LPd"/>
                             <constraint firstAttribute="bottom" secondItem="emP-9e-5fT" secondAttribute="bottom" constant="20" symbolic="YES" id="Hss-U3-qFv"/>
                             <constraint firstItem="sP7-gu-BK9" firstAttribute="top" secondItem="6H0-AO-mak" secondAttribute="top" constant="84" id="ITe-bz-g98"/>
                             <constraint firstItem="sP7-gu-BK9" firstAttribute="trailing" secondItem="Mm0-3l-mT2" secondAttribute="trailing" id="Kmd-A8-9rE"/>
@@ -310,6 +365,7 @@
                             <constraint firstItem="Mm0-3l-mT2" firstAttribute="trailing" secondItem="OwH-km-Lf3" secondAttribute="trailing" id="gVS-iF-Jjx"/>
                             <constraint firstItem="Xdt-LW-eYL" firstAttribute="leading" secondItem="4xk-BN-vHq" secondAttribute="leading" id="nGM-2v-qZe"/>
                             <constraint firstItem="HbU-gg-bB4" firstAttribute="leading" secondItem="Xdt-LW-eYL" secondAttribute="leading" id="oN6-nb-8Gt"/>
+                            <constraint firstItem="je3-Of-Q7d" firstAttribute="baseline" secondItem="emP-9e-5fT" secondAttribute="baseline" id="qOa-qu-jZt"/>
                             <constraint firstItem="sP7-gu-BK9" firstAttribute="leading" secondItem="Mm0-3l-mT2" secondAttribute="leading" id="qoJ-dn-gx4"/>
                             <constraint firstItem="Mm0-3l-mT2" firstAttribute="top" secondItem="sP7-gu-BK9" secondAttribute="bottom" constant="48" id="sZu-vW-EhE"/>
                             <constraint firstItem="OwH-km-Lf3" firstAttribute="trailing" secondItem="ww6-x6-cdY" secondAttribute="trailing" id="yfj-Yw-9hp"/>
@@ -324,7 +380,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ScA-3b-qZz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2852" y="2387.8560719640182"/>
+            <point key="canvasLocation" x="3649" y="2388"/>
         </scene>
         <!--Help View Controller-->
         <scene sceneID="ROI-b7-Jnk">
@@ -434,7 +490,7 @@
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="MaD-TQ-yjv" kind="show" id="5pM-Ut-9TI"/>
+                                            <segue destination="MaD-TQ-yjv" kind="show" id="UcA-dH-yAX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHT-TW-9qq">
@@ -484,7 +540,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="17t-rl-Mpk">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="Title" id="bED-OI-LOh">
+                                    <navigationItem id="bED-OI-LOh">
                                         <barButtonItem key="leftBarButtonItem" title="Item" image="ic_menu" id="Lsu-Qf-Ehf">
                                             <connections>
                                                 <segue destination="30M-NW-2cH" kind="presentation" id="jcH-Gu-r8W"/>
@@ -912,7 +968,7 @@
         <image name="twitter_icon" width="1687" height="1687"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="S6U-Ws-6Mc"/>
+        <segue reference="jcH-Gu-r8W"/>
         <segue reference="XTG-76-LkZ"/>
     </inferredMetricsTieBreakers>
 </document>

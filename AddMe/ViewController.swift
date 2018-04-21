@@ -20,7 +20,7 @@ import FacebookCore
 //import SideMenu
 
 var cellSwitches: [AppsTableViewCell] = []
- var apps: [Apps] = []
+var apps: [Apps] = []
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 

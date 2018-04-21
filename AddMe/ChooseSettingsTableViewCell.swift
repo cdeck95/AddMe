@@ -1,24 +1,25 @@
 //
-//  SettingsTableViewCell.swift
-//  AWSAuthCore
+//  ChooseSettingsTableViewCell.swift
+//  AddMe
 //
-//  Created by Christopher Deck on 4/16/18.
+//  Created by Christopher Deck on 4/21/18.
+//  Copyright © 2018 Christopher Deck. All rights reserved.
 //
 
 import UIKit
 
-class SettingsTableViewCell: UITableViewCell {
+class ChooseSettingsTableViewCell: UITableViewCell {
 
     @IBInspectable var cornerRadius: CGFloat = 2
     @IBInspectable var shadowOffsetWidth: Int = 0
     @IBInspectable var shadowOffsetHeight: Int = 3
     @IBInspectable var shadowColor: UIColor? = UIColor.gray
     @IBInspectable var shadowOpacity: Float = 0.3
-    @IBOutlet var appName: UILabel!
-    var appID:Int!
+    
+    @IBOutlet weak var settingName: UILabel!
+    
     var onButtonTapped : (() -> Void)? = nil
     
-    @IBOutlet weak var editButton: UIButton!
     override func awakeFromNib() {
         print("AppTableViewCell.swift awakeFromNib()")
         super.awakeFromNib()
