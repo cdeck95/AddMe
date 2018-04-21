@@ -16,6 +16,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet var displayNameTextBox: UITextField!
     @IBOutlet var platformTextBox: UITextField!
     @IBOutlet var urlTextBox: UITextField!
+    var onButtonTapped : (() -> Void)? = nil
+    
     
     let collectionView: UICollectionView = {
         let frame = CGRect(x: UIScreen.main.bounds.size.width / 2, y: UIScreen.main.bounds.size.height / 2, width: UIScreen.main.bounds.size.width / 2, height: UIScreen.main.bounds.size.height / 2)
@@ -42,6 +44,13 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         print("creating cells for table view in settings")
         let cell:SettingsTableViewCell = settingsAppsTableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsTableViewCell
         cell.appName.text = cellSwitches[indexPath.row].NameLabel.text! + ""
+        cell.appID = cellSwitches[indexPath.row].id
+        cell.onButtonTapped = {
+            let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "EditAppViewController") as! EditAppViewController
+            VC1.AppID = cell.appID
+            self.navigationController!.showDetailViewController(VC1, sender: cell)
+            
+        }
         return cell
     }
     
@@ -66,8 +75,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         ////////////////////////////
         if (cellSwitches.count > 0){
             for index in 0...cellSwitches.count - 1{
-                var isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
-                var app = cellSwitches[index].NameLabel.text! + ""
+                let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+                let app = cellSwitches[index].NameLabel.text! + ""
                 print(app)
                 print(isSelectedForQRCode)
             }
@@ -258,14 +267,5 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         task.resume()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
