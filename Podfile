@@ -14,6 +14,7 @@ target 'AddMe' do
     pod 'AWSFacebookSignIn', '~> 2.6.6'
     pod 'AWSCognito'
     pod 'FacebookCore'
+    pod 'AWSDynamoDB'
     # other pods
 
 end

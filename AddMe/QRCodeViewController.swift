@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSCognito
+import Foundation
 
 class QRCodeViewController: UIViewController {
 
@@ -16,6 +17,8 @@ class QRCodeViewController: UIViewController {
     var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
     var credentialsManager = CredentialsManager.sharedInstance
+    var datasetManager = Dataset.sharedInstance
+    var qrCode:UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +36,17 @@ class QRCodeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let jsonStringAsArray: String = dataset.string(forKey: "jsonStringAsArray")
-            else {
-                print("code has not been created yet")
-                let image = UIImage(named: "launch_logo")
-                QRCode.image = image
-                return
-        }
-        print("json from data set: \(jsonStringAsArray)")
-        let image = generateQRCode(from: jsonStringAsArray)
-        QRCode.image = image
+//        guard let jsonStringAsArray: String = dataset.string(forKey: "jsonStringAsArray")
+//            else {
+//                print("code has not been created yet")
+//                let image = UIImage(named: "launch_logo")
+//                QRCode.image = image
+//                return
+//        }
+//        print("json from data set: \(jsonStringAsArray)")
+//        qrCode = generateQRCode(from: jsonStringAsArray)
+//        QRCode.image = qrCode
+        createQRCode(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,14 +91,47 @@ class QRCodeViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func createQRCode(_ sender: Any) {
+        var jsonStringAsArray = "{\n"
+        print("createQRCode()")
+        if(cellSwitches.count > 0){
+            for index in 0...cellSwitches.count - 1{
+                let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+                let appID = cellSwitches[index].id
+                print(appID)
+                print(isSelectedForQRCode)
+                if (isSelectedForQRCode){
+                    for app in apps {
+                        if(Int(app._userId!) == appID){
+                            jsonStringAsArray += "\"\(app._userId!)\": \"\(app._uRL!)\",\n"
+                        } else {
+                            print("app not found to make QR code")
+                        }
+                    }
+                }
+            }
+        } else {
+            print("no apps - casnnot create code")
+        }
+        jsonStringAsArray += "}"
+        let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
+                                                                       with: "")
+        print(result)
+        if(datasetManager.dataset != nil){
+            datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
+        }
+        QRCode.image = generateQRCode(from: result)
     }
-    */
+    
+    @IBAction func shareButtonClicked(sender: UIButton) {
+        print("share button clicked")
+        //let textToShare = "Swift is awesome!  Check out this website about it!"
+       
+            let objectsToShare = [QRCode.image] as [AnyObject]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            activityVC.excludedActivityTypes = [UIActivityType.addToReadingList]
+            activityVC.popoverPresentationController?.sourceView = sender
+            self.present(activityVC, animated: true, completion: nil)
+    }
 
 }

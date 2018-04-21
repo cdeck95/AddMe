@@ -13,7 +13,7 @@ import SafariServices
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, SFSafariViewControllerDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    var dict: [String:String]!
+    var dict: [String: String]!
     var twitter = 0
     var facebook = 0
     var keys: Dictionary<String, String>.Keys!
@@ -23,7 +23,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
-        self.tabBarController?.tabBar.isHidden = true
+        
         
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
         let videoInput: AVCaptureDeviceInput
@@ -101,6 +101,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             print(code)
             // convert String to NSData
             let data: Data = code.data(using: String.Encoding.utf8)!
+            print("data converted")
             // convert NSData to 'AnyObject'
             do {
                  guard let result = (try JSONSerialization.jsonObject(with: data, options: [])
@@ -109,7 +110,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                         return
                 }
                 dict = result
-                print(dict)
+                print("dict:  \(dict)")
                 openPlatforms()
         }
             catch let error as NSError {
@@ -127,14 +128,15 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func openPlatforms(){
-        //openSnapchat(result: result)
         keys = dict.keys
-        print("all keys: \(keys)")
-        if(keys.count > 0){
-            let currentKey = keys.first as! String
+        if(dict.count > 0){
+            
+            let currentKey = keys.first!
             print("current key: \(currentKey)")
+            let currentURL = dict[currentKey]!
+            print("current url: \(currentURL)")
             self.tabBarController?.hidesBottomBarWhenPushed = true
-            let svc = SFSafariViewController(url: URL(string: dict[currentKey]!)!)
+            let svc = SFSafariViewController(url: URL(string: currentURL)!)
             svc.delegate = self
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.navigationController?.pushViewController(svc, animated: true)

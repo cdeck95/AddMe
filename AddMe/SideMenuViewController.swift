@@ -45,6 +45,19 @@ class SideMenuViewController: UIViewController {
         config.canCancel = true
         
         if (AWSSignInManager.sharedInstance().isLoggedIn) {
+            if(AWSFacebookSignInProvider.sharedInstance().isLoggedIn){
+                AWSFacebookSignInProvider.sharedInstance().logout()
+                AWSAuthUIViewController
+                    .presentViewController(with: self.navigationController!,
+                                           configuration: config,
+                                           completionHandler: { (provider: AWSSignInProvider, error: Error?) in
+                                            if error != nil {
+                                                print("Error occurred: \(String(describing: error))")
+                                            } else {
+                                                
+                                            }
+                    })
+            } else {
             AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, error: Error?) in
                 DispatchQueue.main.async(execute: {
                     AWSAuthUIViewController
@@ -54,17 +67,19 @@ class SideMenuViewController: UIViewController {
                                                 if error != nil {
                                                     print("Error occurred: \(String(describing: error))")
                                                 } else {
-                                                    // Sign in successful.
+            
                                                 }
                         })
                     self.credentialsManager.credentialsProvider.clearKeychain()
                     self.credentialsManager.credentialsProvider.clearCredentials()
+                    
                     print(result)
                 })
             })
             //print("Logout Successful: \(signInProvider.getDisplayName)");
+        }
         } else {
-            //assert(false)
+            
         }
     }
 
