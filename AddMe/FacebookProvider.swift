@@ -12,6 +12,7 @@ import FacebookCore
 
 class FacebookProvider: NSObject, AWSIdentityProviderManager {
     func logins() -> AWSTask<NSDictionary> {
+        
         if let token = AccessToken.current?.authenticationToken {
             return AWSTask(result: [AWSIdentityProviderFacebook:token])
         }

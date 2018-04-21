@@ -10,7 +10,6 @@
 		CCE90FC70675E381BDDE5FC7 /* Pods_AddMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */; };
 		DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B25F6204E2623004D3160 /* CredentialsManager.swift */; };
 		DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4388EE2086747000E0CD0D /* CameraViewController.swift */; };
-		DA4388F3208AA6EC00E0CD0D /* ScanTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4388F2208AA6EC00E0CD0D /* ScanTabViewController.swift */; };
 		DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68505C205B5FA300BA36DE /* HelpViewController.swift */; };
 		DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EE92037859800E79B47 /* AppDelegate.swift */; };
 		DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EEB2037859800E79B47 /* ViewController.swift */; };
@@ -41,7 +40,6 @@
 		0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AddMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2B25F6204E2623004D3160 /* CredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsManager.swift; sourceTree = "<group>"; };
 		DA4388EE2086747000E0CD0D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		DA4388F2208AA6EC00E0CD0D /* ScanTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanTabViewController.swift; sourceTree = "<group>"; };
 		DA68505C205B5FA300BA36DE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DA6A7EE62037859800E79B47 /* AddMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AddMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A7EE92037859800E79B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA6A7EED2037859800E79B47 /* Main.storyboard */,
-				DA4388F2208AA6EC00E0CD0D /* ScanTabViewController.swift */,
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
 				DAA7D4E8208598D800E62E04 /* ProfileImage.swift */,
 				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
@@ -344,7 +341,6 @@
 				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
-				DA4388F3208AA6EC00E0CD0D /* ScanTabViewController.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
 				DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */,
 				DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */,

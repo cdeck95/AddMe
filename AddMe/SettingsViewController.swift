@@ -205,8 +205,26 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // TODO: Probably should add a Confirm Delete? button.
     @IBAction func deleteApps(_ sender: Any) {
-        dataset.removeObject(forKey: "apps")
-        cellSwitches = []
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/deleteUser.php")!)
+        request.httpMethod = "POST"
+        let postString = "a=\(idString)"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                return
+            } else {
+                print("---no error----")
+            }
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print(responseString)
+            
+        })
+        task.resume()
     }
     
     /*

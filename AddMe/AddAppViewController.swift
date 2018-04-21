@@ -53,26 +53,26 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         //Setting title and message for the alert dialog
    
         var alertController:UIAlertController!
-        switch key {
-            case "Facebook":
-                if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
-                    let alertController = UIAlertController(title: "Good News!", message: "You are already authenticated with Facebook. Please reload the home screen.", preferredStyle: .alert)
-                    
-                    //the confirm action taking the inputs
-                    let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in }
-                    
-                    //adding the action to dialogbox
-                    alertController.addAction(confirmAction)
-                    
-                    //finally presenting the dialog box
-                    self.present(alertController, animated: true, completion: nil)
-                    return
-                } else {
-                     alertController = UIAlertController(title: "Enter details", message: "Facebook special instructions", preferredStyle: .alert)
-                }
-            default:
+//        switch key {
+//            case "Facebook":
+//                if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
+//                    let alertController = UIAlertController(title: "Good News!", message: "You are already authenticated with Facebook. Please just enter your custom display name.", preferredStyle: .alert)
+//
+//                    //the confirm action taking the inputs
+//                    let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in }
+//
+//                    //adding the action to dialogbox
+//                    alertController.addAction(confirmAction)
+//
+//                    //finally presenting the dialog box
+//                    self.present(alertController, animated: true, completion: nil)
+//                    return
+//                } else {
+//                     alertController = UIAlertController(title: "Enter details", message: "Facebook special instructions", preferredStyle: .alert)
+//                }
+//            default:
                 alertController = UIAlertController(title: "Enter details", message: "Enter your username", preferredStyle: .alert)
-        }
+        //}
         
         
         //the confirm action taking the inputs

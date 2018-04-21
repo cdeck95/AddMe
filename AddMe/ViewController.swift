@@ -159,6 +159,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var returnList: [Apps] = []
         let idString = self.credentialsManager.identityID!
         print(idString)
+        let sema = DispatchSemaphore(value: 0);
             var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
             request.httpMethod = "POST"
             let postString = "a=\(idString)"
@@ -167,6 +168,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             data, response, error in
             if error != nil {
                 print("error=\(error)")
+                sema.signal()
                 return
             } else {
                 print("---no error----")
@@ -190,10 +192,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         returnList.append(app!)
                     }
                     apps = returnList
+                    sema.signal();
+                }
+                else {
+                    apps = returnList
+                    sema.signal()
                 }
         })
         task.resume()
-        
+        sema.wait(timeout: DispatchTime.distantFuture)
+        self.appsTableView.reloadData()
     }
     
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
