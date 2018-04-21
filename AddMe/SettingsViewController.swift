@@ -130,6 +130,37 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         task.resume()
     }
     
+    // This will allow you to make your own SQL and run it through the server. Just make a string for 'a' and then for each variable that you
+    //  want to be returned, set it to "Y", if you don't want it to be returned, set it to anything else.
+    @IBAction func runCustomSQL(_ sender: Any)
+    {
+        //$customSQL = $_POST['a'];
+        //$wantUserId = $_POST['b'];
+        //$wantUsername = $_POST['c'];
+        //$wantDisplayName = $_POST['d'];
+        //$wantPlatform = $_POST['e'];
+        //$wantURL = $_POST['f'];
+        let customSqlExample = "SELECT * FROM Users"
+        
+        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/custom.php")!)
+        request.httpMethod = "POST"
+        let postString = "a=\(customSqlExample)&b=Y&c=Y&d=N&e=Y&f=N"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            var responseOne = responseString
+            print(responseOne!)
+        })
+        task.resume()
+    }
+    
     // Send in user Id to get back all the info for that user
     @IBAction func GetUserInfo(_ sender: Any) {
         var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)

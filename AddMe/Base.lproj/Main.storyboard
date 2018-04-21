@@ -293,6 +293,14 @@
                                     <action selector="addUser:" destination="MaD-TQ-yjv" eventType="touchUpInside" id="ARO-Ug-bdF"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-CX-2zk">
+                                <rect key="frame" x="119" y="528" width="158" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Custom SQL Button"/>
+                                <connections>
+                                    <action selector="runCustomSQL:" destination="MaD-TQ-yjv" eventType="touchUpInside" id="BAD-Wm-yPX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4eX-4P-GeW"/>
