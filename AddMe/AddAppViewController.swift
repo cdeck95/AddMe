@@ -99,6 +99,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 app._uRL = "http://www.snapchat.com/add/\(username)"
             case "LinkedIn":
                 app._uRL = "http://www.linkedin.com/in/\(username)"
+            case "GooglePlus":
+                app._uRL = "http://plus.google.com/\(username)"
             default:
                 print("unknown app found: \(key)")
             }
