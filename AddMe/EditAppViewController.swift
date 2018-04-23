@@ -83,6 +83,8 @@ class EditAppViewController: UIViewController {
                 url = "http://www.snapchat.com/add/\(newUserName)"
             case "LinkedIn":
                 url = "http://www.linkedin.com/in/\(newUserName)"
+            case "GooglePlus":
+                url = "http://plus.google.com/\(newUserName)"
             default:
                 print("unknown app found: \(newPlatform)")
             }
