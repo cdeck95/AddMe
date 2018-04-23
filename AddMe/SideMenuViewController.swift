@@ -32,8 +32,12 @@ class SideMenuViewController: UIViewController {
     
     @IBAction func goHome(_ sender: Any) {
         print("going home")
+        if(self.navigationController == nil){
+            
+        }
         self.navigationController?.popToRootViewController(animated: true)
     }
+    
     @IBAction func logout(_ sender: Any) {
         let config = AWSAuthUIConfiguration()
         config.enableUserPoolsUI = true
