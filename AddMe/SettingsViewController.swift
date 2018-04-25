@@ -261,6 +261,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             
         })
         task.resume()
+        refreshAppData(self)
     }
     
     @objc private func refreshAppData(_ sender: Any) {
