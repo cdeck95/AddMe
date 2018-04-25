@@ -66,7 +66,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdb-cy-q3i">
-                                <rect key="frame" x="26" y="253" width="323" height="21"/>
+                                <rect key="frame" x="26" y="204" width="323" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -282,13 +282,13 @@
                                 <rect key="frame" x="139" y="104" width="220" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mm0-3l-mT2">
                                 <rect key="frame" x="139" y="182" width="220" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Platform" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xk-BN-vHq">
                                 <rect key="frame" x="16" y="262" width="65" height="21"/>
@@ -326,14 +326,6 @@
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveApp:" destination="FPh-yG-zZn" eventType="touchUpInside" id="lx2-qR-6wy"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dzf-CX-2zk">
-                                <rect key="frame" x="119" y="528" width="158" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Custom SQL Button"/>
-                                <connections>
-                                    <action selector="runCustomSQL:" destination="MaD-TQ-yjv" eventType="touchUpInside" id="BAD-Wm-yPX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="je3-Of-Q7d">
@@ -375,6 +367,7 @@
                     <connections>
                         <outlet property="displayName" destination="sP7-gu-BK9" id="8Kv-4d-GWe"/>
                         <outlet property="platform" destination="OwH-km-Lf3" id="fzS-QE-qlN"/>
+                        <outlet property="saveButton" destination="ww6-x6-cdY" id="dOt-lq-044"/>
                         <outlet property="userName" destination="Mm0-3l-mT2" id="RZ9-aT-cqX"/>
                     </connections>
                 </viewController>
@@ -541,11 +534,6 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem id="bED-OI-LOh">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" image="ic_menu" id="Lsu-Qf-Ehf">
-                                            <connections>
-                                                <segue destination="30M-NW-2cH" kind="presentation" id="jcH-Gu-r8W"/>
-                                            </connections>
-                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Refresh" image="ic_refresh" id="iSV-A6-3eV">
                                             <connections>
                                                 <action selector="createQRCode:" destination="z9Z-Ha-ZBC" id="eBp-Kf-2DN"/>
@@ -583,14 +571,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4vK-m2-Uww"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Personal Code" image="ic_screen_share" id="KSs-ds-Ftv"/>
+                    <tabBarItem key="tabBarItem" title="Personal Code" image="ic_screen_share" id="R6c-Cd-qgO"/>
+                    <navigationItem key="navigationItem" id="eZo-CQ-sFX"/>
                     <connections>
                         <outlet property="QRCode" destination="wrW-6v-ex3" id="EMc-Qc-vHj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Hd-Pa-52X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1990" y="801"/>
+            <point key="canvasLocation" x="2928.8000000000002" y="800.14992503748135"/>
         </scene>
         <!--Add App View Controller-->
         <scene sceneID="Z3c-z0-opO">
@@ -850,9 +839,9 @@
                     </tabBar>
                     <connections>
                         <segue destination="PSs-OA-1VE" kind="relationship" relationship="viewControllers" id="8ed-IC-1cp"/>
-                        <segue destination="z9Z-Ha-ZBC" kind="relationship" relationship="viewControllers" id="MSP-jJ-DYX"/>
-                        <segue destination="9KD-63-wPU" kind="relationship" relationship="viewControllers" id="mSL-rw-g95"/>
-                        <segue destination="sqC-UD-qBu" kind="relationship" relationship="viewControllers" id="D5d-vb-GIT"/>
+                        <segue destination="z9Z-Ha-ZBC" kind="relationship" relationship="viewControllers" id="x8c-iX-R5C"/>
+                        <segue destination="sqC-UD-qBu" kind="relationship" relationship="viewControllers" id="cJ9-nx-UWl"/>
+                        <segue destination="9KD-63-wPU" kind="relationship" relationship="viewControllers" id="1AC-oG-zXT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3I-Y6-pgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -958,7 +947,7 @@
         <image name="twitter_icon" width="1687" height="1687"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jcH-Gu-r8W"/>
-        <segue reference="XTG-76-LkZ"/>
+        <segue reference="1zI-c6-7uB"/>
+        <segue reference="2CE-da-Gsd"/>
     </inferredMetricsTieBreakers>
 </document>

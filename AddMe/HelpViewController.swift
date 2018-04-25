@@ -13,7 +13,7 @@ import MessageUI
 class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var issuePicker: UIPickerView!
-    var pickerData: [String] = ["", "Cannot connect apps", "Cannot create code", "Code is wrong", "Cannot scan code", "Cannot delete apps"]
+    var pickerData: [String] = ["Cannot connect apps", "Cannot create code", "Code is wrong", "Cannot scan code", "Cannot delete apps"]
     @IBOutlet weak var issueDetails: UITextView!
     var generalIssue:String!
     

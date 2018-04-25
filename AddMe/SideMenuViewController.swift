@@ -32,7 +32,9 @@ class SideMenuViewController: UIViewController {
     
     @IBAction func goHome(_ sender: Any) {
         print("going home")
-        self.navigationController?.popToRootViewController(animated: true)
+//        let VC1  = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! ViewController
+//        self.navigationController?.present(VC1, animated: false, completion: nil)
+    self.navigationController?.popToRootViewController(animated: false)
     }
     @IBAction func logout(_ sender: Any) {
         let config = AWSAuthUIConfiguration()
