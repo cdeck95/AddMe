@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditAppViewController: UIViewController, UITextFieldDelegate {
+class EditAppViewController: UIViewController {
 
     var AppID:Int!
     @IBOutlet weak var displayName: UITextField!
@@ -17,16 +17,10 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
     var credentialsManager = CredentialsManager.sharedInstance
     var lines:[String]!
     
-    @IBOutlet weak var saveButton: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.displayName.delegate = self
-        self.userName.delegate = self
         platform.isUserInteractionEnabled = false
         credentialsManager.createCredentialsProvider()
-        displayName.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
-        userName.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -152,20 +146,8 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
     //hide keyboard when user hits return
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        //self.view.endEditing(true)
         return true
     }
     
-    
-    
-    @objc func textFieldDidChange(textField: UITextField) {
-        if displayName.text == "" || userName.text == "" {
-            saveButton.isEnabled = false
-        } else {
-            saveButton.isEnabled = true
-        }
-    }
-        return true
-    }
 
 }
