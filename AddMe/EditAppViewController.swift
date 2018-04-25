@@ -165,7 +165,5 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
             saveButton.isEnabled = true
         }
     }
-        return true
-    }
 
 }

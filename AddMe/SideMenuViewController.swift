@@ -35,11 +35,6 @@ class SideMenuViewController: UIViewController {
 //        let VC1  = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! ViewController
 //        self.navigationController?.present(VC1, animated: false, completion: nil)
     self.navigationController?.popToRootViewController(animated: false)
-
-        if(self.navigationController == nil){
-            
-        }
-        self.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func logout(_ sender: Any) {
