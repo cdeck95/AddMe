@@ -32,10 +32,6 @@ class SideMenuViewController: UIViewController {
     
     @IBAction func goHome(_ sender: Any) {
         print("going home")
-//        let VC1  = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! ViewController
-//        self.navigationController?.present(VC1, animated: false, completion: nil)
-    self.navigationController?.popToRootViewController(animated: false)
-
         if(self.navigationController == nil){
             
         }
