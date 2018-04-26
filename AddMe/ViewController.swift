@@ -29,8 +29,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var appsTableView: UITableView!
     @IBOutlet weak var scanButton: UIBarButtonItem!
     var token: String!
-    var sideMenuViewController = SideMenuViewController()
-    var isMenuOpened:Bool = false
+    //var sideMenuViewController = SideMenuViewController()
+   // var isMenuOpened:Bool = false
     var identityProvider:String!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
@@ -45,8 +45,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         print("----in view did load----")
-        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-        sideMenuViewController.view.frame = UIScreen.main.bounds
+//        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
+//        sideMenuViewController.view.frame = UIScreen.main.bounds
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
             appsTableView.refreshControl = refreshControl
@@ -65,12 +65,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewWillAppear(_ animated: Bool) {
         print("----in view will appear----")
-        if(isMenuOpened == true){
-            isMenuOpened = false
-            sideMenuViewController.willMove(toParentViewController: nil)
-            sideMenuViewController.view.removeFromSuperview()
-            sideMenuViewController.removeFromParentViewController()
-        }
+//        if(isMenuOpened == true){
+//            isMenuOpened = false
+//            sideMenuViewController.willMove(toParentViewController: nil)
+//            sideMenuViewController.view.removeFromSuperview()
+//            sideMenuViewController.removeFromParentViewController()
+//        }
         cellSwitches = []
         self.tabBarController?.tabBar.isHidden = false
         presentAuthUIViewController()
@@ -226,23 +226,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    @IBAction func menuClicked(_ sender: Any) {
-        print("menuClicked()")
-        if(isMenuOpened){
-            isMenuOpened = false
-            sideMenuViewController.willMove(toParentViewController: nil)
-            sideMenuViewController.view.removeFromSuperview()
-            sideMenuViewController.removeFromParentViewController()
-        }
-        else{
-            isMenuOpened = true
-            self.addChildViewController(sideMenuViewController)
-            self.view.addSubview(sideMenuViewController.view)
-            sideMenuViewController.didMove(toParentViewController: self)
-        }
-        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-    }
-    
+//    @IBAction func menuClicked(_ sender: Any) {
+//        print("menuClicked()")
+//        if(isMenuOpened){
+//            isMenuOpened = false
+//            sideMenuViewController.willMove(toParentViewController: nil)
+//            sideMenuViewController.view.removeFromSuperview()
+//            sideMenuViewController.removeFromParentViewController()
+//        }
+//        else{
+//            isMenuOpened = true
+//            self.addChildViewController(sideMenuViewController)
+//            self.view.addSubview(sideMenuViewController.view)
+//            sideMenuViewController.didMove(toParentViewController: self)
+//        }
+//        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
+//    }
+//
     @IBAction func scan(_ sender: Any) {
         let scannerVC = ScannerViewController()
         self.navigationController?.pushViewController(scannerVC, animated: true)

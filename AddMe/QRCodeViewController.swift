@@ -13,8 +13,8 @@ import Foundation
 class QRCodeViewController: UIViewController {
 
     @IBOutlet weak var QRCode: UIImageView!
-    var sideMenuViewController = SideMenuViewController()
-    var isMenuOpened:Bool = false
+//    var sideMenuViewController = SideMenuViewController()
+//    var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
@@ -22,8 +22,8 @@ class QRCodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-        sideMenuViewController.view.frame = UIScreen.main.bounds
+//        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
+//        sideMenuViewController.view.frame = UIScreen.main.bounds
         
         // Initialize the Cognito Sync client
         let syncClient = AWSCognito.default()
@@ -55,35 +55,55 @@ class QRCodeViewController: UIViewController {
     }
     
     func generateQRCode(from string: String) -> UIImage? {
-        let data = string.data(using: String.Encoding.ascii)
+        //Convert string to data
+        let stringData = string.data(using: String.Encoding.utf8)
         
-        if let filter = CIFilter(name: "CIQRCodeGenerator") {
-            filter.setValue(data, forKey: "inputMessage")
-            let transform = CGAffineTransform(scaleX: 3, y: 3)
-            
-            if let output = filter.outputImage?.transformed(by: transform) {
-                return UIImage(ciImage: output)
-            }
-        }
+        //Generate CIImage
+        let filter = CIFilter(name: "CIQRCodeGenerator")
+        filter?.setValue(stringData, forKey: "inputMessage")
+        filter?.setValue("H", forKey: "inputCorrectionLevel")
+        guard let ciImage = filter?.outputImage else { return nil }
         
-        return nil
+        //Scale image to proper size
+       // let scale = CGFloat(size) / ciImage.extent.size.width
+        let transform = CGAffineTransform(scaleX: 3, y: 3)
+        let scaledCIImage = ciImage.transformed(by: transform)
+        
+        //Convert to CGImage
+        let ciContext = CIContext()
+        guard let cgImage = ciContext.createCGImage(scaledCIImage, from: scaledCIImage.extent) else { return nil }
+        
+        //Finally return the UIImage
+        return UIImage(cgImage: cgImage)
+      //  let data = string.data(using: String.Encoding.ascii)
+        
+//        if let filter = CIFilter(name: "CIQRCodeGenerator") {
+//            filter.setValue(data, forKey: "inputMessage")
+//            let transform = CGAffineTransform(scaleX: 3, y: 3)
+//
+//            if let output = filter.outputImage?.transformed(by: transform) {
+//                return UIImage(ciImage: output)
+//            }
+//        }
+//
+//        return nil
     }
-    
-    @IBAction func menuClicked(_ sender: Any) {
-        if(isMenuOpened){
-            isMenuOpened = false
-            sideMenuViewController.willMove(toParentViewController: nil)
-            sideMenuViewController.view.removeFromSuperview()
-            sideMenuViewController.removeFromParentViewController()
-        }
-        else{
-            isMenuOpened = true
-            self.addChildViewController(sideMenuViewController)
-            self.view.addSubview(sideMenuViewController.view)
-            sideMenuViewController.didMove(toParentViewController: self)
-        }
-        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-    }
+//    
+//    @IBAction func menuClicked(_ sender: Any) {
+//        if(isMenuOpened){
+//            isMenuOpened = false
+//            sideMenuViewController.willMove(toParentViewController: nil)
+//            sideMenuViewController.view.removeFromSuperview()
+//            sideMenuViewController.removeFromParentViewController()
+//        }
+//        else{
+//            isMenuOpened = true
+//            self.addChildViewController(sideMenuViewController)
+//            self.view.addSubview(sideMenuViewController.view)
+//            sideMenuViewController.didMove(toParentViewController: self)
+//        }
+//        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
+//    }
     
     @IBAction func scan(_ sender: Any) {
         let scannerVC = ScannerViewController()

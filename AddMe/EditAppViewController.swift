@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditAppViewController: UIViewController {
+class EditAppViewController: UIViewController, UITextFieldDelegate {
 
     var AppID:Int!
     @IBOutlet weak var displayName: UITextField!
@@ -17,10 +17,16 @@ class EditAppViewController: UIViewController {
     var credentialsManager = CredentialsManager.sharedInstance
     var lines:[String]!
     
+    @IBOutlet weak var saveButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.displayName.delegate = self
+        self.userName.delegate = self
         platform.isUserInteractionEnabled = false
         credentialsManager.createCredentialsProvider()
+        displayName.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
+        userName.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,6 +89,8 @@ class EditAppViewController: UIViewController {
                 url = "http://www.snapchat.com/add/\(newUserName)"
             case "LinkedIn":
                 url = "http://www.linkedin.com/in/\(newUserName)"
+            case "GooglePlus":
+                url = "http://plus.google.com/\(newUserName)"
             default:
                 print("unknown app found: \(newPlatform)")
             }
@@ -136,5 +144,26 @@ class EditAppViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    //hide keyboard when user touches outside keyboard
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    //hide keyboard when user hits return
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        //self.view.endEditing(true)
+        return true
+    }
+    
+    
+    
+    @objc func textFieldDidChange(textField: UITextField) {
+        if displayName.text == "" || userName.text == "" {
+            saveButton.isEnabled = false
+        } else {
+            saveButton.isEnabled = true
+        }
+    }
 
 }
