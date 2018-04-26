@@ -1,8 +1,8 @@
 //
-//  SideMenuViewController.swift
+//  LogoutViewController.swift
 //  AddMe
 //
-//  Created by Christopher Deck on 2/26/18.
+//  Created by Christopher Deck on 4/25/18.
 //  Copyright © 2018 Christopher Deck. All rights reserved.
 //
 
@@ -12,17 +12,20 @@ import AWSMobileClient
 import AWSFacebookSignIn
 import AWSGoogleSignIn
 
-class SideMenuViewController: UIViewController {
+
+class LogoutViewController: UIViewController {
     
-    @IBOutlet weak var LogoutButton: UIButton!
-    @IBOutlet weak var SettingsButton: UIButton!
-    @IBOutlet weak var HomeButton: UIButton!
     var credentialsManager = CredentialsManager.sharedInstance
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        credentialsManager.createCredentialsProvider()
-        // Do any additional setup after loading the view.
+
+        logout()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        logout()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,14 +33,7 @@ class SideMenuViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func goHome(_ sender: Any) {
-        print("going home")
-//        let VC1  = self.storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! ViewController
-//        self.navigationController?.present(VC1, animated: false, completion: nil)
-    self.navigationController?.popToRootViewController(animated: false)
-    }
-    
-    @IBAction func logout(_ sender: Any) {
+    func logout(){
         let config = AWSAuthUIConfiguration()
         config.enableUserPoolsUI = true
         config.addSignInButtonView(class: AWSFacebookSignInButton.self)
@@ -61,39 +57,32 @@ class SideMenuViewController: UIViewController {
                                             }
                     })
             } else {
-            AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, error: Error?) in
-                DispatchQueue.main.async(execute: {
-                    AWSAuthUIViewController
-                        .presentViewController(with: self.navigationController!,
-                                               configuration: config,
-                                               completionHandler: { (provider: AWSSignInProvider, error: Error?) in
-                                                if error != nil {
-                                                    print("Error occurred: \(String(describing: error))")
-                                                } else {
-            
-                                                }
-                        })
-                    self.credentialsManager.credentialsProvider.clearKeychain()
-                    self.credentialsManager.credentialsProvider.clearCredentials()
-                    
-                    print(result)
+                AWSSignInManager.sharedInstance().logout(completionHandler: {(result: Any?, error: Error?) in
+                    DispatchQueue.main.async(execute: {
+                        AWSAuthUIViewController
+                            .presentViewController(with: self.navigationController!,
+                                                   configuration: config,
+                                                   completionHandler: { (provider: AWSSignInProvider, error: Error?) in
+                                                    if error != nil {
+                                                        print("Error occurred: \(String(describing: error))")
+                                                    } else {
+                                                        
+                                                    }
+                            })
+                        self.credentialsManager.credentialsProvider.clearKeychain()
+                        self.credentialsManager.credentialsProvider.clearCredentials()
+                        print(result)
+                    })
                 })
-            })
-            //print("Logout Successful: \(signInProvider.getDisplayName)");
-        }
+                //print("Logout Successful: \(signInProvider.getDisplayName)");
+            }
         } else {
             
         }
+        
+        self.navigationController?.popToRootViewController(animated: false)
     }
 
-    
-
-    
-//    @IBAction func openSettings(_ sender: Any) {
-//        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
-//        self.navigationController!.present(VC1, animated: true, completion: nil)
-//    }
-//    
     /*
     // MARK: - Navigation
 
