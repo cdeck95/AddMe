@@ -134,6 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
+				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
+				DAD96D092046399500F1525E /* AppsTableViewCell.swift */,
 				DAA7D4DE208568F000E62E04 /* Apps.swift */,
 				DAD96D072045FA2F00F1525E /* DataStore.swift */,
 				DAE8E582205EC30D003FE099 /* Dataset.swift */,
@@ -143,13 +145,11 @@
 				DA2B25F6204E2623004D3160 /* CredentialsManager.swift */,
 				DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */,
 				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
+				DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
-				DAD96D092046399500F1525E /* AppsTableViewCell.swift */,
-				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA6A7EED2037859800E79B47 /* Main.storyboard */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
-				DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */,
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
 				DAA7D4E8208598D800E62E04 /* ProfileImage.swift */,
 				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,

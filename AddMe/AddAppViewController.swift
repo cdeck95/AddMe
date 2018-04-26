@@ -134,6 +134,20 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         self.present(alertController, animated: true, completion: nil)
     }
     
+    func presentAlert(message: String){
+        let alertController = UIAlertController(title: "Woah!", message: message, preferredStyle: .alert)
+        
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "OK", style: .default) { (_) in
+        }
+        
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     @IBAction func dismiss(_ sender: Any) {
         self.dismiss(animated: true, completion: {})
     }
@@ -243,6 +257,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         {
             return true
         }
+        self.presentAlert(message: responseOne)
         return false
     }
 }
