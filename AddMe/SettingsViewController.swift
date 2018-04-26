@@ -113,6 +113,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
+
     // Send in info
     @IBAction func updateStuff(_ sender: Any) {
         var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/setUserInfo.php")!)
@@ -227,19 +228,46 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
 //        }
 //        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
 //    }
-    
-    // Going to connect this to a button on the Settings view.
-    // Will delete all apps that the user has selected.
-    func deleteSelectedApps()
-    {
-        // Planning on having a tableview with the custom cells on the screen.
-        // It will be populated from the cellSwitches array.
-        // The custom cells will have a toggle switch, a label for the name (facebook,etc.)
-        // and a button to launch another view for editting the info about that selected cell.
-    }
+
     
     // TODO: Probably should add a Confirm Delete? button.
     @IBAction func deleteApps(_ sender: Any) {
+
+        let alertController = UIAlertController(title: "Delete All Apps", message: "WARNING: This will delete all apps from your profile. This is not able to be undone.", preferredStyle: .alert)
+        // Create OK button
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
+            // Code in this block will trigger when OK button tapped.
+            let idString = self.credentialsManager.identityID!
+            print(idString)
+            var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/deleteUser.php")!)
+            request.httpMethod = "POST"
+            let postString = "a=\(idString)"
+            request.httpBody = postString.data(using: String.Encoding.utf8)
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                data, response, error in
+                if error != nil {
+                    print("error=\(error)")
+                    return
+                } else {
+                    print("---no error----")
+                }
+                
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                print(responseString)
+                
+            })
+            task.resume()
+            self.settingsAppsTableView.reloadData() // Why this no update?!
+        }
+        alertController.addAction(OKAction)
+        
+        // Create Cancel button
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
+            // Code in this block will trigger when cancel is tapped...most likely no code though.
+        }
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion:nil)
+
         let idString = self.credentialsManager.identityID!
         print(idString)
         var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/deleteUser.php")!)
@@ -319,6 +347,4 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         sema.wait(timeout: DispatchTime.distantFuture)
         self.settingsAppsTableView.reloadData()
     }
-    
-
 }

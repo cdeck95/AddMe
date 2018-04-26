@@ -104,8 +104,13 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             default:
                 print("unknown app found: \(key)")
             }
-        self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
-
+            
+            if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: username))
+            {
+                self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
+            }else {
+                print("Can't add this app")
+            }
         }
         
         //the cancel action doing nothing
@@ -208,5 +213,32 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             print(responseOne!)
         })
         task.resume()
+    }
+    
+    // This will check some things to avoid adding duplicate entries for a user.
+    func verifyAppForUser(displayName: String, platform: String, url: String, userName: String) -> Bool {
+        var responseOne = ""
+        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/VerifyUserIsNew.php")!)
+        request.httpMethod = "POST"
+        let postString = "a=\(userName)&b=\(displayName)&c=\(platform)&d=\(url)"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                return
+            }
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            responseOne = responseString as! String as! String
+            print(responseOne)
+        })
+        task.resume()
+        if (responseOne == "GOOD")
+        {
+            return true
+        }
+        return false
     }
 }
