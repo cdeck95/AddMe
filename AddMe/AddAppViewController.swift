@@ -105,7 +105,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 print("unknown app found: \(key)")
             }
             
-            if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: username))
+            if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: app._userId!))
             {
                 self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
             }else {
