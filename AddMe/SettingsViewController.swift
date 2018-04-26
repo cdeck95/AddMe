@@ -55,15 +55,15 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
-    var sideMenuViewController = SideMenuViewController()
-    var isMenuOpened:Bool = false
+//    var sideMenuViewController = SideMenuViewController()
+//    var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
     var credentialsManager = CredentialsManager.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-        sideMenuViewController.view.frame = UIScreen.main.bounds
+//        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
+//        sideMenuViewController.view.frame = UIScreen.main.bounds
         let syncClient = AWSCognito.default()
         dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
         dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
@@ -71,7 +71,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             return nil
             
         }
-       self.tabBarController?.tabBar.isHidden = true
         
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
@@ -97,12 +96,12 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         print("----in settings view will appear----")
-        if(isMenuOpened == true){
-            isMenuOpened = false
-            sideMenuViewController.willMove(toParentViewController: nil)
-            sideMenuViewController.view.removeFromSuperview()
-            sideMenuViewController.removeFromParentViewController()
-        }
+//        if(isMenuOpened == true){
+//            isMenuOpened = false
+//            sideMenuViewController.willMove(toParentViewController: nil)
+//            sideMenuViewController.view.removeFromSuperview()
+//            sideMenuViewController.removeFromParentViewController()
+//        }
         //cellSwitches = []
         self.tabBarController?.tabBar.isHidden = false
         refreshAppData(self)
@@ -213,21 +212,21 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     //https://tommillerswebsite.000webhostapp.com/AddMe/setUserInfo.php     SEND IN ALL 4
     
     
-    @IBAction func menuClicked(_ sender: Any) {
-        if(isMenuOpened){
-            isMenuOpened = false
-            sideMenuViewController.willMove(toParentViewController: nil)
-            sideMenuViewController.view.removeFromSuperview()
-            sideMenuViewController.removeFromParentViewController()
-        }
-        else{
-            isMenuOpened = true
-            self.addChildViewController(sideMenuViewController)
-            self.view.addSubview(sideMenuViewController.view)
-            sideMenuViewController.didMove(toParentViewController: self)
-        }
-        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-    }
+//    @IBAction func menuClicked(_ sender: Any) {
+//        if(isMenuOpened){
+//            isMenuOpened = false
+//            sideMenuViewController.willMove(toParentViewController: nil)
+//            sideMenuViewController.view.removeFromSuperview()
+//            sideMenuViewController.removeFromParentViewController()
+//        }
+//        else{
+//            isMenuOpened = true
+//            self.addChildViewController(sideMenuViewController)
+//            self.view.addSubview(sideMenuViewController.view)
+//            sideMenuViewController.didMove(toParentViewController: self)
+//        }
+//        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
+//    }
     
     // Going to connect this to a button on the Settings view.
     // Will delete all apps that the user has selected.

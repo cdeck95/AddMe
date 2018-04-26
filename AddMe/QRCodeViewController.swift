@@ -13,8 +13,8 @@ import Foundation
 class QRCodeViewController: UIViewController {
 
     @IBOutlet weak var QRCode: UIImageView!
-    var sideMenuViewController = SideMenuViewController()
-    var isMenuOpened:Bool = false
+//    var sideMenuViewController = SideMenuViewController()
+//    var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
@@ -22,8 +22,8 @@ class QRCodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-        sideMenuViewController.view.frame = UIScreen.main.bounds
+//        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
+//        sideMenuViewController.view.frame = UIScreen.main.bounds
         
         // Initialize the Cognito Sync client
         let syncClient = AWSCognito.default()
@@ -88,22 +88,22 @@ class QRCodeViewController: UIViewController {
 //
 //        return nil
     }
-    
-    @IBAction func menuClicked(_ sender: Any) {
-        if(isMenuOpened){
-            isMenuOpened = false
-            sideMenuViewController.willMove(toParentViewController: nil)
-            sideMenuViewController.view.removeFromSuperview()
-            sideMenuViewController.removeFromParentViewController()
-        }
-        else{
-            isMenuOpened = true
-            self.addChildViewController(sideMenuViewController)
-            self.view.addSubview(sideMenuViewController.view)
-            sideMenuViewController.didMove(toParentViewController: self)
-        }
-        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-    }
+//    
+//    @IBAction func menuClicked(_ sender: Any) {
+//        if(isMenuOpened){
+//            isMenuOpened = false
+//            sideMenuViewController.willMove(toParentViewController: nil)
+//            sideMenuViewController.view.removeFromSuperview()
+//            sideMenuViewController.removeFromParentViewController()
+//        }
+//        else{
+//            isMenuOpened = true
+//            self.addChildViewController(sideMenuViewController)
+//            self.view.addSubview(sideMenuViewController.view)
+//            sideMenuViewController.didMove(toParentViewController: self)
+//        }
+//        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
+//    }
     
     @IBAction func scan(_ sender: Any) {
         let scannerVC = ScannerViewController()
