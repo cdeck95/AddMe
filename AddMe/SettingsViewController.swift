@@ -232,7 +232,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // TODO: Probably should add a Confirm Delete? button.
     @IBAction func deleteApps(_ sender: Any) {
-
+        let sema = DispatchSemaphore(value: 0);
+        print("sema made")
         let alertController = UIAlertController(title: "Delete All Apps", message: "WARNING: This will delete all apps from your profile. This is not able to be undone.", preferredStyle: .alert)
         // Create OK button
         let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
@@ -247,6 +248,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 data, response, error in
                 if error != nil {
                     print("error=\(error)")
+                    sema.signal()
                     return
                 } else {
                     print("---no error----")
@@ -254,10 +256,12 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 
                 let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
                 print(responseString)
-                
+                sema.signal()
             })
             task.resume()
-            self.settingsAppsTableView.reloadData() // Why this no update?!
+            sema.wait(timeout: DispatchTime.distantFuture)
+            self.refreshAppData(self)
+            
         }
         alertController.addAction(OKAction)
         
@@ -267,28 +271,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true, completion:nil)
-
-        let idString = self.credentialsManager.identityID!
-        print(idString)
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/deleteUser.php")!)
-        request.httpMethod = "POST"
-        let postString = "a=\(idString)"
-        request.httpBody = postString.data(using: String.Encoding.utf8)
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                return
-            } else {
-                print("---no error----")
-            }
-            
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            print(responseString)
-            
-        })
-        task.resume()
-        refreshAppData(self)
+        
+        
     }
     
     @objc private func refreshAppData(_ sender: Any) {

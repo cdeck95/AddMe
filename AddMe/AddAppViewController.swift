@@ -217,6 +217,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     // This will check some things to avoid adding duplicate entries for a user.
     func verifyAppForUser(displayName: String, platform: String, url: String, userName: String) -> Bool {
+        let sema = DispatchSemaphore(value: 0);
         var responseOne = ""
         var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/VerifyUserIsNew.php")!)
         request.httpMethod = "POST"
@@ -227,14 +228,17 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             data, response, error in
             if error != nil {
                 print("error=\(error)")
+                sema.signal()
                 return
             }
             
             let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             responseOne = responseString as! String as! String
             print(responseOne)
+            sema.signal()
         })
         task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
         if (responseOne == "GOOD")
         {
             return true
