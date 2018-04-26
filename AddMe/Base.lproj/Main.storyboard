@@ -691,7 +691,7 @@
             </objects>
             <point key="canvasLocation" x="3852" y="133.5832083958021"/>
         </scene>
-        <!--Upload Code-->
+        <!--Camera View Controller-->
         <scene sceneID="maj-zh-HXM">
             <objects>
                 <viewController id="beM-FT-25w" customClass="CameraViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
@@ -704,25 +704,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Upload"/>
                                 <connections>
-                                    <action selector="takePhotoWithSender:" destination="beM-FT-25w" eventType="touchUpInside" id="GxP-HJ-2UO"/>
+                                    <action selector="takePhotoWithSender:" destination="beM-FT-25w" eventType="touchUpInside" id="Ign-N4-ZZS"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Y8-JR-wqc">
                                 <rect key="frame" x="67" y="196" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Coming Soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcK-Qp-Idf">
-                                <rect key="frame" x="136" y="491" width="103" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4lS-AO-B9d"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Upload Code" image="ic_file_upload" id="COF-L7-4Ms"/>
                     <navigationItem key="navigationItem" id="4n3-Fh-z2H"/>
                     <connections>
                         <outlet property="loadedImage" destination="1Y8-JR-wqc" id="EcN-QF-z4Y"/>
@@ -730,7 +722,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8vV-N5-84A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="790" y="-571"/>
+            <point key="canvasLocation" x="1728.8" y="-571.66416791604206"/>
         </scene>
         <!--Scan Code-->
         <scene sceneID="MOV-aS-bBM">
@@ -756,7 +748,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUR-wf-mN4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1990" y="-570"/>
+            <point key="canvasLocation" x="2928.8000000000002" y="-570.76461769115451"/>
         </scene>
         <!--Logout-->
         <scene sceneID="q8a-lL-j0S">
@@ -817,7 +809,7 @@
                         <segue destination="RUY-Ao-dKI" kind="relationship" relationship="viewControllers" id="1iN-vn-hdl"/>
                         <segue destination="z9Z-Ha-ZBC" kind="relationship" relationship="viewControllers" id="Bec-mp-hrS"/>
                         <segue destination="gfS-lj-f3Q" kind="relationship" relationship="viewControllers" id="teT-bw-6PE"/>
-                        <segue destination="beM-FT-25w" kind="relationship" relationship="viewControllers" id="Vki-kf-s0u"/>
+                        <segue destination="hJi-V4-nng" kind="relationship" relationship="viewControllers" id="Vki-kf-s0u"/>
                         <segue destination="ISd-IL-6IN" kind="relationship" relationship="viewControllers" id="Utq-OF-i8n"/>
                         <segue destination="MaD-TQ-yjv" kind="relationship" relationship="viewControllers" id="tOu-Gt-tCd"/>
                         <segue destination="Q2x-Vo-r1I" kind="relationship" relationship="viewControllers" id="hjv-dR-XN9"/>
@@ -845,6 +837,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YHD-XT-ksd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1989.5999999999999" y="133.5832083958021"/>
+        </scene>
+        <!--Upload Code-->
+        <scene sceneID="akY-LO-ymM">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hJi-V4-nng" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Upload Code" image="ic_file_upload" id="COF-L7-4Ms"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QUz-qZ-o7A">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="beM-FT-25w" kind="relationship" relationship="rootViewController" id="YuF-aC-Hpa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jnc-Hz-w9B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="789.60000000000002" y="-571.66416791604206"/>
         </scene>
     </scenes>
     <resources>

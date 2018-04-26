@@ -7,14 +7,17 @@
 //
 
 import UIKit
-import Foundation
+import AVFoundation
+import SafariServices
 
-class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate {
     
  
     @IBOutlet weak var loadedImage: UIImageView!
     let imagePicker = UIImagePickerController()
     var detector: CIDetector?
+    var dict: [String: String]!
+    var keys: Dictionary<String, String>.Keys!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,62 +37,75 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            print("have image")
-            loadedImage.contentMode = .scaleAspectFit
-            loadedImage.image = pickedImage
-        }
-        
-        dismiss(animated: true, completion: nil)
-        self.detect()
-    }
-    
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func performQRCodeDetection(image: CIImage) -> (outImage: CIImage?, decode: String) {
-        var resultImage: CIImage?
-        var decode = ""
-        if let detector = detector {
-            let features = detector.features(in: image)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let qrcodeImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            loadedImage.image = qrcodeImg
+            let detector:CIDetector=CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])!
+            let ciImage:CIImage=CIImage(image:qrcodeImg)!
+            var qrCodeLink=""
+            
+            let features=detector.features(in: ciImage)
             for feature in features as! [CIQRCodeFeature] {
-                resultImage = drawHighlightOverlayForPoints(image,
-                                                            topLeft: feature.topLeft,
-                                                            topRight: feature.topRight,
-                                                            bottomLeft: feature.bottomLeft,
-                                                            bottomRight: feature.bottomRight)
-                decode = (feature.messageString)!
-                print(decode)
+                qrCodeLink += feature.messageString!
+            }
+            
+            if qrCodeLink=="" {
+                print("nothing")
+            }else{
+                print("message: \(qrCodeLink)")
+                // convert NSData to 'AnyObject'
+                let stringData = qrCodeLink.data(using: String.Encoding.utf8)
+                
+                do {
+                    guard let result = (try JSONSerialization.jsonObject(with: stringData!, options: [])
+                        as? [String: String]) else {
+                            print("error trying to convert data to JSON")
+                            return
+                    }
+                    dict = result
+                    print("dict:  \(dict)")
+                    openPlatforms()
+                }
+                catch let error as NSError {
+                    print(error.localizedDescription)
+                }
             }
         }
-        return (resultImage, decode)
-    }
-    
-    func detect() {
-        guard let qrCode = CIImage(image: loadedImage.image!) else {
-            return
+        else{
+            print("Something went wrong")
         }
-        let result = performQRCodeDetection(image: qrCode)
-        loadedImage.image = UIImage(ciImage: result.outImage!)
-        let string = result.decode
-        print(string)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func drawHighlightOverlayForPoints(_ image: CIImage, topLeft: CGPoint, topRight: CGPoint,
-    bottomLeft: CGPoint, bottomRight: CGPoint) -> CIImage {
-    var overlay = CIImage(color: CIColor(red: 1.0, green: 0, blue: 0, alpha: 0.5))
-        overlay = overlay.cropped(to: image.extent)
-        overlay = overlay.applyingFilter("CIPerspectiveTransformWithExtent",
-                                         parameters: [
-    "inputExtent": CIVector(cgRect: image.extent),
-    "inputTopLeft": CIVector(cgPoint: topLeft),
-    "inputTopRight": CIVector(cgPoint: topRight),
-    "inputBottomLeft": CIVector(cgPoint: bottomLeft),
-    "inputBottomRight": CIVector(cgPoint: bottomRight)
-    ])
-        return overlay.composited(over: image)
+    func openPlatforms(){
+        keys = dict.keys
+        if(dict.count > 0){
+            
+            let currentKey = keys.first!
+            print("current key: \(currentKey)")
+            let currentURL = dict[currentKey]!
+            print("current url: \(currentURL)")
+            self.tabBarController?.hidesBottomBarWhenPushed = true
+            let svc = SFSafariViewController(url: URL(string: currentURL)!)
+            svc.delegate = self
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            self.navigationController?.pushViewController(svc, animated: true)
+            dict.removeValue(forKey: currentKey)
+        }
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController)
+    {
+        controller.dismiss(animated: true, completion: nil)
+        if keys.count == 0 {
+            print("popping...")
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        else {
+            openPlatforms()
+        }
+        dismiss(animated: true)
     }
     
 }
