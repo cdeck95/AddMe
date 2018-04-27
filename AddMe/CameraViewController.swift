@@ -13,7 +13,7 @@ import SafariServices
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate {
     
  
-    @IBOutlet weak var loadedImage: UIImageView!
+   // @IBOutlet weak var loadedImage: UIImageView!
     let imagePicker = UIImagePickerController()
     var detector: CIDetector?
     var dict: [String: String]!
@@ -39,7 +39,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let qrcodeImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            loadedImage.image = qrcodeImg
+          //  loadedImage.image = qrcodeImg
             let detector:CIDetector=CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])!
             let ciImage:CIImage=CIImage(image:qrcodeImg)!
             var qrCodeLink=""

@@ -37,6 +37,10 @@
 		DADA5B5B208B952F009BC5B2 /* EditAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */; };
 		DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */; };
 		DADA5B5F208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA5B5E208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift */; };
+		DAE3A2AB2093D730002689BA /* HalfModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2AA2093D730002689BA /* HalfModalPresentationController.swift */; };
+		DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */; };
+		DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */; };
+		DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */; };
 		DAE8E583205EC30D003FE099 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE8E582205EC30D003FE099 /* Dataset.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +77,10 @@
 		DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAppViewController.swift; sourceTree = "<group>"; };
 		DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseSettingsTableViewController.swift; sourceTree = "<group>"; };
 		DADA5B5E208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		DAE3A2AA2093D730002689BA /* HalfModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalPresentationController.swift; sourceTree = "<group>"; };
+		DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
+		DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalTransitionAnimator.swift; sourceTree = "<group>"; };
+		DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalTransitioningDelegate.swift; sourceTree = "<group>"; };
 		DAE8E582205EC30D003FE099 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
 		E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.debug.xcconfig"; sourceTree = "<group>"; };
 		FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -147,6 +155,7 @@
 				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
 				DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
+				DAE3A2AA2093D730002689BA /* HalfModalPresentationController.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA6A7EED2037859800E79B47 /* Main.storyboard */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
@@ -162,6 +171,9 @@
 				DAD432F8203D03F70033EF35 /* User.swift */,
 				DA6A7EF52037859800E79B47 /* Info.plist */,
 				DAD432F6203D02240033EF35 /* awsconfiguration.json */,
+				DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */,
+				DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */,
+				DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */,
 			);
 			path = AddMe;
 			sourceTree = "<group>";
@@ -349,11 +361,13 @@
 				DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */,
 				DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */,
 				DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */,
+				DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */,
 				DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */,
 				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
+				DAE3A2AB2093D730002689BA /* HalfModalPresentationController.swift in Sources */,
 				DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */,
 				DADA5B5B208B952F009BC5B2 /* EditAppViewController.swift in Sources */,
 				DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */,
@@ -361,8 +375,10 @@
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
 				DAD432F9203D03F70033EF35 /* User.swift in Sources */,
 				DADA5B5F208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift in Sources */,
+				DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */,
 				DAE8E583205EC30D003FE099 /* Dataset.swift in Sources */,
 				DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */,
+				DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */,
 				DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */,
 				DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */,
 				DAD96D002045F59F00F1525E /* CollectionViewCell.swift in Sources */,

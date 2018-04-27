@@ -11,7 +11,7 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
     @IBOutlet var appImage: UIImageView!
     var appLabel: String!
-   // @IBOutlet weak var appName: UILabel!
+    @IBOutlet weak var appName: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,7 +27,7 @@ class CollectionViewCell: UICollectionViewCell {
     
     func displayContent(title: String){
        //self.appImage.image = image.image
-      //  self.appName.text = title
+        self.appName.text = title
     }
     //image: UIImageView, 
 }

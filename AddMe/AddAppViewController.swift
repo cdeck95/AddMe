@@ -13,7 +13,7 @@ import AWSAuthUI
 import FacebookCore
 import AWSDynamoDB
 
-class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HalfModalPresentable {
     
     @IBOutlet weak var collection: UICollectionView!
     var datasetManager = Dataset.sharedInstance
@@ -41,6 +41,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
 //        let indexSet = IndexSet(0...1)
 //        self.collection.deleteSections(indexSet)
 //        self.collection.reloadData()
+        self.collection.flashScrollIndicators()   
     }
 
     override func didReceiveMemoryWarning() {
@@ -157,7 +158,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collection.dequeueReusableCell(withReuseIdentifier: appIDs[indexPath.item], for: indexPath) as! CollectionViewCell
-       // cell.displayContent(title: appIDs[indexPath.row])
+        cell.displayContent(title: appIDs[indexPath.row])
         return cell
     }
     
@@ -261,5 +262,17 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         self.presentAlert(message: responseOne)
         return false
+    }
+    
+    @IBAction func maximizeButtonTapped(sender: AnyObject) {
+        maximizeToFullScreen()
+    }
+    
+    @IBAction func cancelButtonTapped(sender: AnyObject) {
+        if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
+            delegate.interactiveDismiss = false
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
 }

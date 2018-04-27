@@ -24,6 +24,7 @@ var apps: [Apps] = []
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var appsTableView: UITableView!
@@ -61,6 +62,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         profileImage.layer.borderColor = UIColor.black.cgColor
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
+//        let view = UIView(frame: self.viewBar)
+//        let gradient = CAGradientLayer()
+//        gradient.frame = view.bounds
+//        gradient.colors = [UIColor.white.cgColor, UIColor.init(red: 119/255, green: 201/255, blue: 212/255, alpha:1)]
+//        
+//        view.layer.insertSublayer(gradient, at: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -385,6 +392,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         activityIndicatorView.startAnimating()
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
+        
+        segue.destination.modalPresentationStyle = .custom
+        segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
+    }
 }
 
 extension String
