@@ -297,6 +297,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cellSwitches.append(cell)
         }
         cell.NameLabel.text = apps[indexPath.row]._displayName
+        switch apps[indexPath.row]._platform {
+        case "Facebook":
+            cell.appImage.image = UIImage(named: "fb-icon")
+        case "Twitter":
+            cell.appImage.image = UIImage(named: "twitter_icon")
+        case "Instagram":
+            cell.appImage.image = UIImage(named: "Instagram_icon")
+        case "Snapchat":
+            cell.appImage.image = UIImage(named: "snapchat_icon")
+        case "GooglePlus":
+            cell.appImage.image = UIImage(named: "google_plus_icon")
+        case "LinkedIn":
+            cell.appImage.image = UIImage(named: "linked_in_logo")
+        default:
+            cell.appImage.image = UIImage(named: "AppIcon")
+        }
+        
         cell.id = Int(apps[indexPath.row]._userId!)
         return cell
     }
