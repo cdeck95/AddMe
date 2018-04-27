@@ -19,7 +19,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     var datasetManager = Dataset.sharedInstance
     //var reuseIdentifier:String = "collectionViewCell"
     //var store = DataStore.sharedInstance
-    var appIDs = ["facebook", "instagram", "snapchat", "twitter", "linkedIn", "googlePlus"]
+    var appIDs = ["Facebook", "Instagram", "Snapchat", "Twitter", "LinkedIn", "Google+"]
     let cellSizes = Array( repeatElement(CGSize(width:160, height:110), count: 6))
     var apps: [String]!
     var credentialsManager = CredentialsManager.sharedInstance
@@ -156,7 +156,9 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collection.dequeueReusableCell(withReuseIdentifier: appIDs[indexPath.item], for: indexPath) as! CollectionViewCell
+        let cell = collection.dequeueReusableCell(withReuseIdentifier: appIDs[indexPath.item], for: indexPath) as! CollectionViewCell
+       // cell.displayContent(title: appIDs[indexPath.row])
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
