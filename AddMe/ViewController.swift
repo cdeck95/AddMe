@@ -32,6 +32,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var token: String!
     //var sideMenuViewController = SideMenuViewController()
    // var isMenuOpened:Bool = false
+    @IBOutlet weak var qrCodeButton: UIButton!
     var identityProvider:String!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
@@ -62,12 +63,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         profileImage.layer.borderColor = UIColor.black.cgColor
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
-//        let view = UIView(frame: self.viewBar)
-//        let gradient = CAGradientLayer()
-//        gradient.frame = view.bounds
-//        gradient.colors = [UIColor.white.cgColor, UIColor.init(red: 119/255, green: 201/255, blue: 212/255, alpha:1)]
-//        
-//        view.layer.insertSublayer(gradient, at: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,11 +73,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //            sideMenuViewController.view.removeFromSuperview()
 //            sideMenuViewController.removeFromParentViewController()
 //        }
-        cellSwitches = []
+      //  cellSwitches = []
         self.tabBarController?.tabBar.isHidden = false
         presentAuthUIViewController()
         appsTableView.reloadData()
-        createQRCode(self)
+      // createQRCode(self)
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
@@ -287,6 +282,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if(datasetManager.dataset != nil){
             datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
         }
+        //qrCodeButton.setImage(generateQRCode(from: result), for: .normal)
+        //qrCodeButton.sizeToFit()
+    }
+    
+    func generateQRCode(from string: String) -> UIImage? {
+        //Convert string to data
+        let stringData = string.data(using: String.Encoding.utf8)
+        
+        //Generate CIImage
+        let filter = CIFilter(name: "CIQRCodeGenerator")
+        filter?.setValue(stringData, forKey: "inputMessage")
+        filter?.setValue("H", forKey: "inputCorrectionLevel")
+        guard let ciImage = filter?.outputImage else { return nil }
+        
+        //Scale image to proper size
+        // let scale = CGFloat(size) / ciImage.extent.size.width
+        let transform = CGAffineTransform(scaleX: 3, y: 3)
+        let scaledCIImage = ciImage.transformed(by: transform)
+        
+        //Convert to CGImage
+        let ciContext = CIContext()
+        guard let cgImage = ciContext.createCGImage(scaledCIImage, from: scaledCIImage.extent) else { return nil }
+        
+        //Finally return the UIImage
+        return UIImage(cgImage: cgImage)
     }
       
     
@@ -322,6 +342,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         cell.id = Int(apps[indexPath.row]._userId!)
+        //print(indexPath.row)
+        if(indexPath.row == apps.count-1){
+            print("-----------about to create code----------")
+            createQRCode(self)
+        }
         return cell
     }
     @IBAction func refreshTableView(_ sender: Any) {

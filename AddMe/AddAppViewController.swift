@@ -169,18 +169,18 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("User tapped on \(appIDs[indexPath.row])")
         switch appIDs[indexPath.row] {
-        case "twitter":
+        case "Twitter":
             showInputDialog(key: "Twitter")
-        case "snapchat":
+        case "Snapchat":
             showInputDialog(key: "Snapchat")
-        case "instagram":
+        case "Instagram":
             showInputDialog(key: "Instagram")
-        case "facebook":
+        case "Facebook":
             showInputDialog(key: "Facebook")
-        case "linkedIn":
+        case "LinkedIn":
             showInputDialog(key: "LinkedIn")
-        case "googlePlus":
-            showInputDialog(key: "GooglePlus")
+        case "GooglePlus":
+            showInputDialog(key: "Google+")
         default:
             print("error")
         }

@@ -23,6 +23,28 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         super.viewDidLoad()
         
         imagePicker.delegate = self
+        //takePhoto(sender: self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        let alertController = UIAlertController(title: "Upload another?", message: "Would you like to add another friend?", preferredStyle: .alert)
+//
+//
+//        //the confirm action taking the inputs
+//        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+//             self.takePhoto(sender: self)
+//        }
+//
+//        //the cancel action doing nothing
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+//
+//        //adding the action to dialogbox
+//        alertController.addAction(confirmAction)
+//        alertController.addAction(cancelAction)
+//
+//        //finally presenting the dialog box
+//        self.present(alertController, animated: true, completion: nil)
+       
     }
     
     @IBAction func takePhoto(sender: AnyObject) {

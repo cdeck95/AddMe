@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CCE90FC70675E381BDDE5FC7 /* Pods_AddMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */; };
+		DA130A84209643AF00622951 /* EFUIntPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA130A83209643AF00622951 /* EFUIntPixel.swift */; };
 		DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B25F6204E2623004D3160 /* CredentialsManager.swift */; };
 		DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4388EE2086747000E0CD0D /* CameraViewController.swift */; };
 		DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68505C205B5FA300BA36DE /* HelpViewController.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AddMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA130A83209643AF00622951 /* EFUIntPixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFUIntPixel.swift; sourceTree = "<group>"; };
 		DA2B25F6204E2623004D3160 /* CredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsManager.swift; sourceTree = "<group>"; };
 		DA4388EE2086747000E0CD0D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		DA68505C205B5FA300BA36DE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
@@ -155,7 +157,6 @@
 				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
 				DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
-				DAE3A2AA2093D730002689BA /* HalfModalPresentationController.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA6A7EED2037859800E79B47 /* Main.storyboard */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
@@ -166,11 +167,13 @@
 				DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */,
 				DAD96CF92044B13C00F1525E /* SideMenuViewController.swift */,
 				DAD96CF52043458000F1525E /* QRCodeViewController.swift */,
+				DA130A83209643AF00622951 /* EFUIntPixel.swift */,
 				DA6A7EF02037859800E79B47 /* Assets.xcassets */,
 				DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */,
 				DAD432F8203D03F70033EF35 /* User.swift */,
 				DA6A7EF52037859800E79B47 /* Info.plist */,
 				DAD432F6203D02240033EF35 /* awsconfiguration.json */,
+				DAE3A2AA2093D730002689BA /* HalfModalPresentationController.swift */,
 				DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */,
 				DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */,
 				DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */,
@@ -356,6 +359,7 @@
 			files = (
 				DAD96CFA2044B13C00F1525E /* SideMenuViewController.swift in Sources */,
 				DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */,
+				DA130A84209643AF00622951 /* EFUIntPixel.swift in Sources */,
 				DAD96D082045FA2F00F1525E /* DataStore.swift in Sources */,
 				DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */,
 				DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */,
@@ -519,13 +523,15 @@
 			baseConfigurationReference = E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;
 				INFOPLIST_FILE = AddMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = chrisdeck;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chrisdeck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -536,13 +542,15 @@
 			baseConfigurationReference = FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;
 				INFOPLIST_FILE = AddMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = chrisdeck;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chrisdeck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
