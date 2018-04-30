@@ -22,27 +22,22 @@ import FacebookCore
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Apps] = []
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var appsTableView: UITableView!
-    @IBOutlet weak var scanButton: UIBarButtonItem!
-    var token: String!
-    //var sideMenuViewController = SideMenuViewController()
-   // var isMenuOpened:Bool = false
     @IBOutlet weak var qrCodeButton: UIButton!
     var identityProvider:String!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
     private let refreshControl = UIRefreshControl()
-    
-    @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-   
-    @IBOutlet weak var addAppButton: UIBarButtonItem!
-   
+    
+    @IBOutlet var uploadImageButton: UIBarButtonItem!
+    var token: String!
+    let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +58,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         profileImage.layer.borderColor = UIColor.black.cgColor
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
+        imagePicker.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,9 +127,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             self.fetchAppData()
                             if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
                                 print("facebook sign in confirmed")
-                                
+                                self.navigationItem.leftBarButtonItem = nil
                                 let params: String = "name,email,picture"
                                 self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
+                            } else {
+                                self.profileImage.image = UIImage(named: "launch_logo")
+                                self.navigationItem.leftBarButtonItem = self.uploadImageButton
+                                //query the db for an image
                             }
                         }
                         return nil
@@ -424,6 +424,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         segue.destination.modalPresentationStyle = .custom
         segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
+    }
+
+    @IBAction func uploadImage(_ sender: Any) {
+        
+        if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            return
+        }
+        
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let qrcodeImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.profileImage.image = qrcodeImg
+            //send image to DB
+        }
+        else{
+            print("Something went wrong")
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

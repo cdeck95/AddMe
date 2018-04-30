@@ -148,6 +148,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Home" id="TAR-K9-VeS">
+                        <barButtonItem key="leftBarButtonItem" title="Upload Picture" id="khr-H5-cDU">
+                            <connections>
+                                <action selector="uploadImage:" destination="BYZ-38-t0r" id="cAd-JZ-pfo"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Add" image="ic_add_circle" id="KMG-vb-hnQ">
                             <color key="tintColor" red="0.3411764706" green="0.73725490199999999" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -163,6 +168,7 @@
                         <outlet property="nameLabel" destination="cdb-cy-q3i" id="ATD-6w-jcp"/>
                         <outlet property="profileImage" destination="38H-tt-FLy" id="Fn6-0d-f2V"/>
                         <outlet property="qrCodeButton" destination="8HW-Zb-LLO" id="diW-kW-aEq"/>
+                        <outlet property="uploadImageButton" destination="khr-H5-cDU" id="hYc-sB-gOy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
