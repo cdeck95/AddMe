@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdb-cy-q3i">
-                                <rect key="frame" x="165" y="231" width="46" height="20"/>
+                                <rect key="frame" x="164" y="231" width="46" height="20"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Name">
                                         <attributes>
@@ -32,27 +32,27 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="38H-tt-FLy" customClass="ProfileImage" customModule="AddMe" customModuleProvider="target">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="38H-tt-FLy" customClass="ProfileImage" customModule="AddMe" customModuleProvider="target">
                                 <rect key="frame" x="46" y="77" width="283" height="146"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="146" id="e6X-Q1-ZxQ"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="247" verticalHuggingPriority="247" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sax-Zr-BDN">
-                                <rect key="frame" x="16" y="274" width="343" height="300"/>
+                                <rect key="frame" x="16" y="274" width="341" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.0039215686274509803" green="0.32156862745098036" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.46666666670000001" green="0.78823529410000004" blue="0.83137254900000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PlainCell" id="Y8S-hs-XU9" customClass="AppsTableViewCell" customModule="AddMe" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="50"/>
+                                        <rect key="frame" x="0.0" y="28" width="341" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y8S-hs-XU9" id="QiX-7y-LQA">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n5L-uv-EUu">
-                                                    <rect key="frame" x="4" y="5" width="48" height="45"/>
+                                                    <rect key="frame" x="5" y="5" width="47" height="45"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3m4-TY-PRa">
                                                     <rect key="frame" x="60" y="17" width="229" height="21"/>
@@ -517,7 +517,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="wrW-6v-ex3">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="wrW-6v-ex3">
                                 <rect key="frame" x="72" y="75" width="230" height="230"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="ndz-lO-Wx6"/>
@@ -803,13 +803,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have a code?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3M4-Ed-Nj2">
-                                <rect key="frame" x="100" y="315" width="174.5" height="36"/>
+                                <rect key="frame" x="100.5" y="315" width="174.5" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" red="0.0039215686269999999" green="0.32156862749999998" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select import below to display your photo library and select a code." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6Q-Hy-qNZ">
-                                <rect key="frame" x="16" y="387" width="342" height="119"/>
+                                <rect key="frame" x="16" y="387" width="342.5" height="119"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="119" id="9tK-bv-4AY"/>
                                 </constraints>
@@ -817,12 +817,6 @@
                                 <color key="textColor" red="0.0039215686269999999" green="0.32156862749999998" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="1tr-mZ-jSV">
-                                <rect key="frame" x="67" y="114" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="fvL-z6-Mn6"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-Df-W87" customClass="CustomButton" customModule="AddMe" customModuleProvider="target">
                                 <rect key="frame" x="132" y="555" width="111" height="33"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -833,11 +827,17 @@
                                     <action selector="takePhotoWithSender:" destination="beM-FT-25w" eventType="touchUpInside" id="Ign-N4-ZZS"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="1tr-mZ-jSV">
+                                <rect key="frame" x="42" y="114" width="291" height="193"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="193" id="fvL-z6-Mn6"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1tr-mZ-jSV" firstAttribute="centerX" secondItem="3M4-Ed-Nj2" secondAttribute="centerX" id="2gZ-mQ-ctO"/>
-                            <constraint firstItem="3M4-Ed-Nj2" firstAttribute="top" secondItem="1tr-mZ-jSV" secondAttribute="bottom" constant="73" id="CAB-Ep-fd9"/>
+                            <constraint firstItem="3M4-Ed-Nj2" firstAttribute="top" secondItem="1tr-mZ-jSV" secondAttribute="bottom" constant="8" id="CAB-Ep-fd9"/>
                             <constraint firstItem="y6Q-Hy-qNZ" firstAttribute="centerX" secondItem="3M4-Ed-Nj2" secondAttribute="centerX" id="DR9-3n-hoX"/>
                             <constraint firstItem="y6Q-Hy-qNZ" firstAttribute="top" secondItem="3M4-Ed-Nj2" secondAttribute="bottom" constant="36" id="FUp-FP-ilI"/>
                             <constraint firstItem="1tr-mZ-jSV" firstAttribute="centerX" secondItem="UTD-hu-S6f" secondAttribute="centerX" id="FbG-Eg-LiZ"/>
@@ -845,7 +845,7 @@
                             <constraint firstItem="y6Q-Hy-qNZ" firstAttribute="leading" secondItem="UTD-hu-S6f" secondAttribute="leadingMargin" id="HMv-d0-XC1"/>
                             <constraint firstItem="Zqd-Df-W87" firstAttribute="centerX" secondItem="y6Q-Hy-qNZ" secondAttribute="centerX" constant="1" id="Q0u-07-xuF"/>
                             <constraint firstItem="1tr-mZ-jSV" firstAttribute="top" secondItem="4lS-AO-B9d" secondAttribute="top" constant="50" id="XKG-L5-jQM"/>
-                            <constraint firstItem="1tr-mZ-jSV" firstAttribute="leading" secondItem="4lS-AO-B9d" secondAttribute="leading" constant="67" id="ez1-7s-kSQ"/>
+                            <constraint firstItem="1tr-mZ-jSV" firstAttribute="leading" secondItem="4lS-AO-B9d" secondAttribute="leading" constant="42" id="ez1-7s-kSQ"/>
                             <constraint firstItem="Zqd-Df-W87" firstAttribute="leading" secondItem="4lS-AO-B9d" secondAttribute="leading" constant="132" id="tD6-FL-A8q"/>
                             <constraint firstItem="Zqd-Df-W87" firstAttribute="top" secondItem="y6Q-Hy-qNZ" secondAttribute="bottom" constant="49" id="upl-nm-8ST"/>
                         </constraints>
@@ -902,7 +902,7 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="nez-qf-XoZ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="nez-qf-XoZ">
                                 <rect key="frame" x="72" y="94" width="230" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="CNY-Tf-u1X"/>
@@ -1023,7 +1023,7 @@
         <image name="ic_refresh" width="24" height="24"/>
         <image name="ic_screen_share" width="24" height="24"/>
         <image name="ic_settings" width="24" height="24"/>
-        <image name="launch_logo" width="450" height="422"/>
+        <image name="launch_logo" width="104" height="104"/>
         <image name="linked_in_logo" width="597" height="336"/>
         <image name="qrCode-40" width="40" height="40"/>
         <image name="snapchat_icon" width="400" height="400"/>

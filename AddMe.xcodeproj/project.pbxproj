@@ -522,7 +522,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;
@@ -541,7 +541,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;

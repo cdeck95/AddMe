@@ -333,7 +333,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.appImage.image = UIImage(named: "Instagram_icon")
         case "Snapchat":
             cell.appImage.image = UIImage(named: "snapchat_icon")
-        case "GooglePlus":
+        case "Google+":
             cell.appImage.image = UIImage(named: "google_plus_icon")
         case "LinkedIn":
             cell.appImage.image = UIImage(named: "linked_in_logo")
