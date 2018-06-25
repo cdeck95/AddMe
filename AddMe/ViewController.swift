@@ -162,19 +162,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-            var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
-            request.httpMethod = "POST"
-            let postString = "a=\(idString)"
-            request.httpBody = postString.data(using: String.Encoding.utf8)
-            let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                sema.signal()
-                return
-            } else {
-                print("---no error----")
-            }
+        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/getUserByID")!)
+        request.httpMethod = "POST"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+
+        let postString = "{\"user\": {\"cognitoId\": \"\(idString)\"}}"
+        print(postString)
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        print(request.httpBody)
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+        data, response, error in
+        if error != nil {
+            print("error=\(error)")
+            sema.signal()
+            return
+        } else {
+            print("---no error----")
+        }
                 
             let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             var responseOne = responseString

@@ -106,12 +106,12 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 print("unknown app found: \(key)")
             }
             
-            if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: app._userId!))
-            {
+            //if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: app._userId!))
+            //{
                 self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
-            }else {
-                print("Can't add this app")
-            }
+            //}else {
+            //    print("Can't add this app")
+            //}
         }
         
         //the cancel action doing nothing
@@ -213,9 +213,12 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     // Adds a users account to the DB.
     func addToDB(userName: String, displayName: String, platform: String, url: String){
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php")!)
+        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users")!)
         request.httpMethod = "POST"
-        let postString = "a=\(displayName)&b=\(platform)&c=\(url)&d=\(userName)"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        let postString = "{\"user\": {\"userName\": \"\(displayName)\", \"cognitoId\": \"\(userName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\"}}"
+        print(postString)
         request.httpBody = postString.data(using: String.Encoding.utf8)
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
@@ -236,7 +239,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     func verifyAppForUser(displayName: String, platform: String, url: String, userName: String) -> Bool {
         let sema = DispatchSemaphore(value: 0);
         var responseOne = ""
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/VerifyUserIsNew.php")!)
+        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users")!)
         request.httpMethod = "POST"
         let postString = "a=\(userName)&b=\(displayName)&c=\(platform)&d=\(url)"
         request.httpBody = postString.data(using: String.Encoding.utf8)

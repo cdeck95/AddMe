@@ -240,8 +240,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             // Code in this block will trigger when OK button tapped.
             let idString = self.credentialsManager.identityID!
             print(idString)
-            var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/deleteUser.php")!)
-            request.httpMethod = "POST"
+            var request = URLRequest(url:URL(string: "hhttps://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users")!)
+            request.httpMethod = "DELETE"
             let postString = "a=\(idString)"
             request.httpBody = postString.data(using: String.Encoding.utf8)
             let task = URLSession.shared.dataTask(with: request, completionHandler: {
@@ -288,8 +288,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
-        request.httpMethod = "POST"
+        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users")!)
+        request.httpMethod = "GET"
         let postString = "a=\(idString)"
         request.httpBody = postString.data(using: String.Encoding.utf8)
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
