@@ -213,11 +213,11 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     // Adds a users account to the DB.
     func addToDB(userName: String, displayName: String, platform: String, url: String){
-        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users")!)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        let postString = "{\"user\": {\"userName\": \"\(displayName)\", \"cognitoId\": \"\(userName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\"}}"
+        let postString = "{\"user\": {\"displayName\": \"\(displayName)\", \"cognitoId\": \"\(userName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\"}}"
         print(postString)
         request.httpBody = postString.data(using: String.Encoding.utf8)
         

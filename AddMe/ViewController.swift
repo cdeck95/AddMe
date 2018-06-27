@@ -162,7 +162,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/getUserByID")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/getUserByID")!)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
