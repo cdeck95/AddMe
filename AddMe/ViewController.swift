@@ -198,9 +198,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let decoder = JSONDecoder()
                 print("getting data")
                 let JSONdata = try decoder.decode(JsonApp.self, from: data!)
-                print(JSONdata.accounts)
-                print(JSONdata.accounts[0])
-                print(JSONdata.accounts[1])
+                //=======
+                for index in 0...JSONdata.accounts.count - 1 {
+                   let listOfAccountInfo = JSONdata.accounts[index]
+                    print(listOfAccountInfo["displayName"])
+                    print(listOfAccountInfo["platform"])
+                    print(listOfAccountInfo["url"])
+                    print(listOfAccountInfo["cognitoId"])
+                }
+                //=======
             } catch let err {
                 print("Err", err)
             }
