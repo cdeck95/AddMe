@@ -290,13 +290,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 print(appID)
                 print(isSelectedForQRCode)
                 if (isSelectedForQRCode){
-                    for app in apps {
-                        if(Int(app._userId!) == appID){
-                              jsonStringAsArray += "\"\(app._userId!)\": \"\(app._uRL!)\",\n"
-                        } else {
-                            print("app not found to make QR code")
-                        }
-                    }
+                    let app = apps[index]
+                    jsonStringAsArray += "\"\(app._displayName!)\": \"\(app._uRL!)\",\n"
+                } else {
+                    print("app not found to make QR code")
                 }
             }
         } else {
@@ -364,8 +361,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.appImage.image = UIImage(named: "google_plus_icon")
         case "LinkedIn"?:
             cell.appImage.image = UIImage(named: "linked_in_logo")
+        case "Xbox"?:
+            cell.appImage.image = UIImage(named: "xbox")
+        case "PSN"?:
+            cell.appImage.image = UIImage(named: "play-station")
+        case "Twitch"?:
+            cell.appImage.image = UIImage(named: "twitch")
+        case "Custom"?:
+            cell.appImage.image = UIImage(named: "custom")
         default:
-            cell.appImage.image = UIImage(named: "AppIcon")
+            cell.appImage.image = UIImage(named: "AppIcon-1")
         }
         
         cell.id = Int(apps[indexPath.row]._userId!)

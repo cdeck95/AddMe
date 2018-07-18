@@ -755,6 +755,134 @@
                                             <outlet property="appName" destination="ynA-yx-7DI" id="gNz-2N-wj3"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Xbox" id="KNZ-BH-Ih6" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="477" width="115" height="145"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="145"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGp-00-3MZ">
+                                                    <rect key="frame" x="36.5" y="124" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xbox" translatesAutoresizingMaskIntoConstraints="NO" id="95S-q2-8Ji">
+                                                    <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="95S-q2-8Ji" firstAttribute="top" secondItem="KNZ-BH-Ih6" secondAttribute="topMargin" constant="-8" id="57W-m6-Dq5"/>
+                                            <constraint firstItem="95S-q2-8Ji" firstAttribute="centerX" secondItem="KNZ-BH-Ih6" secondAttribute="centerX" id="6mV-yg-JVj"/>
+                                            <constraint firstItem="95S-q2-8Ji" firstAttribute="top" secondItem="KNZ-BH-Ih6" secondAttribute="top" id="Du0-Xw-JjG"/>
+                                            <constraint firstItem="TGp-00-3MZ" firstAttribute="centerX" secondItem="95S-q2-8Ji" secondAttribute="centerX" id="LVL-Vw-iBT"/>
+                                            <constraint firstAttribute="bottom" secondItem="TGp-00-3MZ" secondAttribute="bottom" id="Txz-xC-3VC"/>
+                                            <constraint firstItem="95S-q2-8Ji" firstAttribute="leading" secondItem="KNZ-BH-Ih6" secondAttribute="leadingMargin" constant="-8" id="ZDP-Om-xkk"/>
+                                            <constraint firstItem="95S-q2-8Ji" firstAttribute="centerY" secondItem="KNZ-BH-Ih6" secondAttribute="centerY" constant="-15" id="eEW-2c-cKH"/>
+                                            <constraint firstItem="95S-q2-8Ji" firstAttribute="leading" secondItem="KNZ-BH-Ih6" secondAttribute="leadingMargin" constant="-8" id="n5e-3v-d9w"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="appImage" destination="95S-q2-8Ji" id="jfM-O9-RKm"/>
+                                            <outlet property="appName" destination="TGp-00-3MZ" id="aX2-2v-rv1"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PSN" id="7Jb-Mw-90u" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
+                                        <rect key="frame" x="228" y="477" width="115" height="145"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="145"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b2l-jW-3tx">
+                                                    <rect key="frame" x="36.5" y="124" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play-station" translatesAutoresizingMaskIntoConstraints="NO" id="j5h-N9-aud">
+                                                    <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="j5h-N9-aud" firstAttribute="top" secondItem="7Jb-Mw-90u" secondAttribute="topMargin" constant="-8" id="3qD-En-idW"/>
+                                            <constraint firstItem="j5h-N9-aud" firstAttribute="centerY" secondItem="7Jb-Mw-90u" secondAttribute="centerY" constant="-15" id="A2D-CO-j3u"/>
+                                            <constraint firstItem="j5h-N9-aud" firstAttribute="centerX" secondItem="7Jb-Mw-90u" secondAttribute="centerX" id="NPU-AC-2ji"/>
+                                            <constraint firstItem="j5h-N9-aud" firstAttribute="leading" secondItem="7Jb-Mw-90u" secondAttribute="leadingMargin" constant="-8" id="W9k-iS-NOP"/>
+                                            <constraint firstAttribute="bottom" secondItem="b2l-jW-3tx" secondAttribute="bottom" id="YIS-aE-mtx"/>
+                                            <constraint firstItem="j5h-N9-aud" firstAttribute="top" secondItem="7Jb-Mw-90u" secondAttribute="top" id="hmz-Hx-6Z1"/>
+                                            <constraint firstItem="j5h-N9-aud" firstAttribute="leading" secondItem="7Jb-Mw-90u" secondAttribute="leadingMargin" constant="-8" id="nHf-ah-xLV"/>
+                                            <constraint firstItem="b2l-jW-3tx" firstAttribute="centerX" secondItem="j5h-N9-aud" secondAttribute="centerX" id="nwb-vL-kOT"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="appImage" destination="j5h-N9-aud" id="xIt-go-WVc"/>
+                                            <outlet property="appName" destination="b2l-jW-3tx" id="iIs-GB-grA"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Twitch" id="ue5-Zj-aqQ" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="636" width="115" height="145"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="145"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mcn-i1-0Iz">
+                                                    <rect key="frame" x="36.5" y="124" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitch" translatesAutoresizingMaskIntoConstraints="NO" id="Ibr-af-pa4">
+                                                    <rect key="frame" x="8" y="0.0" width="99" height="115"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="Mcn-i1-0Iz" secondAttribute="bottom" id="9jQ-vE-SuM"/>
+                                            <constraint firstItem="Ibr-af-pa4" firstAttribute="leading" secondItem="ue5-Zj-aqQ" secondAttribute="leadingMargin" constant="-8" id="Cis-V4-jLo"/>
+                                            <constraint firstItem="Ibr-af-pa4" firstAttribute="top" secondItem="ue5-Zj-aqQ" secondAttribute="topMargin" constant="-8" id="Clf-h0-vfT"/>
+                                            <constraint firstItem="Ibr-af-pa4" firstAttribute="centerY" secondItem="ue5-Zj-aqQ" secondAttribute="centerY" constant="-15" id="Dps-CA-0aT"/>
+                                            <constraint firstItem="Ibr-af-pa4" firstAttribute="centerX" secondItem="ue5-Zj-aqQ" secondAttribute="centerX" id="Gf9-0u-EKi"/>
+                                            <constraint firstItem="Ibr-af-pa4" firstAttribute="leading" secondItem="ue5-Zj-aqQ" secondAttribute="leadingMargin" constant="-8" id="Ihn-SX-W2O"/>
+                                            <constraint firstItem="Mcn-i1-0Iz" firstAttribute="centerX" secondItem="Ibr-af-pa4" secondAttribute="centerX" id="LUK-ma-19c"/>
+                                            <constraint firstItem="Ibr-af-pa4" firstAttribute="top" secondItem="ue5-Zj-aqQ" secondAttribute="top" id="xdv-Wn-xgt"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="appImage" destination="Ibr-af-pa4" id="HO0-1b-X0c"/>
+                                            <outlet property="appName" destination="Mcn-i1-0Iz" id="l2s-2X-LiK"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Custom" id="me5-lF-nzD" customClass="CollectionViewCell" customModule="AddMe" customModuleProvider="target">
+                                        <rect key="frame" x="228" y="636" width="115" height="145"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="145"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNH-pO-G7P">
+                                                    <rect key="frame" x="36.5" y="124" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="custom" translatesAutoresizingMaskIntoConstraints="NO" id="rnS-RM-kQE">
+                                                    <rect key="frame" x="8" y="0.0" width="99" height="115"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="mNH-pO-G7P" secondAttribute="bottom" id="4Ns-Z2-Csx"/>
+                                            <constraint firstItem="rnS-RM-kQE" firstAttribute="leading" secondItem="me5-lF-nzD" secondAttribute="leadingMargin" constant="-8" id="L0u-HW-WLc"/>
+                                            <constraint firstItem="rnS-RM-kQE" firstAttribute="centerX" secondItem="me5-lF-nzD" secondAttribute="centerX" id="OMk-l5-v3E"/>
+                                            <constraint firstItem="mNH-pO-G7P" firstAttribute="centerX" secondItem="rnS-RM-kQE" secondAttribute="centerX" id="PCo-mg-VDH"/>
+                                            <constraint firstItem="rnS-RM-kQE" firstAttribute="centerY" secondItem="me5-lF-nzD" secondAttribute="centerY" constant="-15" id="SbA-hv-jCS"/>
+                                            <constraint firstItem="rnS-RM-kQE" firstAttribute="top" secondItem="me5-lF-nzD" secondAttribute="topMargin" constant="-8" id="T5c-82-Rht"/>
+                                            <constraint firstItem="rnS-RM-kQE" firstAttribute="top" secondItem="me5-lF-nzD" secondAttribute="top" id="Ydw-Cr-x23"/>
+                                            <constraint firstItem="rnS-RM-kQE" firstAttribute="leading" secondItem="me5-lF-nzD" secondAttribute="leadingMargin" constant="-8" id="saR-Ic-oXJ"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="appImage" destination="rnS-RM-kQE" id="7qZ-9o-klJ"/>
+                                            <outlet property="appName" destination="mNH-pO-G7P" id="9Xc-Cg-88S"/>
+                                        </connections>
+                                    </collectionViewCell>
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="mz7-JQ-d65" id="CpK-wM-zGy"/>
@@ -1011,6 +1139,7 @@
     <resources>
         <image name="Icon-20" width="20" height="27"/>
         <image name="Instagram_icon" width="599" height="600"/>
+        <image name="custom" width="512" height="512"/>
         <image name="fb-icon" width="45" height="45"/>
         <image name="google_plus_icon" width="512" height="512"/>
         <image name="ic_add_circle" width="24" height="24"/>
@@ -1025,8 +1154,11 @@
         <image name="ic_settings" width="24" height="24"/>
         <image name="launch_logo" width="104" height="104"/>
         <image name="linked_in_logo" width="597" height="336"/>
+        <image name="play-station" width="1600" height="1600"/>
         <image name="qrCode-40" width="40" height="40"/>
         <image name="snapchat_icon" width="400" height="400"/>
+        <image name="twitch" width="350" height="350"/>
         <image name="twitter_icon" width="1687" height="1687"/>
+        <image name="xbox" width="229" height="220"/>
     </resources>
 </document>

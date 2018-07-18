@@ -19,8 +19,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     var datasetManager = Dataset.sharedInstance
     //var reuseIdentifier:String = "collectionViewCell"
     //var store = DataStore.sharedInstance
-    var appIDs = ["Facebook", "Instagram", "Snapchat", "Twitter", "LinkedIn", "Google+"]
-    let cellSizes = Array( repeatElement(CGSize(width:160, height:110), count: 6))
+    var appIDs = ["Facebook", "Instagram", "Snapchat", "Twitter", "LinkedIn", "Google+", "Xbox", "PSN", "Twitch", "Custom"]
+    let cellSizes = Array( repeatElement(CGSize(width:160, height:110), count: 10))
     var apps: [String]!
     var credentialsManager = CredentialsManager.sharedInstance
     
@@ -54,26 +54,58 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         //Setting title and message for the alert dialog
    
         var alertController:UIAlertController!
-//        switch key {
-//            case "Facebook":
-//                if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
-//                    let alertController = UIAlertController(title: "Good News!", message: "You are already authenticated with Facebook. Please just enter your custom display name.", preferredStyle: .alert)
-//
-//                    //the confirm action taking the inputs
-//                    let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in }
-//
-//                    //adding the action to dialogbox
-//                    alertController.addAction(confirmAction)
-//
-//                    //finally presenting the dialog box
-//                    self.present(alertController, animated: true, completion: nil)
-//                    return
-//                } else {
-//                     alertController = UIAlertController(title: "Enter details", message: "Facebook special instructions", preferredStyle: .alert)
-//                }
-//            default:
+        switch key {
+            case "Facebook":
+                if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
+                    let alertController = UIAlertController(title: "Good News!", message: "You are already authenticated with Facebook. Please just enter your custom display name.", preferredStyle: .alert)
+
+                    //the confirm action taking the inputs
+                    let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in }
+
+                    //adding the action to dialogbox
+                    alertController.addAction(confirmAction)
+
+                    //finally presenting the dialog box
+                    self.present(alertController, animated: true, completion: nil)
+                    return
+                } else {
+                     alertController = UIAlertController(title: "Enter details", message: "Facebook special instructions", preferredStyle: .alert)
+                }
+            case "Custom":
+                alertController = UIAlertController(title: "Enter details", message: "Enter your website URL", preferredStyle: .alert)
+                //the cancel action doing nothing
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+                
+                //adding textfields to our dialog box
+                alertController.addTextField { (textField) in
+                    textField.placeholder = "Enter Your Custom Display Name (i.e Personal Facebook)"
+                }
+                
+                //adding textfields to our dialog box
+                alertController.addTextField { (textField) in
+                    textField.placeholder = "Enter Website URL"
+                }
+                
+                //adding the action to dialogbox
+                alertController.addAction(cancelAction)
+            default:
                 alertController = UIAlertController(title: "Enter details", message: "Enter your username", preferredStyle: .alert)
-        //}
+                //the cancel action doing nothing
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+                
+                //adding textfields to our dialog box
+                alertController.addTextField { (textField) in
+                    textField.placeholder = "Enter Your Custom Display Name (i.e Personal Facebook)"
+                }
+                
+                //adding textfields to our dialog box
+                alertController.addTextField { (textField) in
+                    textField.placeholder = "Enter Username"
+                }
+                
+                //adding the action to dialogbox
+                alertController.addAction(cancelAction)
+        }
         
         
         //the confirm action taking the inputs
@@ -102,6 +134,16 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 app._uRL = "http://www.linkedin.com/in/\(username)"
             case "GooglePlus":
                 app._uRL = "http://plus.google.com/\(username)"
+            case "Xbox":
+                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                app._uRL = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
+            case "PSN":
+                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                app._uRL = "https://my.playstation.com/profile/\(usernameURL!)"
+            case "Twitch":
+                app._uRL = "https://m.twitch.tv/\(username)/profile"
+            case "Custom":
+                app._uRL = "\(username)"
             default:
                 print("unknown app found: \(key)")
             }
@@ -113,24 +155,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             //    print("Can't add this app")
             //}
         }
-        
-        //the cancel action doing nothing
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-        
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Enter Your Custom Display Name (i.e Personal Facebook)"
-        }
-        
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Enter Username"
-        }
-        
-        //adding the action to dialogbox
         alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-        
         //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)
     }
@@ -181,6 +206,14 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             showInputDialog(key: "LinkedIn")
         case "GooglePlus":
             showInputDialog(key: "Google+")
+        case "Xbox":
+            showInputDialog(key: "Xbox")
+        case "PSN":
+            showInputDialog(key: "PSN")
+        case "Twitch":
+            showInputDialog(key: "Twitch")
+        case "Custom":
+            showInputDialog(key: "Custom")
         default:
             print("error")
         }

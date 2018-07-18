@@ -129,6 +129,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     func openPlatforms(){
         keys = dict.keys
+        print("keys")
         if(dict.count > 0){
             
             let currentKey = keys.first!
