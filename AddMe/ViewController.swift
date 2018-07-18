@@ -201,42 +201,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 //=======
                 for index in 0...JSONdata.accounts.count - 1 {
                    let listOfAccountInfo = JSONdata.accounts[index]
-                    print(listOfAccountInfo["displayName"])
-                    print(listOfAccountInfo["platform"])
-                    print(listOfAccountInfo["url"])
-                    print(listOfAccountInfo["cognitoId"])
+                    let displayName = listOfAccountInfo["displayName"]!
+                    let platform = listOfAccountInfo["platform"]!
+                    let url = listOfAccountInfo["url"]!
+                    let cognitoId = listOfAccountInfo["cognitoId"]!
+                    print(displayName)
+                    print(platform)
+                    print(url)
+                    print(cognitoId)
+                    let app = Apps()
+                    app?._userId = cognitoId
+                    app?._displayName = displayName
+                    app?._platform = platform
+                    app?._uRL = url
+                    print(app)
+                    returnList.append(app!)
                 }
+                apps = returnList
+                sema.signal();
                 //=======
             } catch let err {
                 print("Err", err)
+                apps = returnList
+                sema.signal(); // none found TODO: do something better than this shit.
             }
             print("Done")
             /////////////////////////
-                
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            var responseOne = responseString
-            let lines = responseOne!.components(separatedBy: "\n")
-            print(lines)
-
-                // Goes through and picks out the platforms.
-                if (lines.count > 3){
-                    for index in stride(from:0, to: lines.count-1, by: 4) {
-                        print(index)
-                        let app = Apps()
-                        app?._userId = lines[index]
-                        app?._displayName = lines[index+1]
-                        app?._platform = lines[index+2]
-                        app?._uRL = lines[index+3]
-                        print(app)
-                        returnList.append(app!)
-                    }
-                    apps = returnList
-                    sema.signal();
-                }
-                else {
-                    apps = returnList
-                    sema.signal()
-                }
         })
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
