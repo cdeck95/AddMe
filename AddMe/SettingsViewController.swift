@@ -45,7 +45,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         print("creating cells for table view in settings")
         let cell:SettingsTableViewCell = settingsAppsTableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsTableViewCell
         cell.appName.text = apps[indexPath.row]._displayName!
-        cell.appID = Int(apps[indexPath.row]._userId!)
+        cell.appID = Int(apps[indexPath.row]._appId!)
         cell.onButtonTapped = {
             let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "EditAppViewController") as! EditAppViewController
             VC1.AppID = cell.appID
@@ -316,21 +316,21 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     ////////////////////////////// END OF JSON ///////////////////////////////////
     
     ///////////////////////////// NEW STUFF /////////////////////////////////
-    func loadAppsFromDB(){
-        print("Settings load from DB")
+    func loadAppsFromDB() {
+        print("RIGHT HERE")
         var returnList: [Apps] = []
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/getUserByID")!)
-        request.httpMethod = "POST"
+        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users/\(idString)/accounts")!)
+        request.httpMethod = "GET"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
         
-        let postString = "{\"user\": {\"cognitoId\": \"\(idString)\"}}"
-        print(postString)
-        request.httpBody = postString.data(using: String.Encoding.utf8)
-        print(request.httpBody)
+        //        let postString = "{\"user\": {\"cognitoId\": \"\(idString)\"}}"
+        //        print(postString)
+        //        request.httpBody = postString.data(using: String.Encoding.utf8)
+        //        print(request.httpBody)
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             data, response, error in
             if error != nil {
@@ -342,9 +342,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             //////////////////////// New stuff from Tom
             do {
-                print("decoding in settings")
+                print("decoding")
                 let decoder = JSONDecoder()
-                print("getting data in settings")
+                print("getting data")
                 let JSONdata = try decoder.decode(JsonApp.self, from: data!)
                 //=======
                 for index in 0...JSONdata.accounts.count - 1 {
@@ -352,13 +352,17 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     let displayName = listOfAccountInfo["displayName"]!
                     let platform = listOfAccountInfo["platform"]!
                     let url = listOfAccountInfo["url"]!
-                    let cognitoId = listOfAccountInfo["cognitoId"]!
+                    var appIdString = listOfAccountInfo["accountId"]!
+                    if(appIdString.prefix(2) == "0x"){
+                        appIdString.removeFirst(2)
+                    }
+                    let appId = Int(appIdString, radix: 16)
                     print(displayName)
                     print(platform)
                     print(url)
-                    print(cognitoId)
+                    print(appId)
                     let app = Apps()
-                    app?._userId = cognitoId
+                    app?._appId = appId
                     app?._displayName = displayName
                     app?._platform = platform
                     app?._uRL = url
@@ -371,7 +375,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             } catch let err {
                 print("Err", err)
                 apps = returnList
-                sema.signal();
+                sema.signal(); // none found TODO: do something better than this shit.
             }
             print("Done")
             /////////////////////////
@@ -380,6 +384,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         sema.wait(timeout: DispatchTime.distantFuture)
         self.settingsAppsTableView.reloadData()
     }
+    
     
     func oldLoadAppsFromDB() {
         var returnList: [Apps] = []
@@ -410,7 +415,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 for index in stride(from:0, to: lines.count-1, by: 4) {
                     print(index)
                     let app = Apps()
-                    app?._userId = lines[index]
+                    app?._appId = Int(lines[index], radix: 16)
                     app?._displayName = lines[index+1]
                     app?._platform = lines[index+2]
                     app?._uRL = lines[index+3]

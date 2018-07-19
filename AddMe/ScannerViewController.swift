@@ -136,11 +136,41 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             print("current key: \(currentKey)")
             let currentURL = dict[currentKey]!
             print("current url: \(currentURL)")
+            let url = URL(string: currentURL)
             self.tabBarController?.hidesBottomBarWhenPushed = true
-            let svc = SFSafariViewController(url: URL(string: currentURL)!)
-            svc.delegate = self
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-            self.navigationController?.pushViewController(svc, animated: true)
+            var platform = ""
+            if (currentURL.contains("twitter.com")){
+                platform = "Twitter"
+            } else if (currentURL.contains("twitch.tv")){
+                platform = "Twitch"
+            } else if (currentURL.contains("instagram.com")){
+                platform = "Instagram"
+            } else if (currentURL.contains("linkedin.com")){
+                platform = "Instagram"
+            } else if (currentURL.contains("snapchat.com")){
+                platform = "Instagram"
+            } else {
+                platform = "other"
+            }
+            
+            
+            switch platform {
+            case "Twitter":
+                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+            case "Twitch":
+                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+            case "Instagram":
+                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+            case "LinkedIn":
+                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+            case "Snapchat":
+                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+            default:
+                let svc = SFSafariViewController(url: URL(string: currentURL)!)
+                svc.delegate = self
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                self.navigationController?.pushViewController(svc, animated: true)
+            }
             dict.removeValue(forKey: currentKey)
         }
     }

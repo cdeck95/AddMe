@@ -113,12 +113,10 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             //getting the input values from user
             let username:String = (alertController.textFields?[1].text)!
             let displayName:String = (alertController.textFields?[0].text)!
-            let userID:String = self.credentialsManager.identityID
             print(username)
             print(displayName)
             print(key)
             let app:Apps = Apps()
-            app._userId = userID
             app._displayName = displayName
             app._platform = key
             switch key {
@@ -150,7 +148,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             
             //if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: app._userId!))
             //{
-                self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
+            self.addToDB(userName: self.credentialsManager.identityID, displayName: displayName, platform: key, url: app._uRL!)
             //}else {
             //    print("Can't add this app")
             //}
@@ -246,11 +244,11 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     // Adds a users account to the DB.
     func addToDB(userName: String, displayName: String, platform: String, url: String){
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users")!)
+        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users/\(self.credentialsManager.identityID)/accounts")!)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        let postString = "{\"user\": {\"displayName\": \"\(displayName)\", \"cognitoId\": \"\(userName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\"}}"
+        let postString = "{\"displayName\": \"\(displayName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\"}"
         print(postString)
         request.httpBody = postString.data(using: String.Encoding.utf8)
         

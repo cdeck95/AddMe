@@ -174,15 +174,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/getUserByID")!)
-        request.httpMethod = "POST"
+        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users/\(idString)/accounts")!)
+        print(request)
+        request.httpMethod = "GET"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
 
-        let postString = "{\"user\": {\"cognitoId\": \"\(idString)\"}}"
-        print(postString)
-        request.httpBody = postString.data(using: String.Encoding.utf8)
-        print(request.httpBody)
+//        let postString = "{\"user\": {\"cognitoId\": \"\(idString)\"}}"
+//        print(postString)
+//        request.httpBody = postString.data(using: String.Encoding.utf8)
+//        print(request.httpBody)
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
         data, response, error in
         if error != nil {
@@ -204,13 +205,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     let displayName = listOfAccountInfo["displayName"]!
                     let platform = listOfAccountInfo["platform"]!
                     let url = listOfAccountInfo["url"]!
-                    let cognitoId = listOfAccountInfo["cognitoId"]!
+                    var appIdString = listOfAccountInfo["accountId"]!
+                    if(appIdString.prefix(2) == "0x"){
+                        appIdString.removeFirst(2)
+                    }
+                    print(appIdString)
+                    let appId = Int(appIdString, radix: 16)!
                     print(displayName)
                     print(platform)
                     print(url)
-                    print(cognitoId)
+                    print(appId)
                     let app = Apps()
-                    app?._userId = cognitoId
+                    app?._appId = appId
                     app?._displayName = displayName
                     app?._platform = platform
                     app?._uRL = url
@@ -281,7 +287,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // to use in the QR Code being made. It checks their label and UISwitch.
     // If the switch is "On" then it will be included in the QR codes creation.
     @IBAction func createQRCode(_ sender: Any) {
-        var jsonStringAsArray = "{\n"
+    var jsonStringAsArray = "{\n"
      print("createQRCode()")
         if(cellSwitches.count > 0){
             for index in 0...cellSwitches.count - 1{
@@ -373,7 +379,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.appImage.image = UIImage(named: "AppIcon-1")
         }
         
-        cell.id = Int(apps[indexPath.row]._userId!)
+        cell.id = apps[indexPath.row]._appId!
         //print(indexPath.row)
         if(indexPath.row == apps.count-1){
             print("-----------about to create code----------")
