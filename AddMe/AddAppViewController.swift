@@ -123,17 +123,17 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             app._platform = key
             switch key {
             case "Facebook":
-                app._uRL = "http://facebook.com/\(username)"
+                app._uRL = "https://www.facebook.com/\(username)"
             case "Twitter":
-                app._uRL = "http://www.twitter.com/\(username)"
+                app._uRL = "https://www.twitter.com/\(username)"
             case "Instagram":
-                app._uRL = "http://www.instagram.com/\(username)"
+                app._uRL = "https://www.instagram.com/\(username)"
             case "Snapchat":
-                app._uRL = "http://www.snapchat.com/add/\(username)"
+                app._uRL = "https://www.snapchat.com/add/\(username)"
             case "LinkedIn":
-                app._uRL = "http://www.linkedin.com/in/\(username)"
+                app._uRL = "https://www.linkedin.com/in/\(username)"
             case "GooglePlus":
-                app._uRL = "http://plus.google.com/\(username)"
+                app._uRL = "https://plus.google.com/\(username)"
             case "Xbox":
                 let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
                 app._uRL = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
@@ -247,7 +247,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     // Adds a users account to the DB.
     func addToDB(userName: String, displayName: String, platform: String, url: String){
         let identityId = self.credentialsManager.identityID!
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts/")!)
         print(request)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON

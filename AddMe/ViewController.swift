@@ -63,17 +63,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewWillAppear(_ animated: Bool) {
         print("----in view will appear----")
-//        if(isMenuOpened == true){
-//            isMenuOpened = false
-//            sideMenuViewController.willMove(toParentViewController: nil)
-//            sideMenuViewController.view.removeFromSuperview()
-//            sideMenuViewController.removeFromParentViewController()
-//        }
-      //  cellSwitches = []
         self.tabBarController?.tabBar.isHidden = false
         presentAuthUIViewController()
         appsTableView.reloadData()
-      // createQRCode(self)
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
@@ -170,20 +162,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // Tom 2018/04/18
     func loadAppsFromDB() {
         print("RIGHT HERE")
+        apps = []
         var returnList: [Apps] = []
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/")!)
         print(request)
         request.httpMethod = "GET"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-
-//        let postString = "{\"user\": {\"cognitoId\": \"\(idString)\"}}"
-//        print(postString)
-//        request.httpBody = postString.data(using: String.Encoding.utf8)
-//        print(request.httpBody)
+        
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
         data, response, error in
         if error != nil {
@@ -206,17 +195,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     let platform = listOfAccountInfo["platform"]!
                     let url = listOfAccountInfo["url"]!
                     var appIdString = listOfAccountInfo["accountId"]!
-                    if(appIdString.prefix(2) == "0x"){
-                        appIdString.removeFirst(2)
-                    }
+//                    if(appIdString.prefix(2) == "0x"){
+//                        appIdString.removeFirst(2)
+//                    }
                     print(appIdString)
-                    let appId = Int(appIdString, radix: 16)!
+                    let appId = Int(appIdString)!//, radix: 16)!
                     print(displayName)
                     print(platform)
                     print(url)
                     print(appId)
                     let app = Apps()
-                    app?._appId = appId
+                    app?._appId = "\(appId)"
                     app?._displayName = displayName
                     app?._platform = platform
                     app?._uRL = url
@@ -236,6 +225,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         })
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
+        apps = returnList
+        cellSwitches = []
         self.appsTableView.reloadData()
     }
     
@@ -261,33 +252,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-//    @IBAction func menuClicked(_ sender: Any) {
-//        print("menuClicked()")
-//        if(isMenuOpened){
-//            isMenuOpened = false
-//            sideMenuViewController.willMove(toParentViewController: nil)
-//            sideMenuViewController.view.removeFromSuperview()
-//            sideMenuViewController.removeFromParentViewController()
-//        }
-//        else{
-//            isMenuOpened = true
-//            self.addChildViewController(sideMenuViewController)
-//            self.view.addSubview(sideMenuViewController.view)
-//            sideMenuViewController.didMove(toParentViewController: self)
-//        }
-//        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-//    }
-//
-    @IBAction func scan(_ sender: Any) {
-        let scannerVC = ScannerViewController()
-        self.navigationController?.pushViewController(scannerVC, animated: true)
-    }
-    
     // Goes through the list of table cells that contain the switches for which apps
     // to use in the QR Code being made. It checks their label and UISwitch.
     // If the switch is "On" then it will be included in the QR codes creation.
     @IBAction func createQRCode(_ sender: Any) {
-        loadApps()
+       // loadApps()
         var jsonStringAsArray = "{\n"
         print("createQRCode()")
         if(cellSwitches.count > 0){
@@ -313,8 +282,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if(datasetManager.dataset != nil){
             datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
         }
-        //qrCodeButton.setImage(generateQRCode(from: result), for: .normal)
-        //qrCodeButton.sizeToFit()
     }
     
     func generateQRCode(from string: String) -> UIImage? {
@@ -380,7 +347,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.appImage.image = UIImage(named: "AppIcon-1")
         }
         
-        cell.id = apps[indexPath.row]._appId!
+        cell.id = Int(apps[indexPath.row]._appId!)
         //print(indexPath.row)
         if(indexPath.row == apps.count-1){
             print("-----------about to create code----------")
@@ -393,7 +360,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         appsTableView.reloadData()
     }
     
-    
     @objc private func refreshAppData(_ sender: Any) {
         // Fetch Weather Data
         print("refreshAppData()")
@@ -405,13 +371,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         loadApps()
         self.updateView()
         self.refreshControl.endRefreshing()
-//        self.activityIndicatorView.stopAnimating()
+        self.activityIndicatorView.stopAnimating()
     }
     
     private func setupView() {
         print("setUpView()")
         setupTableView()
-        setupMessageLabel()
         setupActivityIndicatorView()
     }
     
@@ -419,19 +384,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("updateView()")
         let hasApps = apps.count > 0
         print("has apps: \(hasApps)")
-        appsTableView.isHidden = false //!hasApps
+        appsTableView.isHidden = false
         activityIndicatorView.stopAnimating()
         activityIndicatorView.isHidden = true
-        //messageLabel.isHidden = hasApps
         if hasApps {
             appsTableView.reloadData()
-          //  messageLabel.isHidden = false
-         //   messageLabel.text = "Connected Apps"
         } else {
-         //   messageLabel.isHidden = false
-         //   messageLabel.text = "No Connected Apps"
         }
-        
     }
     
     // MARK: -
@@ -439,17 +398,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("setuptableView()")
         appsTableView.isHidden = false// true
         activityIndicatorView.isHidden = false
-    }
-    
-    private func setupMessageLabel() {
-//        print("setupMessageLabel()")
-//        if apps.count > 0 {
-//            messageLabel.isHidden = false
-//            messageLabel.text = "Connected Apps"
-//        } else {
-//            messageLabel.isHidden = false
-//            messageLabel.text = "No Connected Apps"
-//        }
     }
     
     private func setupActivityIndicatorView() {

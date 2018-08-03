@@ -224,16 +224,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kPv-vc-8Td">
-                                <rect key="frame" x="137" y="617" width="101" height="30"/>
-                                <state key="normal" title="Delete all apps">
+                                <rect key="frame" x="122" y="617" width="131" height="30"/>
+                                <state key="normal" title="Delete all accounts">
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="deleteApps:" destination="MaD-TQ-yjv" eventType="touchUpInside" id="enf-jw-C9J"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit/Remove Apps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLr-8Z-sl9">
-                                <rect key="frame" x="117" y="39" width="140" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit/Remove Accounts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YLr-8Z-sl9">
+                                <rect key="frame" x="101" y="39" width="173" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.022106788589999999" green="0.62808561360000004" blue="0.14253416469999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -261,7 +261,7 @@
                                                         <color key="titleColor" red="0.022106788589999999" green="0.62808561360000004" blue="0.14253416469999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="showDetails:" destination="tC2-ub-PHW" eventType="touchUpInside" id="sVZ-Tn-4ar"/>
+                                                        <action selector="showDetails:" destination="tC2-ub-PHW" eventType="touchUpInside" id="pae-Fy-8hh"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdb-9u-Q2w">
@@ -333,7 +333,7 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Platform" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xk-BN-vHq">
-                                <rect key="frame" x="16" y="262" width="65" height="21"/>
+                                <rect key="frame" x="16" y="262.5" width="65" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.022106788589999999" green="0.62808561360000004" blue="0.14253416469999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -345,53 +345,56 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdt-LW-eYL">
-                                <rect key="frame" x="16" y="187" width="79" height="21"/>
+                                <rect key="frame" x="16" y="187.5" width="79" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.022106788589999999" green="0.62808561360000004" blue="0.14253416469999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HbU-gg-bB4">
-                                <rect key="frame" x="16" y="109" width="105" height="21"/>
+                                <rect key="frame" x="16" y="109.5" width="105" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.022106788589999999" green="0.62808561360000004" blue="0.14253416469999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ww6-x6-cdY">
-                                <rect key="frame" x="325" y="617" width="34" height="30"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleColor" red="0.022106788589999999" green="0.62808561360000004" blue="0.14253416469999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveApp:" destination="FPh-yG-zZn" eventType="touchUpInside" id="lx2-qR-6wy"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="je3-Of-Q7d">
-                                <rect key="frame" x="17" y="617" width="45" height="30"/>
-                                <state key="normal" title="Delete">
-                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="deleteApp:" destination="FPh-yG-zZn" eventType="touchUpInside" id="vAq-yq-Maf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emP-9e-5fT">
-                                <rect key="frame" x="163" y="617" width="48" height="30"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="dismiss:" destination="FPh-yG-zZn" eventType="touchUpInside" id="Lmn-8o-7k0"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="wug-ax-avf">
+                                <rect key="frame" x="170" y="318" width="48" height="140"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ww6-x6-cdY">
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="30"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" red="0.022106788589999999" green="0.62808561360000004" blue="0.14253416469999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveApp:" destination="FPh-yG-zZn" eventType="touchUpInside" id="lx2-qR-6wy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emP-9e-5fT">
+                                        <rect key="frame" x="0.0" y="55" width="48" height="30"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="dismiss:" destination="FPh-yG-zZn" eventType="touchUpInside" id="Lmn-8o-7k0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="je3-Of-Q7d">
+                                        <rect key="frame" x="0.0" y="110" width="48" height="30"/>
+                                        <state key="normal" title="Delete">
+                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteApp:" destination="FPh-yG-zZn" eventType="touchUpInside" id="vAq-yq-Maf"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HbU-gg-bB4" firstAttribute="centerY" secondItem="sP7-gu-BK9" secondAttribute="centerY" id="04F-u6-US7"/>
                             <constraint firstItem="Xdt-LW-eYL" firstAttribute="centerY" secondItem="Mm0-3l-mT2" secondAttribute="centerY" id="0Dg-w4-TXp"/>
-                            <constraint firstItem="4xk-BN-vHq" firstAttribute="leading" secondItem="emP-9e-5fT" secondAttribute="leading" constant="-147" id="2HH-kF-ynW"/>
                             <constraint firstItem="sP7-gu-BK9" firstAttribute="trailing" secondItem="T3b-8e-9CI" secondAttribute="trailingMargin" id="68p-Af-8Ks"/>
-                            <constraint firstItem="emP-9e-5fT" firstAttribute="baseline" secondItem="ww6-x6-cdY" secondAttribute="baseline" id="6q7-6f-2MB"/>
                             <constraint firstItem="Mm0-3l-mT2" firstAttribute="leading" secondItem="OwH-km-Lf3" secondAttribute="leading" id="954-tR-ele"/>
                             <constraint firstItem="OwH-km-Lf3" firstAttribute="top" secondItem="Mm0-3l-mT2" secondAttribute="bottom" constant="47" id="Eal-nM-OFH"/>
-                            <constraint firstItem="je3-Of-Q7d" firstAttribute="leading" secondItem="6H0-AO-mak" secondAttribute="leading" constant="17" id="GXa-Ze-LPd"/>
-                            <constraint firstAttribute="bottom" secondItem="emP-9e-5fT" secondAttribute="bottom" constant="20" symbolic="YES" id="Hss-U3-qFv"/>
                             <constraint firstItem="sP7-gu-BK9" firstAttribute="top" secondItem="6H0-AO-mak" secondAttribute="top" constant="84" id="ITe-bz-g98"/>
                             <constraint firstItem="sP7-gu-BK9" firstAttribute="trailing" secondItem="Mm0-3l-mT2" secondAttribute="trailing" id="Kmd-A8-9rE"/>
                             <constraint firstItem="sP7-gu-BK9" firstAttribute="leading" secondItem="HbU-gg-bB4" secondAttribute="trailing" constant="18" id="RU9-mI-viJ"/>
@@ -400,10 +403,8 @@
                             <constraint firstItem="Mm0-3l-mT2" firstAttribute="trailing" secondItem="OwH-km-Lf3" secondAttribute="trailing" id="gVS-iF-Jjx"/>
                             <constraint firstItem="Xdt-LW-eYL" firstAttribute="leading" secondItem="4xk-BN-vHq" secondAttribute="leading" id="nGM-2v-qZe"/>
                             <constraint firstItem="HbU-gg-bB4" firstAttribute="leading" secondItem="Xdt-LW-eYL" secondAttribute="leading" id="oN6-nb-8Gt"/>
-                            <constraint firstItem="je3-Of-Q7d" firstAttribute="baseline" secondItem="emP-9e-5fT" secondAttribute="baseline" id="qOa-qu-jZt"/>
                             <constraint firstItem="sP7-gu-BK9" firstAttribute="leading" secondItem="Mm0-3l-mT2" secondAttribute="leading" id="qoJ-dn-gx4"/>
                             <constraint firstItem="Mm0-3l-mT2" firstAttribute="top" secondItem="sP7-gu-BK9" secondAttribute="bottom" constant="48" id="sZu-vW-EhE"/>
-                            <constraint firstItem="OwH-km-Lf3" firstAttribute="trailing" secondItem="ww6-x6-cdY" secondAttribute="trailing" id="yfj-Yw-9hp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6H0-AO-mak"/>
                     </view>

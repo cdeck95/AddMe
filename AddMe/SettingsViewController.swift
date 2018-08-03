@@ -45,12 +45,13 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         print("creating cells for table view in settings")
         let cell:SettingsTableViewCell = settingsAppsTableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsTableViewCell
         cell.appName.text = apps[indexPath.row]._displayName!
-        cell.appID = Int(apps[indexPath.row]._appId!)
+        cell.appID = apps[indexPath.row]._appId!
+        
+        print(cell.appID)
         cell.onButtonTapped = {
             let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "EditAppViewController") as! EditAppViewController
-            VC1.AppID = cell.appID
+            VC1.AppID = cell.appID!
             self.navigationController!.showDetailViewController(VC1, sender: cell)
-            
         }
         return cell
     }
@@ -253,48 +254,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         })
         task.resume()
     }
-    
-    func oldDeleteApps(){
-        let sema = DispatchSemaphore(value: 0);
-        print("sema made")
-        let alertController = UIAlertController(title: "Delete All Apps", message: "WARNING: This will delete all apps from your profile. This is not able to be undone.", preferredStyle: .alert)
-        // Create OK button
-        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in
-            // Code in this block will trigger when OK button tapped.
-            let idString = self.credentialsManager.identityID!
-            print(idString)
-            var request = URLRequest(url:URL(string: "hhttps://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users")!)
-            request.httpMethod = "DELETE"
-            let postString = "a=\(idString)"
-            request.httpBody = postString.data(using: String.Encoding.utf8)
-            let task = URLSession.shared.dataTask(with: request, completionHandler: {
-                data, response, error in
-                if error != nil {
-                    print("error=\(error)")
-                    sema.signal()
-                    return
-                } else {
-                    print("---no error----")
-                }
-                
-                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                print(responseString)
-                sema.signal()
-            })
-            task.resume()
-            sema.wait(timeout: DispatchTime.distantFuture)
-            self.refreshAppData(self)
-            
-        }
-        alertController.addAction(OKAction)
-        
-        // Create Cancel button
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction!) in
-            // Code in this block will trigger when cancel is tapped...most likely no code though.
-        }
-        alertController.addAction(cancelAction)
-        self.present(alertController, animated: true, completion:nil)
-    }
+
     
     @objc private func refreshAppData(_ sender: Any) {
         // Fetch Weather Data
@@ -353,16 +313,16 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     let platform = listOfAccountInfo["platform"]!
                     let url = listOfAccountInfo["url"]!
                     var appIdString = listOfAccountInfo["accountId"]!
-                    if(appIdString.prefix(2) == "0x"){
-                        appIdString.removeFirst(2)
-                    }
-                    let appId = Int(appIdString, radix: 16)
+//                    if(appIdString.prefix(2) == "0x"){
+//                        appIdString.removeFirst(2)
+//                    }
+                    let appId = Int(appIdString)!//, radix: 16)!
                     print(displayName)
                     print(platform)
                     print(url)
                     print(appId)
                     let app = Apps()
-                    app?._appId = appId
+                    app?._appId = "\(appId)"
                     app?._displayName = displayName
                     app?._platform = platform
                     app?._uRL = url

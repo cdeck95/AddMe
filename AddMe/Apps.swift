@@ -23,7 +23,7 @@ import AWSDynamoDB
 
 class Apps: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
-    var _appId: Int? = 0
+    @objc var _appId: String!
     @objc var _displayName: String?
     @objc var _platform: String?
     @objc var _uRL: String?
