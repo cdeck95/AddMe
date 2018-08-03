@@ -322,7 +322,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users/\(idString)/accounts")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
         request.httpMethod = "GET"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
@@ -379,56 +379,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             print("Done")
             /////////////////////////
-        })
-        task.resume()
-        sema.wait(timeout: DispatchTime.distantFuture)
-        self.settingsAppsTableView.reloadData()
-    }
-    
-    
-    func oldLoadAppsFromDB() {
-        var returnList: [Apps] = []
-        let idString = self.credentialsManager.identityID!
-        print(idString)
-        let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users")!)
-        request.httpMethod = "GET"
-        let postString = "a=\(idString)"
-        request.httpBody = postString.data(using: String.Encoding.utf8)
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                sema.signal()
-                return
-            } else {
-                print("---no error----")
-            }
-            
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            var responseOne = responseString
-            let lines = responseOne!.components(separatedBy: "\n")
-            print(lines)
-            
-            // Goes through and picks out the platforms.
-            if (lines.count > 3){
-                for index in stride(from:0, to: lines.count-1, by: 4) {
-                    print(index)
-                    let app = Apps()
-                    app?._appId = Int(lines[index], radix: 16)
-                    app?._displayName = lines[index+1]
-                    app?._platform = lines[index+2]
-                    app?._uRL = lines[index+3]
-                    print(app)
-                    returnList.append(app!)
-                }
-                apps = returnList
-                sema.signal();
-            }
-            else {
-                apps = returnList
-                sema.signal()
-            }
         })
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)

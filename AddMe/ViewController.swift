@@ -174,7 +174,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users/\(idString)/accounts")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
         print(request)
         request.httpMethod = "GET"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
@@ -287,8 +287,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // to use in the QR Code being made. It checks their label and UISwitch.
     // If the switch is "On" then it will be included in the QR codes creation.
     @IBAction func createQRCode(_ sender: Any) {
-    var jsonStringAsArray = "{\n"
-     print("createQRCode()")
+        loadApps()
+        var jsonStringAsArray = "{\n"
+        print("createQRCode()")
         if(cellSwitches.count > 0){
             for index in 0...cellSwitches.count - 1{
                 let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn

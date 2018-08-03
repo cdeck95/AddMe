@@ -55,7 +55,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
    
         var alertController:UIAlertController!
         switch key {
-            case "Facebook":
+            case "Facebook*":
                 if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
                     let alertController = UIAlertController(title: "Good News!", message: "You are already authenticated with Facebook. Please just enter your custom display name.", preferredStyle: .alert)
 
@@ -64,6 +64,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
 
                     //adding the action to dialogbox
                     alertController.addAction(confirmAction)
+                    
+                   
 
                     //finally presenting the dialog box
                     self.present(alertController, animated: true, completion: nil)
@@ -244,7 +246,9 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     // Adds a users account to the DB.
     func addToDB(userName: String, displayName: String, platform: String, url: String){
-        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users/\(self.credentialsManager.identityID)/accounts")!)
+        let identityId = self.credentialsManager.identityID!
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts")!)
+        print(request)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
