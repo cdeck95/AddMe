@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		CCE90FC70675E381BDDE5FC7 /* Pods_AddMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */; };
 		DA130A84209643AF00622951 /* EFUIntPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA130A83209643AF00622951 /* EFUIntPixel.swift */; };
+		DA1B39F22116366E008CE7C6 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */; };
+		DA1B39F821163DC4008CE7C6 /* AnimatedLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B39F721163DC4008CE7C6 /* AnimatedLaunchScreen.swift */; };
 		DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B25F6204E2623004D3160 /* CredentialsManager.swift */; };
 		DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4388EE2086747000E0CD0D /* CameraViewController.swift */; };
 		DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68505C205B5FA300BA36DE /* HelpViewController.swift */; };
@@ -48,6 +50,8 @@
 /* Begin PBXFileReference section */
 		0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AddMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA130A83209643AF00622951 /* EFUIntPixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFUIntPixel.swift; sourceTree = "<group>"; };
+		DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		DA1B39F721163DC4008CE7C6 /* AnimatedLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimatedLaunchScreen.swift; path = /Users/christopherdeck/Desktop/AddMe/AddMe/AnimatedLaunchScreen.swift; sourceTree = "<absolute>"; };
 		DA2B25F6204E2623004D3160 /* CredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsManager.swift; sourceTree = "<group>"; };
 		DA4388EE2086747000E0CD0D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		DA68505C205B5FA300BA36DE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 		DA6A7EE82037859800E79B47 /* AddMe */ = {
 			isa = PBXGroup;
 			children = (
+				DA1B39F721163DC4008CE7C6 /* AnimatedLaunchScreen.swift */,
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
 				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD96D092046399500F1525E /* AppsTableViewCell.swift */,
@@ -170,6 +175,7 @@
 				DA130A83209643AF00622951 /* EFUIntPixel.swift */,
 				DA6A7EF02037859800E79B47 /* Assets.xcassets */,
 				DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */,
+				DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */,
 				DAD432F8203D03F70033EF35 /* User.swift */,
 				DA6A7EF52037859800E79B47 /* Info.plist */,
 				DAD432F6203D02240033EF35 /* awsconfiguration.json */,
@@ -364,6 +370,7 @@
 				DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */,
 				DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */,
 				DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */,
+				DA1B39F821163DC4008CE7C6 /* AnimatedLaunchScreen.swift in Sources */,
 				DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */,
 				DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */,
 				DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */,
@@ -385,6 +392,7 @@
 				DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */,
 				DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */,
 				DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */,
+				DA1B39F22116366E008CE7C6 /* LaunchScreenViewController.swift in Sources */,
 				DAD96D002045F59F00F1525E /* CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,7 +530,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;
@@ -541,7 +549,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;

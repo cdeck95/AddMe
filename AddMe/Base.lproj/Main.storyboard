@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0fo-N0-SsQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kPX-Kf-Eq4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -173,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2928.8000000000002" y="133.5832083958021"/>
+            <point key="canvasLocation" x="3868" y="133.5832083958021"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="pbX-Ql-qTf">
@@ -310,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nQf-Lz-txx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-313" y="892"/>
+            <point key="canvasLocation" x="148" y="892"/>
         </scene>
         <!--Edit App View Controller-->
         <scene sceneID="Jjp-ej-VfU">
@@ -417,7 +417,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ScA-3b-qZz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-314" y="1721"/>
+            <point key="canvasLocation" x="262" y="1702"/>
         </scene>
         <!--Help-->
         <scene sceneID="ROI-b7-Jnk">
@@ -921,7 +921,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9bU-St-ilb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3852" y="133.5832083958021"/>
+            <point key="canvasLocation" x="4791.1999999999998" y="133.5832083958021"/>
         </scene>
         <!--Import-->
         <scene sceneID="maj-zh-HXM">
@@ -1054,12 +1054,53 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t0V-GF-DNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-314.39999999999998" y="-571.66416791604206"/>
+            <point key="canvasLocation" x="148" y="-572"/>
+        </scene>
+        <!--Launch Screen View Controller-->
+        <scene sceneID="nsD-3I-82K">
+            <objects>
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="kPX-Kf-Eq4" customClass="LaunchScreenViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0fi-LN-Dax">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddMeLogo-2" translatesAutoresizingMaskIntoConstraints="NO" id="rIX-j4-Cb7">
+                                <rect key="frame" x="-21" y="-43" width="417" height="732"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="732" id="d5V-9K-SUI"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftR-cT-mhI">
+                                <rect key="frame" x="67" y="470" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ftR-cT-mhI" firstAttribute="centerX" secondItem="0fi-LN-Dax" secondAttribute="centerX" id="GlP-8L-Gdz"/>
+                            <constraint firstItem="ftR-cT-mhI" firstAttribute="top" secondItem="pe3-Q0-XyV" secondAttribute="top" constant="450" id="OZG-Ce-BqN"/>
+                            <constraint firstItem="pe3-Q0-XyV" firstAttribute="bottom" secondItem="ftR-cT-mhI" secondAttribute="bottom" constant="69" id="bQF-M1-1FR"/>
+                            <constraint firstItem="ftR-cT-mhI" firstAttribute="leading" secondItem="pe3-Q0-XyV" secondAttribute="leading" constant="67" id="eca-xJ-kXU"/>
+                            <constraint firstItem="ftR-cT-mhI" firstAttribute="centerX" secondItem="rIX-j4-Cb7" secondAttribute="centerX" id="lv5-ab-MAW"/>
+                            <constraint firstItem="rIX-j4-Cb7" firstAttribute="centerY" secondItem="0fi-LN-Dax" secondAttribute="centerY" constant="-10.5" id="w5o-U1-N9g"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pe3-Q0-XyV"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Xo2-vt-6r0"/>
+                    <connections>
+                        <outlet property="animationView" destination="ftR-cT-mhI" id="V2y-1f-3UX"/>
+                        <outlet property="imageView" destination="rIX-j4-Cb7" id="bxp-gL-ant"/>
+                        <segue destination="0fo-N0-SsQ" kind="show" identifier="showHome" id="XkB-2O-KG1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dpY-FL-NRR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="616.79999999999995" y="156.97151424287858"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="zew-Wa-OvN">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="0fo-N0-SsQ" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0fo-N0-SsQ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aZm-Jq-Woc">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1077,7 +1118,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3I-Y6-pgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="790" y="134"/>
+            <point key="canvasLocation" x="1728.8" y="133.5832083958021"/>
         </scene>
         <!--Profile-->
         <scene sceneID="JbQ-Su-rgC">
@@ -1096,7 +1137,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YHD-XT-ksd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1989.5999999999999" y="133.5832083958021"/>
+            <point key="canvasLocation" x="2928.8000000000002" y="133.5832083958021"/>
         </scene>
         <!--Import Code-->
         <scene sceneID="akY-LO-ymM">
@@ -1138,6 +1179,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AddMeLogo-2" width="417" height="417"/>
         <image name="Icon-20" width="20" height="27"/>
         <image name="Instagram_icon" width="599" height="600"/>
         <image name="custom" width="512" height="512"/>
@@ -1155,7 +1197,7 @@
         <image name="ic_settings" width="24" height="24"/>
         <image name="launch_logo" width="104" height="104"/>
         <image name="linked_in_logo" width="597" height="336"/>
-        <image name="play-station" width="1600" height="1600"/>
+        <image name="play-station" width="2000" height="1522"/>
         <image name="qrCode-40" width="40" height="40"/>
         <image name="snapchat_icon" width="400" height="400"/>
         <image name="twitch" width="350" height="350"/>
