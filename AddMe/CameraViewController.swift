@@ -148,17 +148,27 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func openNative(url: URL, currentKey: String){
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        
+        if(UIApplication.shared.canOpenURL(url)){
+            print("opening natively...")
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            print("opening in safari...")
+            let svc = SFSafariViewController(url: url)
+            svc.delegate = self
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            self.navigationController?.pushViewController(svc, animated: true)
+        }
         dict.removeValue(forKey: currentKey)
         if keys.count == 0 {
             print("popping...")
             self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationController?.popToRootViewController(animated: true)
+            self.tabBarController?.selectedIndex = 1
+            //self.navigationController?.popViewController(animated: true)//popToRootViewController(animated: true)
         }
-        else {
-            openPlatforms()
-        }
+        openPlatforms()
     }
+    
     
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)
@@ -167,7 +177,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         if keys.count == 0 {
             print("popping...")
             self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationController?.popToRootViewController(animated: true)
+            self.tabBarController?.selectedIndex = 1
+            //self.navigationController?.popToRootViewController(animated: true)
         }
         else {
             openPlatforms()

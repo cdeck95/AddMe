@@ -13,8 +13,6 @@ import Foundation
 class QRCodeViewController: UIViewController, HalfModalPresentable {
 
     @IBOutlet weak var QRCode: UIImageView!
-//    var sideMenuViewController = SideMenuViewController()
-//    var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
@@ -22,8 +20,6 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-//        sideMenuViewController.view.frame = UIScreen.main.bounds
         
         // Initialize the Cognito Sync client
         let syncClient = AWSCognito.default()
@@ -31,21 +27,10 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
         dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
             // Your handler code here
             return nil
-            
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        guard let jsonStringAsArray: String = dataset.string(forKey: "jsonStringAsArray")
-//            else {
-//                print("code has not been created yet")
-//                let image = UIImage(named: "launch_logo")
-//                QRCode.image = image
-//                return
-//        }
-//        print("json from data set: \(jsonStringAsArray)")
-//        qrCode = generateQRCode(from: jsonStringAsArray)
-//        QRCode.image = qrCode
         createQRCode(self)
     }
 

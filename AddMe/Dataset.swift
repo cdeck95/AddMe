@@ -2,7 +2,7 @@
 //  Dataset.swift
 //  AddMe
 //
-//  Created by Christopher Deck on 3/18/18.
+//  Created by Christopher Deck on 8/5/18.
 //  Copyright © 2018 Christopher Deck. All rights reserved.
 //
 
@@ -26,6 +26,4 @@ final class Dataset {
             
         }
     }
-    
-   
 }

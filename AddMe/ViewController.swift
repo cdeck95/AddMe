@@ -32,6 +32,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var identityProvider:String!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
+    var dataset: AWSCognitoDataset!
     private let refreshControl = UIRefreshControl()
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
@@ -42,8 +43,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         print("----in view did load----")
-//        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-//        sideMenuViewController.view.frame = UIScreen.main.bounds
+
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
             appsTableView.refreshControl = refreshControl
@@ -188,40 +188,45 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let decoder = JSONDecoder()
                 print("getting data")
                 let JSONdata = try decoder.decode(JsonApp.self, from: data!)
-                //=======
-                for index in 0...JSONdata.accounts.count - 1 {
-                   let listOfAccountInfo = JSONdata.accounts[index]
-                    let displayName = listOfAccountInfo["displayName"]!
-                    let platform = listOfAccountInfo["platform"]!
-                    let url = listOfAccountInfo["url"]!
-                    var appIdString = listOfAccountInfo["accountId"]!
-//                    if(appIdString.prefix(2) == "0x"){
-//                        appIdString.removeFirst(2)
-//                    }
-                    print(appIdString)
-                    let appId = Int(appIdString)!//, radix: 16)!
-                    print(displayName)
-                    print(platform)
-                    print(url)
-                    print(appId)
-                    let app = Apps()
-                    app?._appId = "\(appId)"
-                    app?._displayName = displayName
-                    app?._platform = platform
-                    app?._uRL = url
-                    print(app)
-                    returnList.append(app!)
+                if(JSONdata.accounts.count == 0){
+                    print("no accounts")
+                    returnList = []
+                    sema.signal()
+                } else {
+                    //=======
+                    for index in 0...JSONdata.accounts.count - 1 {
+                       let listOfAccountInfo = JSONdata.accounts[index]
+                        let displayName = listOfAccountInfo["displayName"]!
+                        let platform = listOfAccountInfo["platform"]!
+                        let url = listOfAccountInfo["url"]!
+                        var appIdString = listOfAccountInfo["accountId"]!
+    //                    if(appIdString.prefix(2) == "0x"){
+    //                        appIdString.removeFirst(2)
+    //                    }
+                        print(appIdString)
+                        let appId = Int(appIdString)!//, radix: 16)!
+                        print(displayName)
+                        print(platform)
+                        print(url)
+                        print(appId)
+                        let app = Apps()
+                        app?._appId = "\(appId)"
+                        app?._displayName = displayName
+                        app?._platform = platform
+                        app?._uRL = url
+                        print(app)
+                        returnList.append(app!)
+                    }
                 }
-                apps = returnList
-                sema.signal();
-                //=======
-            } catch let err {
-                print("Err", err)
-                apps = returnList
-                sema.signal(); // none found TODO: do something better than this shit.
-            }
-            print("Done")
-            /////////////////////////
+                    apps = returnList
+                    sema.signal();
+                    //=======
+                } catch let err {
+                    print("Err", err)
+                    apps = returnList
+                    sema.signal(); // none found TODO: do something better than this shit.
+                }
+                print("Done")
         })
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
