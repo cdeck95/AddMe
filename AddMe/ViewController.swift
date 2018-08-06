@@ -22,31 +22,28 @@ import FacebookCore
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Apps] = []
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var appsTableView: UITableView!
-    @IBOutlet weak var scanButton: UIBarButtonItem!
-    var token: String!
-    var sideMenuViewController = SideMenuViewController()
-    var isMenuOpened:Bool = false
+    @IBOutlet weak var qrCodeButton: UIButton!
     var identityProvider:String!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
+    var dataset: AWSCognitoDataset!
     private let refreshControl = UIRefreshControl()
-    
-    @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-   
-    @IBOutlet weak var addAppButton: UIBarButtonItem!
-   
+    
+    @IBOutlet var uploadImageButton: UIBarButtonItem!
+    var token: String!
+    let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("----in view did load----")
-        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-        sideMenuViewController.view.frame = UIScreen.main.bounds
+
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
             appsTableView.refreshControl = refreshControl
@@ -61,21 +58,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         profileImage.layer.borderColor = UIColor.black.cgColor
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
+        imagePicker.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("----in view will appear----")
-        if(isMenuOpened == true){
-            isMenuOpened = false
-            sideMenuViewController.willMove(toParentViewController: nil)
-            sideMenuViewController.view.removeFromSuperview()
-            sideMenuViewController.removeFromParentViewController()
-        }
-        cellSwitches = []
         self.tabBarController?.tabBar.isHidden = false
         presentAuthUIViewController()
         appsTableView.reloadData()
-        createQRCode(self)
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
@@ -129,9 +119,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             self.fetchAppData()
                             if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
                                 print("facebook sign in confirmed")
-                                
+                                self.navigationItem.leftBarButtonItem = nil
                                 let params: String = "name,email,picture"
                                 self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
+                            } else {
+                                self.profileImage.image = UIImage(named: "launch_logo")
+                                self.navigationItem.leftBarButtonItem = self.uploadImageButton
+                                //query the db for an image
                             }
                         }
                         return nil
@@ -154,53 +148,90 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         loadAppsFromDB()
     }
     
+    ////////////////////////////// BEGINNING OF JSON ///////////////////////////////////
+    
+    // TomMiller 2018/06/27 - Added struct to interact with JSON
+    struct JsonApp: Decodable {
+        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
+        let accounts: [[String: String]]
+    }
+    
+    var JsonApps = [JsonApp]()
+    ////////////////////////////// END OF JSON ///////////////////////////////////
+    
     // Tom 2018/04/18
     func loadAppsFromDB() {
+        print("RIGHT HERE")
+        apps = []
         var returnList: [Apps] = []
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-            var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
-            request.httpMethod = "POST"
-            let postString = "a=\(idString)"
-            request.httpBody = postString.data(using: String.Encoding.utf8)
-            let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                sema.signal()
-                return
-            } else {
-                print("---no error----")
-            }
-                
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            var responseOne = responseString
-            let lines = responseOne!.components(separatedBy: "\n")
-            print(lines)
-                
-                // Goes through and picks out the platforms.
-                if (lines.count > 3){
-                    for index in stride(from:0, to: lines.count-1, by: 4) {
-                        print(index)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/")!)
+        print(request)
+        request.httpMethod = "GET"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+        data, response, error in
+        if error != nil {
+            print("error=\(error)")
+            sema.signal()
+            return
+        } else {
+            print("---no error----")
+        }
+            //////////////////////// New stuff from Tom
+            do {
+                print("decoding")
+                let decoder = JSONDecoder()
+                print("getting data")
+                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+                if(JSONdata.accounts.count == 0){
+                    print("no accounts")
+                    returnList = []
+                    sema.signal()
+                } else {
+                    //=======
+                    for index in 0...JSONdata.accounts.count - 1 {
+                       let listOfAccountInfo = JSONdata.accounts[index]
+                        let displayName = listOfAccountInfo["displayName"]!
+                        let platform = listOfAccountInfo["platform"]!
+                        let url = listOfAccountInfo["url"]!
+                        var appIdString = listOfAccountInfo["accountId"]!
+    //                    if(appIdString.prefix(2) == "0x"){
+    //                        appIdString.removeFirst(2)
+    //                    }
+                        print(appIdString)
+                        let appId = Int(appIdString)!//, radix: 16)!
+                        print(displayName)
+                        print(platform)
+                        print(url)
+                        print(appId)
                         let app = Apps()
-                        app?._userId = lines[index]
-                        app?._displayName = lines[index+1]
-                        app?._platform = lines[index+2]
-                        app?._uRL = lines[index+3]
+                        app?._appId = "\(appId)"
+                        app?._displayName = displayName
+                        app?._platform = platform
+                        app?._uRL = url
                         print(app)
                         returnList.append(app!)
                     }
+                }
                     apps = returnList
                     sema.signal();
-                }
-                else {
+                    //=======
+                } catch let err {
+                    print("Err", err)
                     apps = returnList
-                    sema.signal()
+                    sema.signal(); // none found TODO: do something better than this shit.
                 }
+                print("Done")
         })
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
+        apps = returnList
+        cellSwitches = []
         self.appsTableView.reloadData()
     }
     
@@ -226,34 +257,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    @IBAction func menuClicked(_ sender: Any) {
-        print("menuClicked()")
-        if(isMenuOpened){
-            isMenuOpened = false
-            sideMenuViewController.willMove(toParentViewController: nil)
-            sideMenuViewController.view.removeFromSuperview()
-            sideMenuViewController.removeFromParentViewController()
-        }
-        else{
-            isMenuOpened = true
-            self.addChildViewController(sideMenuViewController)
-            self.view.addSubview(sideMenuViewController.view)
-            sideMenuViewController.didMove(toParentViewController: self)
-        }
-        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-    }
-    
-    @IBAction func scan(_ sender: Any) {
-        let scannerVC = ScannerViewController()
-        self.navigationController?.pushViewController(scannerVC, animated: true)
-    }
-    
     // Goes through the list of table cells that contain the switches for which apps
     // to use in the QR Code being made. It checks their label and UISwitch.
     // If the switch is "On" then it will be included in the QR codes creation.
     @IBAction func createQRCode(_ sender: Any) {
+       // loadApps()
         var jsonStringAsArray = "{\n"
-     print("createQRCode()")
+        print("createQRCode()")
         if(cellSwitches.count > 0){
             for index in 0...cellSwitches.count - 1{
                 let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
@@ -261,13 +271,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 print(appID)
                 print(isSelectedForQRCode)
                 if (isSelectedForQRCode){
-                    for app in apps {
-                        if(Int(app._userId!) == appID){
-                              jsonStringAsArray += "\"\(app._userId!)\": \"\(app._uRL!)\",\n"
-                        } else {
-                            print("app not found to make QR code")
-                        }
-                    }
+                    let app = apps[index]
+                    jsonStringAsArray += "\"\(app._displayName!)\": \"\(app._uRL!)\",\n"
+                } else {
+                    print("app not found to make QR code")
                 }
             }
         } else {
@@ -280,6 +287,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if(datasetManager.dataset != nil){
             datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
         }
+    }
+    
+    func generateQRCode(from string: String) -> UIImage? {
+        //Convert string to data
+        let stringData = string.data(using: String.Encoding.utf8)
+        
+        //Generate CIImage
+        let filter = CIFilter(name: "CIQRCodeGenerator")
+        filter?.setValue(stringData, forKey: "inputMessage")
+        filter?.setValue("H", forKey: "inputCorrectionLevel")
+        guard let ciImage = filter?.outputImage else { return nil }
+        
+        //Scale image to proper size
+        // let scale = CGFloat(size) / ciImage.extent.size.width
+        let transform = CGAffineTransform(scaleX: 3, y: 3)
+        let scaledCIImage = ciImage.transformed(by: transform)
+        
+        //Convert to CGImage
+        let ciContext = CIContext()
+        guard let cgImage = ciContext.createCGImage(scaledCIImage, from: scaledCIImage.extent) else { return nil }
+        
+        //Finally return the UIImage
+        return UIImage(cgImage: cgImage)
     }
       
     
@@ -297,14 +327,43 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cellSwitches.append(cell)
         }
         cell.NameLabel.text = apps[indexPath.row]._displayName
-        cell.id = Int(apps[indexPath.row]._userId!)
+        switch apps[indexPath.row]._platform {
+        case "Facebook"?:
+            cell.appImage.image = UIImage(named: "fb-icon")
+        case "Twitter"?:
+            cell.appImage.image = UIImage(named: "twitter_icon")
+        case "Instagram"?:
+            cell.appImage.image = UIImage(named: "Instagram_icon")
+        case "Snapchat"?:
+            cell.appImage.image = UIImage(named: "snapchat_icon")
+        case "Google+"?:
+            cell.appImage.image = UIImage(named: "google_plus_icon")
+        case "LinkedIn"?:
+            cell.appImage.image = UIImage(named: "linked_in_logo")
+        case "Xbox"?:
+            cell.appImage.image = UIImage(named: "xbox")
+        case "PSN"?:
+            cell.appImage.image = UIImage(named: "play-station")
+        case "Twitch"?:
+            cell.appImage.image = UIImage(named: "twitch")
+        case "Custom"?:
+            cell.appImage.image = UIImage(named: "custom")
+        default:
+            cell.appImage.image = UIImage(named: "AppIcon-1")
+        }
+        
+        cell.id = Int(apps[indexPath.row]._appId!)
+        //print(indexPath.row)
+        if(indexPath.row == apps.count-1){
+            print("-----------about to create code----------")
+            createQRCode(self)
+        }
         return cell
     }
     @IBAction func refreshTableView(_ sender: Any) {
         print("refreshTableView()")
         appsTableView.reloadData()
     }
-    
     
     @objc private func refreshAppData(_ sender: Any) {
         // Fetch Weather Data
@@ -317,13 +376,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         loadApps()
         self.updateView()
         self.refreshControl.endRefreshing()
-//        self.activityIndicatorView.stopAnimating()
+        self.activityIndicatorView.stopAnimating()
     }
     
     private func setupView() {
         print("setUpView()")
         setupTableView()
-        setupMessageLabel()
         setupActivityIndicatorView()
     }
     
@@ -331,19 +389,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("updateView()")
         let hasApps = apps.count > 0
         print("has apps: \(hasApps)")
-        appsTableView.isHidden = false //!hasApps
+        appsTableView.isHidden = false
         activityIndicatorView.stopAnimating()
         activityIndicatorView.isHidden = true
-        //messageLabel.isHidden = hasApps
         if hasApps {
             appsTableView.reloadData()
-          //  messageLabel.isHidden = false
-         //   messageLabel.text = "Connected Apps"
         } else {
-         //   messageLabel.isHidden = false
-         //   messageLabel.text = "No Connected Apps"
         }
-        
     }
     
     // MARK: -
@@ -353,21 +405,42 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         activityIndicatorView.isHidden = false
     }
     
-    private func setupMessageLabel() {
-//        print("setupMessageLabel()")
-//        if apps.count > 0 {
-//            messageLabel.isHidden = false
-//            messageLabel.text = "Connected Apps"
-//        } else {
-//            messageLabel.isHidden = false
-//            messageLabel.text = "No Connected Apps"
-//        }
-    }
-    
     private func setupActivityIndicatorView() {
         activityIndicatorView.startAnimating()
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
+        
+        segue.destination.modalPresentationStyle = .custom
+        segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
+    }
+
+    @IBAction func uploadImage(_ sender: Any) {
+        
+        if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            return
+        }
+        
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let qrcodeImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.profileImage.image = qrcodeImg
+            //send image to DB
+        }
+        else{
+            print("Something went wrong")
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension String

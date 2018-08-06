@@ -13,14 +13,14 @@ import AWSAuthUI
 import FacebookCore
 import AWSDynamoDB
 
-class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HalfModalPresentable {
     
     @IBOutlet weak var collection: UICollectionView!
     var datasetManager = Dataset.sharedInstance
     //var reuseIdentifier:String = "collectionViewCell"
     //var store = DataStore.sharedInstance
-    var appIDs = ["facebook", "instagram", "snapchat", "twitter", "linkedIn", "googlePlus"]
-    let cellSizes = Array( repeatElement(CGSize(width:160, height:110), count: 6))
+    var appIDs = ["Facebook", "Instagram", "Snapchat", "Twitter", "LinkedIn", "Google+", "Xbox", "PSN", "Twitch", "Custom"]
+    let cellSizes = Array( repeatElement(CGSize(width:160, height:110), count: 10))
     var apps: [String]!
     var credentialsManager = CredentialsManager.sharedInstance
     
@@ -41,6 +41,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
 //        let indexSet = IndexSet(0...1)
 //        self.collection.deleteSections(indexSet)
 //        self.collection.reloadData()
+        self.collection.flashScrollIndicators()   
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,26 +54,60 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         //Setting title and message for the alert dialog
    
         var alertController:UIAlertController!
-//        switch key {
-//            case "Facebook":
-//                if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
-//                    let alertController = UIAlertController(title: "Good News!", message: "You are already authenticated with Facebook. Please just enter your custom display name.", preferredStyle: .alert)
-//
-//                    //the confirm action taking the inputs
-//                    let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in }
-//
-//                    //adding the action to dialogbox
-//                    alertController.addAction(confirmAction)
-//
-//                    //finally presenting the dialog box
-//                    self.present(alertController, animated: true, completion: nil)
-//                    return
-//                } else {
-//                     alertController = UIAlertController(title: "Enter details", message: "Facebook special instructions", preferredStyle: .alert)
-//                }
-//            default:
+        switch key {
+            case "Facebook*":
+                if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
+                    let alertController = UIAlertController(title: "Good News!", message: "You are already authenticated with Facebook. Please just enter your custom display name.", preferredStyle: .alert)
+
+                    //the confirm action taking the inputs
+                    let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in }
+
+                    //adding the action to dialogbox
+                    alertController.addAction(confirmAction)
+                    
+                   
+
+                    //finally presenting the dialog box
+                    self.present(alertController, animated: true, completion: nil)
+                    return
+                } else {
+                     alertController = UIAlertController(title: "Enter details", message: "Facebook special instructions", preferredStyle: .alert)
+                }
+            case "Custom":
+                alertController = UIAlertController(title: "Enter details", message: "Enter your website URL", preferredStyle: .alert)
+                //the cancel action doing nothing
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+                
+                //adding textfields to our dialog box
+                alertController.addTextField { (textField) in
+                    textField.placeholder = "Enter Your Custom Display Name (i.e Personal Facebook)"
+                }
+                
+                //adding textfields to our dialog box
+                alertController.addTextField { (textField) in
+                    textField.placeholder = "Enter Website URL"
+                }
+                
+                //adding the action to dialogbox
+                alertController.addAction(cancelAction)
+            default:
                 alertController = UIAlertController(title: "Enter details", message: "Enter your username", preferredStyle: .alert)
-        //}
+                //the cancel action doing nothing
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+                
+                //adding textfields to our dialog box
+                alertController.addTextField { (textField) in
+                    textField.placeholder = "Enter Your Custom Display Name (i.e Personal Facebook)"
+                }
+                
+                //adding textfields to our dialog box
+                alertController.addTextField { (textField) in
+                    textField.placeholder = "Enter Username"
+                }
+                
+                //adding the action to dialogbox
+                alertController.addAction(cancelAction)
+        }
         
         
         //the confirm action taking the inputs
@@ -80,51 +115,61 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             //getting the input values from user
             let username:String = (alertController.textFields?[1].text)!
             let displayName:String = (alertController.textFields?[0].text)!
-            let userID:String = self.credentialsManager.identityID
             print(username)
             print(displayName)
             print(key)
             let app:Apps = Apps()
-            app._userId = userID
             app._displayName = displayName
             app._platform = key
             switch key {
             case "Facebook":
-                app._uRL = "http://facebook.com/\(username)"
+                app._uRL = "https://www.facebook.com/\(username)"
             case "Twitter":
-                app._uRL = "http://www.twitter.com/\(username)"
+                app._uRL = "https://www.twitter.com/\(username)"
             case "Instagram":
-                app._uRL = "http://www.instagram.com/\(username)"
+                app._uRL = "https://www.instagram.com/\(username)"
             case "Snapchat":
-                app._uRL = "http://www.snapchat.com/add/\(username)"
+                app._uRL = "https://www.snapchat.com/add/\(username)"
             case "LinkedIn":
-                app._uRL = "http://www.linkedin.com/in/\(username)"
+                app._uRL = "https://www.linkedin.com/in/\(username)"
             case "GooglePlus":
-                app._uRL = "http://plus.google.com/\(username)"
+                app._uRL = "https://plus.google.com/\(username)"
+            case "Xbox":
+                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                app._uRL = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
+            case "PSN":
+                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                app._uRL = "https://my.playstation.com/profile/\(usernameURL!)"
+            case "Twitch":
+                app._uRL = "https://m.twitch.tv/\(username)/profile"
+            case "Custom":
+                app._uRL = "\(username)"
             default:
                 print("unknown app found: \(key)")
             }
-        self.addToDB(userName: userID, displayName: displayName, platform: key, url: app._uRL!)
-
+            
+            //if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: app._userId!))
+            //{
+            self.addToDB(userName: self.credentialsManager.identityID, displayName: displayName, platform: key, url: app._uRL!)
+            //}else {
+            //    print("Can't add this app")
+            //}
         }
+        alertController.addAction(confirmAction)
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func presentAlert(message: String){
+        let alertController = UIAlertController(title: "Woah!", message: message, preferredStyle: .alert)
         
-        //the cancel action doing nothing
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-        
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Enter Your Custom Display Name (i.e Personal Facebook)"
-        }
-        
-        //adding textfields to our dialog box
-        alertController.addTextField { (textField) in
-            textField.placeholder = "Enter Username"
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "OK", style: .default) { (_) in
         }
         
         //adding the action to dialogbox
         alertController.addAction(confirmAction)
-        alertController.addAction(cancelAction)
-        
+
         //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)
     }
@@ -137,7 +182,9 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collection.dequeueReusableCell(withReuseIdentifier: appIDs[indexPath.item], for: indexPath) as! CollectionViewCell
+        let cell = collection.dequeueReusableCell(withReuseIdentifier: appIDs[indexPath.item], for: indexPath) as! CollectionViewCell
+        cell.displayContent(title: appIDs[indexPath.row])
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -147,18 +194,26 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("User tapped on \(appIDs[indexPath.row])")
         switch appIDs[indexPath.row] {
-        case "twitter":
+        case "Twitter":
             showInputDialog(key: "Twitter")
-        case "snapchat":
+        case "Snapchat":
             showInputDialog(key: "Snapchat")
-        case "instagram":
+        case "Instagram":
             showInputDialog(key: "Instagram")
-        case "facebook":
+        case "Facebook":
             showInputDialog(key: "Facebook")
-        case "linkedIn":
+        case "LinkedIn":
             showInputDialog(key: "LinkedIn")
-        case "googlePlus":
-            showInputDialog(key: "GooglePlus")
+        case "GooglePlus":
+            showInputDialog(key: "Google+")
+        case "Xbox":
+            showInputDialog(key: "Xbox")
+        case "PSN":
+            showInputDialog(key: "PSN")
+        case "Twitch":
+            showInputDialog(key: "Twitch")
+        case "Custom":
+            showInputDialog(key: "Custom")
         default:
             print("error")
         }
@@ -191,9 +246,14 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     // Adds a users account to the DB.
     func addToDB(userName: String, displayName: String, platform: String, url: String){
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php")!)
+        let identityId = self.credentialsManager.identityID!
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts/")!)
+        print(request)
         request.httpMethod = "POST"
-        let postString = "a=\(displayName)&b=\(platform)&c=\(url)&d=\(userName)"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        let postString = "{\"displayName\": \"\(displayName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\"}"
+        print(postString)
         request.httpBody = postString.data(using: String.Encoding.utf8)
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
@@ -208,5 +268,49 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             print(responseOne!)
         })
         task.resume()
+    }
+    
+    // This will check some things to avoid adding duplicate entries for a user.
+    func verifyAppForUser(displayName: String, platform: String, url: String, userName: String) -> Bool {
+        let sema = DispatchSemaphore(value: 0);
+        var responseOne = ""
+        var request = URLRequest(url:URL(string: "https://3dj5gbinck.execute-api.us-east-1.amazonaws.com/dev/users")!)
+        request.httpMethod = "POST"
+        let postString = "a=\(userName)&b=\(displayName)&c=\(platform)&d=\(url)"
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                sema.signal()
+                return
+            }
+            
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            responseOne = responseString as! String as! String
+            print(responseOne)
+            sema.signal()
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        if (responseOne == "GOOD")
+        {
+            return true
+        }
+        self.presentAlert(message: responseOne)
+        return false
+    }
+    
+    @IBAction func maximizeButtonTapped(sender: AnyObject) {
+        maximizeToFullScreen()
+    }
+    
+    @IBAction func cancelButtonTapped(sender: AnyObject) {
+        if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
+            delegate.interactiveDismiss = false
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
 }

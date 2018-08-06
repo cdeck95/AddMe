@@ -26,6 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+       // UITabBar.appearance().backgroundColor = UIColor.init(red: 119/255, green: 201/255, blue: 212/255, alpha:1)
+        //UITabBar.appearance().tintColor = UIColor.init(red: 1/255, green: 82/255, blue: 73/255, alpha: 1)
+        UITabBar.appearance().tintColor = UIColor.init(red: 87/255, green: 188/255, blue: 144/255, alpha: 1)
+        UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 165/255, green: 165/255, blue: 175/255, alpha: 1)
+        
         return AWSMobileClient.sharedInstance().interceptApplication(
             application, didFinishLaunchingWithOptions:
             launchOptions)

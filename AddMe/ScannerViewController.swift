@@ -129,19 +129,68 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     func openPlatforms(){
         keys = dict.keys
+        print("keys")
         if(dict.count > 0){
             
             let currentKey = keys.first!
             print("current key: \(currentKey)")
             let currentURL = dict[currentKey]!
             print("current url: \(currentURL)")
+            let url = URL(string: currentURL)
             self.tabBarController?.hidesBottomBarWhenPushed = true
-            let svc = SFSafariViewController(url: URL(string: currentURL)!)
+            var platform = ""
+            if (currentURL.contains("twitter.com")){
+                platform = "Twitter"
+            } else if (currentURL.contains("twitch.tv")){
+                platform = "Twitch"
+            } else if (currentURL.contains("instagram.com")){
+                platform = "Instagram"
+            } else if (currentURL.contains("linkedin.com")){
+                platform = "LinkedIn"
+            } else if (currentURL.contains("snapchat.com")){
+                platform = "Snapchat"
+            } else {
+                platform = "other"
+            }
+            
+            
+            switch platform {
+            case "Twitter":
+                openNative(url: url!, currentKey: currentKey)
+            case "Twitch":
+                openNative(url: url!, currentKey: currentKey)
+            case "Instagram":
+                openNative(url: url!, currentKey: currentKey)
+            case "LinkedIn":
+                openNative(url: url!, currentKey: currentKey)
+            case "Snapchat":
+                openNative(url: url!, currentKey: currentKey)
+            default:
+                let svc = SFSafariViewController(url: url!)
+                svc.delegate = self
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                self.navigationController?.pushViewController(svc, animated: true)
+            }
+            dict.removeValue(forKey: currentKey)
+        }
+    }
+    
+    func openNative(url: URL, currentKey: String){
+        if(UIApplication.shared.canOpenURL(url)){
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            let svc = SFSafariViewController(url: url)
             svc.delegate = self
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.navigationController?.pushViewController(svc, animated: true)
-            dict.removeValue(forKey: currentKey)
         }
+        dict.removeValue(forKey: currentKey)
+        if keys.count == 0 {
+            print("popping...")
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        openPlatforms()
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)

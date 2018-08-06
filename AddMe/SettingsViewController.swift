@@ -45,25 +45,26 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         print("creating cells for table view in settings")
         let cell:SettingsTableViewCell = settingsAppsTableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsTableViewCell
         cell.appName.text = apps[indexPath.row]._displayName!
-        cell.appID = Int(apps[indexPath.row]._userId!)
+        cell.appID = apps[indexPath.row]._appId!
+        
+        print(cell.appID)
         cell.onButtonTapped = {
             let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "EditAppViewController") as! EditAppViewController
-            VC1.AppID = cell.appID
+            VC1.AppID = cell.appID!
             self.navigationController!.showDetailViewController(VC1, sender: cell)
-            
         }
         return cell
     }
     
-    var sideMenuViewController = SideMenuViewController()
-    var isMenuOpened:Bool = false
+//    var sideMenuViewController = SideMenuViewController()
+//    var isMenuOpened:Bool = false
     var dataset: AWSCognitoDataset!
     var credentialsManager = CredentialsManager.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-        sideMenuViewController.view.frame = UIScreen.main.bounds
+//        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
+//        sideMenuViewController.view.frame = UIScreen.main.bounds
         let syncClient = AWSCognito.default()
         dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
         dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
@@ -71,7 +72,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             return nil
             
         }
-       self.tabBarController?.tabBar.isHidden = true
         
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
@@ -97,12 +97,12 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         print("----in settings view will appear----")
-        if(isMenuOpened == true){
-            isMenuOpened = false
-            sideMenuViewController.willMove(toParentViewController: nil)
-            sideMenuViewController.view.removeFromSuperview()
-            sideMenuViewController.removeFromParentViewController()
-        }
+//        if(isMenuOpened == true){
+//            isMenuOpened = false
+//            sideMenuViewController.willMove(toParentViewController: nil)
+//            sideMenuViewController.view.removeFromSuperview()
+//            sideMenuViewController.removeFromParentViewController()
+//        }
         //cellSwitches = []
         self.tabBarController?.tabBar.isHidden = false
         refreshAppData(self)
@@ -114,6 +114,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
+
     // Send in info
     @IBAction func updateStuff(_ sender: Any) {
         var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/setUserInfo.php")!)
@@ -213,56 +214,47 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     //https://tommillerswebsite.000webhostapp.com/AddMe/setUserInfo.php     SEND IN ALL 4
     
     
-    @IBAction func menuClicked(_ sender: Any) {
-        if(isMenuOpened){
-            isMenuOpened = false
-            sideMenuViewController.willMove(toParentViewController: nil)
-            sideMenuViewController.view.removeFromSuperview()
-            sideMenuViewController.removeFromParentViewController()
-        }
-        else{
-            isMenuOpened = true
-            self.addChildViewController(sideMenuViewController)
-            self.view.addSubview(sideMenuViewController.view)
-            sideMenuViewController.didMove(toParentViewController: self)
-        }
-        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-    }
+//    @IBAction func menuClicked(_ sender: Any) {
+//        if(isMenuOpened){
+//            isMenuOpened = false
+//            sideMenuViewController.willMove(toParentViewController: nil)
+//            sideMenuViewController.view.removeFromSuperview()
+//            sideMenuViewController.removeFromParentViewController()
+//        }
+//        else{
+//            isMenuOpened = true
+//            self.addChildViewController(sideMenuViewController)
+//            self.view.addSubview(sideMenuViewController.view)
+//            sideMenuViewController.didMove(toParentViewController: self)
+//        }
+//        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
+//    }
+
     
-    // Going to connect this to a button on the Settings view.
-    // Will delete all apps that the user has selected.
-    func deleteSelectedApps()
-    {
-        // Planning on having a tableview with the custom cells on the screen.
-        // It will be populated from the cellSwitches array.
-        // The custom cells will have a toggle switch, a label for the name (facebook,etc.)
-        // and a button to launch another view for editting the info about that selected cell.
-    }
-    
-    // TODO: Probably should add a Confirm Delete? button.
     @IBAction func deleteApps(_ sender: Any) {
         let idString = self.credentialsManager.identityID!
-        print(idString)
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/deleteUser.php")!)
-        request.httpMethod = "POST"
-        let postString = "a=\(idString)"
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users")!)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        let postString = "{\"user\": {\"cognitoId\": \"\(idString)\"}}"
+        print(postString)
         request.httpBody = postString.data(using: String.Encoding.utf8)
+        
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             data, response, error in
             if error != nil {
                 print("error=\(error)")
                 return
-            } else {
-                print("---no error----")
             }
             
             let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            print(responseString)
-            
+            var responseOne = responseString
+            print(responseOne!)
         })
         task.resume()
-        refreshAppData(self)
     }
+
     
     @objc private func refreshAppData(_ sender: Any) {
         // Fetch Weather Data
@@ -272,15 +264,33 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         self.refreshControl.endRefreshing()
     }
     
+    ////////////////////////////// BEGINNING OF JSON ///////////////////////////////////
+    
+    // TomMiller 2018/06/27 - Added struct to interact with JSON
+    struct JsonApp: Decodable {
+        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
+        let accounts: [[String: String]]
+    }
+    
+    var JsonApps = [JsonApp]()
+    ////////////////////////////// END OF JSON ///////////////////////////////////
+    
+    ///////////////////////////// NEW STUFF /////////////////////////////////
     func loadAppsFromDB() {
+        print("RIGHT HERE")
         var returnList: [Apps] = []
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
-        request.httpMethod = "POST"
-        let postString = "a=\(idString)"
-        request.httpBody = postString.data(using: String.Encoding.utf8)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
+        request.httpMethod = "GET"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+        
+        //        let postString = "{\"user\": {\"cognitoId\": \"\(idString)\"}}"
+        //        print(postString)
+        //        request.httpBody = postString.data(using: String.Encoding.utf8)
+        //        print(request.httpBody)
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             data, response, error in
             if error != nil {
@@ -290,36 +300,48 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             } else {
                 print("---no error----")
             }
-            
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            var responseOne = responseString
-            let lines = responseOne!.components(separatedBy: "\n")
-            print(lines)
-            
-            // Goes through and picks out the platforms.
-            if (lines.count > 3){
-                for index in stride(from:0, to: lines.count-1, by: 4) {
-                    print(index)
+            //////////////////////// New stuff from Tom
+            do {
+                print("decoding")
+                let decoder = JSONDecoder()
+                print("getting data")
+                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+                //=======
+                for index in 0...JSONdata.accounts.count - 1 {
+                    let listOfAccountInfo = JSONdata.accounts[index]
+                    let displayName = listOfAccountInfo["displayName"]!
+                    let platform = listOfAccountInfo["platform"]!
+                    let url = listOfAccountInfo["url"]!
+                    var appIdString = listOfAccountInfo["accountId"]!
+//                    if(appIdString.prefix(2) == "0x"){
+//                        appIdString.removeFirst(2)
+//                    }
+                    let appId = Int(appIdString)!//, radix: 16)!
+                    print(displayName)
+                    print(platform)
+                    print(url)
+                    print(appId)
                     let app = Apps()
-                    app?._userId = lines[index]
-                    app?._displayName = lines[index+1]
-                    app?._platform = lines[index+2]
-                    app?._uRL = lines[index+3]
+                    app?._appId = "\(appId)"
+                    app?._displayName = displayName
+                    app?._platform = platform
+                    app?._uRL = url
                     print(app)
                     returnList.append(app!)
                 }
                 apps = returnList
                 sema.signal();
-            }
-            else {
+                //=======
+            } catch let err {
+                print("Err", err)
                 apps = returnList
-                sema.signal()
+                sema.signal(); // none found TODO: do something better than this shit.
             }
+            print("Done")
+            /////////////////////////
         })
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         self.settingsAppsTableView.reloadData()
     }
-    
-
 }

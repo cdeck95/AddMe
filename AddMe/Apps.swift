@@ -23,7 +23,7 @@ import AWSDynamoDB
 
 class Apps: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
-    @objc var _userId: String?
+    @objc var _appId: String!
     @objc var _displayName: String?
     @objc var _platform: String?
     @objc var _uRL: String?
@@ -40,7 +40,7 @@ class Apps: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     
     override class func jsonKeyPathsByPropertyKey() -> [AnyHashable: Any] {
         return [
-            "_userId" : "userId",
+            "_appId" : "appId",
             "_displayName" : "DisplayName",
             "_platform" : "Platform",
             "_uRL" : "URL",
