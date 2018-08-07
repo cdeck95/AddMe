@@ -63,6 +63,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
         //print(postString)
         //request.httpBody = postString.data(using: String.Encoding.utf8)
         //print(request.httpBody)
+        var username: String!
         var dispName: String!
         var pform: String!
         var cognitoId: String!
@@ -86,9 +87,11 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
                 dispName = listOfAccountInfo["displayName"]!
                 pform = listOfAccountInfo["platform"]!
                 cognitoId = listOfAccountInfo["cognitoId"]!
+                //username = listOfAccountInfo["username"]!
                 print(dispName)
                 print(pform)
                 print(cognitoId)
+                //print(username)
                 apps = returnList
                 sema.signal();
                 //=======
@@ -105,8 +108,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
         
         self.displayName.text = dispName
         self.platform.text = pform
-        self.userName.text = ""
-        
+        self.userName.text = "TMP"
     }
 
     override func didReceiveMemoryWarning() {

@@ -113,44 +113,46 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         //the confirm action taking the inputs
         let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
             //getting the input values from user
-            let username:String = (alertController.textFields?[1].text)!
+            let cognitoId:String = (alertController.textFields?[1].text)!
             let displayName:String = (alertController.textFields?[0].text)!
-            print(username)
+            print(cognitoId)
             print(displayName)
             print(key)
             let app:Apps = Apps()
             app._displayName = displayName
             app._platform = key
+            app._username = "TMP Username"
+            let user = "TMP Username"
             switch key {
             case "Facebook":
-                app._uRL = "https://www.facebook.com/\(username)"
+                app._uRL = "https://www.facebook.com/\(cognitoId)"
             case "Twitter":
-                app._uRL = "https://www.twitter.com/\(username)"
+                app._uRL = "https://www.twitter.com/\(cognitoId)"
             case "Instagram":
-                app._uRL = "https://www.instagram.com/\(username)"
+                app._uRL = "https://www.instagram.com/\(cognitoId)"
             case "Snapchat":
-                app._uRL = "https://www.snapchat.com/add/\(username)"
+                app._uRL = "https://www.snapchat.com/add/\(cognitoId)"
             case "LinkedIn":
-                app._uRL = "https://www.linkedin.com/in/\(username)"
+                app._uRL = "https://www.linkedin.com/in/\(cognitoId)"
             case "GooglePlus":
-                app._uRL = "https://plus.google.com/\(username)"
+                app._uRL = "https://plus.google.com/\(cognitoId)"
             case "Xbox":
-                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                let usernameURL = cognitoId.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
                 app._uRL = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
             case "PSN":
-                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                let usernameURL = cognitoId.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
                 app._uRL = "https://my.playstation.com/profile/\(usernameURL!)"
             case "Twitch":
-                app._uRL = "https://m.twitch.tv/\(username)/profile"
+                app._uRL = "https://m.twitch.tv/\(cognitoId)/profile"
             case "Custom":
-                app._uRL = "\(username)"
+                app._uRL = "\(cognitoId)"
             default:
                 print("unknown app found: \(key)")
             }
             
             //if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: app._userId!))
             //{
-            self.addToDB(userName: self.credentialsManager.identityID, displayName: displayName, platform: key, url: app._uRL!)
+            self.addToDB(cognitoId: self.credentialsManager.identityID, displayName: displayName, platform: key, url: app._uRL!, username: user)
             //}else {
             //    print("Can't add this app")
             //}
@@ -245,7 +247,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     // Adds a users account to the DB.
-    func addToDB(userName: String, displayName: String, platform: String, url: String){
+    func addToDB(cognitoId: String, displayName: String, platform: String, url: String, username: String){
         let identityId = self.credentialsManager.identityID!
         var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts/")!)
         print(request)
