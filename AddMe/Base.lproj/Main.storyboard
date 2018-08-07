@@ -19,6 +19,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YM0-KL-YRs" userLabel="Subview">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdb-cy-q3i">
                                 <rect key="frame" x="164" y="231" width="46" height="20"/>
                                 <attributedString key="attributedText">
@@ -43,8 +47,9 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.0039215686274509803" green="0.32156862745098036" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.46666666670000001" green="0.78823529410000004" blue="0.83137254900000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PlainCell" id="Y8S-hs-XU9" customClass="AppsTableViewCell" customModule="AddMe" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PlainCell" rowHeight="50" id="Y8S-hs-XU9" customClass="AppsTableViewCell" customModule="AddMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="341" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Y8S-hs-XU9" id="QiX-7y-LQA">
@@ -75,7 +80,7 @@
                                                     <color key="onTintColor" red="0.3411764705882353" green="0.73725490196078436" blue="0.56470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </switch>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="n5L-uv-EUu" firstAttribute="leading" secondItem="QiX-7y-LQA" secondAttribute="leadingMargin" constant="-9" id="0kr-LI-H1e"/>
                                                 <constraint firstItem="n5L-uv-EUu" firstAttribute="top" secondItem="QiX-7y-LQA" secondAttribute="topMargin" constant="-11" id="2uO-TY-sVt"/>
@@ -102,7 +107,12 @@
                                                 <constraint firstItem="yRM-uM-Zqj" firstAttribute="centerY" secondItem="QiX-7y-LQA" secondAttribute="centerY" constant="1.75" id="rZO-nH-ZWB"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.3411764706" green="0.73725490199999999" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="NameLabel" destination="3m4-TY-PRa" id="zup-Tn-eVd"/>
                                             <outlet property="appImage" destination="n5L-uv-EUu" id="Vkp-9E-wcg"/>
@@ -129,9 +139,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="YM0-KL-YRs" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="0wG-dL-uiR"/>
                             <constraint firstItem="38H-tt-FLy" firstAttribute="top" secondItem="ypT-PN-FRO" secondAttribute="top" id="34h-8U-Clx"/>
                             <constraint firstItem="38H-tt-FLy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5hJ-3C-0Kw"/>
+                            <constraint firstItem="YM0-KL-YRs" firstAttribute="centerX" secondItem="cdb-cy-q3i" secondAttribute="centerX" id="KTN-Ay-Uif"/>
                             <constraint firstItem="8HW-Zb-LLO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="289" id="LKd-5k-HpW"/>
+                            <constraint firstItem="YM0-KL-YRs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PBd-C9-Dik"/>
                             <constraint firstItem="38H-tt-FLy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="13" id="PUw-wu-WEk"/>
                             <constraint firstItem="8HW-Zb-LLO" firstAttribute="bottom" secondItem="38H-tt-FLy" secondAttribute="bottom" constant="7" id="SQv-wA-Y3i"/>
                             <constraint firstItem="sax-Zr-BDN" firstAttribute="top" secondItem="cdb-cy-q3i" secondAttribute="bottom" constant="23" id="TDc-Hg-aEJ"/>
@@ -141,6 +154,7 @@
                             <constraint firstItem="sax-Zr-BDN" firstAttribute="centerX" secondItem="ypT-PN-FRO" secondAttribute="centerX" id="hqv-om-1vp"/>
                             <constraint firstItem="sax-Zr-BDN" firstAttribute="centerX" secondItem="cdb-cy-q3i" secondAttribute="centerX" id="jKC-pm-vLZ"/>
                             <constraint firstItem="38H-tt-FLy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="46" id="kRe-z0-JKB"/>
+                            <constraint firstAttribute="bottom" secondItem="YM0-KL-YRs" secondAttribute="bottom" id="pxV-RG-4Ih"/>
                             <constraint firstItem="38H-tt-FLy" firstAttribute="centerX" secondItem="ypT-PN-FRO" secondAttribute="centerX" id="qqY-Cr-GaN"/>
                             <constraint firstItem="sax-Zr-BDN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="s1p-lc-DVZ"/>
                         </constraints>
@@ -165,6 +179,7 @@
                         <outlet property="QRCode" destination="wrW-6v-ex3" id="T4R-Iz-oIR"/>
                         <outlet property="activityIndicatorView" destination="ypT-PN-FRO" id="HaU-NM-QMg"/>
                         <outlet property="appsTableView" destination="sax-Zr-BDN" id="i6n-Ly-NMu"/>
+                        <outlet property="gradientView" destination="YM0-KL-YRs" id="bH4-PY-2tB"/>
                         <outlet property="nameLabel" destination="cdb-cy-q3i" id="ATD-6w-jcp"/>
                         <outlet property="profileImage" destination="38H-tt-FLy" id="Fn6-0d-f2V"/>
                         <outlet property="qrCodeButton" destination="8HW-Zb-LLO" id="diW-kW-aEq"/>
@@ -1066,6 +1081,7 @@
                         <subviews>
                             <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddMeLogo-2" translatesAutoresizingMaskIntoConstraints="NO" id="rIX-j4-Cb7">
                                 <rect key="frame" x="-21" y="-43" width="417" height="732"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="732" id="d5V-9K-SUI"/>
                                 </constraints>
@@ -1106,6 +1122,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="RUY-Ao-dKI" kind="relationship" relationship="viewControllers" id="1iN-vn-hdl"/>
@@ -1129,6 +1146,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7XX-m7-b7q">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

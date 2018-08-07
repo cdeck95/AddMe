@@ -24,10 +24,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="CY1-91-D0i" firstAttribute="top" secondItem="C8a-2c-fp7" secondAttribute="top" id="79A-9Y-cto"/>
-                            <constraint firstAttribute="trailing" secondItem="CY1-91-D0i" secondAttribute="trailing" id="AZA-36-Sdq"/>
-                            <constraint firstItem="CY1-91-D0i" firstAttribute="bottom" secondItem="r8p-Ec-Ulf" secondAttribute="bottom" id="P1q-SF-hbb"/>
-                            <constraint firstItem="CY1-91-D0i" firstAttribute="leading" secondItem="C8a-2c-fp7" secondAttribute="leading" id="svm-1E-LgK"/>
+                            <constraint firstItem="CY1-91-D0i" firstAttribute="bottom" secondItem="r8p-Ec-Ulf" secondAttribute="bottom" id="KXd-GM-HAe"/>
+                            <constraint firstItem="CY1-91-D0i" firstAttribute="leading" secondItem="C8a-2c-fp7" secondAttribute="leading" id="T0b-EH-rC3"/>
+                            <constraint firstItem="CY1-91-D0i" firstAttribute="top" secondItem="C8a-2c-fp7" secondAttribute="top" id="faa-d2-3hJ"/>
+                            <constraint firstAttribute="trailing" secondItem="CY1-91-D0i" secondAttribute="trailing" id="s8k-gK-AAB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="r8p-Ec-Ulf"/>
                     </view>

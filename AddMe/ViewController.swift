@@ -39,6 +39,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet var uploadImageButton: UIBarButtonItem!
     var token: String!
     let imagePicker = UIImagePickerController()
+    var gradient: CAGradientLayer!
+    @IBOutlet var gradientView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +61,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
         imagePicker.delegate = self
+        createGradientLayer()
+        appsTableView.layer.backgroundColor = UIColor.clear.cgColor
+        appsTableView.backgroundColor = UIColor.clear
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -351,7 +356,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         default:
             cell.appImage.image = UIImage(named: "AppIcon-1")
         }
-        
+        cell.layer.backgroundColor = UIColor.clear.cgColor
         cell.id = Int(apps[indexPath.row]._appId!)
         //print(indexPath.row)
         if(indexPath.row == apps.count-1){
@@ -440,6 +445,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             print("Something went wrong")
         }
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func createGradientLayer() {
+        gradient = CAGradientLayer()
+        let view = UIView(frame: self.view.bounds)
+        gradient.frame = view.frame
+        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor]
+        gradient.locations = [0.0, 1.0]
+        self.view.backgroundColor = UIColor.clear
+        self.gradientView.layer.addSublayer(gradient)
+        self.view.sendSubview(toBack: self.gradientView)//(gradient, at: 0)
     }
 }
 
