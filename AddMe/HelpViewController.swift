@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import MessageUI
 
-class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
     @IBOutlet var gradientLayer: UIView!
     var gradient: CAGradientLayer!
@@ -34,17 +34,9 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
         self.tabBarController?.tabBar.isTranslucent = true
         self.tabBarController?.view.backgroundColor = .clear
         
-        //create help box gradient
-        let helpGradient = CAGradientLayer()
-        let view = UIView(frame: self.issueDetails.bounds)
-        helpGradient.frame = view.frame
-        helpGradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor]
-        helpGradient.locations = [0.0, 1.0]
-        //        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor, UIColor(red: 1/255, green: 82/255, blue: 73/255, alpha:1).cgColor]
-        //        gradient.locations = [0.0, 0.5, 1.0]
-        self.issueDetails.backgroundColor = UIColor.clear
-        self.issueDetails.layer.addSublayer(helpGradient)
-       // self.issueDetails.sendSubview(toBack: self.gradientLayer)//(gradient, at: 0)
+        self.issueDetails.textColor = UIColor.white
+        self.issueDetails.delegate = self
+        self.issueDetails.layer.borderWidth = 1.0
     }
 
     override func didReceiveMemoryWarning() {
@@ -147,5 +139,12 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
         self.view.sendSubview(toBack: self.gradientLayer)//(gradient, at: 0)
     }
 
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        issueDetails.layer.borderColor = UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        issueDetails.layer.borderColor = UIColor(red: 1/255, green: 82/255, blue: 73/255, alpha:1).cgColor
+    }
 
 }

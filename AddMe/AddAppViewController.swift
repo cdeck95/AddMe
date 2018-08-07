@@ -113,46 +113,45 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         //the confirm action taking the inputs
         let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
             //getting the input values from user
-            let cognitoId:String = (alertController.textFields?[1].text)!
+            let username:String = (alertController.textFields?[1].text)!
             let displayName:String = (alertController.textFields?[0].text)!
-            print(cognitoId)
+            print(username)
             print(displayName)
             print(key)
             let app:Apps = Apps()
             app._displayName = displayName
             app._platform = key
-            app._username = "TMP Username"
-            let user = "TMP Username"
+            app._username = username
             switch key {
             case "Facebook":
-                app._uRL = "https://www.facebook.com/\(cognitoId)"
+                app._uRL = "https://www.facebook.com/\(username)"
             case "Twitter":
-                app._uRL = "https://www.twitter.com/\(cognitoId)"
+                app._uRL = "https://www.twitter.com/\(username)"
             case "Instagram":
-                app._uRL = "https://www.instagram.com/\(cognitoId)"
+                app._uRL = "https://www.instagram.com/\(username)"
             case "Snapchat":
-                app._uRL = "https://www.snapchat.com/add/\(cognitoId)"
+                app._uRL = "https://www.snapchat.com/add/\(username)"
             case "LinkedIn":
-                app._uRL = "https://www.linkedin.com/in/\(cognitoId)"
+                app._uRL = "https://www.linkedin.com/in/\(username)"
             case "GooglePlus":
-                app._uRL = "https://plus.google.com/\(cognitoId)"
+                app._uRL = "https://plus.google.com/\(username)"
             case "Xbox":
-                let usernameURL = cognitoId.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
                 app._uRL = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
             case "PSN":
-                let usernameURL = cognitoId.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
                 app._uRL = "https://my.playstation.com/profile/\(usernameURL!)"
             case "Twitch":
-                app._uRL = "https://m.twitch.tv/\(cognitoId)/profile"
+                app._uRL = "https://m.twitch.tv/\(username)/profile"
             case "Custom":
-                app._uRL = "\(cognitoId)"
+                app._uRL = "\(username)"
             default:
                 print("unknown app found: \(key)")
             }
             
             //if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: app._userId!))
             //{
-            self.addToDB(cognitoId: self.credentialsManager.identityID, displayName: displayName, platform: key, url: app._uRL!, username: user)
+            self.addToDB(cognitoId: self.credentialsManager.identityID, displayName: displayName, platform: key, url: app._uRL!, username: username)
             //}else {
             //    print("Can't add this app")
             //}
@@ -206,8 +205,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             showInputDialog(key: "Facebook")
         case "LinkedIn":
             showInputDialog(key: "LinkedIn")
-        case "GooglePlus":
-            showInputDialog(key: "Google+")
+        case "Google+":
+            showInputDialog(key: "GooglePlus")
         case "Xbox":
             showInputDialog(key: "Xbox")
         case "PSN":
@@ -254,7 +253,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        let postString = "{\"displayName\": \"\(displayName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\"}"
+        let postString = "{\"displayName\": \"\(displayName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\", \"username\": \"\(username)\"}"
         print(postString)
         request.httpBody = postString.data(using: String.Encoding.utf8)
         

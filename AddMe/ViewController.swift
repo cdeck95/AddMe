@@ -195,10 +195,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
             //////////////////////// New stuff from Tom
             do {
+                print(data)
                 print("decoding")
                 let decoder = JSONDecoder()
                 print("getting data")
                 let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+                print(JSONdata)
                 if(JSONdata.accounts.count == 0){
                     print("no accounts")
                     returnList = []
@@ -210,7 +212,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         let displayName = listOfAccountInfo["displayName"]!
                         let platform = listOfAccountInfo["platform"]!
                         let url = listOfAccountInfo["url"]!
-                        //let username = listOfAccountInfo["username"]!
+                        let username = listOfAccountInfo["username"]!
                         var appIdString = listOfAccountInfo["accountId"]!
     //                    if(appIdString.prefix(2) == "0x"){
     //                        appIdString.removeFirst(2)
@@ -227,7 +229,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         app?._displayName = displayName
                         app?._platform = platform
                         app?._uRL = url
-                        //app?._username = username
+                        app?._username = username
                         print(app)
                         returnList.append(app!)
                     }
@@ -350,7 +352,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.appImage.image = UIImage(named: "Instagram_icon")
         case "Snapchat"?:
             cell.appImage.image = UIImage(named: "snapchat_icon")
-        case "Google+"?:
+        case "GooglePlus"?:
             cell.appImage.image = UIImage(named: "google_plus_icon")
         case "LinkedIn"?:
             cell.appImage.image = UIImage(named: "linked_in_logo")
@@ -363,7 +365,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         case "Custom"?:
             cell.appImage.image = UIImage(named: "custom")
         default:
-            cell.appImage.image = UIImage(named: "AppIcon-1")
+            cell.appImage.image = UIImage(named: "AppIcon")
         }
         cell.NameLabel.textColor = UIColor.white
         cell.layer.backgroundColor = UIColor.clear.cgColor
