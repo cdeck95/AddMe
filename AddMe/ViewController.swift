@@ -210,6 +210,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         let displayName = listOfAccountInfo["displayName"]!
                         let platform = listOfAccountInfo["platform"]!
                         let url = listOfAccountInfo["url"]!
+                        //let username = listOfAccountInfo["username"]!
                         var appIdString = listOfAccountInfo["accountId"]!
     //                    if(appIdString.prefix(2) == "0x"){
     //                        appIdString.removeFirst(2)
@@ -220,11 +221,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         print(platform)
                         print(url)
                         print(appId)
+                        //print(username)
                         let app = Apps()
                         app?._appId = "\(appId)"
                         app?._displayName = displayName
                         app?._platform = platform
                         app?._uRL = url
+                        //app?._username = username
                         print(app)
                         returnList.append(app!)
                     }
