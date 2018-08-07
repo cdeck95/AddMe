@@ -64,6 +64,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         createGradientLayer()
         appsTableView.layer.backgroundColor = UIColor.clear.cgColor
         appsTableView.backgroundColor = UIColor.clear
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+        self.tabBarController?.tabBar.isTranslucent = true
+        self.tabBarController?.view.backgroundColor = .clear
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -454,6 +460,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         gradient.frame = view.frame
         gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor]
         gradient.locations = [0.0, 1.0]
+//        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor, UIColor(red: 1/255, green: 82/255, blue: 73/255, alpha:1).cgColor]
+//        gradient.locations = [0.0, 0.5, 1.0]
         self.view.backgroundColor = UIColor.clear
         self.gradientView.layer.addSublayer(gradient)
         self.view.sendSubview(toBack: self.gradientView)//(gradient, at: 0)

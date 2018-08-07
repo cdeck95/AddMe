@@ -60,8 +60,11 @@ class LaunchScreenViewController: UIViewController {
         gradient = CAGradientLayer()
         let view = UIView(frame: CGRect(origin: CGPoint(x:0, y:0), size: self.view.frame.size))
         gradient.frame = view.frame
+//        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor, UIColor(red: 1/255, green: 82/255, blue: 73/255, alpha:1).cgColor]
+//        gradient.locations = [0.0, 0.5, 1.0]
         gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor]
         gradient.locations = [0.0, 1.0]
+
         gradientView.frame = self.view.bounds
         gradientView.layer.addSublayer(gradient)
         //self.view.layer.insertSublayer(gradient, at: 0)
