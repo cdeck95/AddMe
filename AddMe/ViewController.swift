@@ -356,6 +356,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         default:
             cell.appImage.image = UIImage(named: "AppIcon-1")
         }
+        cell.NameLabel.textColor = UIColor.white
         cell.layer.backgroundColor = UIColor.clear.cgColor
         cell.id = Int(apps[indexPath.row]._appId!)
         //print(indexPath.row)
