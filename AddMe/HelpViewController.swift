@@ -37,6 +37,13 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
         self.issueDetails.textColor = UIColor.white
         self.issueDetails.delegate = self
         self.issueDetails.layer.borderWidth = 1.0
+        let version : Any! = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")!
+        let build : Any! = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion")!
+        let systemVersion = UIDevice.current.systemVersion
+        print("Version: \(version)")
+        print("Build: \(build)")
+        print("OS: \(systemVersion)")
+        issueDetails.text = "Please describe issue here...\n\nOS: \(systemVersion) \nVersion: \(version!) \nBuild: \(build!)"
     }
 
     override func didReceiveMemoryWarning() {
@@ -141,6 +148,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
 
     func textViewDidBeginEditing(_ textView: UITextView) {
         issueDetails.layer.borderColor = UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor
+        issueDetails.layer.borderWidth = 2.0
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

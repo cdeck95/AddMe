@@ -18,6 +18,33 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet var urlTextBox: UITextField!
     var onButtonTapped : (() -> Void)? = nil
     private let refreshControl = UIRefreshControl()
+    var credentialsManager = CredentialsManager.sharedInstance
+    var dataset: AWSCognitoDataset!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let syncClient = AWSCognito.default()
+        dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
+        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
+            // Your handler code here
+            return nil
+            
+        }
+        self.credentialsManager.createCredentialsProvider()
+        
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *) {
+            settingsAppsTableView.refreshControl = refreshControl
+        } else {
+            settingsAppsTableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
+        switchView.frame = CGRect(x: 0, y: 20, width: 10, height: 5)
+        switchView.addTarget(self, action: #selector(switched), for: .valueChanged)
+        
+        view.addSubview(switchView)
+        //view.addSubview(collectionView)
+    }
     
     
     let collectionView: UICollectionView = {
@@ -56,36 +83,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
-//    var sideMenuViewController = SideMenuViewController()
-//    var isMenuOpened:Bool = false
-    var dataset: AWSCognitoDataset!
-    var credentialsManager = CredentialsManager.sharedInstance
+
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-//        sideMenuViewController.view.frame = UIScreen.main.bounds
-        let syncClient = AWSCognito.default()
-        dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
-        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
-            // Your handler code here
-            return nil
-            
-        }
-        
-        // Add Refresh Control to Table View
-        if #available(iOS 10.0, *) {
-            settingsAppsTableView.refreshControl = refreshControl
-        } else {
-            settingsAppsTableView.addSubview(refreshControl)
-        }
-        refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
-        switchView.frame = CGRect(x: 0, y: 20, width: 10, height: 5)
-        switchView.addTarget(self, action: #selector(switched), for: .valueChanged)
-        
-        view.addSubview(switchView)
-        //view.addSubview(collectionView)
-    }
+    
     
     @objc func switched(s: UISwitch){
         let origin: CGFloat = s.isOn ? view.frame.height : 50
@@ -233,13 +233,10 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func deleteApps(_ sender: Any) {
         let idString = self.credentialsManager.identityID!
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(self.credentialsManager.identityID)/accounts")!)
         request.httpMethod = "DELETE"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        let postString = "{\"user\": {\"cognitoId\": \"\(idString)\"}}"
-        print(postString)
-        request.httpBody = postString.data(using: String.Encoding.utf8)
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             data, response, error in
