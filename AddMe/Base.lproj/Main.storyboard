@@ -16,11 +16,11 @@
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YM0-KL-YRs" userLabel="Subview">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdb-cy-q3i">
@@ -47,6 +47,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.0039215686274509803" green="0.32156862745098036" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.46666666670000001" green="0.78823529410000004" blue="0.83137254900000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PlainCell" rowHeight="50" id="Y8S-hs-XU9" customClass="AppsTableViewCell" customModule="AddMe" customModuleProvider="target">
@@ -68,7 +69,7 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="Facebook">
                                                             <attributes>
-                                                                <color key="NSColor" red="0.0039215686274509803" green="0.32156862745098036" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <font key="NSFont" size="18" name="ComicSansMS-Bold"/>
                                                             </attributes>
                                                         </fragment>
@@ -77,7 +78,7 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yRM-uM-Zqj">
                                                     <rect key="frame" x="288" y="11" width="52" height="31"/>
-                                                    <color key="onTintColor" red="0.3411764705882353" green="0.73725490196078436" blue="0.56470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="onTintColor" red="0.0039215686274509803" green="0.32156862745098036" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </switch>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -235,7 +236,7 @@
             <objects>
                 <viewController storyboardIdentifier="SettingsViewController" title="Settings" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MaD-TQ-yjv" customClass="SettingsViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qzt-oJ-2eq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kPv-vc-8Td">
@@ -439,7 +440,7 @@
             <objects>
                 <viewController title="Help" id="ISd-IL-6IN" customClass="HelpViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zUU-Hi-49w">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQU-21-1Ph">
@@ -943,7 +944,7 @@
             <objects>
                 <viewController id="beM-FT-25w" customClass="CameraViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UTD-hu-S6f">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have a code?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3M4-Ed-Nj2">
@@ -1006,7 +1007,7 @@
             <objects>
                 <viewController id="gfS-lj-f3Q" customClass="ScannerViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0VR-xA-JZB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NWR-ld-dNU">
@@ -1031,7 +1032,7 @@
             <objects>
                 <viewController id="Q2x-Vo-r1I" customClass="LogoutViewController" customModule="AddMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mol-hU-0sO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Gf-oD-Gee">
@@ -1079,32 +1080,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKh-Bk-qYi" userLabel="Gradient View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddMeLogo-2" translatesAutoresizingMaskIntoConstraints="NO" id="rIX-j4-Cb7">
-                                <rect key="frame" x="-21" y="-43" width="417" height="732"/>
+                                <rect key="frame" x="-21" y="-100" width="417" height="789"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="732" id="d5V-9K-SUI"/>
+                                    <constraint firstAttribute="height" constant="789" id="d5V-9K-SUI"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftR-cT-mhI">
                                 <rect key="frame" x="67" y="470" width="240" height="128"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ftR-cT-mhI" firstAttribute="centerX" secondItem="0fi-LN-Dax" secondAttribute="centerX" id="GlP-8L-Gdz"/>
+                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="leading" secondItem="0fi-LN-Dax" secondAttribute="leading" id="Mgl-Mm-Jtd"/>
                             <constraint firstItem="ftR-cT-mhI" firstAttribute="top" secondItem="pe3-Q0-XyV" secondAttribute="top" constant="450" id="OZG-Ce-BqN"/>
+                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="bottom" secondItem="pe3-Q0-XyV" secondAttribute="bottom" id="ZJP-M7-mnb"/>
                             <constraint firstItem="pe3-Q0-XyV" firstAttribute="bottom" secondItem="ftR-cT-mhI" secondAttribute="bottom" constant="69" id="bQF-M1-1FR"/>
                             <constraint firstItem="ftR-cT-mhI" firstAttribute="leading" secondItem="pe3-Q0-XyV" secondAttribute="leading" constant="67" id="eca-xJ-kXU"/>
+                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="top" secondItem="0fi-LN-Dax" secondAttribute="top" id="eos-hM-pkc"/>
                             <constraint firstItem="ftR-cT-mhI" firstAttribute="centerX" secondItem="rIX-j4-Cb7" secondAttribute="centerX" id="lv5-ab-MAW"/>
-                            <constraint firstItem="rIX-j4-Cb7" firstAttribute="centerY" secondItem="0fi-LN-Dax" secondAttribute="centerY" constant="-10.5" id="w5o-U1-N9g"/>
+                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="centerX" secondItem="ftR-cT-mhI" secondAttribute="centerX" id="plx-of-89a"/>
+                            <constraint firstItem="rIX-j4-Cb7" firstAttribute="centerY" secondItem="0fi-LN-Dax" secondAttribute="centerY" constant="-39" id="w5o-U1-N9g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pe3-Q0-XyV"/>
                     </view>
                     <navigationItem key="navigationItem" id="Xo2-vt-6r0"/>
                     <connections>
                         <outlet property="animationView" destination="ftR-cT-mhI" id="V2y-1f-3UX"/>
+                        <outlet property="gradientView" destination="KKh-Bk-qYi" id="VtV-af-EY2"/>
                         <outlet property="imageView" destination="rIX-j4-Cb7" id="bxp-gL-ant"/>
                         <segue destination="0fo-N0-SsQ" kind="show" identifier="showHome" id="XkB-2O-KG1"/>
                     </connections>
@@ -1118,11 +1128,11 @@
             <objects>
                 <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0fo-N0-SsQ" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aZm-Jq-Woc">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="aZm-Jq-Woc">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.3411764705882353" green="0.73725490196078436" blue="0.56470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.3411764706" green="0.73725490199999999" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="RUY-Ao-dKI" kind="relationship" relationship="viewControllers" id="1iN-vn-hdl"/>
@@ -1141,13 +1151,14 @@
         <scene sceneID="JbQ-Su-rgC">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RUY-Ao-dKI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" image="ic_home" id="atk-hG-9UL"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="ic_home" id="atk-hG-9UL">
+                        <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7XX-m7-b7q">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.46666666666666667" green="0.78823529411764703" blue="0.83137254901960778" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
