@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSCognito
+import CDAlertView
 
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
@@ -207,33 +208,18 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         })
         task.resume()
     }
-    
-    // Just here
-    //https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php      SEND IN ALL BUT ID
-    //https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php     SEND IN ID
-    //https://tommillerswebsite.000webhostapp.com/AddMe/setUserInfo.php     SEND IN ALL 4
-    
-    
-//    @IBAction func menuClicked(_ sender: Any) {
-//        if(isMenuOpened){
-//            isMenuOpened = false
-//            sideMenuViewController.willMove(toParentViewController: nil)
-//            sideMenuViewController.view.removeFromSuperview()
-//            sideMenuViewController.removeFromParentViewController()
-//        }
-//        else{
-//            isMenuOpened = true
-//            self.addChildViewController(sideMenuViewController)
-//            self.view.addSubview(sideMenuViewController.view)
-//            sideMenuViewController.didMove(toParentViewController: self)
-//        }
-//        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-//    }
+
 
     
     @IBAction func deleteApps(_ sender: Any) {
+        let alert = CDAlertView(title: "Deleting All Apps", message: "Are you sure you wish to delete all apps?", type: .warning)
+        let doneAction = CDAlertViewAction(title: "Sure! 💪")
+        alert.add(action: doneAction)
+        let nevermindAction = CDAlertViewAction(title: "Nevermind 😬")
+        alert.add(action: nevermindAction)
+        alert.show()
         let idString = self.credentialsManager.identityID!
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(self.credentialsManager.identityID)/accounts")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
         request.httpMethod = "DELETE"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")

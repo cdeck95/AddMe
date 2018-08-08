@@ -12,6 +12,7 @@ import AWSFacebookSignIn
 import AWSAuthUI
 import FacebookCore
 import AWSDynamoDB
+import CDAlertView
 
 class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HalfModalPresentable {
     
@@ -263,12 +264,13 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 print("error=\(error)")
                 return
             }
-            
+        
             let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             var responseOne = responseString
             print(responseOne!)
         })
         task.resume()
+        CDAlertView(title: "Success!", message: "Your account is now added to the database", type: .success).show()
     }
     
     // This will check some things to avoid adding duplicate entries for a user.

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CDAlertView
 
 class EditAppViewController: UIViewController, UITextFieldDelegate {
 
@@ -178,6 +179,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
             print(responseOne!)
         })
         task.resume()
+        CDAlertView(title: "Success!", message: "Your account is now updated", type: .success).show()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -199,6 +201,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
             print(responseOne!)
         })
         task.resume()
+        CDAlertView(title: "Delete Successful", message: "Your account is now deleted from the database.", type: .success).show()
         self.dismiss(animated: true, completion: nil)
     }
     

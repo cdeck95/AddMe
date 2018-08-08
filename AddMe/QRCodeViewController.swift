@@ -110,10 +110,10 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
         activityVC.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
         activityVC.completionWithItemsHandler = {(activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             if (activityType == UIActivityType.saveToCameraRoll) {
-                CDAlertView(title: "Success!", message: "Your QR code is now saved to your camera roll!", type: .notification).show()
+                CDAlertView(title: "Success!", message: "Your QR code is now saved to your camera roll!", type: .success).show()
                 return
             } else if (activityType == UIActivityType.copyToPasteboard) {
-                CDAlertView(title: "Success!", message: "Your QR code is now copied to your Pasteboard!", type: .notification).show()
+                CDAlertView(title: "Success!", message: "Your QR code is now copied to your Pasteboard!", type: .success).show()
                 return
             }
         }
