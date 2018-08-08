@@ -30,6 +30,7 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - CDAlertView (0.7.1)
   - FacebookCore (0.3.0):
     - Bolts (~> 1.8)
     - FBSDKCoreKit (~> 4.27)
@@ -67,6 +68,7 @@ DEPENDENCIES:
   - AWSGoogleSignIn (~> 2.6.6)
   - AWSMobileClient (~> 2.6.6)
   - AWSUserPoolsSignIn (~> 2.6.6)
+  - CDAlertView
   - FacebookCore
   - GoogleSignIn (~> 4.0)
   - SideMenu
@@ -84,6 +86,7 @@ SPEC CHECKSUMS:
   AWSMobileClient: 5972fea7b8b7a9eae8790386700b8a7f330f8ee3
   AWSUserPoolsSignIn: a731c43b295ac7d4cf9647c655ce580b3ced9397
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  CDAlertView: 0e5597633e46bcf09c8b3ad67bc23e184f7e4075
   FacebookCore: 3ffa190a3f1f96cec0e44d3fc221bc322c595ffa
   FBSDKCoreKit: 7c4bba2877781a131ab5d54c0a78c405d4307b62
   FBSDKLoginKit: fe7a7e82373dc5daad92e1623219e86224ab1fb1
@@ -93,6 +96,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
 
-PODFILE CHECKSUM: 27ddd69eff3122fd73156c1ebbf5f42b9a1cf16c
+PODFILE CHECKSUM: 06af825eb0f25c49945880e1eaee34d37bffb418
 
 COCOAPODS: 1.4.0

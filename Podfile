@@ -15,6 +15,7 @@ target 'AddMe' do
     pod 'AWSCognito'
     pod 'FacebookCore'
     pod 'AWSDynamoDB'
+    pod "CDAlertView"
     # other pods
 
 end

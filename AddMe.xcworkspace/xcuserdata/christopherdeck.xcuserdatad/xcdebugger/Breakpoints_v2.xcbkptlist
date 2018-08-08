@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddMe/CameraViewController.swift"
-            timestampString = "555373690.306831"
+            timestampString = "555379726.5553581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "129"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddMe/ViewController.swift"
-            timestampString = "555373690.3172669"
+            timestampString = "555379726.5560941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "472"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddMe/ViewController.swift"
-            timestampString = "555373690.31762"
+            timestampString = "555379726.556175"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
@@ -90,13 +90,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddMe/CameraViewController.swift"
-            timestampString = "555373690.318501"
+            timestampString = "555379726.5564229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "128"
             endingLineNumber = "128"
             landmarkName = "openPlatforms()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AddMe/AddAppViewController.swift"
+            timestampString = "555379726.556802"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "showInputDialog(key:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #8 (__ObjC.UIAlertAction) -&gt; () in AddMe.AddAppViewController.showInputDialog(key: Swift.String) -&gt; ()"
+                  moduleName = "AddMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christopherdeck/Desktop/AddMe/AddMe/AddAppViewController.swift"
+                  timestampString = "555379726.7385319"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "116"
+                  endingLineNumber = "116"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #8 (__ObjC.UIAlertAction) -&gt; () in AddMe.AddAppViewController.showInputDialog(key: Swift.String) -&gt; ()"
+                  moduleName = "AddMe"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/christopherdeck/Desktop/AddMe/AddMe/AddAppViewController.swift"
+                  timestampString = "555379726.740671"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "116"
+                  endingLineNumber = "116"
+                  offsetFromSymbolStart = "18512">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

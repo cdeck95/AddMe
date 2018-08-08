@@ -15,7 +15,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
     @IBOutlet var gradientLayer: UIView!
     var gradient: CAGradientLayer!
     @IBOutlet weak var issuePicker: UIPickerView!
-    var pickerData: [String] = ["Cannot connect apps", "Cannot create code", "Code is wrong", "Cannot scan code", "Cannot delete apps"]
+    var pickerData: [String] = ["Cannot connect accounts", "Cannot create QR code", "QR Code is wrong", "Cannot scan/import QR code" , "Cannot edit/delete apps"]
     @IBOutlet weak var issueDetails: UITextView!
     var generalIssue:String!
     
