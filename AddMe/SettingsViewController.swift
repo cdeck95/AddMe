@@ -218,24 +218,29 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         let nevermindAction = CDAlertViewAction(title: "Nevermind 😬")
         alert.add(action: nevermindAction)
         alert.show()
-        let idString = self.credentialsManager.identityID!
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
-        request.httpMethod = "DELETE"
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+    }
+    
         
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                return
-            }
+    func deleteAllApps(){
+            print("deleting all apps")
+            let idString = self.credentialsManager.identityID!
+            var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
             
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            var responseOne = responseString
-            print(responseOne!)
-        })
-        task.resume()
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                data, response, error in
+                if error != nil {
+                    print("error=\(error)")
+                    return
+                }
+                
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                var responseOne = responseString
+                print(responseOne!)
+            })
+            task.resume()
     }
 
     
