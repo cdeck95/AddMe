@@ -8,6 +8,7 @@
 
 import UIKit
 import AWSCognito
+import CDAlertView
 
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
 
@@ -18,6 +19,33 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet var urlTextBox: UITextField!
     var onButtonTapped : (() -> Void)? = nil
     private let refreshControl = UIRefreshControl()
+    var credentialsManager = CredentialsManager.sharedInstance
+    var dataset: AWSCognitoDataset!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let syncClient = AWSCognito.default()
+        dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
+        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
+            // Your handler code here
+            return nil
+            
+        }
+        self.credentialsManager.createCredentialsProvider()
+        
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *) {
+            settingsAppsTableView.refreshControl = refreshControl
+        } else {
+            settingsAppsTableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
+        switchView.frame = CGRect(x: 0, y: 20, width: 10, height: 5)
+        switchView.addTarget(self, action: #selector(switched), for: .valueChanged)
+        
+        view.addSubview(switchView)
+        //view.addSubview(collectionView)
+    }
     
     
     let collectionView: UICollectionView = {
@@ -56,36 +84,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
-//    var sideMenuViewController = SideMenuViewController()
-//    var isMenuOpened:Bool = false
-    var dataset: AWSCognitoDataset!
-    var credentialsManager = CredentialsManager.sharedInstance
+
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        sideMenuViewController = storyboard!.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-//        sideMenuViewController.view.frame = UIScreen.main.bounds
-        let syncClient = AWSCognito.default()
-        dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
-        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
-            // Your handler code here
-            return nil
-            
-        }
-        
-        // Add Refresh Control to Table View
-        if #available(iOS 10.0, *) {
-            settingsAppsTableView.refreshControl = refreshControl
-        } else {
-            settingsAppsTableView.addSubview(refreshControl)
-        }
-        refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
-        switchView.frame = CGRect(x: 0, y: 20, width: 10, height: 5)
-        switchView.addTarget(self, action: #selector(switched), for: .valueChanged)
-        
-        view.addSubview(switchView)
-        //view.addSubview(collectionView)
-    }
+    
     
     @objc func switched(s: UISwitch){
         let origin: CGFloat = s.isOn ? view.frame.height : 50
@@ -207,52 +208,39 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         })
         task.resume()
     }
-    
-    // Just here
-    //https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php      SEND IN ALL BUT ID
-    //https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php     SEND IN ID
-    //https://tommillerswebsite.000webhostapp.com/AddMe/setUserInfo.php     SEND IN ALL 4
-    
-    
-//    @IBAction func menuClicked(_ sender: Any) {
-//        if(isMenuOpened){
-//            isMenuOpened = false
-//            sideMenuViewController.willMove(toParentViewController: nil)
-//            sideMenuViewController.view.removeFromSuperview()
-//            sideMenuViewController.removeFromParentViewController()
-//        }
-//        else{
-//            isMenuOpened = true
-//            self.addChildViewController(sideMenuViewController)
-//            self.view.addSubview(sideMenuViewController.view)
-//            sideMenuViewController.didMove(toParentViewController: self)
-//        }
-//        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-//    }
+
 
     
     @IBAction func deleteApps(_ sender: Any) {
-        let idString = self.credentialsManager.identityID!
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users")!)
-        request.httpMethod = "DELETE"
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        let postString = "{\"user\": {\"cognitoId\": \"\(idString)\"}}"
-        print(postString)
-        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let alert = CDAlertView(title: "Deleting All Apps", message: "Are you sure you wish to delete all apps?", type: .warning)
+        let doneAction = CDAlertViewAction(title: "Sure! 💪")
+        alert.add(action: doneAction)
+        let nevermindAction = CDAlertViewAction(title: "Nevermind 😬")
+        alert.add(action: nevermindAction)
+        alert.show()
+    }
+    
         
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                return
-            }
+    func deleteAllApps(){
+            print("deleting all apps")
+            let idString = self.credentialsManager.identityID!
+            var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
             
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            var responseOne = responseString
-            print(responseOne!)
-        })
-        task.resume()
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                data, response, error in
+                if error != nil {
+                    print("error=\(error)")
+                    return
+                }
+                
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                var responseOne = responseString
+                print(responseOne!)
+            })
+            task.resume()
     }
 
     
@@ -312,6 +300,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     let displayName = listOfAccountInfo["displayName"]!
                     let platform = listOfAccountInfo["platform"]!
                     let url = listOfAccountInfo["url"]!
+                    let username = listOfAccountInfo["username"]!
                     var appIdString = listOfAccountInfo["accountId"]!
 //                    if(appIdString.prefix(2) == "0x"){
 //                        appIdString.removeFirst(2)
@@ -321,11 +310,13 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     print(platform)
                     print(url)
                     print(appId)
+                    print(username)
                     let app = Apps()
                     app?._appId = "\(appId)"
                     app?._displayName = displayName
                     app?._platform = platform
                     app?._uRL = url
+                    app?._username = username
                     print(app)
                     returnList.append(app!)
                 }

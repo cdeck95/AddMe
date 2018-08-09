@@ -32,7 +32,6 @@
 		DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4330420411FB60033EF35 /* ScannerViewController.swift */; };
 		DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CF52043458000F1525E /* QRCodeViewController.swift */; };
 		DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CF72043522C00F1525E /* SettingsViewController.swift */; };
-		DAD96CFA2044B13C00F1525E /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CF92044B13C00F1525E /* SideMenuViewController.swift */; };
 		DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CFB2044C1FF00F1525E /* CustomButton.swift */; };
 		DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */; };
 		DAD96D002045F59F00F1525E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */; };
@@ -50,7 +49,7 @@
 		0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AddMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA130A83209643AF00622951 /* EFUIntPixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFUIntPixel.swift; sourceTree = "<group>"; };
 		DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
-		DA1B39F721163DC4008CE7C6 /* AnimatedLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimatedLaunchScreen.swift; path = /Users/christopherdeck/Desktop/AddMe/AddMe/AnimatedLaunchScreen.swift; sourceTree = "<absolute>"; };
+		DA1B39F721163DC4008CE7C6 /* AnimatedLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimatedLaunchScreen.swift; path = AddMe/AnimatedLaunchScreen.swift; sourceTree = SOURCE_ROOT; };
 		DA1B39F92117C070008CE7C6 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
 		DA2B25F6204E2623004D3160 /* CredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsManager.swift; sourceTree = "<group>"; };
 		DA4388EE2086747000E0CD0D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +73,6 @@
 		DAD4330420411FB60033EF35 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		DAD96CF52043458000F1525E /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		DAD96CF72043522C00F1525E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		DAD96CF92044B13C00F1525E /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		DAD96CFB2044C1FF00F1525E /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAppViewController.swift; sourceTree = "<group>"; };
 		DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
 				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
 				DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */,
-				DAD96CF92044B13C00F1525E /* SideMenuViewController.swift */,
 				DAD96CF52043458000F1525E /* QRCodeViewController.swift */,
 				DA130A83209643AF00622951 /* EFUIntPixel.swift */,
 				DA6A7EF02037859800E79B47 /* Assets.xcassets */,
@@ -318,6 +315,7 @@
 				"${BUILT_PRODUCTS_DIR}/AWSMobileClient/AWSMobileClient.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSUserPoolsSignIn/AWSUserPoolsSignIn.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/CDAlertView/CDAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
@@ -340,6 +338,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSMobileClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSUserPoolsSignIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CDAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
@@ -360,7 +359,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAD96CFA2044B13C00F1525E /* SideMenuViewController.swift in Sources */,
 				DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */,
 				DA130A84209643AF00622951 /* EFUIntPixel.swift in Sources */,
 				DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */,

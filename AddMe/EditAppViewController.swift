@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CDAlertView
 
 class EditAppViewController: UIViewController, UITextFieldDelegate {
 
@@ -63,6 +64,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
         //print(postString)
         //request.httpBody = postString.data(using: String.Encoding.utf8)
         //print(request.httpBody)
+        var username: String!
         var dispName: String!
         var pform: String!
         var cognitoId: String!
@@ -86,9 +88,11 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
                 dispName = listOfAccountInfo["displayName"]!
                 pform = listOfAccountInfo["platform"]!
                 cognitoId = listOfAccountInfo["cognitoId"]!
+                username = listOfAccountInfo["username"]!
                 print(dispName)
                 print(pform)
                 print(cognitoId)
+                print(username)
                 apps = returnList
                 sema.signal();
                 //=======
@@ -105,8 +109,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
         
         self.displayName.text = dispName
         self.platform.text = pform
-        self.userName.text = ""
-        
+        self.userName.text = username
     }
 
     override func didReceiveMemoryWarning() {
@@ -150,6 +153,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
         default:
             print("unknown app found: \(newPlatform)")
         }
+        print(newUserName)
         print(newPlatform)
         print(newDisplayName)
         print(url)
@@ -159,7 +163,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
         request.httpMethod = "PUT"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        let postString = "{\"displayName\": \"\(newDisplayName)\",\"platform\": \"\(newPlatform)\", \"url\": \"\(url)\"}"
+        let postString = "{\"displayName\": \"\(newDisplayName)\",\"platform\": \"\(newPlatform)\", \"url\": \"\(url)\",\"username\": \"\(newUserName)\"}"
         print(postString)
         request.httpBody = postString.data(using: String.Encoding.utf8)
         
@@ -175,6 +179,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
             print(responseOne!)
         })
         task.resume()
+        CDAlertView(title: "Success!", message: "Your account is now updated", type: .success).show()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -196,6 +201,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
             print(responseOne!)
         })
         task.resume()
+        CDAlertView(title: "Delete Successful", message: "Your account is now deleted from the database.", type: .success).show()
         self.dismiss(animated: true, completion: nil)
     }
     

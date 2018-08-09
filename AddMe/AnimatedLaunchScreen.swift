@@ -89,20 +89,20 @@ class AnimatedLaunchScreen: UIView {
             let bar = CAShapeLayer()
             bar.frame = CGRect(x: CGFloat(15 * index), y: 0, width: 3, height: 65)
             bar.path = lowBezierPath.cgPath
-            bar.fillColor = UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor
-//            let gradient = CAGradientLayer()
-//            gradient.frame = CGRect(x: CGFloat(15 * index), y: 0, width: 3, height: 65)
-//            gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1), UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1)]
-//            gradient.startPoint = CGPoint(x: 0, y: 1)
-//            gradient.endPoint = CGPoint(x: 1, y: 0)
-//            //gradient.mask = bar
-//            gradient.locations = [
-//                0.0,
-//                1.0
-//            ]
-//
-//            //view.layer.addSublayer(gradient)
-//            bar.addSublayer(gradient)
+            bar.fillColor = UIColor.white.cgColor // UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor
+            let gradient = CAGradientLayer()
+            gradient.frame = CGRect(x: CGFloat(15 * index), y: 0, width: 3, height: 65)
+            gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue:0.56, alpha: 1).cgColor]
+            gradient.startPoint = CGPoint(x: 0, y: 1)
+            gradient.endPoint = CGPoint(x: 1, y: 0)
+            gradient.mask = bar
+            gradient.locations = [
+                0.0,
+                1.0
+            ]
+
+            //view.layer.addSublayer(gradient)
+            //bar.addSublayer(gradient)
             containerLayer.addSublayer(bar)
             childLayers.append(bar)
         }

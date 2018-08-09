@@ -9,6 +9,7 @@
 import UIKit
 import AWSCognito
 import Foundation
+import CDAlertView
 
 class QRCodeViewController: UIViewController, HalfModalPresentable {
 
@@ -62,35 +63,8 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
         
         //Finally return the UIImage
         return UIImage(cgImage: cgImage)
-      //  let data = string.data(using: String.Encoding.ascii)
-        
-//        if let filter = CIFilter(name: "CIQRCodeGenerator") {
-//            filter.setValue(data, forKey: "inputMessage")
-//            let transform = CGAffineTransform(scaleX: 3, y: 3)
-//
-//            if let output = filter.outputImage?.transformed(by: transform) {
-//                return UIImage(ciImage: output)
-//            }
-//        }
-//
-//        return nil
     }
-//    
-//    @IBAction func menuClicked(_ sender: Any) {
-//        if(isMenuOpened){
-//            isMenuOpened = false
-//            sideMenuViewController.willMove(toParentViewController: nil)
-//            sideMenuViewController.view.removeFromSuperview()
-//            sideMenuViewController.removeFromParentViewController()
-//        }
-//        else{
-//            isMenuOpened = true
-//            self.addChildViewController(sideMenuViewController)
-//            self.view.addSubview(sideMenuViewController.view)
-//            sideMenuViewController.didMove(toParentViewController: self)
-//        }
-//        UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
-//    }
+
     
     @IBAction func scan(_ sender: Any) {
         let scannerVC = ScannerViewController()
@@ -129,13 +103,21 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     
     @IBAction func shareButtonClicked(sender: UIBarButtonItem) {
         print("share button clicked")
-        //let textToShare = "Swift is awesome!  Check out this website about it!"
        
-            let objectsToShare = [QRCode.image] as [AnyObject]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-            activityVC.excludedActivityTypes = [UIActivityType.addToReadingList]
-            activityVC.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem 
-            self.present(activityVC, animated: true, completion: nil)
+        let objectsToShare = [QRCode.image] as [AnyObject]
+        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        activityVC.excludedActivityTypes = [UIActivityType.addToReadingList, UIActivityType.print, UIActivityType.assignToContact]
+        activityVC.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
+        activityVC.completionWithItemsHandler = {(activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if (activityType == UIActivityType.saveToCameraRoll) {
+                CDAlertView(title: "Success!", message: "Your QR code is now saved to your camera roll!", type: .success).show()
+                return
+            } else if (activityType == UIActivityType.copyToPasteboard) {
+                CDAlertView(title: "Success!", message: "Your QR code is now copied to your Pasteboard!", type: .success).show()
+                return
+            }
+        }
+        self.present(activityVC, animated: true, completion: nil)
     }
 
 }

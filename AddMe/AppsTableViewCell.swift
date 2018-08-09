@@ -34,12 +34,12 @@ class AppsTableViewCell: UITableViewCell {
         
         layer.cornerRadius = cornerRadius
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        
+        layer.backgroundColor = UIColor.clear.cgColor
         layer.masksToBounds = false
-        layer.shadowColor = shadowColor?.cgColor
-        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
-        layer.shadowOpacity = shadowOpacity
-        layer.shadowPath = shadowPath.cgPath
+//        layer.shadowColor = shadowColor?.cgColor
+//        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+//        layer.shadowOpacity = shadowOpacity
+//        layer.shadowPath = shadowPath.cgPath
     }
 }
 

@@ -39,6 +39,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet var uploadImageButton: UIBarButtonItem!
     var token: String!
     let imagePicker = UIImagePickerController()
+    var gradient: CAGradientLayer!
+    @IBOutlet var gradientView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +61,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         profileImage.clipsToBounds = true
         imagePicker.delegate = self
+        createGradientLayer()
+        appsTableView.layer.backgroundColor = UIColor.clear.cgColor
+        appsTableView.backgroundColor = UIColor.clear
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+        self.tabBarController?.tabBar.isTranslucent = true
+        self.tabBarController?.view.backgroundColor = .clear
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -184,10 +195,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
             //////////////////////// New stuff from Tom
             do {
+                print(data)
                 print("decoding")
                 let decoder = JSONDecoder()
                 print("getting data")
                 let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+                print(JSONdata)
                 if(JSONdata.accounts.count == 0){
                     print("no accounts")
                     returnList = []
@@ -199,6 +212,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         let displayName = listOfAccountInfo["displayName"]!
                         let platform = listOfAccountInfo["platform"]!
                         let url = listOfAccountInfo["url"]!
+                        let username = listOfAccountInfo["username"]!
                         var appIdString = listOfAccountInfo["accountId"]!
     //                    if(appIdString.prefix(2) == "0x"){
     //                        appIdString.removeFirst(2)
@@ -209,11 +223,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         print(platform)
                         print(url)
                         print(appId)
+                        //print(username)
                         let app = Apps()
                         app?._appId = "\(appId)"
                         app?._displayName = displayName
                         app?._platform = platform
                         app?._uRL = url
+                        app?._username = username
                         print(app)
                         returnList.append(app!)
                     }
@@ -336,7 +352,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.appImage.image = UIImage(named: "Instagram_icon")
         case "Snapchat"?:
             cell.appImage.image = UIImage(named: "snapchat_icon")
-        case "Google+"?:
+        case "GooglePlus"?:
             cell.appImage.image = UIImage(named: "google_plus_icon")
         case "LinkedIn"?:
             cell.appImage.image = UIImage(named: "linked_in_logo")
@@ -349,9 +365,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         case "Custom"?:
             cell.appImage.image = UIImage(named: "custom")
         default:
-            cell.appImage.image = UIImage(named: "AppIcon-1")
+            cell.appImage.image = UIImage(named: "AppIcon")
         }
-        
+        cell.NameLabel.textColor = UIColor.white
+        cell.layer.backgroundColor = UIColor.clear.cgColor
         cell.id = Int(apps[indexPath.row]._appId!)
         //print(indexPath.row)
         if(indexPath.row == apps.count-1){
@@ -440,6 +457,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             print("Something went wrong")
         }
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func createGradientLayer() {
+        gradient = CAGradientLayer()
+        let view = UIView(frame: self.view.bounds)
+        gradient.frame = view.frame
+        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor]
+        gradient.locations = [0.0, 1.0]
+//        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor, UIColor(red: 1/255, green: 82/255, blue: 73/255, alpha:1).cgColor]
+//        gradient.locations = [0.0, 0.5, 1.0]
+        self.view.backgroundColor = UIColor.clear
+        self.gradientView.layer.addSublayer(gradient)
+        self.view.sendSubview(toBack: self.gradientView)//(gradient, at: 0)
     }
 }
 

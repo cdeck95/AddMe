@@ -12,6 +12,7 @@ import AWSFacebookSignIn
 import AWSAuthUI
 import FacebookCore
 import AWSDynamoDB
+import CDAlertView
 
 class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HalfModalPresentable {
     
@@ -121,6 +122,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             let app:Apps = Apps()
             app._displayName = displayName
             app._platform = key
+            app._username = username
             switch key {
             case "Facebook":
                 app._uRL = "https://www.facebook.com/\(username)"
@@ -150,7 +152,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             
             //if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: app._userId!))
             //{
-            self.addToDB(userName: self.credentialsManager.identityID, displayName: displayName, platform: key, url: app._uRL!)
+            self.addToDB(cognitoId: self.credentialsManager.identityID, displayName: displayName, platform: key, url: app._uRL!, username: username)
             //}else {
             //    print("Can't add this app")
             //}
@@ -204,8 +206,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             showInputDialog(key: "Facebook")
         case "LinkedIn":
             showInputDialog(key: "LinkedIn")
-        case "GooglePlus":
-            showInputDialog(key: "Google+")
+        case "Google+":
+            showInputDialog(key: "GooglePlus")
         case "Xbox":
             showInputDialog(key: "Xbox")
         case "PSN":
@@ -245,14 +247,14 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     // Adds a users account to the DB.
-    func addToDB(userName: String, displayName: String, platform: String, url: String){
+    func addToDB(cognitoId: String, displayName: String, platform: String, url: String, username: String){
         let identityId = self.credentialsManager.identityID!
         var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts/")!)
         print(request)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        let postString = "{\"displayName\": \"\(displayName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\"}"
+        let postString = "{\"displayName\": \"\(displayName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\", \"username\": \"\(username)\"}"
         print(postString)
         request.httpBody = postString.data(using: String.Encoding.utf8)
         
@@ -262,12 +264,13 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 print("error=\(error)")
                 return
             }
-            
+        
             let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             var responseOne = responseString
             print(responseOne!)
         })
         task.resume()
+        CDAlertView(title: "Success!", message: "Your account is now added to the database", type: .success).show()
     }
     
     // This will check some things to avoid adding duplicate entries for a user.

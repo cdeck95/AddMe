@@ -96,7 +96,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         else{
             print("Something went wrong")
         }
-        self.dismiss(animated: true, completion: nil)
+        self.imagePicker.dismiss(animated: true, completion: nil)
     }
     
     func openPlatforms(){
@@ -128,51 +128,51 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
             
             switch platform {
             case "Twitter":
-                openNative(url: url!, currentKey: currentKey)
+                openNative(url: url!, currentKey: currentKey, flag: true)
             case "Twitch":
-                openNative(url: url!, currentKey: currentKey)
+                openNative(url: url!, currentKey: currentKey, flag: true)
             case "Instagram":
-                openNative(url: url!, currentKey: currentKey)
+                openNative(url: url!, currentKey: currentKey, flag: true)
             case "LinkedIn":
-                openNative(url: url!, currentKey: currentKey)
+                openNative(url: url!, currentKey: currentKey, flag: true)
             case "Snapchat":
-                openNative(url: url!, currentKey: currentKey)
+                openNative(url: url!, currentKey: currentKey, flag: true)
             default:
-                let svc = SFSafariViewController(url: URL(string: currentURL)!)
-                svc.delegate = self
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-                self.navigationController?.pushViewController(svc, animated: true)
+                openNative(url: url!, currentKey: currentKey, flag: true)
             }
-            dict.removeValue(forKey: currentKey)
         }
     }
     
-    func openNative(url: URL, currentKey: String){
-        
-        if(UIApplication.shared.canOpenURL(url)){
-            print("opening natively...")
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            print("opening in safari...")
+    func openNative(url: URL, currentKey: String, flag: Bool){
+        if(!flag){
+            print("opening in safari & flag was false...")
             let svc = SFSafariViewController(url: url)
             svc.delegate = self
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.navigationController?.pushViewController(svc, animated: true)
+            dict.removeValue(forKey: currentKey)
+        } else{
+            if(UIApplication.shared.canOpenURL(url)){
+                print("opening natively...")
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                dict.removeValue(forKey: currentKey)
+                openPlatforms()
+            } else {
+                print("opening in safari but flag was true...")
+                let svc = SFSafariViewController(url: url)
+                svc.delegate = self
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                self.navigationController?.pushViewController(svc, animated: true)
+                dict.removeValue(forKey: currentKey)
+            }
         }
-        dict.removeValue(forKey: currentKey)
-        if keys.count == 0 {
-            print("popping...")
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.tabBarController?.selectedIndex = 1
-            //self.navigationController?.popViewController(animated: true)//popToRootViewController(animated: true)
-        }
-        openPlatforms()
     }
     
     
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)
     {
+        controller.view.removeFromSuperview()
         controller.dismiss(animated: true, completion: nil)
         if keys.count == 0 {
             print("popping...")
@@ -181,9 +181,9 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
             //self.navigationController?.popToRootViewController(animated: true)
         }
         else {
+            dismiss(animated: true)
             openPlatforms()
         }
-        dismiss(animated: true)
     }
     
 }

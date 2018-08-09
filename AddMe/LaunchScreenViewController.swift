@@ -10,10 +10,10 @@ import UIKit
 
 class LaunchScreenViewController: UIViewController {
 
+    @IBOutlet var gradientView: UIView!
     @IBOutlet var animationView: UIView!
     var gradient: CAGradientLayer!
     @IBOutlet var imageView: UIImageView!
-    @IBOutlet var parentView: UIView!
     
     fileprivate var launchScreenViewController: UIViewController? = nil
     
@@ -42,8 +42,6 @@ class LaunchScreenViewController: UIViewController {
     
     /// Simulates an API handshake success and transitions to MapViewController
     func showSplashViewController() {
-       // showSplashViewControllerNoPing()
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // change 2 to desired number of seconds
             print("showing...")
             self.showViewController()
@@ -54,49 +52,31 @@ class LaunchScreenViewController: UIViewController {
     /// Displays the MapViewController
     func showViewController() {
         guard !(launchScreenViewController is ViewController) else { return }
-
         self.performSegue(withIdentifier: "showHome", sender: nil)
-//        nav.willMove(toParentViewController: self)
-//        addChildViewController(nav)
-//
-//        if let launchScreenViewController = self.launchScreenViewController {
-//            self.launchScreenViewController = nav
-//            launchScreenViewController.willMove(toParentViewController: nil)
-//
-//            transition(from: launchScreenViewController, to: nav, duration: 0.55, options: [.transitionCrossDissolve, .curveEaseOut], animations: { () -> Void in
-//
-//            }, completion: { _ in
-//                nav.didMove(toParentViewController: self)
-//                launchScreenViewController.removeFromParentViewController()
-//                launchScreenViewController.didMove(toParentViewController: nil)
-//            })
-//        } else {
-//            launchScreenViewController = nav
-//            view.addSubview(nav.view)
-//            nav.didMove(toParentViewController: self)
-//        }
     }
 
     
     func createGradientLayer() {
         gradient = CAGradientLayer()
-        let view = UIView(frame: CGRect(origin: CGPoint(x:0, y:0), size: imageView.frame.size))
+        let view = UIView(frame: CGRect(origin: CGPoint(x:0, y:0), size: self.view.frame.size))
         gradient.frame = view.frame
-        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1), UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1)]
-        
+//        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor, UIColor(red: 1/255, green: 82/255, blue: 73/255, alpha:1).cgColor]
+//        gradient.locations = [0.0, 0.5, 1.0]
+        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor]
         gradient.locations = [0.0, 1.0]
+
+        gradientView.frame = self.view.bounds
+        gradientView.layer.addSublayer(gradient)
+        //self.view.layer.insertSublayer(gradient, at: 0)
         
-        view.layer.insertSublayer(gradient, at: 0)
-        
-        imageView.addSubview(view)
-        
-        imageView.bringSubview(toFront: view)
-//        gradientLayer.frame = view.bounds
+//        imageView.addSubview(view)
+//        
+//        imageView.bringSubview(toFront: view)
+//        gradient.frame = view.bounds
 //       // gradientLayer.colors = [UIColor.blue.cgColor, UIColor.white.cgColor]
-//        gradientLayer.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1), UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1)]
-//        gradientLayer.locations = [0.0, 1.0]
-//        view.layer.insertSublayer(gradientLayer, at: 0)//addSublayer(gradientLayer)
-        
+//        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1), UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1)]
+//        gradient.locations = [0.0, 1.0]
+//        self.view.layer.insertSublayer(gradient, at: 0)//addSublayer(gradientLayer)
     }
     
 
