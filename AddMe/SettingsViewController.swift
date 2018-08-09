@@ -213,7 +213,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func deleteApps(_ sender: Any) {
         let alert = CDAlertView(title: "Deleting All Apps", message: "Are you sure you wish to delete all apps?", type: .warning)
-        let doneAction = CDAlertViewAction(title: "Sure! 💪")
+        let doneAction = CDAlertViewAction(title: "Sure! 💪",
+                                           font: UIFont.systemFont(ofSize: 17),
+                                           textColor: UIColor(red: 27 / 255, green: 169 / 255, blue: 225 / 255, alpha: 1),
+                                           backgroundColor: nil,
+                                           handler: { action in self.deleteAllApps()})
         alert.add(action: doneAction)
         let nevermindAction = CDAlertViewAction(title: "Nevermind 😬")
         alert.add(action: nevermindAction)
