@@ -24,15 +24,17 @@ class LaunchScreenViewController: UIViewController {
         self.animationView.addSubview(view)
         self.animationView.bringSubview(toFront: view)
         view.animate()
+        gradient.frame = imageView.bounds
+        createGradientLayer()
+        showSplashViewController()
+        self.navigationController?.navigationBar.isHidden = true
         
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        gradient.frame = imageView.bounds
-        createGradientLayer()
-        showSplashViewController()
+        
     }
 
     override func didReceiveMemoryWarning() {

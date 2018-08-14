@@ -38,6 +38,7 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.30.0):
     - FBSDKCoreKit
+  - Google-Mobile-Ads-SDK (7.28.0)
   - GoogleSignIn (4.1.2):
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
@@ -59,6 +60,7 @@ PODS:
   - GTMSessionFetcher/Full (1.1.13):
     - GTMSessionFetcher/Core (= 1.1.13)
   - SideMenu (3.1.5)
+  - SwipeableTabBarController (1.0.11)
 
 DEPENDENCIES:
   - AWSAuthUI
@@ -70,8 +72,10 @@ DEPENDENCIES:
   - AWSUserPoolsSignIn (~> 2.6.6)
   - CDAlertView
   - FacebookCore
+  - Google-Mobile-Ads-SDK
   - GoogleSignIn (~> 4.0)
   - SideMenu
+  - SwipeableTabBarController
 
 SPEC CHECKSUMS:
   AWSAuthCore: 55376d5a47c2b5cefdd3f78d247e0a5496fc25c4
@@ -90,12 +94,14 @@ SPEC CHECKSUMS:
   FacebookCore: 3ffa190a3f1f96cec0e44d3fc221bc322c595ffa
   FBSDKCoreKit: 7c4bba2877781a131ab5d54c0a78c405d4307b62
   FBSDKLoginKit: fe7a7e82373dc5daad92e1623219e86224ab1fb1
+  Google-Mobile-Ads-SDK: 7f9bc0011df363ae5616449de3682a14c4701612
   GoogleSignIn: d9ef55b10f0aa401a5de2747f59b725e4b9732ac
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
+  SwipeableTabBarController: ffdb77cfe9997c92078b5022b4e770bdf88d76bd
 
-PODFILE CHECKSUM: 06af825eb0f25c49945880e1eaee34d37bffb418
+PODFILE CHECKSUM: ae34fb90ebd4bb97e29689ff97d2b565717085d4
 
 COCOAPODS: 1.4.0

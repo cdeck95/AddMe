@@ -9,42 +9,34 @@
 import UIKit
 import AVFoundation
 import SafariServices
+import GoogleMobileAds
 
-class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate {
+class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate {
     
  
-   // @IBOutlet weak var loadedImage: UIImageView!
+    var bannerView: DFPBannerView!
+    var interstitial: DFPInterstitial!
     let imagePicker = UIImagePickerController()
     var detector: CIDetector?
     var dict: [String: String]!
     var keys: Dictionary<String, String>.Keys!
+    var nativeApps = [Apps]()
+    var safariApps = [Apps]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imagePicker.delegate = self
-        //takePhoto(sender: self)
+        bannerView = DFPBannerView(adSize: kGADAdSizeBanner)
+        addBannerViewToView(bannerView)
+        bannerView.adUnitID = "/6499/example/banner"
+        bannerView.rootViewController = self
+        bannerView.load(DFPRequest())
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        let alertController = UIAlertController(title: "Upload another?", message: "Would you like to add another friend?", preferredStyle: .alert)
-//
-//
-//        //the confirm action taking the inputs
-//        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
-//             self.takePhoto(sender: self)
-//        }
-//
-//        //the cancel action doing nothing
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-//
-//        //adding the action to dialogbox
-//        alertController.addAction(confirmAction)
-//        alertController.addAction(cancelAction)
-//
-//        //finally presenting the dialog box
-//        self.present(alertController, animated: true, completion: nil)
-       
+        imagePicker.delegate = self
+        interstitial = createAndLoadInterstitial()
+        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
     }
     
     @IBAction func takePhoto(sender: AnyObject) {
@@ -86,10 +78,12 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                     }
                     dict = result
                     print("dict:  \(dict)")
-                    openPlatforms()
+                    convertToArray()
+                     openPlatforms()
                 }
                 catch let error as NSError {
                     print(error.localizedDescription)
+                    return
                 }
             }
         }
@@ -100,26 +94,70 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func openPlatforms(){
+        if(safariApps.count > 0){
+            let url = URL(string: (safariApps.first?._uRL)!)
+            let svc = SFSafariViewController(url: url!)
+            svc.delegate = self
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            self.navigationController?.pushViewController(svc, animated: true)
+            safariApps.removeFirst()
+        } else if(nativeApps.count > 0){
+            let url = URL(string: (nativeApps.first?._uRL)!)
+            openNative(url: url!)
+        }
+    }
+    
+    func openNative(url: URL){
+        print("in open native...")
+        print(url)
+//        if(UIApplication.shared.canOpenURL(url)){
+//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            //dict.removeValue(forKey: currentKey)
+//            if nativeApps.count == 0 {
+//                print("popping...")
+//                self.navigationController?.setNavigationBarHidden(false, animated: true)
+//                self.navigationController?.popToRootViewController(animated: true)
+//            } else {
+//                nativeApps.removeFirst()
+//                let mainQueue = DispatchQueue.main
+//                let deadline = DispatchTime.now() + .seconds(1)
+//                mainQueue.asyncAfter(deadline: deadline) {
+//                    self.openPlatforms()
+//                }
+//
+//            }
+//        } else {
+            print("opening in safari...")
+            let svc = SFSafariViewController(url: url)
+            svc.delegate = self
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            self.navigationController?.pushViewController(svc, animated: true)
+            nativeApps.removeFirst()
+      //  }
+        
+    }
+    
+    func convertToArray(){
         keys = dict.keys
-        print("keys")
-        if(dict.count > 0){
-            
-            let currentKey = keys.first!
-            print("current key: \(currentKey)")
-            let currentURL = dict[currentKey]!
-            print("current url: \(currentURL)")
-            let url = URL(string: currentURL)
+        //print("keys")
+        
+        for (displayName, url) in dict {
+            print("display name: \(displayName)")
+            print("url: \(url)")
+            let app = Apps()
+            app?._displayName = displayName
+            app?._uRL = url
             self.tabBarController?.hidesBottomBarWhenPushed = true
             var platform = ""
-            if (currentURL.contains("twitter.com")){
+            if (url.contains("twitter.com")){
                 platform = "Twitter"
-            } else if (currentURL.contains("twitch.tv")){
+            } else if (url.contains("twitch.tv")){
                 platform = "Twitch"
-            } else if (currentURL.contains("instagram.com")){
+            } else if (url.contains("instagram.com")){
                 platform = "Instagram"
-            } else if (currentURL.contains("linkedin.com")){
+            } else if (url.contains("linkedin.com")){
                 platform = "LinkedIn"
-            } else if (currentURL.contains("snapchat.com")){
+            } else if (url.contains("snapchat.com")){
                 platform = "Snapchat"
             } else {
                 platform = "other"
@@ -128,62 +166,80 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
             
             switch platform {
             case "Twitter":
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                nativeApps.append(app!)
             case "Twitch":
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                nativeApps.append(app!)
             case "Instagram":
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                nativeApps.append(app!)
             case "LinkedIn":
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                nativeApps.append(app!)
             case "Snapchat":
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                nativeApps.append(app!)
             default:
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                safariApps.append(app!)
             }
         }
+        print(safariApps)
+        print(nativeApps)
     }
-    
-    func openNative(url: URL, currentKey: String, flag: Bool){
-        if(!flag){
-            print("opening in safari & flag was false...")
-            let svc = SFSafariViewController(url: url)
-            svc.delegate = self
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-            self.navigationController?.pushViewController(svc, animated: true)
-            dict.removeValue(forKey: currentKey)
-        } else{
-            if(UIApplication.shared.canOpenURL(url)){
-                print("opening natively...")
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                dict.removeValue(forKey: currentKey)
-                openPlatforms()
-            } else {
-                print("opening in safari but flag was true...")
-                let svc = SFSafariViewController(url: url)
-                svc.delegate = self
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-                self.navigationController?.pushViewController(svc, animated: true)
-                dict.removeValue(forKey: currentKey)
-            }
-        }
-    }
-    
-    
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)
     {
-        controller.view.removeFromSuperview()
+        print("did finish")
         controller.dismiss(animated: true, completion: nil)
-        if keys.count == 0 {
+        if nativeApps.count == 0  && safariApps.count == 0{
             print("popping...")
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.tabBarController?.selectedIndex = 1
-            //self.navigationController?.popToRootViewController(animated: true)
+            if interstitial.isReady {
+                interstitial.present(fromRootViewController: self)
+            } else {
+                print("Ad wasn't ready")
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                self.navigationController?.popToRootViewController(animated: true)
+            }
         }
         else {
-            dismiss(animated: true)
             openPlatforms()
         }
+      //  dismiss(animated: true)
+    }
+    
+    func addBannerViewToView(_ bannerView: DFPBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
+    
+    func createAndLoadInterstitial() -> DFPInterstitial {
+        var interstitial = DFPInterstitial(adUnitID: "/6499/example/interstitial")
+        interstitial.delegate = self
+        interstitial.load(DFPRequest())
+        return interstitial
+    }
+    
+    func interstitialDidDismissScreen(_ ad: DFPInterstitial) {
+        //interstitial = createAndLoadInterstitial()
+        dismiss(animated: true, completion: nil)
     }
     
 }

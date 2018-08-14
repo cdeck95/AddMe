@@ -16,6 +16,8 @@ target 'AddMe' do
     pod 'FacebookCore'
     pod 'AWSDynamoDB'
     pod "CDAlertView"
+    pod "SwipeableTabBarController"
+    pod 'Google-Mobile-Ads-SDK'
     # other pods
 
 end

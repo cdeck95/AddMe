@@ -9,10 +9,12 @@
 import UIKit
 import Foundation
 import MessageUI
+import GoogleMobileAds
 
 class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
     @IBOutlet var gradientLayer: UIView!
+    var bannerView: DFPBannerView!
     var gradient: CAGradientLayer!
     @IBOutlet weak var issuePicker: UIPickerView!
     var pickerData: [String] = ["Cannot connect accounts", "Cannot create QR code", "QR Code is wrong", "Cannot scan/import QR code" , "Cannot edit/delete apps"]
@@ -22,6 +24,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
     override func viewDidLoad() {
         print("Loading Help Screen")
         super.viewDidLoad()
+        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
         //Connect data:
         self.issuePicker.delegate = self
         self.issuePicker.dataSource = self
@@ -44,6 +47,12 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
         print("Build: \(build)")
         print("OS: \(systemVersion)")
         issueDetails.text = "Please describe issue here...\n\nOS: \(systemVersion) \nVersion: \(version!) \nBuild: \(build!)"
+        
+        bannerView = DFPBannerView(adSize: kGADAdSizeBanner)
+        addBannerViewToView(bannerView)
+        bannerView.adUnitID = "/6499/example/banner"
+        bannerView.rootViewController = self
+        bannerView.load(DFPRequest())
     }
 
     override func didReceiveMemoryWarning() {
@@ -153,6 +162,27 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
     
     func textViewDidEndEditing(_ textView: UITextView) {
         issueDetails.layer.borderColor = UIColor(red: 1/255, green: 82/255, blue: 73/255, alpha:1).cgColor
+    }
+    
+    func addBannerViewToView(_ bannerView: DFPBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
     }
 
 }

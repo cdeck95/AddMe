@@ -17,13 +17,14 @@ import AWSCognito
 import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
-//import SideMenu
+import GoogleMobileAds
 
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Apps] = []
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    var bannerView: DFPBannerView!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
@@ -45,6 +46,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         print("----in view did load----")
+        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
 
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
@@ -70,6 +72,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.navigationController?.view.backgroundColor = .clear
         self.tabBarController?.tabBar.isTranslucent = true
         self.tabBarController?.view.backgroundColor = .clear
+        
+        bannerView = DFPBannerView(adSize: kGADAdSizeBanner)
+        addBannerViewToView(bannerView)
+        bannerView.adUnitID = "/6499/example/banner"
+        bannerView.rootViewController = self
+        bannerView.load(DFPRequest())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -214,6 +222,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         let url = listOfAccountInfo["url"]!
                         let username = listOfAccountInfo["username"]!
                         var appIdString = listOfAccountInfo["accountId"]!
+                      //  var isSwitchOn = listOfAccountInfo["isSwitchOn"]!
     //                    if(appIdString.prefix(2) == "0x"){
     //                        appIdString.removeFirst(2)
     //                    }
@@ -230,6 +239,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         app?._platform = platform
                         app?._uRL = url
                         app?._username = username
+                        app?._isSwitchOn = "True"
                         print(app)
                         returnList.append(app!)
                     }
@@ -471,6 +481,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.gradientView.layer.addSublayer(gradient)
         self.view.sendSubview(toBack: self.gradientView)//(gradient, at: 0)
     }
+    
+    func addBannerViewToView(_ bannerView: DFPBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
 }
 
 extension String
@@ -494,6 +525,17 @@ extension String
             return self.replacingCharacters(in: range, with: replacementString)
         }
         return self
+    }
+    
+    func toBool() -> Bool? {
+        switch self {
+        case "True", "true", "yes", "1":
+            return true
+        case "False", "false", "no", "0":
+            return false
+        default:
+            return nil
+        }
     }
 }
 
