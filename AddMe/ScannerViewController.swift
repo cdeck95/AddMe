@@ -9,8 +9,10 @@
 import UIKit
 import AVFoundation
 import SafariServices
+import GoogleMobileAds
 
-class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, SFSafariViewControllerDelegate {
+class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate {
+    
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var dict: [String: String]!
@@ -19,6 +21,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var keys: Dictionary<String, String>.Keys!
     var nativeApps = [Apps]()
     var safariApps = [Apps]()
+    var interstitial: DFPInterstitial!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +29,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         captureSession = AVCaptureSession()
         self.navigationController?.navigationBar.isHidden  = true
         //tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
-        
+//
+//        interstitial = DFPInterstitial(adUnitID: "/6499/example/interstitial")
+//        interstitial.delegate = self
+//        let request = DFPRequest()
+//        interstitial.load(request)
         
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
         let videoInput: AVCaptureDeviceInput
@@ -77,6 +84,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         if (captureSession?.isRunning == false) {
             captureSession.startRunning()
         }
+        interstitial = createAndLoadInterstitial()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -132,53 +140,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func openPlatforms(){
-//        keys = dict.keys
-//        print("keys")
-//        if(dict.count > 0){
-//
-//            let currentKey = keys.first!
-//            print("current key: \(currentKey)")
-//            let currentURL = dict[currentKey]!
-//            print("current url: \(currentURL)")
-//            let url = URL(string: currentURL)
-//            self.tabBarController?.hidesBottomBarWhenPushed = true
-//            var platform = ""
-//            if (currentURL.contains("twitter.com")){
-//                platform = "Twitter"
-//            } else if (currentURL.contains("twitch.tv")){
-//                platform = "Twitch"
-//            } else if (currentURL.contains("instagram.com")){
-//                platform = "Instagram"
-//            } else if (currentURL.contains("linkedin.com")){
-//                platform = "LinkedIn"
-//            } else if (currentURL.contains("snapchat.com")){
-//                platform = "Snapchat"
-//            } else {
-//                platform = "other"
-//            }
-//
-//
-//            switch platform {
-//                case "Twitter":
-//                    openNative(url: url!, currentKey: currentKey)
-//                case "Twitch":
-//                    openNative(url: url!, currentKey: currentKey)
-//                case "Instagram":
-//                    openNative(url: url!, currentKey: currentKey)
-//                case "LinkedIn":
-//                    openNative(url: url!, currentKey: currentKey)
-//                case "Snapchat":
-//                    openNative(url: url!, currentKey: currentKey)
-//                default:
-//                    print("default")
-//                    let svc = SFSafariViewController(url: url!)
-//                    svc.delegate = self
-//                    self.navigationController?.setNavigationBarHidden(true, animated: true)
-//                    self.navigationController?.pushViewController(svc, animated: true)
-//                }
-//
-//           dict.removeValue(forKey: currentKey)
-//        }
         if(safariApps.count > 0){
             let url = URL(string: (safariApps.first?._uRL)!)
             let svc = SFSafariViewController(url: url!)
@@ -195,29 +156,30 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     func openNative(url: URL){
         print("in open native...")
         print(url)
-        if(UIApplication.shared.canOpenURL(url)){
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            //dict.removeValue(forKey: currentKey)
-            if nativeApps.count == 0 {
-                print("popping...")
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
-                self.navigationController?.popToRootViewController(animated: true)
-            } else {
-                nativeApps.removeFirst()
-                let mainQueue = DispatchQueue.main
-                let deadline = DispatchTime.now() + .seconds(1)
-                mainQueue.asyncAfter(deadline: deadline) {
-                    self.openPlatforms()
-                }
-                
-            }
-        } else {
-            print("opening in safari...")
-            let svc = SFSafariViewController(url: url)
-            svc.delegate = self
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-            self.navigationController?.pushViewController(svc, animated: true)
-        }
+        //        if(UIApplication.shared.canOpenURL(url)){
+        //            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        //            //dict.removeValue(forKey: currentKey)
+        //            if nativeApps.count == 0 {
+        //                print("popping...")
+        //                self.navigationController?.setNavigationBarHidden(false, animated: true)
+        //                self.navigationController?.popToRootViewController(animated: true)
+        //            } else {
+        //                nativeApps.removeFirst()
+        //                let mainQueue = DispatchQueue.main
+        //                let deadline = DispatchTime.now() + .seconds(1)
+        //                mainQueue.asyncAfter(deadline: deadline) {
+        //                    self.openPlatforms()
+        //                }
+        //
+        //            }
+        //        } else {
+        print("opening in safari...")
+        let svc = SFSafariViewController(url: url)
+        svc.delegate = self
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.pushViewController(svc, animated: true)
+        nativeApps.removeFirst()
+        //  }
         
     }
     
@@ -279,12 +241,50 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         controller.dismiss(animated: true, completion: nil)
         if nativeApps.count == 0  && safariApps.count == 0{
             print("popping...")
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.navigationController?.popToRootViewController(animated: true)
+            if interstitial.isReady {
+                interstitial.present(fromRootViewController: self)
+            } else {
+                print("Ad wasn't ready")
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                self.navigationController?.popToRootViewController(animated: true)
+            }
         }
         else {
             openPlatforms()
         }
-        dismiss(animated: true)
+        //  dismiss(animated: true)
+    }
+    
+    func addBannerViewToView(_ bannerView: DFPBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
+    
+    func createAndLoadInterstitial() -> DFPInterstitial {
+        var interstitial = DFPInterstitial(adUnitID: "/6499/example/interstitial")
+        interstitial.delegate = self
+        interstitial.load(DFPRequest())
+        return interstitial
+    }
+    
+    func interstitialDidDismissScreen(_ ad: DFPInterstitial) {
+        //interstitial = createAndLoadInterstitial()
+        dismiss(animated: true, completion: nil)
     }
 }

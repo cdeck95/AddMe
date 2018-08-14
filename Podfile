@@ -17,6 +17,7 @@ target 'AddMe' do
     pod 'AWSDynamoDB'
     pod "CDAlertView"
     pod "SwipeableTabBarController"
+    pod 'Google-Mobile-Ads-SDK'
     # other pods
 
 end
