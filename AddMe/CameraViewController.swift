@@ -15,6 +15,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
  
    // @IBOutlet weak var loadedImage: UIImageView!
     let imagePicker = UIImagePickerController()
+   // let svc: SFSafariViewController! = nil
     var detector: CIDetector?
     var dict: [String: String]!
     var keys: Dictionary<String, String>.Keys!
@@ -23,14 +24,13 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imagePicker.delegate = self
-        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
-        //takePhoto(sender: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-       
+        imagePicker.delegate = self
+        //svc.delegate = self
+        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
+        //takePhoto(sender: self)
     }
     
     @IBAction func takePhoto(sender: AnyObject) {
@@ -45,7 +45,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let qrcodeImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
           //  loadedImage.image = qrcodeImg
             let detector:CIDetector=CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])!
@@ -73,17 +73,19 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                     dict = result
                     print("dict:  \(dict)")
                     convertToArray()
-                    openPlatforms()
                 }
                 catch let error as NSError {
                     print(error.localizedDescription)
+                    return
                 }
             }
         }
         else{
             print("Something went wrong")
         }
+        print("about to dismiss image picker")
         self.imagePicker.dismiss(animated: true, completion: nil)
+        print("image picker dismissed")
     }
     
     func openPlatforms(){
@@ -92,52 +94,56 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         openNative(url: url!, flag: false)
     }
     
-    func openPlatformsNative(){
-        print(nativeApps)
-        for app in nativeApps{
-            print(app)
-            let url = URL(string: app._uRL!)
-            let success = openNative(url: url!, flag: true)
-            while(!success){}
-            print("returned true")
-        }
-        print("popping...")
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.tabBarController?.selectedIndex = 1
-    }
+//    func openPlatformsNative(){
+//        print(nativeApps)
+//        for app in nativeApps{
+//            print(app)
+//            let url = URL(string: app._uRL!)
+//            let success = openNative(url: url!, flag: true)
+//            while(!success){}
+//            print("returned true")
+//        }
+//        print("popping...")
+//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        self.tabBarController?.selectedIndex = 1
+//    }
     
-    func openNative(url: URL, flag: Bool) -> Bool{
+    func openNative(url: URL, flag: Bool){
         if(!flag){
             print("opening in safari & flag was false...")
             print(url)
-            openWithSafari(url: url)
+            //openWithSafari(url: url)
+            let svc = SFSafariViewController(url: url)
+            svc.delegate = self
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+            self.navigationController?.pushViewController(svc, animated: true)
+            //self.navigationController?.present(svc, animated: true, completion: nil)
+            //present(svc, animated: true, completion: nil)
             safariApps.removeFirst()
         } else{
             print("opening natively...")
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
-        return true
     }
-    
-    func openWithSafari(url: URL){
-        let svc = SFSafariViewController(url: url)
-        svc.delegate = self
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        self.navigationController?.pushViewController(svc, animated: true)
-    }
-    
+//
+//    func openWithSafari(url: URL){
+//
+//    }
+//
     
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)
     {
+//        self.navigationController?.popViewController(animated: true)
         controller.dismiss(animated: true, completion: nil)
-        print(safariApps)
-        if safariApps.count == 0 {
-            openPlatformsNative()
-        }
-        else {
-            openPlatforms()
-        }
+//        print(safariApps)
+//        if safariApps.count == 0 {
+//            print("end of array")
+//            //openPlatformsNative()
+//        }
+//        else {
+//            openPlatforms()
+//        }
     }
 
     func convertToArray(){
@@ -202,6 +208,9 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                 dict.removeValue(forKey: currentKey)
                 convertToArray()
             }
+        }
+        else {
+            openPlatforms()
         }
     }
     
