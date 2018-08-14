@@ -23,6 +23,8 @@
 		DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4DE208568F000E62E04 /* Apps.swift */; };
 		DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */; };
 		DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E8208598D800E62E04 /* ProfileImage.swift */; };
+		DAC9C098211E44B60004170F /* TabBarControllerSwipeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */; };
+		DAC9C09A211F26820004170F /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC9C099211F26820004170F /* Account.swift */; };
 		DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACEDEC020914EBB0011F978 /* LogoutViewController.swift */; };
 		DAD432F7203D02240033EF35 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DAD432F6203D02240033EF35 /* awsconfiguration.json */; };
 		DAD432F9203D03F70033EF35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD432F8203D03F70033EF35 /* User.swift */; };
@@ -64,6 +66,8 @@
 		DAA7D4DE208568F000E62E04 /* Apps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apps.swift; sourceTree = "<group>"; };
 		DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		DAA7D4E8208598D800E62E04 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
+		DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControllerSwipeExtension.swift; sourceTree = "<group>"; };
+		DAC9C099211F26820004170F /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		DACEDEC020914EBB0011F978 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		DAD432F6203D02240033EF35 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		DAD432F8203D03F70033EF35 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -159,6 +163,7 @@
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA6A7EED2037859800E79B47 /* Main.storyboard */,
+				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
 				DAA7D4E8208598D800E62E04 /* ProfileImage.swift */,
@@ -166,6 +171,7 @@
 				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
 				DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */,
 				DAD96CF52043458000F1525E /* QRCodeViewController.swift */,
+				DAC9C099211F26820004170F /* Account.swift */,
 				DA130A83209643AF00622951 /* EFUIntPixel.swift */,
 				DA6A7EF02037859800E79B47 /* Assets.xcassets */,
 				DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */,
@@ -323,6 +329,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -346,6 +353,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -373,12 +381,14 @@
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
+				DAC9C09A211F26820004170F /* Account.swift in Sources */,
 				DAE3A2AB2093D730002689BA /* HalfModalPresentationController.swift in Sources */,
 				DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */,
 				DADA5B5B208B952F009BC5B2 /* EditAppViewController.swift in Sources */,
 				DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */,
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
+				DAC9C098211E44B60004170F /* TabBarControllerSwipeExtension.swift in Sources */,
 				DAD432F9203D03F70033EF35 /* User.swift in Sources */,
 				DADA5B5F208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift in Sources */,
 				DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */,

@@ -28,6 +28,7 @@ class Apps: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
     @objc var _platform: String?
     @objc var _uRL: String?
     @objc var _username: String?
+    @objc var _isSwitchOn: String?
     
     class func dynamoDBTableName() -> String {
         
@@ -46,6 +47,7 @@ class Apps: AWSDynamoDBObjectModel, AWSDynamoDBModeling {
             "_platform" : "Platform",
             "_uRL" : "URL",
             "_username" : "username",
+             "_isSwitchOn" : "isSwitchOn",
         ]
     }
 }

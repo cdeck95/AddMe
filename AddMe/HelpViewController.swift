@@ -22,6 +22,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
     override func viewDidLoad() {
         print("Loading Help Screen")
         super.viewDidLoad()
+        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
         //Connect data:
         self.issuePicker.delegate = self
         self.issuePicker.dataSource = self

@@ -36,6 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set translucent. (Default value is already true, so this can be removed if desired.)
         UINavigationBar.appearance().isTranslucent = true
         
+        let tabBarController = self.window?.rootViewController as? UITabBarController
+        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
+        
         return AWSMobileClient.sharedInstance().interceptApplication(
             application, didFinishLaunchingWithOptions:
             launchOptions)

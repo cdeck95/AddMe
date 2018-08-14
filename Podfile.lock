@@ -59,6 +59,7 @@ PODS:
   - GTMSessionFetcher/Full (1.1.13):
     - GTMSessionFetcher/Core (= 1.1.13)
   - SideMenu (3.1.5)
+  - SwipeableTabBarController (1.0.11)
 
 DEPENDENCIES:
   - AWSAuthUI
@@ -72,6 +73,7 @@ DEPENDENCIES:
   - FacebookCore
   - GoogleSignIn (~> 4.0)
   - SideMenu
+  - SwipeableTabBarController
 
 SPEC CHECKSUMS:
   AWSAuthCore: 55376d5a47c2b5cefdd3f78d247e0a5496fc25c4
@@ -95,7 +97,8 @@ SPEC CHECKSUMS:
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
+  SwipeableTabBarController: ffdb77cfe9997c92078b5022b4e770bdf88d76bd
 
-PODFILE CHECKSUM: 06af825eb0f25c49945880e1eaee34d37bffb418
+PODFILE CHECKSUM: 4c69da69434ab27f0c7619643c08ffc1739e2cb1
 
 COCOAPODS: 1.4.0

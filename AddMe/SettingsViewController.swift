@@ -24,6 +24,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
         let syncClient = AWSCognito.default()
         dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
         dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in

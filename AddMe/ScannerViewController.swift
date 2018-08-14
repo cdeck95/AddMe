@@ -22,7 +22,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         super.viewDidLoad()
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden  = true
+        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
         
         
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }

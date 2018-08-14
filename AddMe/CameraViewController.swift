@@ -18,32 +18,18 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     var detector: CIDetector?
     var dict: [String: String]!
     var keys: Dictionary<String, String>.Keys!
+    var nativeApps = [Apps]()
+    var safariApps = [Apps]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         imagePicker.delegate = self
+        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
         //takePhoto(sender: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        let alertController = UIAlertController(title: "Upload another?", message: "Would you like to add another friend?", preferredStyle: .alert)
-//
-//
-//        //the confirm action taking the inputs
-//        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
-//             self.takePhoto(sender: self)
-//        }
-//
-//        //the cancel action doing nothing
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-//
-//        //adding the action to dialogbox
-//        alertController.addAction(confirmAction)
-//        alertController.addAction(cancelAction)
-//
-//        //finally presenting the dialog box
-//        self.present(alertController, animated: true, completion: nil)
        
     }
     
@@ -59,7 +45,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let qrcodeImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
           //  loadedImage.image = qrcodeImg
             let detector:CIDetector=CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])!
@@ -86,6 +72,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                     }
                     dict = result
                     print("dict:  \(dict)")
+                    convertToArray()
                     openPlatforms()
                 }
                 catch let error as NSError {
@@ -100,15 +87,72 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func openPlatforms(){
+        print(safariApps)
+        let url = URL(string: (safariApps.first?._uRL!)!)
+        openNative(url: url!, flag: false)
+    }
+    
+    func openPlatformsNative(){
+        print(nativeApps)
+        for app in nativeApps{
+            print(app)
+            let url = URL(string: app._uRL!)
+            let success = openNative(url: url!, flag: true)
+            while(!success){}
+            print("returned true")
+        }
+        print("popping...")
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.tabBarController?.selectedIndex = 1
+    }
+    
+    func openNative(url: URL, flag: Bool) -> Bool{
+        if(!flag){
+            print("opening in safari & flag was false...")
+            print(url)
+            openWithSafari(url: url)
+            safariApps.removeFirst()
+        } else{
+            print("opening natively...")
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        return true
+    }
+    
+    func openWithSafari(url: URL){
+        let svc = SFSafariViewController(url: url)
+        svc.delegate = self
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.pushViewController(svc, animated: true)
+    }
+    
+    
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController)
+    {
+        controller.dismiss(animated: true, completion: nil)
+        print(safariApps)
+        if safariApps.count == 0 {
+            openPlatformsNative()
+        }
+        else {
+            openPlatforms()
+        }
+    }
+
+    func convertToArray(){
         keys = dict.keys
-        print("keys")
+        //print("keys")
+        let app = Apps()
         if(dict.count > 0){
             
             let currentKey = keys.first!
-            print("current key: \(currentKey)")
+            //print("current key: \(currentKey)")
+            app?._displayName = currentKey
             let currentURL = dict[currentKey]!
-            print("current url: \(currentURL)")
+           // print("current url: \(currentURL)")
             let url = URL(string: currentURL)
+            app?._uRL = currentURL
             self.tabBarController?.hidesBottomBarWhenPushed = true
             var platform = ""
             if (currentURL.contains("twitter.com")){
@@ -128,61 +172,36 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
             
             switch platform {
             case "Twitter":
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                nativeApps.append(app!)
+                dict.removeValue(forKey: currentKey)
+                convertToArray()
             case "Twitch":
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                nativeApps.append(app!)
+                dict.removeValue(forKey: currentKey)
+                convertToArray()
             case "Instagram":
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                nativeApps.append(app!)
+                dict.removeValue(forKey: currentKey)
+                convertToArray()
             case "LinkedIn":
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                nativeApps.append(app!)
+                dict.removeValue(forKey: currentKey)
+                convertToArray()
             case "Snapchat":
-                openNative(url: url!, currentKey: currentKey, flag: true)
+                app?._platform = platform
+                nativeApps.append(app!)
+                dict.removeValue(forKey: currentKey)
+                convertToArray()
             default:
-                openNative(url: url!, currentKey: currentKey, flag: true)
-            }
-        }
-    }
-    
-    func openNative(url: URL, currentKey: String, flag: Bool){
-        if(!flag){
-            print("opening in safari & flag was false...")
-            let svc = SFSafariViewController(url: url)
-            svc.delegate = self
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-            self.navigationController?.pushViewController(svc, animated: true)
-            dict.removeValue(forKey: currentKey)
-        } else{
-            if(UIApplication.shared.canOpenURL(url)){
-                print("opening natively...")
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                app?._platform = platform
+                safariApps.append(app!)
                 dict.removeValue(forKey: currentKey)
-                openPlatforms()
-            } else {
-                print("opening in safari but flag was true...")
-                let svc = SFSafariViewController(url: url)
-                svc.delegate = self
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-                self.navigationController?.pushViewController(svc, animated: true)
-                dict.removeValue(forKey: currentKey)
+                convertToArray()
             }
-        }
-    }
-    
-    
-    
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController)
-    {
-        controller.view.removeFromSuperview()
-        controller.dismiss(animated: true, completion: nil)
-        if keys.count == 0 {
-            print("popping...")
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-            self.tabBarController?.selectedIndex = 1
-            //self.navigationController?.popToRootViewController(animated: true)
-        }
-        else {
-            dismiss(animated: true)
-            openPlatforms()
         }
     }
     
