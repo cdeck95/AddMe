@@ -42,6 +42,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let imagePicker = UIImagePickerController()
     var gradient: CAGradientLayer!
     @IBOutlet var gradientView: UIView!
+    let cellSpacingHeight: CGFloat = 15
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,13 +58,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
         setupView()
-        profileImage.layer.borderWidth = 1
-        profileImage.layer.masksToBounds = false
-        profileImage.layer.borderColor = UIColor.black.cgColor
-        profileImage.layer.cornerRadius = profileImage.frame.height/2
-        profileImage.clipsToBounds = true
+//        profileImage.layer.borderWidth = 1
+//        profileImage.layer.masksToBounds = false
+//        profileImage.layer.borderColor = UIColor.black.cgColor
+//        profileImage.layer.cornerRadius = profileImage.frame.height/2
+//        profileImage.clipsToBounds = true
         imagePicker.delegate = self
-        createGradientLayer()
+        //createGradientLayer()
         appsTableView.layer.backgroundColor = UIColor.clear.cgColor
         appsTableView.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -140,10 +141,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 print("facebook sign in confirmed")
                                 self.navigationItem.leftBarButtonItem = nil
                                 let params: String = "name,email,picture"
-                                self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
+                                //self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
                             } else {
-                                self.profileImage.image = UIImage(named: "launch_logo")
-                                self.navigationItem.leftBarButtonItem = self.uploadImageButton
+                               // self.profileImage.image = UIImage(named: "launch_logo")
+                                //self.navigationItem.leftBarButtonItem = self.uploadImageButton
                                 //query the db for an image
                             }
                         }
@@ -339,9 +340,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
       
     
-    func tableView(_ ExpensesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("tableView() return apps.count = \(apps.count)")
+    func numberOfSections(in tableView: UITableView) -> Int {
         return apps.count
+    }
+    
+    // There is just one row in every section
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    // Set the spacing between sections
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return cellSpacingHeight
+    }
+    
+    // Make the background color show through
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
     }
     
     // This is where the table cells on the main page are modeled from.
@@ -352,8 +369,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if (!cellSwitches.contains(cell)) {
             cellSwitches.append(cell)
         }
-        cell.NameLabel.text = apps[indexPath.row]._displayName
-        switch apps[indexPath.row]._platform {
+        cell.NameLabel.text = apps[indexPath.section]._displayName
+        switch apps[indexPath.section]._platform {
         case "Facebook"?:
             cell.appImage.image = UIImage(named: "fb-icon")
         case "Twitter"?:
@@ -377,11 +394,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         default:
             cell.appImage.image = UIImage(named: "AppIcon")
         }
-        cell.NameLabel.textColor = UIColor.white
-        cell.layer.backgroundColor = UIColor.clear.cgColor
-        cell.id = Int(apps[indexPath.row]._appId!)
+        //cell.NameLabel.textColor = UIColor.white
+        //cell.layer.backgroundColor = UIColor.clear.cgColor
+        cell.url.text = apps[indexPath.section]._uRL!
+        cell.id = Int(apps[indexPath.section]._appId!)
         //print(indexPath.row)
-        if(indexPath.row == apps.count-1){
+        if(indexPath.section == apps.count-1){
             print("-----------about to create code----------")
             createQRCode(self)
         }
