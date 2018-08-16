@@ -22,7 +22,7 @@ import GoogleMobileAds
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Apps] = []
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SwipingCarouselDelegate {
 
     var bannerView: DFPBannerView!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
@@ -43,6 +43,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var gradient: CAGradientLayer!
     @IBOutlet var gradientView: UIView!
     let cellSpacingHeight: CGFloat = 15
+    var isCellTapped = false
+    var selectedSectionIndex = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -338,8 +340,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //Finally return the UIImage
         return UIImage(cgImage: cgImage)
     }
-      
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        print("height for row at method")
+        if indexPath.section == selectedSectionIndex && isCellTapped {
+            print("returning 180")
+            return 180
+        }
+        print("returning 140")
+        return 140
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("did select row at index path")
+        self.tableView(tableView, cellForRowAt: indexPath).backgroundColor = UIColor.gray
+        
+        // avoid paint the cell is the index is outside the bounds
+        if self.selectedSectionIndex != -1 {
+            tableView.cellForRow(at: NSIndexPath(row: self.selectedSectionIndex, section: 0) as IndexPath)?.backgroundColor = UIColor.white
+        }
+        
+        if selectedSectionIndex != indexPath.section {
+            self.isCellTapped = true
+            self.selectedSectionIndex = indexPath.section
+        }
+        else {
+            // there is no cell selected anymore
+            self.isCellTapped = false
+            self.selectedSectionIndex = -1
+        }
+        
+        tableView.beginUpdates()
+        tableView.endUpdates()
+    }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return apps.count
     }
@@ -360,6 +394,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         headerView.backgroundColor = UIColor.clear
         return headerView
     }
+    
+    
     
     // This is where the table cells on the main page are modeled from.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -519,6 +555,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 multiplier: 1,
                                 constant: 0)
             ])
+    }
+    
+    func cellSwipedUp(_ cell: UICollectionViewCell) {
+        print("swiped up")
+    }
+    
+    func cellSwipedDown(_ cell: UICollectionViewCell) {
+        print("swiped down")
     }
 }
 

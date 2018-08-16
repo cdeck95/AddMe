@@ -7,17 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CCE90FC70675E381BDDE5FC7 /* Pods_AddMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */; };
+		A9078423A73AE248C65E103C /* Pods_LinkUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CE2765784B5B9C64E7AF87 /* Pods_LinkUp.framework */; };
 		DA130A84209643AF00622951 /* EFUIntPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA130A83209643AF00622951 /* EFUIntPixel.swift */; };
 		DA1B39F22116366E008CE7C6 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */; };
-		DA1B39F821163DC4008CE7C6 /* AnimatedLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B39F721163DC4008CE7C6 /* AnimatedLaunchScreen.swift */; };
 		DA1B39FA2117C070008CE7C6 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B39F92117C070008CE7C6 /* Dataset.swift */; };
 		DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B25F6204E2623004D3160 /* CredentialsManager.swift */; };
+		DA37EE462125F68A00A52AD9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE452125F68A00A52AD9 /* Profile.swift */; };
+		DA37EE492125F98C00A52AD9 /* SwipingCarouselCellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE482125F98C00A52AD9 /* SwipingCarouselCellManager.swift */; };
+		DA37EE4B2125F9AA00A52AD9 /* SwipingCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE4A2125F9AA00A52AD9 /* SwipingCarouselCollectionViewCell.swift */; };
+		DA37EE4F2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */; };
+		DA37EE512125FA9F00A52AD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA37EE502125FA9F00A52AD9 /* Main.storyboard */; };
+		DA37EE532125FC8100A52AD9 /* AnimatedLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */; };
+		DA37EE57212600F400A52AD9 /* SwipingCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE56212600F400A52AD9 /* SwipingCarouselFlowLayout.swift */; };
 		DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4388EE2086747000E0CD0D /* CameraViewController.swift */; };
 		DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68505C205B5FA300BA36DE /* HelpViewController.swift */; };
 		DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EE92037859800E79B47 /* AppDelegate.swift */; };
 		DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EEB2037859800E79B47 /* ViewController.swift */; };
-		DA6A7EEF2037859800E79B47 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EED2037859800E79B47 /* Main.storyboard */; };
 		DA6A7EF12037859800E79B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF02037859800E79B47 /* Assets.xcassets */; };
 		DA6A7EF42037859800E79B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */; };
 		DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4DE208568F000E62E04 /* Apps.swift */; };
@@ -48,18 +53,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AddMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		55CE2765784B5B9C64E7AF87 /* Pods_LinkUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		82DE575B515AAA97684789E8 /* Pods-LinkUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkUp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp.debug.xcconfig"; sourceTree = "<group>"; };
+		D549C2ED06E508209DBCB84D /* Pods-LinkUp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkUp.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp.release.xcconfig"; sourceTree = "<group>"; };
 		DA130A83209643AF00622951 /* EFUIntPixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFUIntPixel.swift; sourceTree = "<group>"; };
 		DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
-		DA1B39F721163DC4008CE7C6 /* AnimatedLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnimatedLaunchScreen.swift; path = AddMe/AnimatedLaunchScreen.swift; sourceTree = SOURCE_ROOT; };
 		DA1B39F92117C070008CE7C6 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
 		DA2B25F6204E2623004D3160 /* CredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsManager.swift; sourceTree = "<group>"; };
+		DA37EE452125F68A00A52AD9 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		DA37EE472125F96C00A52AD9 /* SwipingCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwipingCarousel.h; sourceTree = "<group>"; };
+		DA37EE482125F98C00A52AD9 /* SwipingCarouselCellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingCarouselCellManager.swift; sourceTree = "<group>"; };
+		DA37EE4A2125F9AA00A52AD9 /* SwipingCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
+		DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		DA37EE502125FA9F00A52AD9 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedLaunchScreen.swift; sourceTree = "<group>"; };
+		DA37EE56212600F400A52AD9 /* SwipingCarouselFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingCarouselFlowLayout.swift; sourceTree = "<group>"; };
 		DA4388EE2086747000E0CD0D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		DA68505C205B5FA300BA36DE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
-		DA6A7EE62037859800E79B47 /* AddMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AddMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA6A7EE62037859800E79B47 /* LinkUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A7EE92037859800E79B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA6A7EEB2037859800E79B47 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DA6A7EEE2037859800E79B47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DA6A7EF02037859800E79B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA6A7EF32037859800E79B47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA6A7EF52037859800E79B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,8 +101,6 @@
 		DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
 		DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalTransitionAnimator.swift; sourceTree = "<group>"; };
 		DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalTransitioningDelegate.swift; sourceTree = "<group>"; };
-		E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.debug.xcconfig"; sourceTree = "<group>"; };
-		FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-AddMe/Pods-AddMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +110,7 @@
 			files = (
 				DAD432FD203F98A30033EF35 /* SystemConfiguration.framework in Frameworks */,
 				DAD432FB203F989B0033EF35 /* SafariServices.framework in Frameworks */,
-				CCE90FC70675E381BDDE5FC7 /* Pods_AddMe.framework in Frameworks */,
+				A9078423A73AE248C65E103C /* Pods_LinkUp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,8 +120,8 @@
 		62E4FB17A984E8771B0E270D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */,
-				FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */,
+				82DE575B515AAA97684789E8 /* Pods-LinkUp.debug.xcconfig */,
+				D549C2ED06E508209DBCB84D /* Pods-LinkUp.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -120,7 +131,7 @@
 			children = (
 				DAD432FC203F98A20033EF35 /* SystemConfiguration.framework */,
 				DAD432FA203F989B0033EF35 /* SafariServices.framework */,
-				0E271F5EC657EB7E6269AE5C /* Pods_AddMe.framework */,
+				55CE2765784B5B9C64E7AF87 /* Pods_LinkUp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -128,7 +139,7 @@
 		DA6A7EDD2037859800E79B47 = {
 			isa = PBXGroup;
 			children = (
-				DA6A7EE82037859800E79B47 /* AddMe */,
+				DA6A7EE82037859800E79B47 /* LinkUp */,
 				DA6A7EE72037859800E79B47 /* Products */,
 				62E4FB17A984E8771B0E270D /* Pods */,
 				8E946C241D05378BF40C442A /* Frameworks */,
@@ -139,18 +150,18 @@
 		DA6A7EE72037859800E79B47 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DA6A7EE62037859800E79B47 /* AddMe.app */,
+				DA6A7EE62037859800E79B47 /* LinkUp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DA6A7EE82037859800E79B47 /* AddMe */ = {
+		DA6A7EE82037859800E79B47 /* LinkUp */ = {
 			isa = PBXGroup;
 			children = (
-				DA1B39F721163DC4008CE7C6 /* AnimatedLaunchScreen.swift */,
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
 				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD96D092046399500F1525E /* AppsTableViewCell.swift */,
+				DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */,
 				DAA7D4DE208568F000E62E04 /* Apps.swift */,
 				DA4388EE2086747000E0CD0D /* CameraViewController.swift */,
 				DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */,
@@ -162,7 +173,7 @@
 				DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
-				DA6A7EED2037859800E79B47 /* Main.storyboard */,
+				DA37EE452125F68A00A52AD9 /* Profile.swift */,
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
@@ -174,6 +185,7 @@
 				DAC9C099211F26820004170F /* Account.swift */,
 				DA130A83209643AF00622951 /* EFUIntPixel.swift */,
 				DA6A7EF02037859800E79B47 /* Assets.xcassets */,
+				DA37EE502125FA9F00A52AD9 /* Main.storyboard */,
 				DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */,
 				DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */,
 				DAD432F8203D03F70033EF35 /* User.swift */,
@@ -183,8 +195,13 @@
 				DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */,
 				DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */,
 				DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */,
+				DA37EE472125F96C00A52AD9 /* SwipingCarousel.h */,
+				DA37EE482125F98C00A52AD9 /* SwipingCarouselCellManager.swift */,
+				DA37EE4A2125F9AA00A52AD9 /* SwipingCarouselCollectionViewCell.swift */,
+				DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */,
+				DA37EE56212600F400A52AD9 /* SwipingCarouselFlowLayout.swift */,
 			);
-			path = AddMe;
+			path = LinkUp;
 			sourceTree = "<group>";
 		};
 		DAA7D4D5208567BB00E62E04 /* Recovered References */ = {
@@ -197,9 +214,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DA6A7EE52037859800E79B47 /* AddMe */ = {
+		DA6A7EE52037859800E79B47 /* LinkUp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DA6A7EF82037859800E79B47 /* Build configuration list for PBXNativeTarget "AddMe" */;
+			buildConfigurationList = DA6A7EF82037859800E79B47 /* Build configuration list for PBXNativeTarget "LinkUp" */;
 			buildPhases = (
 				BDF905B8AE11B16302A9CA90 /* [CP] Check Pods Manifest.lock */,
 				DA6A7EE22037859800E79B47 /* Sources */,
@@ -212,9 +229,9 @@
 			);
 			dependencies = (
 			);
-			name = AddMe;
+			name = LinkUp;
 			productName = AddMe;
-			productReference = DA6A7EE62037859800E79B47 /* AddMe.app */;
+			productReference = DA6A7EE62037859800E79B47 /* LinkUp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -233,7 +250,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DA6A7EE12037859800E79B47 /* Build configuration list for PBXProject "AddMe" */;
+			buildConfigurationList = DA6A7EE12037859800E79B47 /* Build configuration list for PBXProject "LinkUp" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -246,7 +263,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DA6A7EE52037859800E79B47 /* AddMe */,
+				DA6A7EE52037859800E79B47 /* LinkUp */,
 			);
 		};
 /* End PBXProject section */
@@ -259,7 +276,7 @@
 				DAD432F7203D02240033EF35 /* awsconfiguration.json in Resources */,
 				DA6A7EF42037859800E79B47 /* LaunchScreen.storyboard in Resources */,
 				DA6A7EF12037859800E79B47 /* Assets.xcassets in Resources */,
-				DA6A7EEF2037859800E79B47 /* Main.storyboard in Resources */,
+				DA37EE512125FA9F00A52AD9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +289,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AddMe/Pods-AddMe-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -281,7 +298,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AddMe/Pods-AddMe-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BDF905B8AE11B16302A9CA90 /* [CP] Check Pods Manifest.lock */ = {
@@ -295,7 +312,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AddMe-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-LinkUp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -308,7 +325,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AddMe/Pods-AddMe-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSAuthUI/AWSAuthUI.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
@@ -329,6 +346,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyAvatar/SwiftyAvatar.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -353,11 +371,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyAvatar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AddMe/Pods-AddMe-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -370,15 +389,18 @@
 				DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */,
 				DA130A84209643AF00622951 /* EFUIntPixel.swift in Sources */,
 				DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */,
+				DA37EE532125FC8100A52AD9 /* AnimatedLaunchScreen.swift in Sources */,
 				DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */,
 				DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */,
 				DA1B39FA2117C070008CE7C6 /* Dataset.swift in Sources */,
-				DA1B39F821163DC4008CE7C6 /* AnimatedLaunchScreen.swift in Sources */,
+				DA37EE4B2125F9AA00A52AD9 /* SwipingCarouselCollectionViewCell.swift in Sources */,
 				DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */,
 				DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */,
+				DA37EE4F2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift in Sources */,
 				DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */,
 				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
+				DA37EE492125F98C00A52AD9 /* SwipingCarouselCellManager.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
 				DAC9C09A211F26820004170F /* Account.swift in Sources */,
@@ -392,26 +414,20 @@
 				DAD432F9203D03F70033EF35 /* User.swift in Sources */,
 				DADA5B5F208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift in Sources */,
 				DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */,
+				DA37EE462125F68A00A52AD9 /* Profile.swift in Sources */,
 				DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */,
 				DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */,
 				DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */,
 				DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */,
 				DA1B39F22116366E008CE7C6 /* LaunchScreenViewController.swift in Sources */,
 				DAD96D002045F59F00F1525E /* CollectionViewCell.swift in Sources */,
+				DA37EE57212600F400A52AD9 /* SwipingCarouselFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DA6A7EED2037859800E79B47 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DA6A7EEE2037859800E79B47 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -532,13 +548,13 @@
 		};
 		DA6A7EF92037859800E79B47 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8574EAB0075532E3764504D /* Pods-AddMe.debug.xcconfig */;
+			baseConfigurationReference = 82DE575B515AAA97684789E8 /* Pods-LinkUp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;
-				INFOPLIST_FILE = AddMe/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/LinkUp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = chrisdeck;
@@ -551,13 +567,13 @@
 		};
 		DA6A7EFA2037859800E79B47 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FEA635EE5F97F341021748B2 /* Pods-AddMe.release.xcconfig */;
+			baseConfigurationReference = D549C2ED06E508209DBCB84D /* Pods-LinkUp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;
-				INFOPLIST_FILE = AddMe/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/LinkUp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = chrisdeck;
@@ -571,7 +587,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA6A7EE12037859800E79B47 /* Build configuration list for PBXProject "AddMe" */ = {
+		DA6A7EE12037859800E79B47 /* Build configuration list for PBXProject "LinkUp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA6A7EF62037859800E79B47 /* Debug */,
@@ -580,7 +596,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DA6A7EF82037859800E79B47 /* Build configuration list for PBXNativeTarget "AddMe" */ = {
+		DA6A7EF82037859800E79B47 /* Build configuration list for PBXNativeTarget "LinkUp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA6A7EF92037859800E79B47 /* Debug */,

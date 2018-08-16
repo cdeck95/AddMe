@@ -1,10 +1,9 @@
 //
 //  AnimatedLaunchScreen.swift
-//  
+//
 //
 //  Created by Christopher Deck on 8/4/18.
 //
-
 import UIKit
 
 class AnimatedLaunchScreen: UIView {
@@ -43,8 +42,8 @@ class AnimatedLaunchScreen: UIView {
         for index in 0...4 {
             let delay = 0.1 * Double(index)
             //var dispatchTime: dispatch_time_t = dispatch_time(dispatch_time_t(DispatchTime.now()), Int64(delay * Double(NSEC_PER_SEC)))
-           let whenwhen = DispatchTime.now() + delay
-           DispatchQueue.main.asyncAfter(deadline: whenwhen) {
+            let whenwhen = DispatchTime.now() + delay
+            DispatchQueue.main.asyncAfter(deadline: whenwhen) {
                 self.addAnimation(index: index)
             }
         }
@@ -92,7 +91,7 @@ class AnimatedLaunchScreen: UIView {
             bar.fillColor = UIColor.white.cgColor // UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor
             let gradient = CAGradientLayer()
             gradient.frame = CGRect(x: CGFloat(15 * index), y: 0, width: 3, height: 65)
-            gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue:0.56, alpha: 1).cgColor]
+            gradient.colors = [UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
             gradient.startPoint = CGPoint(x: 0, y: 1)
             gradient.endPoint = CGPoint(x: 1, y: 0)
             gradient.mask = bar
@@ -100,7 +99,7 @@ class AnimatedLaunchScreen: UIView {
                 0.0,
                 1.0
             ]
-
+            
             //view.layer.addSublayer(gradient)
             //bar.addSublayer(gradient)
             containerLayer.addSublayer(bar)

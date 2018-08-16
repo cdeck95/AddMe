@@ -60,6 +60,7 @@ PODS:
   - GTMSessionFetcher/Full (1.1.13):
     - GTMSessionFetcher/Core (= 1.1.13)
   - SideMenu (3.1.5)
+  - SwiftyAvatar (1.1.3)
   - SwipeableTabBarController (1.0.11)
 
 DEPENDENCIES:
@@ -75,6 +76,7 @@ DEPENDENCIES:
   - Google-Mobile-Ads-SDK
   - GoogleSignIn (~> 4.0)
   - SideMenu
+  - SwiftyAvatar (~> 1.1)
   - SwipeableTabBarController
 
 SPEC CHECKSUMS:
@@ -100,8 +102,9 @@ SPEC CHECKSUMS:
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
+  SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
   SwipeableTabBarController: ffdb77cfe9997c92078b5022b4e770bdf88d76bd
 
-PODFILE CHECKSUM: ae34fb90ebd4bb97e29689ff97d2b565717085d4
+PODFILE CHECKSUM: c3c40516a634dea9f46839b8f0eb1f1c586a83f9
 
 COCOAPODS: 1.4.0
