@@ -18,6 +18,7 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
     var qrCode:UIImage!
+    var qrCodeString:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,7 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     
     override func viewWillAppear(_ animated: Bool) {
         createQRCode(self)
+        print("qr code string: \(qrCodeString)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,32 +75,32 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     
 
     @IBAction func createQRCode(_ sender: Any) {
-        var jsonStringAsArray = "{\n"
-        print("createQRCode()")
-        if(cellSwitches.count > 0){
-            for index in 0...cellSwitches.count - 1{
-                let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
-                let appID = cellSwitches[index].id
-                print(appID)
-                print(isSelectedForQRCode)
-                if (isSelectedForQRCode){
-                    let app = apps[index]
-                    jsonStringAsArray += "\"\(app._displayName!)\": \"\(app._uRL!)\",\n"
-                } else {
-                    print("app not found to make QR code")
-                }
-            }
-        } else {
-            print("no apps - casnnot create code")
-        }
-        jsonStringAsArray += "}"
-        let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
-                                                                       with: "")
-        print(result)
-        if(datasetManager.dataset != nil){
-            datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
-        }
-        QRCode.image = generateQRCode(from: result)
+//        var jsonStringAsArray = "{\n"
+//        print("createQRCode()")
+//        if(cellSwitches.count > 0){
+//            for index in 0...cellSwitches.count - 1{
+//                let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
+//                let appID = cellSwitches[index].id
+//                print(appID)
+//                print(isSelectedForQRCode)
+//                if (isSelectedForQRCode){
+//                    let app = apps[index]
+//                    jsonStringAsArray += "\"\(app._displayName!)\": \"\(app._uRL!)\",\n"
+//                } else {
+//                    print("app not found to make QR code")
+//                }
+//            }
+//        } else {
+//            print("no apps - casnnot create code")
+//        }
+//        jsonStringAsArray += "}"
+//        let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
+//                                                                       with: "")
+//        print(result)
+//        if(datasetManager.dataset != nil){
+//            datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
+//        }
+        QRCode.image = generateQRCode(from: qrCodeString)
     }
     
     @IBAction func shareButtonClicked(sender: UIBarButtonItem) {

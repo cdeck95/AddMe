@@ -11,6 +11,7 @@ import UIKit
 struct User {
     let firstName: String
     let lastName: String
-    let picture: UIImage
+    let picture: String
     let email: String
+    let phoneNumber: String
 }

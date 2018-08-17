@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddMe/ViewController.swift"
-            timestampString = "555912454.0662301"
+            timestampString = "556066964.951243"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
-            landmarkName = "createGradientLayer()"
-            landmarkType = "7">
+            startingLineNumber = "563"
+            endingLineNumber = "563"
+            landmarkName = "ViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddMe/ViewController.swift"
-            timestampString = "555912454.066317"
+            timestampString = "556066964.951499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "viewWillAppear(_:)"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "presentAuthUIViewController()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -74,13 +74,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddMe/AddAppViewController.swift"
-            timestampString = "555600567.210498"
+            timestampString = "556066964.95163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "117"
             endingLineNumber = "117"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "showInputDialog(key:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
