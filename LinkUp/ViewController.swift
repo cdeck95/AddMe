@@ -27,7 +27,6 @@ var apps: [Apps] = []
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SwipingCarouselDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
 
     var profiles: [Profile]!
-    fileprivate var allTheCards = Profile.loadCards()
     var bannerView: DFPBannerView!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
@@ -93,19 +92,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         collectionView.delegate = self
         collectionView.dataSource = self
         profiles = []
-        let dict1 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"Snap & Insta"] as NSDictionary
+        let dict1 = ["profileID":"1", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 1", "info":"Snap & Insta"] as NSDictionary
         let profile = Profile(dictionary: dict1, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile)
-        var dict2 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"(Snapchat, Insta)"] as NSDictionary
+        var dict2 = ["profileID":"2", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 2", "info":"(Snapchat, Insta)"] as NSDictionary
         let profile2 = Profile(dictionary: dict2, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile2)
-        let dict3 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"Snap & Insta"] as NSDictionary
+        let dict3 = ["profileID":"3", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 3", "info":"Snap & Insta"] as NSDictionary
         let profile3 = Profile(dictionary: dict3, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile3)
-        var dict4 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"(Snapchat, Insta)"] as NSDictionary
+        var dict4 = ["profileID":"4", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 4", "info":"(Snapchat, Insta)"] as NSDictionary
         let profile4 = Profile(dictionary: dict4, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile4)
-        print("Profiles!... \(profiles)")
+        print("Profiles!... \(profiles!)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -620,7 +619,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             } else {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-                
+                print(profiles[indexPath.row].description)
+                modalVC.profileID = profiles[indexPath.row].id
                 modalVC.modalPresentationStyle = .custom
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                 present(modalVC, animated: true, completion: nil)
@@ -632,12 +632,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func cellSwipedUp(_ cell: UICollectionViewCell) {
         print("swipedUp")
-        let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-        modalVC.qrCodeString = "testingggggg"
-        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-        modalVC.modalPresentationStyle = .custom
-        modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
-        present(modalVC, animated: true, completion: nil)
+        guard let cell = cell as? ProfileCollectionViewCell else { return }
+        //Get the IndexPath from Cell being passed (swiped up).
+        let indexPath = collectionView?.indexPath(for: cell)
+        if indexPath?.row  == profiles.count {
+            print("swiped up on add more cell")
+        } else {
+            let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+            modalVC.qrCodeString = profiles[(indexPath?.row)!].qrCodeString
+            self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+            modalVC.modalPresentationStyle = .custom
+            modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+            present(modalVC, animated: true, completion: nil)
+        }
     }
     
     func cellSwipedDown(_ cell: UICollectionViewCell) {

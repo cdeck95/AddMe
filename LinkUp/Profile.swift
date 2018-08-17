@@ -10,12 +10,15 @@ import Foundation
 import UIKit
 
 class Profile {
+    let id: String
     let Accounts: [Apps]
     let name: String
     let qrCodeString: String
     let backgroundColor: UIColor
     let descriptionLabel: String
     let image: UIImage
+    
+    public var description: String { return "Profile ID: \(self.id)" }
     
     ////////////////////////////// BEGINNING OF JSON ///////////////////////////////////
     
@@ -97,6 +100,8 @@ class Profile {
             }
         })
         task.resume()
+        self.id = (dictionary["profileID"] as? String)!
+        print(self.id)
         self.name = (dictionary["name"] as? String)!
         self.qrCodeString = (dictionary["qrCodeString"] as? String)!
         self.backgroundColor = UIColor(red: 237/255, green: 250/255, blue: 253/255, alpha: 1)

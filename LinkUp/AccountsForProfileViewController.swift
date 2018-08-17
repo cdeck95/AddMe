@@ -10,10 +10,16 @@ import UIKit
 
 class AccountsForProfileViewController: UIViewController, HalfModalPresentable {
 
+    var profileID:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+         print("profile ID \(profileID)")
     }
 
     override func didReceiveMemoryWarning() {

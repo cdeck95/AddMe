@@ -11,6 +11,7 @@ import SwipingCarousel
 
 class ProfileCollectionViewCell: SwipingCarouselCollectionViewCell {
     
+    var profileID: String!
     var accounts: [Apps]!
     var qrCodeString: String!
     @IBOutlet var editButton: UIButton!
@@ -51,6 +52,8 @@ class ProfileCollectionViewCell: SwipingCarouselCollectionViewCell {
         layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
         layer.shadowOpacity = shadowOpacity
         layer.shadowPath = shadowPath.cgPath
+        profileID = card.id
+        print("card profile id: \(profileID)")
         profileImage.image = card.image
         profileImage.layer.borderWidth = 2
         profileImage.layer.borderColor = Color.glass.value.cgColor
