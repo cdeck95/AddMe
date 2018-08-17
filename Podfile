@@ -22,6 +22,7 @@ target 'LinkUp' do
     pod 'SwiftyAvatar', '~> 1.1'
     pod 'TransitionButton'
     pod 'FCAlertView'
+    pod 'SkyFloatingLabelTextField', '~> 3.0'
     # other pods
 
 end

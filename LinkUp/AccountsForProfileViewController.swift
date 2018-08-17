@@ -8,11 +8,19 @@
 
 import UIKit
 
-class AccountsForProfileViewController: UIViewController, HalfModalPresentable, UITableViewDelegate, UITableViewDataSource {
+class AccountsForProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, HalfModalPresentable {
 
+    @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var appsTableView: UITableView!
     var profileID:String!
     var accounts:[Apps]!
+    var profileImageImage: UIImage!
+    var profileNameText: String!
+    var profileDescriptionText: String!
+    @IBOutlet var profileImage: ProfileImage!
+    @IBOutlet var profileName: UITextField!
+    @IBOutlet var profileDescription: UITextField!
+    var gradient: CAGradientLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +31,16 @@ class AccountsForProfileViewController: UIViewController, HalfModalPresentable, 
     override func viewDidAppear(_ animated: Bool) {
         print("profile ID \(profileID)")
         print("accounts: \(accounts)")
+        profileImage.image = profileImageImage
+        profileName.text = profileNameText
+        profileDescription.text = profileDescriptionText
+        appsTableView.layer.borderColor = Color.chill.value.cgColor
+        appsTableView.layer.borderWidth = 1
+        createGradientLayer()
+        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            self.navigationBar.shadowImage = UIImage()
+            self.navigationBar.isTranslucent = true
+            self.view.backgroundColor = .clear
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,8 +66,8 @@ class AccountsForProfileViewController: UIViewController, HalfModalPresentable, 
             if (!cellSwitches.contains(cell)) {
                 cellSwitches.append(cell)
             }
-            cell.NameLabel.text = apps[indexPath.section]._displayName
-            switch apps[indexPath.section]._platform {
+            cell.NameLabel.text = accounts[indexPath.section]._displayName
+            switch accounts[indexPath.section]._platform {
             case "Facebook"?:
                 cell.appImage.image = UIImage(named: "fb-icon")
             case "Twitter"?:
@@ -73,12 +91,24 @@ class AccountsForProfileViewController: UIViewController, HalfModalPresentable, 
             default:
                 cell.appImage.image = UIImage(named: "AppIcon")
             }
-            //cell.NameLabel.textColor = UIColor.white
-            //cell.layer.backgroundColor = UIColor.clear.cgColor
-            cell.url.text = apps[indexPath.section]._uRL!
-            cell.id = Int(apps[indexPath.section]._appId!)
+            cell.NameLabel.textColor = UIColor.white
+            cell.layer.backgroundColor = UIColor.clear.cgColor
+            cell.url.text = accounts[indexPath.section]._uRL!
+            cell.id = Int(accounts[indexPath.section]._appId!)
             //print(indexPath.row)
             return cell
+    }
+    
+    func createGradientLayer() {
+        gradient = CAGradientLayer()
+        let gradientView = UIView(frame: self.view.bounds)
+        gradient.frame = view.frame
+        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
+        gradient.locations = [0.0, 0.5, 1.0]
+        gradientView.frame = self.view.bounds
+        gradientView.layer.addSublayer(gradient)
+        self.view.addSubview(gradientView)
+        self.view.sendSubview(toBack: gradientView)
     }
 
 }

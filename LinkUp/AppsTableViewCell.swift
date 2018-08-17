@@ -13,7 +13,7 @@ class AppsTableViewCell: UITableViewCell {
     @IBInspectable var cornerRadius: CGFloat = 8
     @IBInspectable var shadowOffsetWidth: Int = 4
     @IBInspectable var shadowOffsetHeight: Int = 4
-    @IBInspectable var shadowColor: UIColor? = UIColor.gray
+    @IBInspectable var shadowColor: UIColor? = Color.glass.value
     @IBInspectable var shadowOpacity: Float = 0.3
     @IBOutlet weak var NameLabel: UILabel!
     @IBOutlet weak var url: UILabel!
@@ -28,16 +28,15 @@ class AppsTableViewCell: UITableViewCell {
         print("AppTableViewCell.swift awakeFromNib()")
         super.awakeFromNib()
         // Initialization code
-        self.bringSubview(toFront: appSwitch)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         print("AppTableViewCell.swift setSelected()")
         super.setSelected(selected, animated: animated)
+        self.bringSubview(toFront: appSwitch)
         
         layer.cornerRadius = cornerRadius
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        //layer.backgroundColor = UIColor.clear.cgColor
         layer.masksToBounds = true
         layer.shadowColor = shadowColor?.cgColor
         layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);

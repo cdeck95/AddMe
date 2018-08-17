@@ -483,8 +483,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 modalVC.accounts = profiles[indexPath.row].Accounts
+                modalVC.profileImageImage = profiles[indexPath.row].image
                 modalVC.profileID = profiles[indexPath.row].id
-                modalVC.modalPresentationStyle = .custom
+                modalVC.profileNameText = profiles[indexPath.row].name
+                modalVC.profileDescriptionText = profiles[indexPath.row].descriptionLabel
+                modalVC.modalTransitionStyle = .crossDissolve
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                 present(modalVC, animated: true, completion: nil)
             }

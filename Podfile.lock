@@ -61,6 +61,7 @@ PODS:
   - GTMSessionFetcher/Full (1.2.0):
     - GTMSessionFetcher/Core (= 1.2.0)
   - SideMenu (4.0.0)
+  - SkyFloatingLabelTextField (3.5.1)
   - SwiftyAvatar (1.1.3)
   - SwipeableTabBarController (1.3.1)
   - TransitionButton (0.5.1)
@@ -80,6 +81,7 @@ DEPENDENCIES:
   - Google-Mobile-Ads-SDK
   - GoogleSignIn (~> 4.0)
   - SideMenu
+  - SkyFloatingLabelTextField (~> 3.0)
   - SwiftyAvatar (~> 1.1)
   - SwipeableTabBarController
   - TransitionButton
@@ -109,6 +111,7 @@ SPEC REPOS:
     - GTMOAuth2
     - GTMSessionFetcher
     - SideMenu
+    - SkyFloatingLabelTextField
     - SwiftyAvatar
     - SwipeableTabBarController
     - TransitionButton
@@ -137,10 +140,11 @@ SPEC CHECKSUMS:
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   SideMenu: 70ee5657df63ec3382660ec4ef470bf1cf5db07d
+  SkyFloatingLabelTextField: 4cbeece9c3aae97c6019d8fae511cb5b755874f7
   SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
   SwipeableTabBarController: 0e3e229aa1edfc1b8b4daf24df7de2643578cf42
   TransitionButton: 20f92b3cc726b047e4df200fdab5307f33395a81
 
-PODFILE CHECKSUM: 7afe11b827280d80f87a5b5c5be272f92d07fcd6
+PODFILE CHECKSUM: 145746389270921c8ec9a38e2e478bd87e7ea971
 
 COCOAPODS: 1.6.0.beta.1
