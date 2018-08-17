@@ -19,6 +19,7 @@ import GoogleSignIn
 import FacebookCore
 import GoogleMobileAds
 import SwipingCarousel
+import CDAlertView
 
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Apps] = []
@@ -521,9 +522,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-//        if let toViewController = segue.destination as? QRCodeViewController {
-//            toViewController.qrCodeString =
-//        }
+        if let toViewController = segue.destination as? QRCodeViewController {
+            toViewController.qrCodeString = "test"
+        }
         
         self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
        
@@ -619,21 +620,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             print("selected card \(indexPath.row)")
+            performSegue(withIdentifier: "presentApps", sender: nil)
         }
-    
-}
-
-
-// MARK: Conform to the SwipingCarousel Delegate
-extension SwipingCarouselDelegate {
     
     func cellSwipedUp(_ cell: UICollectionViewCell) {
         print("swipedUp")
-        
+        performSegue(withIdentifier: "presentCode", sender: nil)
     }
     
     func cellSwipedDown(_ cell: UICollectionViewCell) {
         print("swiped down")
+        let alert = CDAlertView(title: "Deleting Profile", message: "Are you sure you wish to delete this profile?", type: .warning)
+        let doneAction = CDAlertViewAction(title: "Sure! 💪",
+                                           font: UIFont.systemFont(ofSize: 17),
+                                           textColor: UIColor(red: 27 / 255, green: 169 / 255, blue: 225 / 255, alpha: 1),
+                                           backgroundColor: nil,
+                                           handler: { action in print("deleting")})
+        alert.add(action: doneAction)
+        let nevermindAction = CDAlertViewAction(title: "Nevermind 😬")
+        alert.add(action: nevermindAction)
+        alert.show()
     }
 }
 
