@@ -10,12 +10,15 @@ import UIKit
 
 class AppsTableViewCell: UITableViewCell {
 
-    @IBInspectable var cornerRadius: CGFloat = 2
-    @IBInspectable var shadowOffsetWidth: Int = 0
-    @IBInspectable var shadowOffsetHeight: Int = 3
+    @IBInspectable var cornerRadius: CGFloat = 8
+    @IBInspectable var shadowOffsetWidth: Int = 4
+    @IBInspectable var shadowOffsetHeight: Int = 4
     @IBInspectable var shadowColor: UIColor? = UIColor.gray
     @IBInspectable var shadowOpacity: Float = 0.3
     @IBOutlet weak var NameLabel: UILabel!
+    @IBOutlet weak var url: UILabel!
+    @IBOutlet var urlIcon: UIImageView!
+    
     var id:Int!
    
     @IBOutlet weak var appSwitch: UISwitch!
@@ -34,12 +37,12 @@ class AppsTableViewCell: UITableViewCell {
         
         layer.cornerRadius = cornerRadius
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        layer.backgroundColor = UIColor.clear.cgColor
-        layer.masksToBounds = false
-//        layer.shadowColor = shadowColor?.cgColor
-//        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
-//        layer.shadowOpacity = shadowOpacity
-//        layer.shadowPath = shadowPath.cgPath
+        //layer.backgroundColor = UIColor.clear.cgColor
+        layer.masksToBounds = true
+        layer.shadowColor = shadowColor?.cgColor
+        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowPath = shadowPath.cgPath
     }
 }
 
