@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 174/255, green: 217/255, blue: 218/255, alpha: 1)
-        UITabBar.appearance().tintColor = UIColor.init(red: 61/255, green: 218/255, blue: 215/255, alpha: 1)
+        UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+        UITabBar.appearance().tintColor = UIColor.init(red: 42/255, green: 147/255, blue: 213/255, alpha: 1)
        // UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 119/255, green: 201/255, blue: 212/255, alpha: 1) //feather (light blue)
         //UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 87/255, green: 188/255, blue: 144/255, alpha: 1) //marine (medium green)
        // UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 165/255, green: 165/255, blue: 175/255, alpha: 1)

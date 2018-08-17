@@ -13,7 +13,7 @@ class ProfileCollectionViewCell: SwipingCarouselCollectionViewCell {
     
     var accounts: [Apps]!
     var qrCodeString: String!
-    @IBOutlet var shareButton: UIButton!
+    @IBOutlet var editButton: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     @IBInspectable var cornerRadius: CGFloat = 8
@@ -52,6 +52,10 @@ class ProfileCollectionViewCell: SwipingCarouselCollectionViewCell {
         layer.shadowOpacity = shadowOpacity
         layer.shadowPath = shadowPath.cgPath
         profileImage.image = card.image
+        profileImage.layer.borderWidth = 2
+        profileImage.layer.borderColor = Color.glass.value.cgColor
+        profileImage.layer.cornerRadius = 6
+        profileImage.clipsToBounds = true
         nameLabel.text = card.name
         descLabel.text = card.descriptionLabel
         backgroundColor = card.backgroundColor

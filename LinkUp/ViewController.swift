@@ -39,7 +39,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var datasetManager = Dataset.sharedInstance
     var dataset: AWSCognitoDataset!
     private let refreshControl = UIRefreshControl()
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     @IBOutlet var uploadImageButton: UIBarButtonItem!
     var token: String!
@@ -70,11 +69,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //        // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
 //        setupView()
-//        profileImage.layer.borderWidth = 1
-//        profileImage.layer.masksToBounds = false
-//        profileImage.layer.borderColor = UIColor.black.cgColor
-//        profileImage.layer.cornerRadius = profileImage.frame.height/2
-//        profileImage.clipsToBounds = true
         imagePicker.delegate = self
         createGradientLayer()
         //appsTableView.layer.backgroundColor = UIColor.clear.cgColor
@@ -83,8 +77,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
-        self.tabBarController?.tabBar.isTranslucent = true
-        self.tabBarController?.view.backgroundColor = .clear
+//        self.tabBarController?.tabBar.isTranslucent = true
+//        self.tabBarController?.view.backgroundColor = .clear
         
         bannerView = DFPBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
@@ -92,21 +86,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bannerView.rootViewController = self
         bannerView.load(DFPRequest())
         
-        //collectionView.setCollectionViewLayout(SwipingCarouselFlowLayout(), animated: false)
+        profileImage.center = self.view.center
+        nameLabel.center = self.view.center
+        collectionView.center = self.view.center
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         profiles = []
         let dict1 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"Snap & Insta"] as NSDictionary
-        let profile = Profile(dictionary: dict1, imageIn: UIImage(named: "AddMeLogo-2.png")!)
+        let profile = Profile(dictionary: dict1, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile)
         var dict2 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"(Snapchat, Insta)"] as NSDictionary
-        let profile2 = Profile(dictionary: dict2, imageIn: UIImage(named: "AddMeLogo-2.png")!)
+        let profile2 = Profile(dictionary: dict2, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile2)
         let dict3 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"Snap & Insta"] as NSDictionary
-        let profile3 = Profile(dictionary: dict3, imageIn: UIImage(named: "AddMeLogo-2.png")!)
+        let profile3 = Profile(dictionary: dict3, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile3)
         var dict4 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"(Snapchat, Insta)"] as NSDictionary
-        let profile4 = Profile(dictionary: dict4, imageIn: UIImage(named: "AddMeLogo-2.png")!)
+        let profile4 = Profile(dictionary: dict4, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile4)
         print("Profiles!... \(profiles)")
     }
@@ -485,24 +482,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     private func fetchAppData() {
         print("fetchAppData()")
         //load profiles
+        //setupActivityIndicatorView()
         self.updateView()
         self.refreshControl.endRefreshing()
-        self.activityIndicatorView.stopAnimating()
+        //self.activityIndicatorView.stopAnimating()
     }
     
-//    private func setupView() {
-//        print("setUpView()")
-//        setupTableView()
-//        setupActivityIndicatorView()
-//    }
-//
     private func updateView() {
         print("updateView()")
         let hasProfiles = profiles.count > 0
         print("has apps: \(hasProfiles)")
         collectionView.isHidden = false
-        activityIndicatorView.stopAnimating()
-        activityIndicatorView.isHidden = true
         if hasProfiles {
             collectionView.reloadData()
         } else {
@@ -522,9 +512,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        if let toViewController = segue.destination as? QRCodeViewController {
-            toViewController.qrCodeString = "test"
-        }
         
         self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
        
@@ -606,26 +593,51 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             print(profiles)
             print("--------------------")
-            return profiles.count
+            return profiles.count + 1
         }
     
     @objc func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         print("HERE!!!_____-----____")
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
-                    print(profiles[indexPath.row])
-                    cell.populateWith(card: profiles[indexPath.row])
-                    cell.delegate = self
-                    return cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
+        if indexPath.item == profiles.count {
+            cell.profileImage.image = UIImage(named: "add_more.png")
+            cell.profileImage.frame = cell.bounds
+            cell.nameLabel.text = "Add a Profile"
+            cell.descLabel.isHidden = true
+            cell.editButton.isHidden = true
+            cell.editButton.isEnabled = false
+        } else {
+            print(profiles[indexPath.row])
+            cell.populateWith(card: profiles[indexPath.row])
+        }
+        cell.delegate = self
+        return cell
     }
 
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             print("selected card \(indexPath.row)")
-            performSegue(withIdentifier: "presentApps", sender: nil)
+            if(indexPath.row == profiles.count){
+                print("create new account")
+            } else {
+                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
+                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                
+                modalVC.modalPresentationStyle = .custom
+                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                present(modalVC, animated: true, completion: nil)
+            }
+           
         }
+    
+    
     
     func cellSwipedUp(_ cell: UICollectionViewCell) {
         print("swipedUp")
-        performSegue(withIdentifier: "presentCode", sender: nil)
+        let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+        modalVC.qrCodeString = "testingggggg"
+        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+        modalVC.modalPresentationStyle = .custom
+        modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+        present(modalVC, animated: true, completion: nil)
     }
     
     func cellSwipedDown(_ cell: UICollectionViewCell) {
@@ -641,6 +653,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         alert.add(action: nevermindAction)
         alert.show()
     }
+    
 }
 
 extension String

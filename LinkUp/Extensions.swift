@@ -9,22 +9,82 @@
 import Foundation
 import UIKit
 
-//Function to create a color from RGB and Computed property to get a Random UIColor based on this UIColorFromRGB method.
-extension UIColor {
+enum Color {
     
-    class func colorFromRGB(_ r: Int, g: Int, b: Int) -> UIColor {
-        return UIColor(red: CGFloat(Float(r) / 255), green: CGFloat(Float(g) / 255), blue: CGFloat(Float(b) / 255), alpha: 1)
+    case glass
+    case chill
+    case coral
+    
+    case bondiBlue
+    case marina
+//    case intermidiateBackground
+//
+//    case darkText
+//    case lightText
+//    case intermidiateText
+//
+//    case affirmation
+//    case negation
+    
+    case custom(hexString: String, alpha: Double)
+    
+    func withAlpha(_ alpha: Double) -> UIColor {
+        return self.value.withAlphaComponent(CGFloat(alpha))
     }
+}
+
+extension Color {
     
-    class var random: UIColor {
-        switch arc4random() % 13 {
-        case 0: return UIColor.colorFromRGB(85, g: 0, b: 255)
-        case 1: return UIColor.colorFromRGB(170, g: 0, b: 170)
-        case 2: return UIColor.colorFromRGB(85, g: 170, b: 85)
-        case 3: return UIColor.colorFromRGB(0, g: 85, b: 0)
-        case 4: return UIColor.colorFromRGB(255, g: 170, b: 0)
-        case 5: return UIColor.colorFromRGB(255, g: 85, b: 0)
-        default : return UIColor.black //Not going to be called
+    var value: UIColor {
+        var instanceColor = UIColor.clear
+        
+        switch self {
+        case .glass:
+            instanceColor = UIColor(hexString: "#EDFAFD")
+        case .chill:
+            instanceColor = UIColor(hexString: "#AED9DA")
+        case .coral:
+            instanceColor = UIColor(hexString: "#3DDAD7")
+        case .bondiBlue:
+            instanceColor = UIColor(hexString: "#2A93D5")
+        case .marina:
+            instanceColor = UIColor(hexString: "#135589")
+        case .custom(let hexValue, let opacity):
+            instanceColor = UIColor(hexString: hexValue).withAlphaComponent(CGFloat(opacity))
         }
+        return instanceColor
+    }
+}
+
+extension UIColor {
+    /**
+     Creates an UIColor from HEX String in "#363636" format
+     
+     - parameter hexString: HEX String in "#363636" format
+     
+     - returns: UIColor from HexString
+     */
+    convenience init(hexString: String) {
+        
+        let hexString: String = (hexString as NSString).trimmingCharacters(in: .whitespacesAndNewlines)
+        let scanner          = Scanner(string: hexString as String)
+        
+        if hexString.hasPrefix("#") {
+            scanner.scanLocation = 1
+        }
+        
+        var color: UInt32 = 0
+        scanner.scanHexInt32(&color)
+        
+        let mask = 0x000000FF
+        let r = Int(color >> 16) & mask
+        let g = Int(color >> 8) & mask
+        let b = Int(color) & mask
+        
+        let red   = CGFloat(r) / 255.0
+        let green = CGFloat(g) / 255.0
+        let blue  = CGFloat(b) / 255.0
+        
+        self.init(red:red, green:green, blue:blue, alpha:1)
     }
 }
