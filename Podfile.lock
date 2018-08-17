@@ -1,67 +1,69 @@
 PODS:
-  - AWSAuthCore (2.6.12):
-    - AWSCore (= 2.6.12)
-  - AWSAuthUI (2.6.12):
-    - AWSAuthCore (= 2.6.12)
-    - AWSCore (= 2.6.12)
-  - AWSCognito (2.6.12):
-    - AWSCore (= 2.6.12)
-  - AWSCognitoIdentityProvider (2.6.12):
+  - AWSAuthCore (2.6.26):
+    - AWSCore (= 2.6.26)
+  - AWSAuthUI (2.6.26):
+    - AWSAuthCore (= 2.6.26)
+    - AWSCore (= 2.6.26)
+  - AWSCognito (2.6.26):
+    - AWSCore (= 2.6.26)
+  - AWSCognitoIdentityProvider (2.6.26):
     - AWSCognitoIdentityProviderASF (= 1.0.1)
-    - AWSCore (= 2.6.12)
+    - AWSCore (= 2.6.26)
   - AWSCognitoIdentityProviderASF (1.0.1)
-  - AWSCore (2.6.12)
-  - AWSDynamoDB (2.6.12):
-    - AWSCore (= 2.6.12)
-  - AWSFacebookSignIn (2.6.12):
-    - AWSAuthCore (= 2.6.12)
+  - AWSCore (2.6.26)
+  - AWSDynamoDB (2.6.26):
+    - AWSCore (= 2.6.26)
+  - AWSFacebookSignIn (2.6.26):
+    - AWSAuthCore (= 2.6.26)
     - FBSDKCoreKit (~> 4.0)
     - FBSDKLoginKit (~> 4.0)
-  - AWSGoogleSignIn (2.6.12):
-    - AWSAuthCore (= 2.6.12)
-  - AWSMobileClient (2.6.12):
-    - AWSAuthCore (= 2.6.12)
-  - AWSUserPoolsSignIn (2.6.12):
-    - AWSAuthCore (= 2.6.12)
-    - AWSCognitoIdentityProvider (= 2.6.12)
+  - AWSGoogleSignIn (2.6.26):
+    - AWSAuthCore (= 2.6.26)
+  - AWSMobileClient (2.6.26):
+    - AWSAuthCore (= 2.6.26)
+  - AWSUserPoolsSignIn (2.6.26):
+    - AWSAuthCore (= 2.6.26)
+    - AWSCognitoIdentityProvider (= 2.6.26)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - CDAlertView (0.7.1)
-  - FacebookCore (0.3.0):
+  - CDAlertView (0.8.3)
+  - FacebookCore (0.3.2):
     - Bolts (~> 1.8)
-    - FBSDKCoreKit (~> 4.27)
-  - FBSDKCoreKit (4.30.0):
+    - FBSDKCoreKit (~> 4.35)
+  - FBSDKCoreKit (4.35.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.30.0):
+  - FBSDKLoginKit (4.35.0):
     - FBSDKCoreKit
-  - Google-Mobile-Ads-SDK (7.28.0)
-  - GoogleSignIn (4.1.2):
-    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
-    - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
+  - FCAlertView (1.4.0)
+  - Google-Mobile-Ads-SDK (7.32.0)
+  - GoogleSignIn (4.2.0):
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
     - GTMOAuth2 (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.1.3):
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-  - GoogleToolboxForMac/Defines (2.1.3)
-  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3):
-    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
-  - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
+  - GoogleToolboxForMac/DebugUtils (2.1.4):
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - GoogleToolboxForMac/Defines (2.1.4)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.4)":
+    - GoogleToolboxForMac/DebugUtils (= 2.1.4)
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
   - GTMOAuth2 (1.1.6):
     - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.1.13):
-    - GTMSessionFetcher/Full (= 1.1.13)
-  - GTMSessionFetcher/Core (1.1.13)
-  - GTMSessionFetcher/Full (1.1.13):
-    - GTMSessionFetcher/Core (= 1.1.13)
-  - SideMenu (3.1.5)
+  - GTMSessionFetcher (1.2.0):
+    - GTMSessionFetcher/Full (= 1.2.0)
+  - GTMSessionFetcher/Core (1.2.0)
+  - GTMSessionFetcher/Full (1.2.0):
+    - GTMSessionFetcher/Core (= 1.2.0)
+  - SideMenu (4.0.0)
   - SwiftyAvatar (1.1.3)
-  - SwipeableTabBarController (1.0.11)
+  - SwipeableTabBarController (1.3.1)
+  - TransitionButton (0.5.1)
 
 DEPENDENCIES:
   - AWSAuthUI
@@ -73,38 +75,72 @@ DEPENDENCIES:
   - AWSUserPoolsSignIn (~> 2.6.6)
   - CDAlertView
   - FacebookCore
+  - FBSDKLoginKit
+  - FCAlertView
   - Google-Mobile-Ads-SDK
   - GoogleSignIn (~> 4.0)
   - SideMenu
   - SwiftyAvatar (~> 1.1)
   - SwipeableTabBarController
+  - TransitionButton
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AWSAuthCore
+    - AWSAuthUI
+    - AWSCognito
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSDynamoDB
+    - AWSFacebookSignIn
+    - AWSGoogleSignIn
+    - AWSMobileClient
+    - AWSUserPoolsSignIn
+    - Bolts
+    - CDAlertView
+    - FacebookCore
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FCAlertView
+    - Google-Mobile-Ads-SDK
+    - GoogleSignIn
+    - GoogleToolboxForMac
+    - GTMOAuth2
+    - GTMSessionFetcher
+    - SideMenu
+    - SwiftyAvatar
+    - SwipeableTabBarController
+    - TransitionButton
 
 SPEC CHECKSUMS:
-  AWSAuthCore: 55376d5a47c2b5cefdd3f78d247e0a5496fc25c4
-  AWSAuthUI: a6f9a2ca9dbee5908f9ef188d062e56bf30de2fb
-  AWSCognito: c69d91501b460c8abe22e224a0d5c3277486a21b
-  AWSCognitoIdentityProvider: 2b7f74c4d6b63c9e5a3ba55db7453e997afa0566
+  AWSAuthCore: bc6c8d7320eae8ef18939504d5a8a1588606c3a1
+  AWSAuthUI: 2d597886206772e31273d12e76f642fcddca9616
+  AWSCognito: a478efa37e614803ba4554a29ca1be69d70e0e43
+  AWSCognitoIdentityProvider: 5be311431518b6630de040fbf62e1b4f2a71694b
   AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
-  AWSCore: d0d6e4f6831754aaf98058d2306a016ae71510fe
-  AWSDynamoDB: a1626a8e025a12fa71723da8eee0c1ff51da5dc0
-  AWSFacebookSignIn: 7330b696e17d5ff9fd47617adc85643c71c30541
-  AWSGoogleSignIn: 757670544a74714892062f6c24f83f4764a48070
-  AWSMobileClient: 5972fea7b8b7a9eae8790386700b8a7f330f8ee3
-  AWSUserPoolsSignIn: a731c43b295ac7d4cf9647c655ce580b3ced9397
+  AWSCore: 0177bb7e5616d967277b398e7a05ed7a228e6158
+  AWSDynamoDB: 5a0f36b83c5bbca7403f74a4b8de33d384e23b33
+  AWSFacebookSignIn: 3a0f899a9d4db7bc0723add5a67784939bcf72c6
+  AWSGoogleSignIn: 49cfdea6a3e63f368450dc2ab9c9771d7ed025a7
+  AWSMobileClient: 1800cc78a28d49ac4b03deef5aefae8395f952b3
+  AWSUserPoolsSignIn: dfc849bcd5f965248ec8bb11c37e640bede7e377
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  CDAlertView: 0e5597633e46bcf09c8b3ad67bc23e184f7e4075
-  FacebookCore: 3ffa190a3f1f96cec0e44d3fc221bc322c595ffa
-  FBSDKCoreKit: 7c4bba2877781a131ab5d54c0a78c405d4307b62
-  FBSDKLoginKit: fe7a7e82373dc5daad92e1623219e86224ab1fb1
-  Google-Mobile-Ads-SDK: 7f9bc0011df363ae5616449de3682a14c4701612
-  GoogleSignIn: d9ef55b10f0aa401a5de2747f59b725e4b9732ac
-  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
+  CDAlertView: 7ec9ce91ccd800a66a18f7fd92a9dea20c5326a2
+  FacebookCore: fe93222bb70346730ef33b061d493e9e7a7cb1f5
+  FBSDKCoreKit: 1a5b2e3ceb5ca827a53c54aa5f4a3480efff80d2
+  FBSDKLoginKit: 00a3d65d1226852f9d76dcddff01981e5e6d9c38
+  FCAlertView: fdddd63381898c1d1a5a20c9f084fbd2c6d12f8b
+  Google-Mobile-Ads-SDK: 2aca87e46e860f1e1fc0fdc1201dd9caa4be9ba6
+  GoogleSignIn: 591e46382014e591269f862ba6e7bc0fbd793532
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
-  GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
-  SideMenu: 47dbf9e4d878062d8994aed43f6e4bf6c1fea30b
+  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  SideMenu: 70ee5657df63ec3382660ec4ef470bf1cf5db07d
   SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
-  SwipeableTabBarController: ffdb77cfe9997c92078b5022b4e770bdf88d76bd
+  SwipeableTabBarController: 0e3e229aa1edfc1b8b4daf24df7de2643578cf42
+  TransitionButton: 20f92b3cc726b047e4df200fdab5307f33395a81
 
-PODFILE CHECKSUM: c3c40516a634dea9f46839b8f0eb1f1c586a83f9
+PODFILE CHECKSUM: 7afe11b827280d80f87a5b5c5be272f92d07fcd6
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.6.0.beta.1

@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import AWSCognito
 import Foundation
 import CDAlertView
+import AWSCognito
 
 class QRCodeViewController: UIViewController, HalfModalPresentable {
 

@@ -13,12 +13,15 @@ target 'LinkUp' do
     pod 'AWSGoogleSignIn', '~> 2.6.6'
     pod 'AWSFacebookSignIn', '~> 2.6.6'
     pod 'AWSCognito'
+    pod 'FBSDKLoginKit'
     pod 'FacebookCore'
     pod 'AWSDynamoDB'
     pod "CDAlertView"
     pod "SwipeableTabBarController"
     pod 'Google-Mobile-Ads-SDK'
     pod 'SwiftyAvatar', '~> 1.1'
+    pod 'TransitionButton'
+    pod 'FCAlertView'
     # other pods
 
 end

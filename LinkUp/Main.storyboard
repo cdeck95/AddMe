@@ -26,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nxN-4g-vHU">
-                                <rect key="frame" x="32" y="244" width="312" height="300"/>
+                                <rect key="frame" x="32" y="244" width="311" height="300"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uTm-xy-A7r">
                                     <size key="itemSize" width="220" height="180"/>
@@ -102,10 +102,10 @@
                                 </connections>
                             </collectionView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="38H-tt-FLy" customClass="ProfileImage" customModule="LinkUp" customModuleProvider="target">
-                                <rect key="frame" x="112" y="86" width="130" height="50"/>
+                                <rect key="frame" x="123" y="80" width="130" height="50"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdb-cy-q3i">
-                                <rect key="frame" x="22" y="168" width="311" height="28"/>
+                                <rect key="frame" x="33" y="164" width="310" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="ZNU-MR-Ypk"/>
                                 </constraints>
@@ -116,16 +116,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="38H-tt-FLy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-10.5" id="28i-VN-1Ko"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cdb-cy-q3i" secondAttribute="bottom" constant="422" id="FYd-g8-i56"/>
-                            <constraint firstItem="nxN-4g-vHU" firstAttribute="centerX" secondItem="cdb-cy-q3i" secondAttribute="centerX" constant="10.5" id="Gke-LZ-1Sc"/>
+                            <constraint firstItem="38H-tt-FLy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="0.5" id="28i-VN-1Ko"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cdb-cy-q3i" secondAttribute="bottom" constant="426" id="FYd-g8-i56"/>
+                            <constraint firstItem="nxN-4g-vHU" firstAttribute="centerX" secondItem="cdb-cy-q3i" secondAttribute="centerX" constant="-0.5" id="Gke-LZ-1Sc"/>
                             <constraint firstItem="cdb-cy-q3i" firstAttribute="centerX" secondItem="38H-tt-FLy" secondAttribute="centerX" id="Glv-64-XYX"/>
-                            <constraint firstItem="cdb-cy-q3i" firstAttribute="top" secondItem="38H-tt-FLy" secondAttribute="bottom" constant="32" id="SIS-JB-K5M"/>
+                            <constraint firstItem="cdb-cy-q3i" firstAttribute="top" secondItem="38H-tt-FLy" secondAttribute="bottom" constant="34" id="SIS-JB-K5M"/>
                             <constraint firstItem="nxN-4g-vHU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="YXc-ov-XxH"/>
-                            <constraint firstItem="nxN-4g-vHU" firstAttribute="top" secondItem="38H-tt-FLy" secondAttribute="bottom" constant="108" id="kLN-ag-bLB"/>
-                            <constraint firstItem="38H-tt-FLy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="22" id="kOg-ih-5Zi"/>
-                            <constraint firstItem="cdb-cy-q3i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="22" id="laC-kS-aCp"/>
-                            <constraint firstItem="38H-tt-FLy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="centerX" constant="-75.5" id="ps7-L9-7Nx"/>
+                            <constraint firstItem="nxN-4g-vHU" firstAttribute="top" secondItem="38H-tt-FLy" secondAttribute="bottom" constant="114" id="kLN-ag-bLB"/>
+                            <constraint firstItem="38H-tt-FLy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="kOg-ih-5Zi"/>
+                            <constraint firstItem="cdb-cy-q3i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="33" id="laC-kS-aCp"/>
+                            <constraint firstItem="38H-tt-FLy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="centerX" constant="-64.5" id="ps7-L9-7Nx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nxN-4g-vHU" secondAttribute="bottom" constant="74" id="vDC-Fm-Ims"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

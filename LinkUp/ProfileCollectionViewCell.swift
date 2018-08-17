@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwipingCarousel
 
 class ProfileCollectionViewCell: SwipingCarouselCollectionViewCell {
     

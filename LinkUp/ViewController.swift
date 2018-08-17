@@ -18,7 +18,6 @@ import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
 import GoogleMobileAds
-import SwipingCarousel
 import CDAlertView
 
 var cellSwitches: [AppsTableViewCell] = []
@@ -649,16 +648,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func cellSwipedDown(_ cell: UICollectionViewCell) {
         print("swiped down")
-        let alert = CDAlertView(title: "Deleting Profile", message: "Are you sure you wish to delete this profile?", type: .warning)
-        let doneAction = CDAlertViewAction(title: "Sure! 💪",
-                                           font: UIFont.systemFont(ofSize: 17),
-                                           textColor: UIColor(red: 27 / 255, green: 169 / 255, blue: 225 / 255, alpha: 1),
-                                           backgroundColor: nil,
-                                           handler: { action in print("deleting")})
-        alert.add(action: doneAction)
-        let nevermindAction = CDAlertViewAction(title: "Nevermind 😬")
-        alert.add(action: nevermindAction)
-        alert.show()
+//        let alert = CDAlertView(title: "Deleting Profile", message: "Are you sure you wish to delete this profile?", type: .warning)
+//        let doneAction = CDAlertViewAction(title: "Sure! 💪",
+//                                           font: UIFont.systemFont(ofSize: 17),
+//                                           textColor: UIColor(red: 27 / 255, green: 169 / 255, blue: 225 / 255, alpha: 1),
+//                                           backgroundColor: nil,
+//                                           handler: { action in print("deleting")})
+//        alert.add(action: doneAction)
+//        let nevermindAction = CDAlertViewAction(title: "Nevermind 😬")
+//        alert.add(action: nevermindAction)
+//        alert.show()
     }
     
 }

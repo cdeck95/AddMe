@@ -12,8 +12,8 @@ public class SwipingCarouselFlowLayout:  UICollectionViewFlowLayout {
     // Mark: Constants
     fileprivate struct Constants {
         static let zoomFactor: CGFloat = 0.3
-        static let itemWidth: CGFloat = 50//Width of the Cell.
-        static let itemHeight: CGFloat = 50      //Height of the Cell.
+        static let itemWidth: CGFloat = 210       //Width of the Cell.
+        static let itemHeight: CGFloat = 278      //Height of the Cell.
         static let minLineSpacing: CGFloat = 50.0
     }
     
@@ -83,4 +83,3 @@ public class SwipingCarouselFlowLayout:  UICollectionViewFlowLayout {
         return true
     }
 }
-
