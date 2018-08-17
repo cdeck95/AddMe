@@ -26,13 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 1/255, green: 82/255, blue: 73/255, alpha:1)
-        UITabBar.appearance().tintColor = UIColor.init(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 174/255, green: 217/255, blue: 218/255, alpha: 1)
+        UITabBar.appearance().tintColor = UIColor.init(red: 61/255, green: 218/255, blue: 215/255, alpha: 1)
        // UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 119/255, green: 201/255, blue: 212/255, alpha: 1) //feather (light blue)
         //UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 87/255, green: 188/255, blue: 144/255, alpha: 1) //marine (medium green)
        // UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 165/255, green: 165/255, blue: 175/255, alpha: 1)
         // Sets the translucent background color
-       // UINavigationBar.appearance().backgroundColor = .clear
+        UINavigationBar.appearance().backgroundColor = .clear //UIColor.init(red: 174/255, green: 217/255, blue: 218/255, alpha: 1)
         // Set translucent. (Default value is already true, so this can be removed if desired.)
         //UINavigationBar.appearance().isTranslucent = true
         

@@ -8,17 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		A9078423A73AE248C65E103C /* Pods_LinkUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CE2765784B5B9C64E7AF87 /* Pods_LinkUp.framework */; };
+		DA10A612212606FF0049D983 /* trench100free.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA10A611212606F00049D983 /* trench100free.otf */; };
+		DA10A613212607010049D983 /* trench100free.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA10A610212606EF0049D983 /* trench100free.ttf */; };
+		DA10A615212621660049D983 /* Cards.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA10A614212621660049D983 /* Cards.plist */; };
+		DA10A61A21262BF50049D983 /* SwipingCarousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA10A61821262BD50049D983 /* SwipingCarousel.framework */; };
+		DA10A61B21262D0F0049D983 /* SwipingCarousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA10A61821262BD50049D983 /* SwipingCarousel.framework */; };
+		DA10A61C21262D0F0049D983 /* SwipingCarousel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA10A61821262BD50049D983 /* SwipingCarousel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA130A84209643AF00622951 /* EFUIntPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA130A83209643AF00622951 /* EFUIntPixel.swift */; };
 		DA1B39F22116366E008CE7C6 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */; };
 		DA1B39FA2117C070008CE7C6 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B39F92117C070008CE7C6 /* Dataset.swift */; };
 		DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2B25F6204E2623004D3160 /* CredentialsManager.swift */; };
 		DA37EE462125F68A00A52AD9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE452125F68A00A52AD9 /* Profile.swift */; };
-		DA37EE492125F98C00A52AD9 /* SwipingCarouselCellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE482125F98C00A52AD9 /* SwipingCarouselCellManager.swift */; };
-		DA37EE4B2125F9AA00A52AD9 /* SwipingCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE4A2125F9AA00A52AD9 /* SwipingCarouselCollectionViewCell.swift */; };
 		DA37EE4F2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */; };
 		DA37EE512125FA9F00A52AD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA37EE502125FA9F00A52AD9 /* Main.storyboard */; };
 		DA37EE532125FC8100A52AD9 /* AnimatedLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */; };
-		DA37EE57212600F400A52AD9 /* SwipingCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE56212600F400A52AD9 /* SwipingCarouselFlowLayout.swift */; };
 		DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4388EE2086747000E0CD0D /* CameraViewController.swift */; };
 		DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68505C205B5FA300BA36DE /* HelpViewController.swift */; };
 		DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EE92037859800E79B47 /* AppDelegate.swift */; };
@@ -50,24 +53,39 @@
 		DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */; };
 		DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */; };
 		DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */; };
+		DAF0791E21265CD90001B961 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0791D21265CD90001B961 /* Extensions.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA10A61D21262D100049D983 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DA10A61C21262D0F0049D983 /* SwipingCarousel.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		55CE2765784B5B9C64E7AF87 /* Pods_LinkUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DE575B515AAA97684789E8 /* Pods-LinkUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkUp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp.debug.xcconfig"; sourceTree = "<group>"; };
 		D549C2ED06E508209DBCB84D /* Pods-LinkUp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkUp.release.xcconfig"; path = "Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp.release.xcconfig"; sourceTree = "<group>"; };
+		DA10A610212606EF0049D983 /* trench100free.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = trench100free.ttf; sourceTree = "<group>"; };
+		DA10A611212606F00049D983 /* trench100free.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = trench100free.otf; sourceTree = "<group>"; };
+		DA10A614212621660049D983 /* Cards.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Cards.plist; sourceTree = "<group>"; };
+		DA10A61821262BD50049D983 /* SwipingCarousel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwipingCarousel.framework; path = Carthage/Build/iOS/SwipingCarousel.framework; sourceTree = "<group>"; };
 		DA130A83209643AF00622951 /* EFUIntPixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFUIntPixel.swift; sourceTree = "<group>"; };
 		DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		DA1B39F92117C070008CE7C6 /* Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dataset.swift; sourceTree = "<group>"; };
 		DA2B25F6204E2623004D3160 /* CredentialsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsManager.swift; sourceTree = "<group>"; };
 		DA37EE452125F68A00A52AD9 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
-		DA37EE472125F96C00A52AD9 /* SwipingCarousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwipingCarousel.h; sourceTree = "<group>"; };
-		DA37EE482125F98C00A52AD9 /* SwipingCarouselCellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingCarouselCellManager.swift; sourceTree = "<group>"; };
-		DA37EE4A2125F9AA00A52AD9 /* SwipingCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA37EE502125FA9F00A52AD9 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedLaunchScreen.swift; sourceTree = "<group>"; };
-		DA37EE56212600F400A52AD9 /* SwipingCarouselFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingCarouselFlowLayout.swift; sourceTree = "<group>"; };
 		DA4388EE2086747000E0CD0D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		DA68505C205B5FA300BA36DE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DA6A7EE62037859800E79B47 /* LinkUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +119,7 @@
 		DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
 		DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalTransitionAnimator.swift; sourceTree = "<group>"; };
 		DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalTransitioningDelegate.swift; sourceTree = "<group>"; };
+		DAF0791D21265CD90001B961 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +130,8 @@
 				DAD432FD203F98A30033EF35 /* SystemConfiguration.framework in Frameworks */,
 				DAD432FB203F989B0033EF35 /* SafariServices.framework in Frameworks */,
 				A9078423A73AE248C65E103C /* Pods_LinkUp.framework in Frameworks */,
+				DA10A61A21262BF50049D983 /* SwipingCarousel.framework in Frameworks */,
+				DA10A61B21262D0F0049D983 /* SwipingCarousel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +153,7 @@
 				DAD432FC203F98A20033EF35 /* SystemConfiguration.framework */,
 				DAD432FA203F989B0033EF35 /* SafariServices.framework */,
 				55CE2765784B5B9C64E7AF87 /* Pods_LinkUp.framework */,
+				DA10A61821262BD50049D983 /* SwipingCarousel.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,7 +183,6 @@
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
 				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD96D092046399500F1525E /* AppsTableViewCell.swift */,
-				DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */,
 				DAA7D4DE208568F000E62E04 /* Apps.swift */,
 				DA4388EE2086747000E0CD0D /* CameraViewController.swift */,
 				DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */,
@@ -172,8 +193,11 @@
 				DA1B39F92117C070008CE7C6 /* Dataset.swift */,
 				DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
+				DAF0791D21265CD90001B961 /* Extensions.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
+				DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */,
 				DA37EE452125F68A00A52AD9 /* Profile.swift */,
+				DA10A614212621660049D983 /* Cards.plist */,
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
@@ -195,11 +219,9 @@
 				DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */,
 				DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */,
 				DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */,
-				DA37EE472125F96C00A52AD9 /* SwipingCarousel.h */,
-				DA37EE482125F98C00A52AD9 /* SwipingCarouselCellManager.swift */,
-				DA37EE4A2125F9AA00A52AD9 /* SwipingCarouselCollectionViewCell.swift */,
 				DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */,
-				DA37EE56212600F400A52AD9 /* SwipingCarouselFlowLayout.swift */,
+				DA10A611212606F00049D983 /* trench100free.otf */,
+				DA10A610212606EF0049D983 /* trench100free.ttf */,
 			);
 			path = LinkUp;
 			sourceTree = "<group>";
@@ -224,6 +246,7 @@
 				DA6A7EE42037859800E79B47 /* Resources */,
 				D3364EABB47362E6D4221A3E /* [CP] Embed Pods Frameworks */,
 				AE2ED45769DE297E4D64EF4F /* [CP] Copy Pods Resources */,
+				DA10A61D21262D100049D983 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -274,6 +297,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD432F7203D02240033EF35 /* awsconfiguration.json in Resources */,
+				DA10A612212606FF0049D983 /* trench100free.otf in Resources */,
+				DA10A613212607010049D983 /* trench100free.ttf in Resources */,
+				DA10A615212621660049D983 /* Cards.plist in Resources */,
 				DA6A7EF42037859800E79B47 /* LaunchScreen.storyboard in Resources */,
 				DA6A7EF12037859800E79B47 /* Assets.xcassets in Resources */,
 				DA37EE512125FA9F00A52AD9 /* Main.storyboard in Resources */,
@@ -393,14 +419,12 @@
 				DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */,
 				DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */,
 				DA1B39FA2117C070008CE7C6 /* Dataset.swift in Sources */,
-				DA37EE4B2125F9AA00A52AD9 /* SwipingCarouselCollectionViewCell.swift in Sources */,
 				DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */,
 				DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */,
 				DA37EE4F2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift in Sources */,
 				DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */,
 				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
-				DA37EE492125F98C00A52AD9 /* SwipingCarouselCellManager.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
 				DAC9C09A211F26820004170F /* Account.swift in Sources */,
@@ -419,9 +443,9 @@
 				DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */,
 				DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */,
 				DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */,
+				DAF0791E21265CD90001B961 /* Extensions.swift in Sources */,
 				DA1B39F22116366E008CE7C6 /* LaunchScreenViewController.swift in Sources */,
 				DAD96D002045F59F00F1525E /* CollectionViewCell.swift in Sources */,
-				DA37EE57212600F400A52AD9 /* SwipingCarouselFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,6 +578,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/LinkUp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -573,6 +601,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/LinkUp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

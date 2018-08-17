@@ -18,12 +18,15 @@ import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
 import GoogleMobileAds
+import SwipingCarousel
 
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Apps] = []
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SwipingCarouselDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SwipingCarouselDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    var profiles: [Profile]!
+    fileprivate var allTheCards = Profile.loadCards()
     var bannerView: DFPBannerView!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
@@ -41,34 +44,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var token: String!
     let imagePicker = UIImagePickerController()
     var gradient: CAGradientLayer!
-    @IBOutlet var gradientView: UIView!
     let cellSpacingHeight: CGFloat = 15
     var isCellTapped = false
     var selectedSectionIndex = -1
     
+    @IBOutlet weak var collectionView: UICollectionView! { didSet {
+        let layout = SwipingCarouselFlowLayout()
+        layout.activeDistance = 50 // your desired value. Remember 200 is the default.
+        collectionView.setCollectionViewLayout(layout, animated: false)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("----in view did load----")
-        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
+        //tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
 
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
-            appsTableView.refreshControl = refreshControl
+            collectionView.refreshControl = refreshControl
         } else {
-            appsTableView.addSubview(refreshControl)
+            collectionView.addSubview(refreshControl)
         }
-        // Configure Refresh Control
+//        // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
-        setupView()
+//        setupView()
 //        profileImage.layer.borderWidth = 1
 //        profileImage.layer.masksToBounds = false
 //        profileImage.layer.borderColor = UIColor.black.cgColor
 //        profileImage.layer.cornerRadius = profileImage.frame.height/2
 //        profileImage.clipsToBounds = true
         imagePicker.delegate = self
-        //createGradientLayer()
-        appsTableView.layer.backgroundColor = UIColor.clear.cgColor
-        appsTableView.backgroundColor = UIColor.clear
+        createGradientLayer()
+        //appsTableView.layer.backgroundColor = UIColor.clear.cgColor
+        //appsTableView.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -81,13 +90,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         bannerView.adUnitID = "/6499/example/banner"
         bannerView.rootViewController = self
         bannerView.load(DFPRequest())
+        
+        //collectionView.setCollectionViewLayout(SwipingCarouselFlowLayout(), animated: false)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        profiles = []
+        let dict1 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"Snap & Insta"] as NSDictionary
+        let profile = Profile(dictionary: dict1, imageIn: UIImage(named: "AddMeLogo-2.png")!)
+        profiles.append(profile)
+        var dict2 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"(Snapchat, Insta)"] as NSDictionary
+        let profile2 = Profile(dictionary: dict2, imageIn: UIImage(named: "AddMeLogo-2.png")!)
+        profiles.append(profile2)
+        let dict3 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"Snap & Insta"] as NSDictionary
+        let profile3 = Profile(dictionary: dict3, imageIn: UIImage(named: "AddMeLogo-2.png")!)
+        profiles.append(profile3)
+        var dict4 = ["accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode!?", "info":"(Snapchat, Insta)"] as NSDictionary
+        let profile4 = Profile(dictionary: dict4, imageIn: UIImage(named: "AddMeLogo-2.png")!)
+        profiles.append(profile4)
+        print("Profiles!... \(profiles)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("----in view will appear----")
         self.tabBarController?.tabBar.isHidden = false
         presentAuthUIViewController()
-        appsTableView.reloadData()
+        collectionView.reloadData()
+       // appsTableView.reloadData()
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
@@ -138,18 +166,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             self.credentialsManager.setIdentityID(id: id!)
                             print(self.credentialsManager.identityID)
                             self.datasetManager.createDataset()
-                            self.fetchAppData()
+                            //self.fetchAppData()
                             if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
                                 print("facebook sign in confirmed")
                                 self.navigationItem.leftBarButtonItem = nil
                                 let params: String = "name,email,picture"
-                                //self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
+                                self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
                             } else {
-                               // self.profileImage.image = UIImage(named: "launch_logo")
+                                self.profileImage.image = UIImage(named: "launch_logo")
                                 //self.navigationItem.leftBarButtonItem = self.uploadImageButton
                                 //query the db for an image
                             }
                         }
+                        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
+                        self.profileImage.clipsToBounds = true;
                         return nil
                     }
                     
@@ -164,12 +194,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func loadApps(){
-        print("loadApps()")
-        loadAppsFromDB()
-    }
-    
+//
+//    func loadApps(){
+//        print("loadApps()")
+//        loadAppsFromDB()
+//    }
+//
     ////////////////////////////// BEGINNING OF JSON ///////////////////////////////////
     
     // TomMiller 2018/06/27 - Added struct to interact with JSON
@@ -181,88 +211,88 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var JsonApps = [JsonApp]()
     ////////////////////////////// END OF JSON ///////////////////////////////////
     
-    // Tom 2018/04/18
-    func loadAppsFromDB() {
-        print("RIGHT HERE")
-        apps = []
-        var returnList: [Apps] = []
-        let idString = self.credentialsManager.identityID!
-        print(idString)
-        let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/")!)
-        print(request)
-        request.httpMethod = "GET"
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-        
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-        data, response, error in
-        if error != nil {
-            print("error=\(error)")
-            sema.signal()
-            return
-        } else {
-            print("---no error----")
-        }
-            //////////////////////// New stuff from Tom
-            do {
-                print(data)
-                print("decoding")
-                let decoder = JSONDecoder()
-                print("getting data")
-                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
-                print(JSONdata)
-                if(JSONdata.accounts.count == 0){
-                    print("no accounts")
-                    returnList = []
-                    sema.signal()
-                } else {
-                    //=======
-                    for index in 0...JSONdata.accounts.count - 1 {
-                       let listOfAccountInfo = JSONdata.accounts[index]
-                        let displayName = listOfAccountInfo["displayName"]!
-                        let platform = listOfAccountInfo["platform"]!
-                        let url = listOfAccountInfo["url"]!
-                        let username = listOfAccountInfo["username"]!
-                        var appIdString = listOfAccountInfo["accountId"]!
-                      //  var isSwitchOn = listOfAccountInfo["isSwitchOn"]!
-    //                    if(appIdString.prefix(2) == "0x"){
-    //                        appIdString.removeFirst(2)
-    //                    }
-                        print(appIdString)
-                        let appId = Int(appIdString)!//, radix: 16)!
-                        print(displayName)
-                        print(platform)
-                        print(url)
-                        print(appId)
-                        //print(username)
-                        let app = Apps()
-                        app?._appId = "\(appId)"
-                        app?._displayName = displayName
-                        app?._platform = platform
-                        app?._uRL = url
-                        app?._username = username
-                        app?._isSwitchOn = "True"
-                        print(app)
-                        returnList.append(app!)
-                    }
-                }
-                    apps = returnList
-                    sema.signal();
-                    //=======
-                } catch let err {
-                    print("Err", err)
-                    apps = returnList
-                    sema.signal(); // none found TODO: do something better than this shit.
-                }
-                print("Done")
-        })
-        task.resume()
-        sema.wait(timeout: DispatchTime.distantFuture)
-        apps = returnList
-        cellSwitches = []
-        self.appsTableView.reloadData()
-    }
+//    // Tom 2018/04/18
+//    func loadAppsFromDB() {
+//        print("RIGHT HERE")
+//        apps = []
+//        var returnList: [Apps] = []
+//        let idString = self.credentialsManager.identityID!
+//        print(idString)
+//        let sema = DispatchSemaphore(value: 0);
+//        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/")!)
+//        print(request)
+//        request.httpMethod = "GET"
+//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+//
+//        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+//        data, response, error in
+//        if error != nil {
+//            print("error=\(error)")
+//            sema.signal()
+//            return
+//        } else {
+//            print("---no error----")
+//        }
+//            //////////////////////// New stuff from Tom
+//            do {
+//                print(data)
+//                print("decoding")
+//                let decoder = JSONDecoder()
+//                print("getting data")
+//                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+//                print(JSONdata)
+//                if(JSONdata.accounts.count == 0){
+//                    print("no accounts")
+//                    returnList = []
+//                    sema.signal()
+//                } else {
+//                    //=======
+//                    for index in 0...JSONdata.accounts.count - 1 {
+//                       let listOfAccountInfo = JSONdata.accounts[index]
+//                        let displayName = listOfAccountInfo["displayName"]!
+//                        let platform = listOfAccountInfo["platform"]!
+//                        let url = listOfAccountInfo["url"]!
+//                        let username = listOfAccountInfo["username"]!
+//                        var appIdString = listOfAccountInfo["accountId"]!
+//                      //  var isSwitchOn = listOfAccountInfo["isSwitchOn"]!
+//    //                    if(appIdString.prefix(2) == "0x"){
+//    //                        appIdString.removeFirst(2)
+//    //                    }
+//                        print(appIdString)
+//                        let appId = Int(appIdString)!//, radix: 16)!
+//                        print(displayName)
+//                        print(platform)
+//                        print(url)
+//                        print(appId)
+//                        //print(username)
+//                        let app = Apps()
+//                        app?._appId = "\(appId)"
+//                        app?._displayName = displayName
+//                        app?._platform = platform
+//                        app?._uRL = url
+//                        app?._username = username
+//                        app?._isSwitchOn = "True"
+//                        print(app)
+//                        returnList.append(app!)
+//                    }
+//                }
+//                    apps = returnList
+//                    sema.signal();
+//                    //=======
+//                } catch let err {
+//                    print("Err", err)
+//                    apps = returnList
+//                    sema.signal(); // none found TODO: do something better than this shit.
+//                }
+//                print("Done")
+//        })
+//        task.resume()
+//        sema.wait(timeout: DispatchTime.distantFuture)
+//        apps = returnList
+//        cellSwitches = []
+//        //self.appsTableView.reloadData()
+//    }
     
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
         print("getFBUserInfo()")
@@ -341,160 +371,162 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return UIImage(cgImage: cgImage)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        print("height for row at method")
-        if indexPath.section == selectedSectionIndex && isCellTapped {
-            print("returning 180")
-            return 180
-        }
-        print("returning 140")
-        return 140
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("did select row at index path")
-        self.tableView(tableView, cellForRowAt: indexPath).backgroundColor = UIColor.gray
-        
-        // avoid paint the cell is the index is outside the bounds
-        if self.selectedSectionIndex != -1 {
-            tableView.cellForRow(at: NSIndexPath(row: self.selectedSectionIndex, section: 0) as IndexPath)?.backgroundColor = UIColor.white
-        }
-        
-        if selectedSectionIndex != indexPath.section {
-            self.isCellTapped = true
-            self.selectedSectionIndex = indexPath.section
-        }
-        else {
-            // there is no cell selected anymore
-            self.isCellTapped = false
-            self.selectedSectionIndex = -1
-        }
-        
-        tableView.beginUpdates()
-        tableView.endUpdates()
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return apps.count
-    }
-    
-    // There is just one row in every section
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    // Set the spacing between sections
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return cellSpacingHeight
-    }
-    
-    // Make the background color show through
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.clear
-        return headerView
-    }
-    
-    
-    
-    // This is where the table cells on the main page are modeled from.
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Create an object of the dynamic cell “PlainCell”
-        let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
-        print("Adding to table view now: \(cell)")
-        if (!cellSwitches.contains(cell)) {
-            cellSwitches.append(cell)
-        }
-        cell.NameLabel.text = apps[indexPath.section]._displayName
-        switch apps[indexPath.section]._platform {
-        case "Facebook"?:
-            cell.appImage.image = UIImage(named: "fb-icon")
-        case "Twitter"?:
-            cell.appImage.image = UIImage(named: "twitter_icon")
-        case "Instagram"?:
-            cell.appImage.image = UIImage(named: "Instagram_icon")
-        case "Snapchat"?:
-            cell.appImage.image = UIImage(named: "snapchat_icon")
-        case "GooglePlus"?:
-            cell.appImage.image = UIImage(named: "google_plus_icon")
-        case "LinkedIn"?:
-            cell.appImage.image = UIImage(named: "linked_in_logo")
-        case "Xbox"?:
-            cell.appImage.image = UIImage(named: "xbox")
-        case "PSN"?:
-            cell.appImage.image = UIImage(named: "play-station")
-        case "Twitch"?:
-            cell.appImage.image = UIImage(named: "twitch")
-        case "Custom"?:
-            cell.appImage.image = UIImage(named: "custom")
-        default:
-            cell.appImage.image = UIImage(named: "AppIcon")
-        }
-        //cell.NameLabel.textColor = UIColor.white
-        //cell.layer.backgroundColor = UIColor.clear.cgColor
-        cell.url.text = apps[indexPath.section]._uRL!
-        cell.id = Int(apps[indexPath.section]._appId!)
-        //print(indexPath.row)
-        if(indexPath.section == apps.count-1){
-            print("-----------about to create code----------")
-            createQRCode(self)
-        }
-        return cell
-    }
-    @IBAction func refreshTableView(_ sender: Any) {
-        print("refreshTableView()")
-        appsTableView.reloadData()
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        print("height for row at method")
+//        if indexPath.section == selectedSectionIndex && isCellTapped {
+//            print("returning 180")
+//            return 180
+//        }
+//        print("returning 140")
+//        return 140
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("did select row at index path")
+//        self.tableView(tableView, cellForRowAt: indexPath).backgroundColor = UIColor.gray
+//
+//        // avoid paint the cell is the index is outside the bounds
+//        if self.selectedSectionIndex != -1 {
+//            tableView.cellForRow(at: NSIndexPath(row: self.selectedSectionIndex, section: 0) as IndexPath)?.backgroundColor = UIColor.white
+//        }
+//
+//        if selectedSectionIndex != indexPath.section {
+//            self.isCellTapped = true
+//            self.selectedSectionIndex = indexPath.section
+//        }
+//        else {
+//            // there is no cell selected anymore
+//            self.isCellTapped = false
+//            self.selectedSectionIndex = -1
+//        }
+//
+//        tableView.beginUpdates()
+//        tableView.endUpdates()
+//    }
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return apps.count
+//    }
+//
+//    // There is just one row in every section
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 1
+//    }
+//
+//    // Set the spacing between sections
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return cellSpacingHeight
+//    }
+//
+//    // Make the background color show through
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        headerView.backgroundColor = UIColor.clear
+//        return headerView
+//    }
+//
+//
+//
+//    // This is where the table cells on the main page are modeled from.
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        // Create an object of the dynamic cell “PlainCell”
+//        let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
+//        print("Adding to table view now: \(cell)")
+//        if (!cellSwitches.contains(cell)) {
+//            cellSwitches.append(cell)
+//        }
+//        cell.NameLabel.text = apps[indexPath.section]._displayName
+//        switch apps[indexPath.section]._platform {
+//        case "Facebook"?:
+//            cell.appImage.image = UIImage(named: "fb-icon")
+//        case "Twitter"?:
+//            cell.appImage.image = UIImage(named: "twitter_icon")
+//        case "Instagram"?:
+//            cell.appImage.image = UIImage(named: "Instagram_icon")
+//        case "Snapchat"?:
+//            cell.appImage.image = UIImage(named: "snapchat_icon")
+//        case "GooglePlus"?:
+//            cell.appImage.image = UIImage(named: "google_plus_icon")
+//        case "LinkedIn"?:
+//            cell.appImage.image = UIImage(named: "linked_in_logo")
+//        case "Xbox"?:
+//            cell.appImage.image = UIImage(named: "xbox")
+//        case "PSN"?:
+//            cell.appImage.image = UIImage(named: "play-station")
+//        case "Twitch"?:
+//            cell.appImage.image = UIImage(named: "twitch")
+//        case "Custom"?:
+//            cell.appImage.image = UIImage(named: "custom")
+//        default:
+//            cell.appImage.image = UIImage(named: "AppIcon")
+//        }
+//        //cell.NameLabel.textColor = UIColor.white
+//        //cell.layer.backgroundColor = UIColor.clear.cgColor
+//        cell.url.text = apps[indexPath.section]._uRL!
+//        cell.id = Int(apps[indexPath.section]._appId!)
+//        //print(indexPath.row)
+//        if(indexPath.section == apps.count-1){
+//            print("-----------about to create code----------")
+//            createQRCode(self)
+//        }
+//        return cell
+//    }
+//    @IBAction func refreshTableView(_ sender: Any) {
+//        print("refreshTableView()")
+//        appsTableView.reloadData()
+//    }
     
     @objc private func refreshAppData(_ sender: Any) {
-        // Fetch Weather Data
         print("refreshAppData()")
         fetchAppData()
     }
-    
+//
     private func fetchAppData() {
         print("fetchAppData()")
-        loadApps()
+        //load profiles
         self.updateView()
         self.refreshControl.endRefreshing()
         self.activityIndicatorView.stopAnimating()
     }
     
-    private func setupView() {
-        print("setUpView()")
-        setupTableView()
-        setupActivityIndicatorView()
-    }
-    
+//    private func setupView() {
+//        print("setUpView()")
+//        setupTableView()
+//        setupActivityIndicatorView()
+//    }
+//
     private func updateView() {
         print("updateView()")
-        let hasApps = apps.count > 0
-        print("has apps: \(hasApps)")
-        appsTableView.isHidden = false
+        let hasProfiles = profiles.count > 0
+        print("has apps: \(hasProfiles)")
+        collectionView.isHidden = false
         activityIndicatorView.stopAnimating()
         activityIndicatorView.isHidden = true
-        if hasApps {
-            appsTableView.reloadData()
+        if hasProfiles {
+            collectionView.reloadData()
         } else {
         }
     }
-    
-    // MARK: -
-    private func setupTableView() {
-        print("setuptableView()")
-        appsTableView.isHidden = false// true
-        activityIndicatorView.isHidden = false
-    }
-    
-    private func setupActivityIndicatorView() {
-        activityIndicatorView.startAnimating()
-    }
+//
+//    // MARK: -
+//    private func setupTableView() {
+//        print("setuptableView()")
+//        appsTableView.isHidden = false// true
+//        activityIndicatorView.isHidden = false
+//    }
+//
+//    private func setupActivityIndicatorView() {
+//        activityIndicatorView.startAnimating()
+//    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+//        if let toViewController = segue.destination as? QRCodeViewController {
+//            toViewController.qrCodeString =
+//        }
         
         self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
-        
+       
         segue.destination.modalPresentationStyle = .custom
         segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
     }
@@ -525,15 +557,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func createGradientLayer() {
         gradient = CAGradientLayer()
-        let view = UIView(frame: self.view.bounds)
+        let gradientView = UIView(frame: self.view.bounds)
         gradient.frame = view.frame
-        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor]
-        gradient.locations = [0.0, 1.0]
-//        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor, UIColor(red: 1/255, green: 82/255, blue: 73/255, alpha:1).cgColor]
-//        gradient.locations = [0.0, 0.5, 1.0]
-        self.view.backgroundColor = UIColor.clear
-        self.gradientView.layer.addSublayer(gradient)
-        self.view.sendSubview(toBack: self.gradientView)//(gradient, at: 0)
+        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
+        gradient.locations = [0.0, 0.5, 1.0]
+//        gradient.colors = [UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
+//        gradient.locations = [0.0, 1.0]
+        gradientView.frame = self.view.bounds
+        gradientView.layer.addSublayer(gradient)
+        self.view.addSubview(gradientView)
+        self.view.sendSubview(toBack: gradientView)
     }
     
     func addBannerViewToView(_ bannerView: DFPBannerView) {
@@ -557,8 +590,46 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             ])
     }
     
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets(top: 200, left: 120, bottom: 200, right: 120)
+//    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 180, height: 160)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            print(profiles)
+            print("--------------------")
+            return profiles.count
+        }
+    
+    @objc func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+         print("HERE!!!_____-----____")
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
+                    print(profiles[indexPath.row])
+                    cell.populateWith(card: profiles[indexPath.row])
+                    cell.delegate = self
+                    return cell
+    }
+
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            print("selected card \(indexPath.row)")
+        }
+    
+}
+
+
+// MARK: Conform to the SwipingCarousel Delegate
+extension SwipingCarouselDelegate {
+    
     func cellSwipedUp(_ cell: UICollectionViewCell) {
-        print("swiped up")
+        print("swipedUp")
+        
     }
     
     func cellSwipedDown(_ cell: UICollectionViewCell) {

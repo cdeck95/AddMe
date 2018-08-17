@@ -18,6 +18,7 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
     var qrCode:UIImage!
+    var qrCode:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        createQRCode(self)
+        //createQRCode(self)
     }
 
     override func didReceiveMemoryWarning() {
