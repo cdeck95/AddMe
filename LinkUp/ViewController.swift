@@ -30,8 +30,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var appsTableView: UITableView!
-    @IBOutlet weak var qrCodeButton: UIButton!
     var identityProvider:String!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
@@ -367,135 +365,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return UIImage(cgImage: cgImage)
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        print("height for row at method")
-//        if indexPath.section == selectedSectionIndex && isCellTapped {
-//            print("returning 180")
-//            return 180
-//        }
-//        print("returning 140")
-//        return 140
-//    }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("did select row at index path")
-//        self.tableView(tableView, cellForRowAt: indexPath).backgroundColor = UIColor.gray
-//
-//        // avoid paint the cell is the index is outside the bounds
-//        if self.selectedSectionIndex != -1 {
-//            tableView.cellForRow(at: NSIndexPath(row: self.selectedSectionIndex, section: 0) as IndexPath)?.backgroundColor = UIColor.white
-//        }
-//
-//        if selectedSectionIndex != indexPath.section {
-//            self.isCellTapped = true
-//            self.selectedSectionIndex = indexPath.section
-//        }
-//        else {
-//            // there is no cell selected anymore
-//            self.isCellTapped = false
-//            self.selectedSectionIndex = -1
-//        }
-//
-//        tableView.beginUpdates()
-//        tableView.endUpdates()
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return apps.count
-//    }
-//
-//    // There is just one row in every section
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
-//    }
-//
-//    // Set the spacing between sections
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return cellSpacingHeight
-//    }
-//
-//    // Make the background color show through
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView()
-//        headerView.backgroundColor = UIColor.clear
-//        return headerView
-//    }
-//
-//
-//
-//    // This is where the table cells on the main page are modeled from.
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        // Create an object of the dynamic cell “PlainCell”
-//        let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
-//        print("Adding to table view now: \(cell)")
-//        if (!cellSwitches.contains(cell)) {
-//            cellSwitches.append(cell)
-//        }
-//        cell.NameLabel.text = apps[indexPath.section]._displayName
-//        switch apps[indexPath.section]._platform {
-//        case "Facebook"?:
-//            cell.appImage.image = UIImage(named: "fb-icon")
-//        case "Twitter"?:
-//            cell.appImage.image = UIImage(named: "twitter_icon")
-//        case "Instagram"?:
-//            cell.appImage.image = UIImage(named: "Instagram_icon")
-//        case "Snapchat"?:
-//            cell.appImage.image = UIImage(named: "snapchat_icon")
-//        case "GooglePlus"?:
-//            cell.appImage.image = UIImage(named: "google_plus_icon")
-//        case "LinkedIn"?:
-//            cell.appImage.image = UIImage(named: "linked_in_logo")
-//        case "Xbox"?:
-//            cell.appImage.image = UIImage(named: "xbox")
-//        case "PSN"?:
-//            cell.appImage.image = UIImage(named: "play-station")
-//        case "Twitch"?:
-//            cell.appImage.image = UIImage(named: "twitch")
-//        case "Custom"?:
-//            cell.appImage.image = UIImage(named: "custom")
-//        default:
-//            cell.appImage.image = UIImage(named: "AppIcon")
-//        }
-//        //cell.NameLabel.textColor = UIColor.white
-//        //cell.layer.backgroundColor = UIColor.clear.cgColor
-//        cell.url.text = apps[indexPath.section]._uRL!
-//        cell.id = Int(apps[indexPath.section]._appId!)
-//        //print(indexPath.row)
-//        if(indexPath.section == apps.count-1){
-//            print("-----------about to create code----------")
-//            createQRCode(self)
-//        }
-//        return cell
-//    }
-//    @IBAction func refreshTableView(_ sender: Any) {
-//        print("refreshTableView()")
-//        appsTableView.reloadData()
-//    }
-    
-    @objc private func refreshAppData(_ sender: Any) {
-        print("refreshAppData()")
-        fetchAppData()
-    }
-//
-    private func fetchAppData() {
-        print("fetchAppData()")
-        //load profiles
-        //setupActivityIndicatorView()
-        self.updateView()
-        self.refreshControl.endRefreshing()
-        //self.activityIndicatorView.stopAnimating()
-    }
-    
-    private func updateView() {
-        print("updateView()")
-        let hasProfiles = profiles.count > 0
-        print("has apps: \(hasProfiles)")
-        collectionView.isHidden = false
-        if hasProfiles {
-            collectionView.reloadData()
-        } else {
-        }
-    }
+
 //
 //    // MARK: -
 //    private func setupTableView() {
@@ -547,8 +417,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         gradient.frame = view.frame
         gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
         gradient.locations = [0.0, 0.5, 1.0]
-//        gradient.colors = [UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
-//        gradient.locations = [0.0, 1.0]
         gradientView.frame = self.view.bounds
         gradientView.layer.addSublayer(gradient)
         self.view.addSubview(gradientView)
@@ -575,10 +443,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                                 constant: 0)
             ])
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets(top: 200, left: 120, bottom: 200, right: 120)
-//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 180, height: 160)
@@ -618,7 +482,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             } else {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-                print(profiles[indexPath.row].description)
+                modalVC.accounts = profiles[indexPath.row].Accounts
                 modalVC.profileID = profiles[indexPath.row].id
                 modalVC.modalPresentationStyle = .custom
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
@@ -658,6 +522,31 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //        let nevermindAction = CDAlertViewAction(title: "Nevermind 😬")
 //        alert.add(action: nevermindAction)
 //        alert.show()
+    }
+    
+    @objc private func refreshAppData(_ sender: Any) {
+        print("refreshAppData()")
+        fetchAppData()
+    }
+    //
+    private func fetchAppData() {
+        print("fetchAppData()")
+        //load profiles
+        //setupActivityIndicatorView()
+        self.updateView()
+        self.refreshControl.endRefreshing()
+        //self.activityIndicatorView.stopAnimating()
+    }
+    
+    private func updateView() {
+        print("updateView()")
+        let hasProfiles = profiles.count > 0
+        print("has apps: \(hasProfiles)")
+        collectionView.isHidden = false
+        if hasProfiles {
+            collectionView.reloadData()
+        } else {
+        }
     }
     
 }
