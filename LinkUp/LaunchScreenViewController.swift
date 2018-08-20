@@ -44,7 +44,7 @@ class LaunchScreenViewController: UIViewController {
     
     /// Simulates an API handshake success and transitions to MapViewController
     func showSplashViewController() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // change 2 to desired number of seconds
             print("showing...")
             self.showViewController()
         }

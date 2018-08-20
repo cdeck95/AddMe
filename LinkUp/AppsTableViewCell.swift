@@ -22,7 +22,8 @@ class AppsTableViewCell: UITableViewCell {
     var id:Int!
    
     @IBOutlet weak var appSwitch: UISwitch!
-    @IBOutlet weak var appImage: UIImageView!
+    @IBOutlet var appImage: UIImageView!
+    
     
     override func awakeFromNib() {
         print("AppTableViewCell.swift awakeFromNib()")

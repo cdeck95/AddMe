@@ -8,29 +8,19 @@
 
 import UIKit
 
-class ProfileCollectionViewCell: SwipingCarouselCollectionViewCell {
+class ProfileCollectionViewCell: UICollectionViewCell {
     
     var profileID: String!
     var accounts: [Apps]!
     var qrCodeString: String!
-    @IBOutlet var editButton: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var nameLabel: UILabel!
-    @IBInspectable var cornerRadius: CGFloat = 8
-    @IBInspectable var shadowOffsetWidth: Int = 4
-    @IBInspectable var shadowOffsetHeight: Int = 4
-    @IBInspectable var shadowColor: UIColor? = UIColor.gray
-    @IBInspectable var shadowOpacity: Float = 0.3
     
     @IBOutlet var descLabel: UILabel!
     
     static let reuseIdentifier = "ProfileCollectionViewCell"
-//    static var nib: UINib {
-//        get {
-//            return UINib(nibName: "ProfileCollectionViewCell", bundle: nil)
-//        }
-//    }
     
+    @IBOutlet var openButton: UIButton!
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -44,25 +34,34 @@ class ProfileCollectionViewCell: SwipingCarouselCollectionViewCell {
     }
     
     func populateWith(card: Profile) {
-        layer.cornerRadius = cornerRadius
-        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        layer.masksToBounds = true
-        layer.shadowColor = shadowColor?.cgColor
-        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
-        layer.shadowOpacity = shadowOpacity
-        layer.shadowPath = shadowPath.cgPath
+        //This creates the shadows and modifies the cards a little bit
+        contentView.layer.cornerRadius = 4.0
+        contentView.layer.borderWidth = 1.0
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.masksToBounds = false
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 1.0)
+        layer.shadowRadius = 4.0
+        layer.shadowOpacity = 1.0
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
+        
         profileID = card.id
         print("card profile id: \(profileID)")
         profileImage.image = card.image
-        profileImage.layer.borderWidth = 2
-        profileImage.layer.borderColor = Color.glass.value.cgColor
-        profileImage.layer.cornerRadius = 6
+        //profileImage.layer.borderWidth = 2
+        //profileImage.layer.borderColor = Color.glass.value.cgColor
+        //profileImage.layer.cornerRadius = 6
         profileImage.clipsToBounds = true
         nameLabel.text = card.name
-        descLabel.text = card.descriptionLabel
+        descLabel.text = "(\(card.descriptionLabel))"
         backgroundColor = card.backgroundColor
         accounts = card.Accounts
         qrCodeString = card.qrCodeString
+        
+        openButton.setImage(UIImage(named: "baseline_keyboard_arrow_right_black_18dp"), for: .normal)
+        
+        descLabel.isHidden = false
         print("populate with complete")
     }
     

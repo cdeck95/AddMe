@@ -46,9 +46,6 @@
 		DADA5B5B208B952F009BC5B2 /* EditAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */; };
 		DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */; };
 		DADA5B5F208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA5B5E208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift */; };
-		DAE24CEF21273D03005B770C /* SwipingCarouselCellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE24CEE21273D03005B770C /* SwipingCarouselCellManager.swift */; };
-		DAE24CF121273D1E005B770C /* SwipingCarouselCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE24CF021273D1E005B770C /* SwipingCarouselCollectionViewCell.swift */; };
-		DAE24CF321273D40005B770C /* SwipingCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE24CF221273D40005B770C /* SwipingCarouselFlowLayout.swift */; };
 		DAE3A2AB2093D730002689BA /* HalfModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2AA2093D730002689BA /* HalfModalPresentationController.swift */; };
 		DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */; };
 		DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */; };
@@ -102,10 +99,6 @@
 		DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAppViewController.swift; sourceTree = "<group>"; };
 		DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseSettingsTableViewController.swift; sourceTree = "<group>"; };
 		DADA5B5E208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseSettingsTableViewCell.swift; sourceTree = "<group>"; };
-		DAE24CED21273CB7005B770C /* Swiping Carousel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Swiping Carousel.h"; sourceTree = "<group>"; };
-		DAE24CEE21273D03005B770C /* SwipingCarouselCellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingCarouselCellManager.swift; sourceTree = "<group>"; };
-		DAE24CF021273D1E005B770C /* SwipingCarouselCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingCarouselCollectionViewCell.swift; sourceTree = "<group>"; };
-		DAE24CF221273D40005B770C /* SwipingCarouselFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingCarouselFlowLayout.swift; sourceTree = "<group>"; };
 		DAE3A2AA2093D730002689BA /* HalfModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalPresentationController.swift; sourceTree = "<group>"; };
 		DAE3A2AE2093D775002689BA /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
 		DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalTransitionAnimator.swift; sourceTree = "<group>"; };
@@ -174,10 +167,6 @@
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
 				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD96D092046399500F1525E /* AppsTableViewCell.swift */,
-				DAE24CED21273CB7005B770C /* Swiping Carousel.h */,
-				DAE24CEE21273D03005B770C /* SwipingCarouselCellManager.swift */,
-				DAE24CF021273D1E005B770C /* SwipingCarouselCollectionViewCell.swift */,
-				DAE24CF221273D40005B770C /* SwipingCarouselFlowLayout.swift */,
 				DAA7D4DE208568F000E62E04 /* Apps.swift */,
 				DA4388EE2086747000E0CD0D /* CameraViewController.swift */,
 				DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */,
@@ -187,15 +176,16 @@
 				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
 				DA1B39F92117C070008CE7C6 /* Dataset.swift */,
 				DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */,
-				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
 				DAF0791D21265CD90001B961 /* Extensions.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
+				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
+				DA37EE502125FA9F00A52AD9 /* Main.storyboard */,
 				DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */,
 				DA37EE452125F68A00A52AD9 /* Profile.swift */,
 				DA10A614212621660049D983 /* Cards.plist */,
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
-				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
+				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
 				DAA7D4E8208598D800E62E04 /* ProfileImage.swift */,
 				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
 				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
@@ -204,7 +194,6 @@
 				DAC9C099211F26820004170F /* Account.swift */,
 				DA130A83209643AF00622951 /* EFUIntPixel.swift */,
 				DA6A7EF02037859800E79B47 /* Assets.xcassets */,
-				DA37EE502125FA9F00A52AD9 /* Main.storyboard */,
 				DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */,
 				DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */,
 				DAD432F8203D03F70033EF35 /* User.swift */,
@@ -366,9 +355,11 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/KSSwipeStack/KSSwipeStack.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Sheeeeeeeeet/Sheeeeeeeeet.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyAvatar/SwiftyAvatar.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
 				"${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework",
 			);
@@ -394,9 +385,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSSwipeStack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sheeeeeeeeet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyAvatar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionButton.framework",
 			);
@@ -417,7 +410,6 @@
 				DA130A84209643AF00622951 /* EFUIntPixel.swift in Sources */,
 				DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */,
 				DA37EE532125FC8100A52AD9 /* AnimatedLaunchScreen.swift in Sources */,
-				DAE24CF321273D40005B770C /* SwipingCarouselFlowLayout.swift in Sources */,
 				DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */,
 				DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */,
 				DA1B39FA2117C070008CE7C6 /* Dataset.swift in Sources */,
@@ -431,7 +423,6 @@
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
 				DAC9C09A211F26820004170F /* Account.swift in Sources */,
 				DAE3A2AB2093D730002689BA /* HalfModalPresentationController.swift in Sources */,
-				DAE24CEF21273D03005B770C /* SwipingCarouselCellManager.swift in Sources */,
 				DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */,
 				DADA5B5B208B952F009BC5B2 /* EditAppViewController.swift in Sources */,
 				DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */,
@@ -444,7 +435,6 @@
 				DA37EE462125F68A00A52AD9 /* Profile.swift in Sources */,
 				DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */,
 				DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */,
-				DAE24CF121273D1E005B770C /* SwipingCarouselCollectionViewCell.swift in Sources */,
 				DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */,
 				DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */,
 				DAF0791E21265CD90001B961 /* Extensions.swift in Sources */,

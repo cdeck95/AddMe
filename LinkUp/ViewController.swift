@@ -19,17 +19,18 @@ import GoogleSignIn
 import FacebookCore
 import GoogleMobileAds
 import CDAlertView
+import FCAlertView
+import Sheeeeeeeeet
 
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Apps] = []
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SwipingCarouselDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate, FCAlertViewDelegate {
 
     var profiles: [Profile]!
     var bannerView: DFPBannerView!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var profileImage: UIImageView!
     var identityProvider:String!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
@@ -44,17 +45,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var isCellTapped = false
     var selectedSectionIndex = -1
     
-    @IBOutlet weak var collectionView: UICollectionView! { didSet {
-        let layout = SwipingCarouselFlowLayout()
-        layout.activeDistance = 50 // your desired value. Remember 200 is the default.
-        collectionView.setCollectionViewLayout(layout, animated: false)
-        }
-    }
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var profileImage: ProfileImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("----in view did load----")
-        //tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
+//        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
 
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
@@ -82,23 +79,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bannerView.rootViewController = self
         bannerView.load(DFPRequest())
         
-        profileImage.center = self.view.center
         nameLabel.center = self.view.center
         collectionView.center = self.view.center
         
         collectionView.delegate = self
         collectionView.dataSource = self
         profiles = []
-        let dict1 = ["profileID":"1", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 1", "info":"Snap & Insta"] as NSDictionary
+        let dict1 = ["profileID":"1", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "All (Default)", "qrCodeString": "qrCode for profile 1", "info":"All accounts"] as NSDictionary
         let profile = Profile(dictionary: dict1, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile)
-        var dict2 = ["profileID":"2", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 2", "info":"(Snapchat, Insta)"] as NSDictionary
+        var dict2 = ["profileID":"2", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Gaming", "qrCodeString": "qrCode for profile 2", "info":"Xbox, PSN, Twitch"] as NSDictionary
         let profile2 = Profile(dictionary: dict2, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile2)
-        let dict3 = ["profileID":"3", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 3", "info":"Snap & Insta"] as NSDictionary
+        let dict3 = ["profileID":"3", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Main Socials", "qrCodeString": "qrCode for profile 3", "info":"Facebook, Instagram, Twitter, Snachat"] as NSDictionary
         let profile3 = Profile(dictionary: dict3, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile3)
-        var dict4 = ["profileID":"4", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 4", "info":"(Snapchat, Insta)"] as NSDictionary
+        var dict4 = ["profileID":"4", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 4", "info":"Snapchat, Insta"] as NSDictionary
         let profile4 = Profile(dictionary: dict4, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile4)
         print("Profiles!... \(profiles!)")
@@ -168,6 +164,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                                 self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
                             } else {
                                 self.profileImage.image = UIImage(named: "launch_logo")
+                                self.profileImage.center = self.view.center
                                 //self.navigationItem.leftBarButtonItem = self.uploadImageButton
                                 //query the db for an image
                             }
@@ -445,11 +442,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 180, height: 160)
+        return CGSize(width: 340, height: 200)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
+        return 20.0
     }
 
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -462,70 +459,107 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
         if indexPath.item == profiles.count {
             cell.profileImage.image = UIImage(named: "add_more.png")
-            cell.profileImage.frame = cell.bounds
+            //cell.profileImage.frame = cell.bounds
             cell.nameLabel.text = "Add a Profile"
             cell.descLabel.isHidden = true
-            cell.editButton.isHidden = true
-            cell.editButton.isEnabled = false
+            cell.openButton.setImage(UIImage(named: "ic_add_circle"), for: .normal)
         } else {
             print(profiles[indexPath.row])
             cell.populateWith(card: profiles[indexPath.row])
         }
-        cell.delegate = self
         return cell
     }
-
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            print("selected card \(indexPath.row)")
-            if(indexPath.row == profiles.count){
-                print("create new account")
-            } else {
-                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
-                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-                modalVC.accounts = profiles[indexPath.row].Accounts
-                modalVC.profileImageImage = profiles[indexPath.row].image
-                modalVC.profileID = profiles[indexPath.row].id
-                modalVC.profileNameText = profiles[indexPath.row].name
-                modalVC.profileDescriptionText = profiles[indexPath.row].descriptionLabel
-                modalVC.modalTransitionStyle = .crossDissolve
-                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
-                present(modalVC, animated: true, completion: nil)
-            }
-           
-        }
     
-    
-    
-    func cellSwipedUp(_ cell: UICollectionViewCell) {
-        print("swipedUp")
-        guard let cell = cell as? ProfileCollectionViewCell else { return }
-        //Get the IndexPath from Cell being passed (swiped up).
-        let indexPath = collectionView?.indexPath(for: cell)
-        if indexPath?.row  == profiles.count {
-            print("swiped up on add more cell")
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(indexPath.row == profiles.count){
+            print("will show add more")
         } else {
-            let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-            modalVC.qrCodeString = profiles[(indexPath?.row)!].qrCodeString
-            self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-            modalVC.modalPresentationStyle = .custom
-            modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
-            present(modalVC, animated: true, completion: nil)
+            print("will show options")
+            let actionSheet = createStandardActionSheet(indexPath: indexPath)
+            actionSheet.present(in: self, from: self.view)
         }
     }
     
-    func cellSwipedDown(_ cell: UICollectionViewCell) {
-        print("swiped down")
-//        let alert = CDAlertView(title: "Deleting Profile", message: "Are you sure you wish to delete this profile?", type: .warning)
-//        let doneAction = CDAlertViewAction(title: "Sure! 💪",
-//                                           font: UIFont.systemFont(ofSize: 17),
-//                                           textColor: UIColor(red: 27 / 255, green: 169 / 255, blue: 225 / 255, alpha: 1),
-//                                           backgroundColor: nil,
-//                                           handler: { action in print("deleting")})
-//        alert.add(action: doneAction)
-//        let nevermindAction = CDAlertViewAction(title: "Nevermind 😬")
-//        alert.add(action: nevermindAction)
-//        alert.show()
+    func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
+        let title = ActionSheetTitle(title: "Select an option")
+        let item1 = ActionSheetItem(title: "View Code", value: "1", image: UIImage(named: "baseline_pageview_black_18dp"))
+        let item2 = ActionSheetItem(title: "Edit Profile", value: "2", image: UIImage(named: "baseline_create_black_18dp"))
+        let item3 = ActionSheetItem(title: "Share Profile", value: "3", image: UIImage(named: "baseline_share_black_18dp"))
+        let button = ActionSheetOkButton(title: "Cancel")
+        return ActionSheet(items: [title, item1, item2, item3, button]) { _, item in
+            guard let value = item.value as? String else { return }
+            if value == "1" {
+                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+                modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
+                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                modalVC.modalPresentationStyle = .custom
+                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                self.present(modalVC, animated: true, completion: nil)
+            } else if value == "2" {
+                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
+                    self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                    modalVC.accounts = self.profiles[indexPath.row].Accounts
+                    modalVC.profileImageImage = self.profiles[indexPath.row].image
+                    modalVC.profileID = self.profiles[indexPath.row].id
+                    modalVC.profileNameText = self.profiles[indexPath.row].name
+                    modalVC.profileDescriptionText = self.profiles[indexPath.row].descriptionLabel
+                    modalVC.modalTransitionStyle = .crossDissolve
+                    modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                    self.present(modalVC, animated: true, completion: nil)
+            } else if value == "3" {
+                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+                modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
+                modalVC.shouldShare = true
+                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                modalVC.modalPresentationStyle = .custom
+                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                self.present(modalVC, animated: true, completion: nil)
+            }
+        }
     }
+    
+    
+    
+//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//        if(indexPath.row == profiles.count){
+//            print("will show add more")
+//        } else {
+//            print("will show options")
+//            let actionController = YoutubeActionController()
+//
+//            actionController.addAction(Action(ActionData(title: "View Code", image: UIImage(named: "ic_view")!), style: .default, handler: { action in
+//                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+//                modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
+//                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+//                modalVC.modalPresentationStyle = .custom
+//                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+//                self.present(modalVC, animated: true, completion: nil)
+//            }))
+//            actionController.addAction(Action(ActionData(title: "Edit Profile", image: UIImage(named: "yt-add-to-playlist-icon")!), style: .default, handler: { action in
+//                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
+//                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+//                modalVC.accounts = self.profiles[indexPath.row].Accounts
+//                modalVC.profileImageImage = self.profiles[indexPath.row].image
+//                modalVC.profileID = self.profiles[indexPath.row].id
+//                modalVC.profileNameText = self.profiles[indexPath.row].name
+//                modalVC.profileDescriptionText = self.profiles[indexPath.row].descriptionLabel
+//                modalVC.modalTransitionStyle = .crossDissolve
+//                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+//                self.present(modalVC, animated: true, completion: nil)
+//            }))
+//            actionController.addAction(Action(ActionData(title: "Share Profile.", image: UIImage(named: "ic_share")!), style: .default, handler: { action in
+//                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+//                modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
+//                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+//                modalVC.modalPresentationStyle = .custom
+//                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+//                self.present(modalVC, animated: true, completion: nil)
+//            }))
+//            actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "ic_cancel")!), style: .cancel, handler: nil))
+//
+//            present(actionController, animated: true, completion: nil)
+//        }
+//    }
     
     @objc private func refreshAppData(_ sender: Any) {
         print("refreshAppData()")

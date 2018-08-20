@@ -36,11 +36,12 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         profileDescription.text = profileDescriptionText
         appsTableView.layer.borderColor = Color.chill.value.cgColor
         appsTableView.layer.borderWidth = 1
-        createGradientLayer()
-        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            self.navigationBar.shadowImage = UIImage()
-            self.navigationBar.isTranslucent = true
-            self.view.backgroundColor = .clear
+        appsTableView.layer.backgroundColor = UIColor.clear.cgColor
+        //createGradientLayer()
+//        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//            self.navigationBar.shadowImage = UIImage()
+//            self.navigationBar.isTranslucent = true
+//            self.view.backgroundColor = .clear
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,14 +61,14 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
 
         // This is where the table cells on the main page are modeled from.
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            // Create an object of the dynamic cell “PlainCell”
+            // Create an object of the dynamic cell “AccountsCell”
             let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "AccountsCell", for: indexPath) as! AppsTableViewCell
             print("Adding to table view now: \(cell)")
             if (!cellSwitches.contains(cell)) {
                 cellSwitches.append(cell)
             }
-            cell.NameLabel.text = accounts[indexPath.section]._displayName
-            switch accounts[indexPath.section]._platform {
+            cell.NameLabel.text = accounts[indexPath.row]._displayName
+            switch accounts[indexPath.row]._platform {
             case "Facebook"?:
                 cell.appImage.image = UIImage(named: "fb-icon")
             case "Twitter"?:
@@ -91,10 +92,10 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
             default:
                 cell.appImage.image = UIImage(named: "AppIcon")
             }
-            cell.NameLabel.textColor = UIColor.white
-            cell.layer.backgroundColor = UIColor.clear.cgColor
-            cell.url.text = accounts[indexPath.section]._uRL!
-            cell.id = Int(accounts[indexPath.section]._appId!)
+            //cell.NameLabel.textColor = UIColor.white
+            //cell.layer.backgroundColor = UIColor.clear.cgColor
+            cell.url.text = "@\(accounts[indexPath.row]._username!)"
+            cell.id = Int(accounts[indexPath.row]._appId!)
             //print(indexPath.row)
             return cell
     }
@@ -110,5 +111,13 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         self.view.addSubview(gradientView)
         self.view.sendSubview(toBack: gradientView)
     }
-
+    @IBAction func save(_ sender: Any) {
+        //call API to update
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
