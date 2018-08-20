@@ -13,8 +13,10 @@ import AWSAuthUI
 import FacebookCore
 import AWSDynamoDB
 import CDAlertView
+import FBSDKLoginKit
+import FCAlertView
 
-class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HalfModalPresentable {
+class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HalfModalPresentable, FCAlertViewDelegate {
     
     @IBOutlet weak var collection: UICollectionView!
     var datasetManager = Dataset.sharedInstance
@@ -56,110 +58,133 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
    
         var alertController:UIAlertController!
         switch key {
-            case "Facebook*":
+            case "Facebook":
                 if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
-                    let alertController = UIAlertController(title: "Good News!", message: "You are already authenticated with Facebook. Please just enter your custom display name.", preferredStyle: .alert)
-
-                    //the confirm action taking the inputs
-                    let confirmAction = UIAlertAction(title: "Ok", style: .default) { (_) in }
-
-                    //adding the action to dialogbox
-                    alertController.addAction(confirmAction)
+                    let alert = FCAlertView()
+                    alert.delegate = self
+                    alert.colorScheme = Color.bondiBlue.value
+                    alert.addTextField(withPlaceholder: "Display Name (i.e. Business Facebook") { (text) in
+                        print(text!)
+                    }
                     
-                   
-
-                    //finally presenting the dialog box
-                    self.present(alertController, animated: true, completion: nil)
+                    alert.showAlert(inView: self,
+                                    withTitle: "Good News!",
+                                    withSubtitle: "Facebook is already connected. Please just enter your custom display name.",
+                                    withCustomImage: #imageLiteral(resourceName: "fb-icon"),
+                                    withDoneButtonTitle: "Connect",
+                                    andButtons: ["Cancel"])
+                    
                     return
                 } else {
-                     alertController = UIAlertController(title: "Enter details", message: "Facebook special instructions", preferredStyle: .alert)
+                    let alert = FCAlertView()
+                    alert.delegate = self
+                    alert.colorScheme = Color.bondiBlue.value
+                    alert.addTextField(withPlaceholder: "Display Name (i.e. Business Facebook") { (text) in
+                        print(text!)
+                    }
+                    alert.addTextField(withPlaceholder: "Username") { (text) in
+                        print(text!)
+                    }
+                    
+                    alert.showAlert(inView: self,
+                                    withTitle: "Connect Account",
+                                    withSubtitle: "Please enter your account details below.",
+                                    withCustomImage: #imageLiteral(resourceName: "fb-icon-2"),
+                                    withDoneButtonTitle: "Connect",
+                                    andButtons: ["Cancel"])
+                    
+                    return
                 }
             case "Custom":
-                alertController = UIAlertController(title: "Enter details", message: "Enter your website URL", preferredStyle: .alert)
-                //the cancel action doing nothing
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-                
-                //adding textfields to our dialog box
-                alertController.addTextField { (textField) in
-                    textField.placeholder = "Enter Your Custom Display Name (i.e Personal Facebook)"
+                let alert = FCAlertView()
+                alert.delegate = self
+                alert.colorScheme = Color.bondiBlue.value
+                alert.addTextField(withPlaceholder: "Display Name (i.e. Business Facebook") { (text) in
+                    print(text!)
+                }
+                alert.addTextField(withPlaceholder: "Username") { (text) in
+                    print(text!)
                 }
                 
-                //adding textfields to our dialog box
-                alertController.addTextField { (textField) in
-                    textField.placeholder = "Enter Website URL"
-                }
-                
-                //adding the action to dialogbox
-                alertController.addAction(cancelAction)
-            default:
-                alertController = UIAlertController(title: "Enter details", message: "Enter your username", preferredStyle: .alert)
-                //the cancel action doing nothing
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-                
-                //adding textfields to our dialog box
-                alertController.addTextField { (textField) in
-                    textField.placeholder = "Enter Your Custom Display Name (i.e Personal Facebook)"
-                }
-                
-                //adding textfields to our dialog box
-                alertController.addTextField { (textField) in
-                    textField.placeholder = "Enter Username"
-                }
-                
-                //adding the action to dialogbox
-                alertController.addAction(cancelAction)
-        }
-        
-        
-        //the confirm action taking the inputs
-        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
-            //getting the input values from user
-            let username:String = (alertController.textFields?[1].text)!
-            let displayName:String = (alertController.textFields?[0].text)!
-            print(username)
-            print(displayName)
-            print(key)
-            let app:Apps = Apps()
-            app._displayName = displayName
-            app._platform = key
-            app._username = username
-            switch key {
-            case "Facebook":
-                app._uRL = "https://www.facebook.com/\(username)"
-            case "Twitter":
-                app._uRL = "https://www.twitter.com/\(username)"
-            case "Instagram":
-                app._uRL = "https://www.instagram.com/\(username)"
-            case "Snapchat":
-                app._uRL = "https://www.snapchat.com/add/\(username)"
-            case "LinkedIn":
-                app._uRL = "https://www.linkedin.com/in/\(username)"
-            case "GooglePlus":
-                app._uRL = "https://plus.google.com/\(username)"
-            case "Xbox":
-                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                app._uRL = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
-            case "PSN":
-                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                app._uRL = "https://my.playstation.com/profile/\(usernameURL!)"
-            case "Twitch":
-                app._uRL = "https://m.twitch.tv/\(username)/profile"
-            case "Custom":
-                app._uRL = "\(username)"
-            default:
-                print("unknown app found: \(key)")
-            }
+                alert.showAlert(inView: self,
+                                withTitle: "Connect Account",
+                                withSubtitle: "Please enter your account details below.",
+                                withCustomImage: #imageLiteral(resourceName: "custom"),
+                                withDoneButtonTitle: "Connect",
+                                andButtons: ["Cancel"])
+                return
             
-            //if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: app._userId!))
-            //{
-            self.addToDB(cognitoId: self.credentialsManager.identityID, displayName: displayName, platform: key, url: app._uRL!, username: username)
-            //}else {
-            //    print("Can't add this app")
-            //}
+            default:
+                let alert = FCAlertView()
+                alert.delegate = self
+                alert.colorScheme = Color.bondiBlue.value
+                alert.addTextField(withPlaceholder: "Display Name (i.e. Business Facebook") { (text) in
+                    print(text!)
+                }
+                alert.addTextField(withPlaceholder: "Username") { (text) in
+                    print(text!)
+                }
+                
+                alert.showAlert(inView: self,
+                                withTitle: "Connect Account",
+                                withSubtitle: "Please enter your account details below.",
+                                withCustomImage: #imageLiteral(resourceName: "twitter_icon"),
+                                withDoneButtonTitle: "Connect",
+                                andButtons: ["Cancel"])
+                
+            return
         }
-        alertController.addAction(confirmAction)
-        //finally presenting the dialog box
-        self.present(alertController, animated: true, completion: nil)
+        
+        
+//        //the confirm action taking the inputs
+//        let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+//            //getting the input values from user
+//            let username:String = (alertController.textFields?[1].text)!
+//            let displayName:String = (alertController.textFields?[0].text)!
+//            print(username)
+//            print(displayName)
+//            print(key)
+//            let app:Apps = Apps()
+//            app._displayName = displayName
+//            app._platform = key
+//            app._username = username
+//            switch key {
+//            case "Facebook":
+//                app._uRL = "https://www.facebook.com/\(username)"
+//            case "Twitter":
+//                app._uRL = "https://www.twitter.com/\(username)"
+//            case "Instagram":
+//                app._uRL = "https://www.instagram.com/\(username)"
+//            case "Snapchat":
+//                app._uRL = "https://www.snapchat.com/add/\(username)"
+//            case "LinkedIn":
+//                app._uRL = "https://www.linkedin.com/in/\(username)"
+//            case "GooglePlus":
+//                app._uRL = "https://plus.google.com/\(username)"
+//            case "Xbox":
+//                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+//                app._uRL = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
+//            case "PSN":
+//                let usernameURL = username.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+//                app._uRL = "https://my.playstation.com/profile/\(usernameURL!)"
+//            case "Twitch":
+//                app._uRL = "https://m.twitch.tv/\(username)/profile"
+//            case "Custom":
+//                app._uRL = "\(username)"
+//            default:
+//                print("unknown app found: \(key)")
+//            }
+//
+//            //if (self.verifyAppForUser(displayName: displayName, platform: key, url: app._uRL!, userName: app._userId!))
+//            //{
+//            self.addToDB(cognitoId: self.credentialsManager.identityID, displayName: displayName, platform: key, url: app._uRL!, username: username)
+//            //}else {
+//            //    print("Can't add this app")
+//            //}
+//        }
+//        alertController.addAction(confirmAction)
+//        //finally presenting the dialog box
+//        self.present(alertController, animated: true, completion: nil)
     }
     
     func presentAlert(message: String){
@@ -174,6 +199,15 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
 
         //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func alertView(alertView: FCAlertView, clickedButtonIndex index: Int, buttonTitle title: String) {
+        
+        if title == "Button 1" {
+            // Perform Action for Button 1
+        }else if title == "Button 2"{
+            // Perform Action for Button 2
+        }
     }
     
     @IBAction func dismiss(_ sender: Any) {

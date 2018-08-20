@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import AWSCognito
 import Foundation
 import CDAlertView
+import AWSCognito
 
 class QRCodeViewController: UIViewController, HalfModalPresentable {
 
@@ -18,7 +18,10 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
     var qrCode:UIImage!
-    var qrCodeString:String!
+    var qrCodeString:String = "empty"
+    var shouldShare:Bool = false
+    
+    @IBOutlet var shareButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,10 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     override func viewWillAppear(_ animated: Bool) {
         createQRCode(self)
         print("qr code string: \(qrCodeString)")
+        if(shouldShare){
+            shareButtonClicked(sender: shareButton)
+        }
+//        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -111,13 +118,22 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
         activityVC.excludedActivityTypes = [UIActivityType.addToReadingList, UIActivityType.print, UIActivityType.assignToContact]
         activityVC.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
         activityVC.completionWithItemsHandler = {(activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
-            if (activityType == UIActivityType.saveToCameraRoll) {
-                CDAlertView(title: "Success!", message: "Your QR code is now saved to your camera roll!", type: .success).show()
-                return
-            } else if (activityType == UIActivityType.copyToPasteboard) {
-                CDAlertView(title: "Success!", message: "Your QR code is now copied to your Pasteboard!", type: .success).show()
+            if (error == nil) {
+                if (activityType == UIActivityType.saveToCameraRoll) {
+                    CDAlertView(title: "Success!", message: "Your QR code is now saved to your camera roll!", type: .success).show()
+                    return
+                } else if (activityType == UIActivityType.copyToPasteboard) {
+                    CDAlertView(title: "Success!", message: "Your QR code is now copied to your Pasteboard!", type: .success).show()
+                    return
+                } else if (activityType == UIActivityType.message) {
+                    self.dismiss(animated: false, completion: nil)
+                }
+            } else {
+                CDAlertView(title: "Uh Oh!", message: "Something went wrong. Please try again. If this keeps happening, contact our support team and we will be happy to assist.", type: .error).show()
+                print(error)
                 return
             }
+            
         }
         self.present(activityVC, animated: true, completion: nil)
     }

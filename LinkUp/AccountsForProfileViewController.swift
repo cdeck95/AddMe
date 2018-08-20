@@ -8,9 +8,19 @@
 
 import UIKit
 
-class AccountsForProfileViewController: UIViewController, HalfModalPresentable {
+class AccountsForProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, HalfModalPresentable {
 
+    @IBOutlet var navigationBar: UINavigationBar!
+    @IBOutlet var appsTableView: UITableView!
     var profileID:String!
+    var accounts:[Apps]!
+    var profileImageImage: UIImage!
+    var profileNameText: String!
+    var profileDescriptionText: String!
+    @IBOutlet var profileImage: ProfileImage!
+    @IBOutlet var profileName: UITextField!
+    @IBOutlet var profileDescription: UITextField!
+    var gradient: CAGradientLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +29,19 @@ class AccountsForProfileViewController: UIViewController, HalfModalPresentable {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-         print("profile ID \(profileID)")
+        print("profile ID \(profileID)")
+        print("accounts: \(accounts)")
+        profileImage.image = profileImageImage
+        profileName.text = profileNameText
+        profileDescription.text = profileDescriptionText
+        appsTableView.layer.borderColor = Color.chill.value.cgColor
+        appsTableView.layer.borderWidth = 1
+        appsTableView.layer.backgroundColor = UIColor.clear.cgColor
+        //createGradientLayer()
+//        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//            self.navigationBar.shadowImage = UIImage()
+//            self.navigationBar.isTranslucent = true
+//            self.view.backgroundColor = .clear
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,15 +49,75 @@ class AccountsForProfileViewController: UIViewController, HalfModalPresentable {
         // Dispose of any resources that can be recreated.
     }
     
+    
+        func numberOfSections(in tableView: UITableView) -> Int {
+            return 1
+        }
+    
+        // There is just one row in every section
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return accounts.count
+        }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        // This is where the table cells on the main page are modeled from.
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            // Create an object of the dynamic cell “AccountsCell”
+            let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "AccountsCell", for: indexPath) as! AppsTableViewCell
+            print("Adding to table view now: \(cell)")
+            if (!cellSwitches.contains(cell)) {
+                cellSwitches.append(cell)
+            }
+            cell.NameLabel.text = accounts[indexPath.row]._displayName
+            switch accounts[indexPath.row]._platform {
+            case "Facebook"?:
+                cell.appImage.image = UIImage(named: "fb-icon")
+            case "Twitter"?:
+                cell.appImage.image = UIImage(named: "twitter_icon")
+            case "Instagram"?:
+                cell.appImage.image = UIImage(named: "Instagram_icon")
+            case "Snapchat"?:
+                cell.appImage.image = UIImage(named: "snapchat_icon")
+            case "GooglePlus"?:
+                cell.appImage.image = UIImage(named: "google_plus_icon")
+            case "LinkedIn"?:
+                cell.appImage.image = UIImage(named: "linked_in_logo")
+            case "Xbox"?:
+                cell.appImage.image = UIImage(named: "xbox")
+            case "PSN"?:
+                cell.appImage.image = UIImage(named: "play-station")
+            case "Twitch"?:
+                cell.appImage.image = UIImage(named: "twitch")
+            case "Custom"?:
+                cell.appImage.image = UIImage(named: "custom")
+            default:
+                cell.appImage.image = UIImage(named: "AppIcon")
+            }
+            //cell.NameLabel.textColor = UIColor.white
+            //cell.layer.backgroundColor = UIColor.clear.cgColor
+            cell.url.text = "@\(accounts[indexPath.row]._username!)"
+            cell.id = Int(accounts[indexPath.row]._appId!)
+            //print(indexPath.row)
+            return cell
     }
-    */
-
+    
+    func createGradientLayer() {
+        gradient = CAGradientLayer()
+        let gradientView = UIView(frame: self.view.bounds)
+        gradient.frame = view.frame
+        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
+        gradient.locations = [0.0, 0.5, 1.0]
+        gradientView.frame = self.view.bounds
+        gradientView.layer.addSublayer(gradient)
+        self.view.addSubview(gradientView)
+        self.view.sendSubview(toBack: gradientView)
+    }
+    @IBAction func save(_ sender: Any) {
+        //call API to update
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

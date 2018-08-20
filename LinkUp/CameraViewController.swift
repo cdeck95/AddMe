@@ -36,7 +36,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     override func viewDidAppear(_ animated: Bool) {
         imagePicker.delegate = self
         interstitial = createAndLoadInterstitial()
-        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
+//        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
     }
     
     @IBAction func takePhoto(sender: AnyObject) {
