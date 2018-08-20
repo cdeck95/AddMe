@@ -11,7 +11,7 @@ import AVFoundation
 import SafariServices
 import GoogleMobileAds
 
-class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate {
+class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate, UIPopoverControllerDelegate {
     
  
     var bannerView: DFPBannerView!
@@ -36,6 +36,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     override func viewDidAppear(_ animated: Bool) {
         imagePicker.delegate = self
         interstitial = createAndLoadInterstitial()
+        safariApps = []
+        nativeApps = []
 //        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
     }
     
@@ -188,11 +190,16 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         print(safariApps)
         print(nativeApps)
         
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ScannedProfileViewController") as! ScannedProfileViewController
-        vc.modalPresentationStyle = .popover
-        vc.safariApps = self.safariApps
-        vc.nativeApps = self.nativeApps
-        self.navigationController?.pushViewController(vc, animated: true)
+        var allApps:[Apps] = []
+        for app in safariApps {
+            allApps.append(app)
+        }
+        for app in nativeApps {
+            allApps.append(app)
+        }
+        
+        //present popove
+       
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)

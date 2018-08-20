@@ -39,7 +39,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = false
-        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowColor = Color.coral.value.cgColor //UIColor.gray.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 1.0)
         layer.shadowRadius = 4.0
         layer.shadowOpacity = 1.0

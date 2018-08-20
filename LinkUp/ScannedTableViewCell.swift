@@ -17,6 +17,8 @@ class ScannedTableViewCell: UITableViewCell {
     @IBInspectable var shadowOpacity: Float = 0.3
 
     @IBOutlet var openButton: UIButton!
+    @IBOutlet var appIcon: UIImageView!
+    @IBOutlet var url: UILabel!
     
     override func awakeFromNib() {
         print("AppTableViewCell.swift awakeFromNib()")

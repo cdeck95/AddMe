@@ -44,6 +44,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let cellSpacingHeight: CGFloat = 15
     var isCellTapped = false
     var selectedSectionIndex = -1
+    var customView: UIView!
+    var labelsArray: Array<UILabel> = []
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var profileImage: ProfileImage!
@@ -51,27 +53,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         print("----in view did load----")
-//        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
 
-        // Add Refresh Control to Table View
-        if #available(iOS 10.0, *) {
-            collectionView.refreshControl = refreshControl
-        } else {
-            collectionView.addSubview(refreshControl)
-        }
-//        // Configure Refresh Control
+     
+        loadCustomRefreshContents()
+        // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
-//        setupView()
         imagePicker.delegate = self
         createGradientLayer()
-        //appsTableView.layer.backgroundColor = UIColor.clear.cgColor
-        //appsTableView.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
-//        self.tabBarController?.tabBar.isTranslucent = true
-//        self.tabBarController?.view.backgroundColor = .clear
         
         bannerView = DFPBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
@@ -361,19 +353,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //Finally return the UIImage
         return UIImage(cgImage: cgImage)
     }
-    
-
-//
-//    // MARK: -
-//    private func setupTableView() {
-//        print("setuptableView()")
-//        appsTableView.isHidden = false// true
-//        activityIndicatorView.isHidden = false
-//    }
-//
-//    private func setupActivityIndicatorView() {
-//        activityIndicatorView.startAnimating()
-//    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -545,6 +524,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             collectionView.reloadData()
         } else {
         }
+    }
+    
+    func loadCustomRefreshContents() {
+//        let refreshContents = Bundle.main.loadNibNamed("RefreshContents", owner: self, options: nil)
+//
+//        customView = refreshContents![0] as! UIView
+//        customView.frame = refreshControl.bounds
+//        
+//        for i in 0 ..< customView.subviews.count {
+//            labelsArray.append(customView.viewWithTag(i + 1) as! UILabel)
+//        }
+//
+//        refreshControl.addSubview(customView)
+        
+        if #available(iOS 10.0, *) {
+            collectionView.refreshControl = refreshControl
+        } else {
+            collectionView.addSubview(refreshControl)
+        }
+
     }
     
 }

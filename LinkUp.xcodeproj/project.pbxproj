@@ -20,6 +20,7 @@
 		DA37EE512125FA9F00A52AD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA37EE502125FA9F00A52AD9 /* Main.storyboard */; };
 		DA37EE532125FC8100A52AD9 /* AnimatedLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */; };
 		DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4388EE2086747000E0CD0D /* CameraViewController.swift */; };
+		DA5C4717212B37B00005FC2E /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5C4716212B37B00005FC2E /* RefreshContents.xib */; };
 		DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68505C205B5FA300BA36DE /* HelpViewController.swift */; };
 		DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EE92037859800E79B47 /* AppDelegate.swift */; };
 		DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EEB2037859800E79B47 /* ViewController.swift */; };
@@ -73,6 +74,7 @@
 		DA37EE502125FA9F00A52AD9 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedLaunchScreen.swift; sourceTree = "<group>"; };
 		DA4388EE2086747000E0CD0D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		DA5C4716212B37B00005FC2E /* RefreshContents.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
 		DA68505C205B5FA300BA36DE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DA6A7EE62037859800E79B47 /* LinkUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A7EE92037859800E79B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
+				DA5C4716212B37B00005FC2E /* RefreshContents.xib */,
 				DAA7D4E8208598D800E62E04 /* ProfileImage.swift */,
 				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
 				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD432F7203D02240033EF35 /* awsconfiguration.json in Resources */,
+				DA5C4717212B37B00005FC2E /* RefreshContents.xib in Resources */,
 				DA10A612212606FF0049D983 /* trench100free.otf in Resources */,
 				DA10A613212607010049D983 /* trench100free.ttf in Resources */,
 				DA10A615212621660049D983 /* Cards.plist in Resources */,
