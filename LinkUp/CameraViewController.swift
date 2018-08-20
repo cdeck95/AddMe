@@ -79,7 +79,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                     dict = result
                     print("dict:  \(dict)")
                     convertToArray()
-                     openPlatforms()
+                     //openPlatforms()
                 }
                 catch let error as NSError {
                     print(error.localizedDescription)
@@ -187,6 +187,12 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         print(safariApps)
         print(nativeApps)
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ScannedProfileViewController") as! ScannedProfileViewController
+        vc.modalPresentationStyle = .popover
+        vc.safariApps = self.safariApps
+        vc.nativeApps = self.nativeApps
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)

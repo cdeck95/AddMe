@@ -508,6 +508,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     self.present(modalVC, animated: true, completion: nil)
             } else if value == "3" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+//                let encoder = JSONEncoder()
+//                encoder.outputFormatting = .prettyPrinted
+//                let data = try! encoder.encode(profiles[Apps])
+//                print(String(data: data, encoding: .utf8)!)
                 modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
                 modalVC.shouldShare = true
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
@@ -517,49 +521,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         }
     }
-    
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        if(indexPath.row == profiles.count){
-//            print("will show add more")
-//        } else {
-//            print("will show options")
-//            let actionController = YoutubeActionController()
-//
-//            actionController.addAction(Action(ActionData(title: "View Code", image: UIImage(named: "ic_view")!), style: .default, handler: { action in
-//                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-//                modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
-//                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-//                modalVC.modalPresentationStyle = .custom
-//                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
-//                self.present(modalVC, animated: true, completion: nil)
-//            }))
-//            actionController.addAction(Action(ActionData(title: "Edit Profile", image: UIImage(named: "yt-add-to-playlist-icon")!), style: .default, handler: { action in
-//                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
-//                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-//                modalVC.accounts = self.profiles[indexPath.row].Accounts
-//                modalVC.profileImageImage = self.profiles[indexPath.row].image
-//                modalVC.profileID = self.profiles[indexPath.row].id
-//                modalVC.profileNameText = self.profiles[indexPath.row].name
-//                modalVC.profileDescriptionText = self.profiles[indexPath.row].descriptionLabel
-//                modalVC.modalTransitionStyle = .crossDissolve
-//                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
-//                self.present(modalVC, animated: true, completion: nil)
-//            }))
-//            actionController.addAction(Action(ActionData(title: "Share Profile.", image: UIImage(named: "ic_share")!), style: .default, handler: { action in
-//                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-//                modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
-//                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-//                modalVC.modalPresentationStyle = .custom
-//                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
-//                self.present(modalVC, animated: true, completion: nil)
-//            }))
-//            actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "ic_cancel")!), style: .cancel, handler: nil))
-//
-//            present(actionController, animated: true, completion: nil)
-//        }
-//    }
     
     @objc private func refreshAppData(_ sender: Any) {
         print("refreshAppData()")

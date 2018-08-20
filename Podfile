@@ -32,5 +32,6 @@ target 'LinkUp' do
     pod 'SkyFloatingLabelTextField', '~> 3.0'
     pod "KSSwipeStack"
     pod 'Sheeeeeeeeet'
+    pod 'PMSuperButton'
 
 end

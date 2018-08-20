@@ -103,6 +103,7 @@ class Profile {
         self.id = (dictionary["profileID"] as? String)!
         print(self.id)
         self.name = (dictionary["name"] as? String)!
+        
         self.qrCodeString = (dictionary["qrCodeString"] as? String)!
         self.backgroundColor = UIColor(red: 237/255, green: 250/255, blue: 253/255, alpha: 1)
         self.descriptionLabel = (dictionary["info"] as? String)!
