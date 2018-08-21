@@ -21,11 +21,12 @@ import GoogleMobileAds
 import CDAlertView
 import FCAlertView
 import Sheeeeeeeeet
+import SideMenuSwift
 
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Apps] = []
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate, FCAlertViewDelegate {
+class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate, FCAlertViewDelegate {
 
     var profiles: [Profile]!
     var bannerView: DFPBannerView!
@@ -46,6 +47,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var selectedSectionIndex = -1
     var customView: UIView!
     var labelsArray: Array<UILabel> = []
+    var isDarkModeEnabled = false
+    private var themeColor = UIColor.white
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var profileImage: ProfileImage!
@@ -77,19 +80,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         collectionView.delegate = self
         collectionView.dataSource = self
         profiles = []
-        let dict1 = ["profileID":"1", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "All (Default)", "qrCodeString": "qrCode for profile 1", "info":"All accounts"] as NSDictionary
+        let dict1 = ["profileID":"1", "name": "All (Default)", "qrCodeString": "qrCode for profile 1", "info":"All accounts"] as NSDictionary
         let profile = Profile(dictionary: dict1, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile)
-        var dict2 = ["profileID":"2", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Gaming", "qrCodeString": "qrCode for profile 2", "info":"Xbox, PSN, Twitch"] as NSDictionary
+        var dict2 = ["profileID":"2", "name": "Gaming", "qrCodeString": "qrCode for profile 2", "info":"Xbox, PSN, Twitch"] as NSDictionary
         let profile2 = Profile(dictionary: dict2, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile2)
-        let dict3 = ["profileID":"3", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Main Socials", "qrCodeString": "qrCode for profile 3", "info":"Facebook, Instagram, Twitter, Snachat"] as NSDictionary
+        let dict3 = ["profileID":"3", "name": "Main Socials", "qrCodeString": "qrCode for profile 3", "info":"Facebook, Instagram, Twitter, Snachat"] as NSDictionary
         let profile3 = Profile(dictionary: dict3, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile3)
-        var dict4 = ["profileID":"4", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 4", "info":"Snapchat, Insta"] as NSDictionary
+        var dict4 = ["profileID":"4", "name": "Going out", "qrCodeString": "qrCode for profile 4", "info":"Snapchat, Insta"] as NSDictionary
         let profile4 = Profile(dictionary: dict4, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile4)
+//        for profile in profiles {
+//            profile.loadAccountsInProfile()
+//        }
         print("Profiles!... \(profiles!)")
+        addSlideMenuButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -177,106 +184,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//
-//    func loadApps(){
-//        print("loadApps()")
-//        loadAppsFromDB()
-//    }
-//
-    ////////////////////////////// BEGINNING OF JSON ///////////////////////////////////
-    
-    // TomMiller 2018/06/27 - Added struct to interact with JSON
-    struct JsonApp: Decodable {
-        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
-        let accounts: [[String: String]]
-    }
-    
-    var JsonApps = [JsonApp]()
-    ////////////////////////////// END OF JSON ///////////////////////////////////
-    
-//    // Tom 2018/04/18
-//    func loadAppsFromDB() {
-//        print("RIGHT HERE")
-//        apps = []
-//        var returnList: [Apps] = []
-//        let idString = self.credentialsManager.identityID!
-//        print(idString)
-//        let sema = DispatchSemaphore(value: 0);
-//        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/")!)
-//        print(request)
-//        request.httpMethod = "GET"
-//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
-//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-//
-//        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-//        data, response, error in
-//        if error != nil {
-//            print("error=\(error)")
-//            sema.signal()
-//            return
-//        } else {
-//            print("---no error----")
-//        }
-//            //////////////////////// New stuff from Tom
-//            do {
-//                print(data)
-//                print("decoding")
-//                let decoder = JSONDecoder()
-//                print("getting data")
-//                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
-//                print(JSONdata)
-//                if(JSONdata.accounts.count == 0){
-//                    print("no accounts")
-//                    returnList = []
-//                    sema.signal()
-//                } else {
-//                    //=======
-//                    for index in 0...JSONdata.accounts.count - 1 {
-//                       let listOfAccountInfo = JSONdata.accounts[index]
-//                        let displayName = listOfAccountInfo["displayName"]!
-//                        let platform = listOfAccountInfo["platform"]!
-//                        let url = listOfAccountInfo["url"]!
-//                        let username = listOfAccountInfo["username"]!
-//                        var appIdString = listOfAccountInfo["accountId"]!
-//                      //  var isSwitchOn = listOfAccountInfo["isSwitchOn"]!
-//    //                    if(appIdString.prefix(2) == "0x"){
-//    //                        appIdString.removeFirst(2)
-//    //                    }
-//                        print(appIdString)
-//                        let appId = Int(appIdString)!//, radix: 16)!
-//                        print(displayName)
-//                        print(platform)
-//                        print(url)
-//                        print(appId)
-//                        //print(username)
-//                        let app = Apps()
-//                        app?._appId = "\(appId)"
-//                        app?._displayName = displayName
-//                        app?._platform = platform
-//                        app?._uRL = url
-//                        app?._username = username
-//                        app?._isSwitchOn = "True"
-//                        print(app)
-//                        returnList.append(app!)
-//                    }
-//                }
-//                    apps = returnList
-//                    sema.signal();
-//                    //=======
-//                } catch let err {
-//                    print("Err", err)
-//                    apps = returnList
-//                    sema.signal(); // none found TODO: do something better than this shit.
-//                }
-//                print("Done")
-//        })
-//        task.resume()
-//        sema.wait(timeout: DispatchTime.distantFuture)
-//        apps = returnList
-//        cellSwitches = []
-//        //self.appsTableView.reloadData()
-//    }
-    
+ 
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
         print("getFBUserInfo()")
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
@@ -391,8 +299,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         gradient = CAGradientLayer()
         let gradientView = UIView(frame: self.view.bounds)
         gradient.frame = view.frame
-        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
-        gradient.locations = [0.0, 0.5, 1.0]
+//        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
+//        gradient.locations = [0.0, 0.5, 1.0]
+        gradient.colors = [Color.bondiBlue.value.cgColor, Color.coral.value.cgColor]
+        gradient.locations = [0.0, 1.0]
         gradientView.frame = self.view.bounds
         gradientView.layer.addSublayer(gradient)
         self.view.addSubview(gradientView)
@@ -421,7 +331,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 340, height: 200)
+        return CGSize(width: 340, height: 260)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -436,6 +346,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @objc func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
+       // cell.backgroundColor = Color.bondiBlue.value
+       // cell.nameLabel.textColor = Color.glass.value
+       // cell.descLabel.textColor = Color.glass.value
         if indexPath.item == profiles.count {
             cell.profileImage.image = UIImage(named: "add_more.png")
             //cell.profileImage.frame = cell.bounds
@@ -530,7 +443,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //        let refreshContents = Bundle.main.loadNibNamed("RefreshContents", owner: self, options: nil)
 //
 //        customView = refreshContents![0] as! UIView
-//        customView.frame = refreshControl.bounds
+//        customView.frame = self.view.bounds
 //        
 //        for i in 0 ..< customView.subviews.count {
 //            labelsArray.append(customView.viewWithTag(i + 1) as! UILabel)
@@ -547,6 +460,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
 }
+
+
+
 
 extension String
 {

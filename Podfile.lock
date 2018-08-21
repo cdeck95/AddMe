@@ -31,6 +31,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
   - CDAlertView (0.8.3)
+  - ESTabBarController-swift (2.6.2)
   - FacebookCore (0.3.2):
     - Bolts (~> 1.8)
     - FBSDKCoreKit (~> 4.35)
@@ -65,7 +66,7 @@ PODS:
   - PMSuperButton (2.1.2)
   - RxSwift (4.2.0)
   - Sheeeeeeeeet (0.9.5)
-  - SideMenu (4.0.0)
+  - SideMenuSwift (0.4.1)
   - SkyFloatingLabelTextField (3.5.1)
   - SwipeableTabBarController (1.3.1)
   - TransitionButton (0.5.1)
@@ -79,6 +80,7 @@ DEPENDENCIES:
   - AWSMobileClient (~> 2.6.6)
   - AWSUserPoolsSignIn (~> 2.6.6)
   - CDAlertView
+  - ESTabBarController-swift
   - FacebookCore
   - FBSDKLoginKit
   - FCAlertView
@@ -87,7 +89,7 @@ DEPENDENCIES:
   - KSSwipeStack
   - PMSuperButton
   - Sheeeeeeeeet
-  - SideMenu
+  - SideMenuSwift
   - SkyFloatingLabelTextField (~> 3.0)
   - SwipeableTabBarController (from `https://github.com/marcosgriselli/SwipeableTabBarController.git`, branch `fix/48_freeze`)
   - TransitionButton
@@ -107,6 +109,7 @@ SPEC REPOS:
     - AWSUserPoolsSignIn
     - Bolts
     - CDAlertView
+    - ESTabBarController-swift
     - FacebookCore
     - FBSDKCoreKit
     - FBSDKLoginKit
@@ -120,7 +123,7 @@ SPEC REPOS:
     - PMSuperButton
     - RxSwift
     - Sheeeeeeeeet
-    - SideMenu
+    - SideMenuSwift
     - SkyFloatingLabelTextField
     - TransitionButton
 
@@ -148,6 +151,7 @@ SPEC CHECKSUMS:
   AWSUserPoolsSignIn: dfc849bcd5f965248ec8bb11c37e640bede7e377
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CDAlertView: 7ec9ce91ccd800a66a18f7fd92a9dea20c5326a2
+  ESTabBarController-swift: f0a8679e43df1e60b7b36bbcaf1dc98ba6273c7d
   FacebookCore: fe93222bb70346730ef33b061d493e9e7a7cb1f5
   FBSDKCoreKit: 1a5b2e3ceb5ca827a53c54aa5f4a3480efff80d2
   FBSDKLoginKit: 00a3d65d1226852f9d76dcddff01981e5e6d9c38
@@ -161,11 +165,11 @@ SPEC CHECKSUMS:
   PMSuperButton: 968f45a9a157499fcdd195ee54613a4cce980bdb
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
   Sheeeeeeeeet: e7a54ed2007d12b5b3b5d2fa5b98ce9b994ca335
-  SideMenu: 70ee5657df63ec3382660ec4ef470bf1cf5db07d
+  SideMenuSwift: c4309bd978c61a61d5941eb0fa2112f6b346a331
   SkyFloatingLabelTextField: 4cbeece9c3aae97c6019d8fae511cb5b755874f7
   SwipeableTabBarController: 0e3e229aa1edfc1b8b4daf24df7de2643578cf42
   TransitionButton: 20f92b3cc726b047e4df200fdab5307f33395a81
 
-PODFILE CHECKSUM: 2e4a147b44232d582647f5b134e80087ef12f620
+PODFILE CHECKSUM: 0acd1caa9e4be9678ac4c094cade32d2c0feb5ab
 
 COCOAPODS: 1.6.0.beta.1

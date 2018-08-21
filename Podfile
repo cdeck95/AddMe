@@ -13,7 +13,7 @@ target 'LinkUp' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-    pod 'SideMenu'
+    pod 'SideMenuSwift'
     pod 'AWSUserPoolsSignIn', '~> 2.6.6'
     pod 'AWSAuthUI'
     pod 'AWSMobileClient', '~> 2.6.6'
@@ -33,5 +33,7 @@ target 'LinkUp' do
     pod "KSSwipeStack"
     pod 'Sheeeeeeeeet'
     pod 'PMSuperButton'
+    pod "ESTabBarController-swift"
+
 
 end

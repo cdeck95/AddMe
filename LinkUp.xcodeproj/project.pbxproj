@@ -21,6 +21,8 @@
 		DA37EE532125FC8100A52AD9 /* AnimatedLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */; };
 		DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4388EE2086747000E0CD0D /* CameraViewController.swift */; };
 		DA5C4717212B37B00005FC2E /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5C4716212B37B00005FC2E /* RefreshContents.xib */; };
+		DA5C4719212B86970005FC2E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5C4718212B86970005FC2E /* MenuViewController.swift */; };
+		DA5C471B212B8BE50005FC2E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5C471A212B8BE50005FC2E /* BaseViewController.swift */; };
 		DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68505C205B5FA300BA36DE /* HelpViewController.swift */; };
 		DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EE92037859800E79B47 /* AppDelegate.swift */; };
 		DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EEB2037859800E79B47 /* ViewController.swift */; };
@@ -75,6 +77,8 @@
 		DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedLaunchScreen.swift; sourceTree = "<group>"; };
 		DA4388EE2086747000E0CD0D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		DA5C4716212B37B00005FC2E /* RefreshContents.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
+		DA5C4718212B86970005FC2E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		DA5C471A212B8BE50005FC2E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DA68505C205B5FA300BA36DE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DA6A7EE62037859800E79B47 /* LinkUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A7EE92037859800E79B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +198,8 @@
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
+				DA5C471A212B8BE50005FC2E /* BaseViewController.swift */,
+				DA5C4718212B86970005FC2E /* MenuViewController.swift */,
 				DA5C4716212B37B00005FC2E /* RefreshContents.xib */,
 				DAA7D4E8208598D800E62E04 /* ProfileImage.swift */,
 				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
@@ -358,6 +364,7 @@
 				"${BUILT_PRODUCTS_DIR}/AWSUserPoolsSignIn/AWSUserPoolsSignIn.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CDAlertView/CDAlertView.framework",
+				"${BUILT_PRODUCTS_DIR}/ESTabBarController-swift/ESTabBarController_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FCAlertView/FCAlertView.framework",
@@ -369,7 +376,7 @@
 				"${BUILT_PRODUCTS_DIR}/PMSuperButton/PMSuperButton.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Sheeeeeeeeet/Sheeeeeeeeet.framework",
-				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenuSwift/SideMenuSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
 				"${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework",
@@ -389,6 +396,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSUserPoolsSignIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CDAlertView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESTabBarController_swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FCAlertView.framework",
@@ -400,7 +408,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMSuperButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sheeeeeeeeet.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenuSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionButton.framework",
@@ -443,6 +451,7 @@
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
 				DAC9C098211E44B60004170F /* TabBarControllerSwipeExtension.swift in Sources */,
+				DA5C471B212B8BE50005FC2E /* BaseViewController.swift in Sources */,
 				DAD432F9203D03F70033EF35 /* User.swift in Sources */,
 				DADA5B5F208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift in Sources */,
 				DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */,
@@ -450,6 +459,7 @@
 				DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */,
 				DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */,
 				DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */,
+				DA5C4719212B86970005FC2E /* MenuViewController.swift in Sources */,
 				DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */,
 				DAF0791E21265CD90001B961 /* Extensions.swift in Sources */,
 				DA1B39F22116366E008CE7C6 /* LaunchScreenViewController.swift in Sources */,
