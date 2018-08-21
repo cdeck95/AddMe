@@ -301,8 +301,8 @@ class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINav
         gradient.frame = view.frame
 //        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
 //        gradient.locations = [0.0, 0.5, 1.0]
-        gradient.colors = [Color.bondiBlue.value.cgColor, Color.coral.value.cgColor]
-        gradient.locations = [0.0, 1.0]
+        gradient.colors = [Color.glass.value.cgColor, Color.coral.value.cgColor, Color.bondiBlue.value.cgColor, Color.marina.value.cgColor]
+        gradient.locations = [0.0, 0.33, 0.66, 1.0]
         gradientView.frame = self.view.bounds
         gradientView.layer.addSublayer(gradient)
         self.view.addSubview(gradientView)
@@ -359,6 +359,7 @@ class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINav
             print(profiles[indexPath.row])
             cell.populateWith(card: profiles[indexPath.row])
         }
+        cell.layer.cornerRadius = 6.0
         return cell
     }
     

@@ -35,15 +35,15 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     func populateWith(card: Profile) {
         //This creates the shadows and modifies the cards a little bit
-        contentView.layer.cornerRadius = 4.0
+        contentView.layer.cornerRadius = 6.0
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
-        contentView.layer.masksToBounds = false
+        contentView.layer.masksToBounds = true
         layer.shadowColor = Color.coral.value.cgColor //UIColor.gray.cgColor
         layer.shadowOffset = CGSize(width: 0, height: 1.0)
-        layer.shadowRadius = 4.0
+        layer.shadowRadius = 6.0
         layer.shadowOpacity = 1.0
-        layer.masksToBounds = false
+        layer.masksToBounds = true
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
         
         profileID = card.id

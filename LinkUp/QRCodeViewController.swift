@@ -22,7 +22,7 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     var shouldShare:Bool = false
     
     @IBOutlet var shareButton: UIBarButtonItem!
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
