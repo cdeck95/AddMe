@@ -9,18 +9,15 @@
 import UIKit
 import AWSCognito
 import CDAlertView
+import FCAlertView
 
-class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FCAlertViewDelegate{
 
-    // Test fields for DB
-    @IBOutlet var userIdTextBox: UITextField!
-    @IBOutlet var displayNameTextBox: UITextField!
-    @IBOutlet var platformTextBox: UITextField!
-    @IBOutlet var urlTextBox: UITextField!
-    var onButtonTapped : (() -> Void)? = nil
     private let refreshControl = UIRefreshControl()
     var credentialsManager = CredentialsManager.sharedInstance
     var dataset: AWSCognitoDataset!
+    var customView: UIView!
+    var labelsArray: Array<UILabel> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +29,15 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             return nil
             
         }
+       // loadCustomRefreshContents()
         self.credentialsManager.createCredentialsProvider()
+        settingsAppsTableView.layer.borderColor = UIColor.clear.cgColor
+        settingsAppsTableView.layer.backgroundColor = UIColor.clear.cgColor
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.view.backgroundColor = Color.glass.value
         
         // Add Refresh Control to Table View
         if #available(iOS 10.0, *) {
@@ -41,11 +46,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             settingsAppsTableView.addSubview(refreshControl)
         }
         refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
-        switchView.frame = CGRect(x: 0, y: 20, width: 10, height: 5)
-        switchView.addTarget(self, action: #selector(switched), for: .valueChanged)
-        
-        view.addSubview(switchView)
-        //view.addSubview(collectionView)
     }
     
     
@@ -64,6 +64,37 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet var settingsAppsTableView: UITableView!
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let vw = UIView()
+        if(section == 0){
+            vw.backgroundColor = .clear
+            let textView = UITextView()
+            textView.text = "Social Accounts"
+            textView.font = UIFont(name: "Trench", size: UIFont.labelFontSize)
+            textView.textColor = .black
+            textView.sizeToFit()
+            textView.backgroundColor = .clear
+            vw.addSubview(textView)
+        } else {
+            vw.backgroundColor = .clear
+            let textView = UITextView()
+            textView.text = "Social Accounts"
+            textView.font = UIFont(name: "Trench", size: UIFont.labelFontSize)
+            textView.textColor = .black
+            textView.sizeToFit()
+            textView.backgroundColor = .clear
+            vw.addSubview(textView)
+        }
+        
+        return vw
+    }
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("SETTINGS tableView() return cellSwitches.count")
         return apps.count
@@ -72,17 +103,68 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     // This is where the table cells on the main page are modeled from.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("creating cells for table view in settings")
-        let cell:SettingsTableViewCell = settingsAppsTableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsTableViewCell
-        cell.appName.text = apps[indexPath.row]._displayName!
+        let cell:SettingsTableViewCell = settingsAppsTableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsTableViewCell
+        cell.nameLabel.text = apps[indexPath.row]._displayName!
+        cell.usernameLabel.text = "@\(apps[indexPath.row]._username!)"
         cell.appID = apps[indexPath.row]._appId!
+        cell.layer.backgroundColor = UIColor.white.cgColor
+        
+        switch apps[indexPath.row]._platform {
+        case "Facebook"?:
+            cell.appImage.image = UIImage(named: "fb-icon")
+        case "Twitter"?:
+            cell.appImage.image = UIImage(named: "twitter_icon")
+        case "Instagram"?:
+            cell.appImage.image = UIImage(named: "Instagram_icon")
+        case "Snapchat"?:
+            cell.appImage.image = UIImage(named: "snapchat_icon")
+        case "GooglePlus"?:
+            cell.appImage.image = UIImage(named: "google_plus_icon")
+        case "LinkedIn"?:
+            cell.appImage.image = UIImage(named: "linked_in_logo")
+        case "Xbox"?:
+            cell.appImage.image = UIImage(named: "xbox")
+        case "PSN"?:
+            cell.appImage.image = UIImage(named: "play-station")
+        case "Twitch"?:
+            cell.appImage.image = UIImage(named: "twitch")
+        case "Custom"?:
+            cell.appImage.image = UIImage(named: "custom")
+        default:
+            cell.appImage.image = UIImage(named: "AppIcon")
+        }
         
         print(cell.appID)
         cell.onButtonTapped = {
             let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "EditAppViewController") as! EditAppViewController
             VC1.AppID = cell.appID!
+            //pass all information, do not do api call
             self.navigationController!.showDetailViewController(VC1, sender: cell)
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alert = FCAlertView()
+        alert.delegate = self
+        alert.colorScheme = Color.bondiBlue.value
+        let cell = tableView.cellForRow(at: indexPath) as! SettingsTableViewCell
+        alert.addTextField(withPlaceholder: cell.nameLabel.text) { (text) in
+            self.settingsAppsTableView.deselectRow(at: indexPath, animated: true)
+            print(text!)
+        }
+        alert.addTextField(withPlaceholder: cell.usernameLabel.text) { (text) in
+            self.settingsAppsTableView.deselectRow(at: indexPath, animated: true)
+            print(text!)
+        }
+        
+        alert.showAlert(inView: self,
+                        withTitle: "Edit Account",
+                        withSubtitle: "Please update your account information.",
+                        withCustomImage: cell.appImage.image,
+                        withDoneButtonTitle: "Update",
+                        andButtons: ["Cancel"])
+        return
     }
     
 
@@ -99,13 +181,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         print("----in settings view will appear----")
-//        if(isMenuOpened == true){
-//            isMenuOpened = false
-//            sideMenuViewController.willMove(toParentViewController: nil)
-//            sideMenuViewController.view.removeFromSuperview()
-//            sideMenuViewController.removeFromParentViewController()
-//        }
-        //cellSwitches = []
         self.tabBarController?.tabBar.isHidden = false
         refreshAppData(self)
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
@@ -116,104 +191,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
-
-    // Send in info
-    @IBAction func updateStuff(_ sender: Any) {
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/setUserInfo.php")!)
-        request.httpMethod = "POST"
-        let postString = "a=\(userIdTextBox.text!)&b=\(displayNameTextBox.text!)&c=\(platformTextBox.text!)&d=\(urlTextBox.text!)"
-        request.httpBody = postString.data(using: String.Encoding.utf8)
-        
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                return
-            }
-            
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            var responseOne = responseString
-            print(responseOne!)
-        })
-        task.resume()
-    }
-    
-    // This will allow you to make your own SQL and run it through the server. Just make a string for 'a' and then for each variable that you
-    //  want to be returned, set it to "Y", if you don't want it to be returned, set it to anything else.
-    @IBAction func runCustomSQL(_ sender: Any)
-    {
-        //$customSQL = $_POST['a'];
-        //$wantUserId = $_POST['b'];
-        //$wantUsername = $_POST['c'];
-        //$wantDisplayName = $_POST['d'];
-        //$wantPlatform = $_POST['e'];
-        //$wantURL = $_POST['f'];
-        let customSqlExample = "SELECT * FROM Users"
-        
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/custom.php")!)
-        request.httpMethod = "POST"
-        let postString = "a=\(customSqlExample)&b=Y&c=Y&d=N&e=Y&f=N"
-        request.httpBody = postString.data(using: String.Encoding.utf8)
-        
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                return
-            }
-            
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            var responseOne = responseString
-            print(responseOne!)
-        })
-        task.resume()
-    }
-    
-    // Send in user Id to get back all the info for that user
-    @IBAction func GetUserInfo(_ sender: Any) {
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/getUserInfo.php")!)
-        request.httpMethod = "POST"
-        let postString = "a=\(userIdTextBox.text!)"
-        request.httpBody = postString.data(using: String.Encoding.utf8)
-        
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                return
-            }
-            
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            var responseOne = responseString
-            print(responseOne!)
-        })
-        task.resume()
-    }
-    
-    @IBAction func addUser(_ sender: Any) {
-        var request = URLRequest(url:URL(string: "https://tommillerswebsite.000webhostapp.com/AddMe/addNewUser.php")!)
-        request.httpMethod = "POST"
-        let postString = "a=\(displayNameTextBox.text!)&b=\(platformTextBox.text!)&c=\(urlTextBox.text!)&d=\(userIdTextBox.text!)"
-        request.httpBody = postString.data(using: String.Encoding.utf8)
-        
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                return
-            }
-            
-            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            var responseOne = responseString
-            print(responseOne!)
-        })
-        task.resume()
-    }
-
-
     
     @IBAction func deleteApps(_ sender: Any) {
-//        let alert = CDAlertView(title: "Deleting All Apps", message: "Are you sure you wish to delete all apps?", type: .warning)
+//        let alert = CDAlertView(title: "Deleting All Apps", message: "Are you sure you wish to delete all accounts?", type: .warning)
 //        let doneAction = CDAlertViewAction(title: "Sure! 💪",
 //                                           font: UIFont.systemFont(ofSize: 17),
 //                                           textColor: UIColor(red: 27 / 255, green: 169 / 255, blue: 225 / 255, alpha: 1),
@@ -339,5 +319,25 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         self.settingsAppsTableView.reloadData()
+    }
+    
+    func loadCustomRefreshContents() {
+//        let refreshContents = Bundle.main.loadNibNamed("RefreshContents", owner: self, options: nil)
+//
+//        customView = refreshContents![0] as! UIView
+//        customView.frame = self.view.bounds
+//
+//        for i in 0 ..< customView.subviews.count {
+//            labelsArray.append(customView.viewWithTag(i + 1) as! UILabel)
+//        }
+//
+//        refreshControl.addSubview(customView)
+//
+        if #available(iOS 10.0, *) {
+            settingsAppsTableView.refreshControl = refreshControl
+        } else {
+            settingsAppsTableView.addSubview(refreshControl)
+        }
+        
     }
 }

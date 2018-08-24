@@ -34,6 +34,6 @@ target 'LinkUp' do
     pod 'Sheeeeeeeeet'
     pod 'PMSuperButton'
     pod "ESTabBarController-swift"
-
+    pod 'ACFloatingTextfield-Objc', '~> 1.7'
 
 end

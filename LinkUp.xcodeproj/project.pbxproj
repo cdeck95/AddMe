@@ -22,7 +22,6 @@
 		DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4388EE2086747000E0CD0D /* CameraViewController.swift */; };
 		DA5C4717212B37B00005FC2E /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5C4716212B37B00005FC2E /* RefreshContents.xib */; };
 		DA5C4719212B86970005FC2E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5C4718212B86970005FC2E /* MenuViewController.swift */; };
-		DA5C471B212B8BE50005FC2E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5C471A212B8BE50005FC2E /* BaseViewController.swift */; };
 		DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68505C205B5FA300BA36DE /* HelpViewController.swift */; };
 		DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EE92037859800E79B47 /* AppDelegate.swift */; };
 		DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EEB2037859800E79B47 /* ViewController.swift */; };
@@ -30,6 +29,8 @@
 		DA6A7EF42037859800E79B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */; };
 		DA84C91A212B1E2D00AF84CC /* ScannedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */; };
 		DA84C91C212B223100AF84CC /* ScannedProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */; };
+		DA929D79212F920800CEFBD6 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */; };
+		DA929D7D212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */; };
 		DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4DE208568F000E62E04 /* Apps.swift */; };
 		DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */; };
 		DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E8208598D800E62E04 /* ProfileImage.swift */; };
@@ -78,7 +79,6 @@
 		DA4388EE2086747000E0CD0D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		DA5C4716212B37B00005FC2E /* RefreshContents.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
 		DA5C4718212B86970005FC2E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		DA5C471A212B8BE50005FC2E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DA68505C205B5FA300BA36DE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DA6A7EE62037859800E79B47 /* LinkUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A7EE92037859800E79B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +88,8 @@
 		DA6A7EF52037859800E79B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedTableViewCell.swift; sourceTree = "<group>"; };
 		DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedProfileViewController.swift; sourceTree = "<group>"; };
+		DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPeekingPagesCollectionViewController.swift; sourceTree = "<group>"; };
 		DAA7D4DE208568F000E62E04 /* Apps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apps.swift; sourceTree = "<group>"; };
 		DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		DAA7D4E8208598D800E62E04 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
@@ -192,13 +194,14 @@
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
 				DA37EE502125FA9F00A52AD9 /* Main.storyboard */,
+				DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */,
 				DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */,
 				DA37EE452125F68A00A52AD9 /* Profile.swift */,
 				DA10A614212621660049D983 /* Cards.plist */,
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
-				DA5C471A212B8BE50005FC2E /* BaseViewController.swift */,
+				DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */,
 				DA5C4718212B86970005FC2E /* MenuViewController.swift */,
 				DA5C4716212B37B00005FC2E /* RefreshContents.xib */,
 				DAA7D4E8208598D800E62E04 /* ProfileImage.swift */,
@@ -351,6 +354,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ACFloatingTextfield-Objc/ACFloatingTextfield_Objc.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSAuthUI/AWSAuthUI.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
@@ -383,6 +387,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ACFloatingTextfield_Objc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAuthCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAuthUI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
@@ -440,6 +445,7 @@
 				DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */,
 				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
+				DA929D7D212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift in Sources */,
 				DA84C91C212B223100AF84CC /* ScannedProfileViewController.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
@@ -451,13 +457,13 @@
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
 				DAC9C098211E44B60004170F /* TabBarControllerSwipeExtension.swift in Sources */,
-				DA5C471B212B8BE50005FC2E /* BaseViewController.swift in Sources */,
 				DAD432F9203D03F70033EF35 /* User.swift in Sources */,
 				DADA5B5F208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift in Sources */,
 				DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */,
 				DA37EE462125F68A00A52AD9 /* Profile.swift in Sources */,
 				DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */,
 				DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */,
+				DA929D79212F920800CEFBD6 /* ProfileTableViewCell.swift in Sources */,
 				DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */,
 				DA5C4719212B86970005FC2E /* MenuViewController.swift in Sources */,
 				DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */,

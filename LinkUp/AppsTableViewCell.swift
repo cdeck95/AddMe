@@ -29,6 +29,13 @@ class AppsTableViewCell: UITableViewCell {
         print("AppTableViewCell.swift awakeFromNib()")
         super.awakeFromNib()
         // Initialization code
+//        layer.cornerRadius = cornerRadius
+//        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+//        layer.masksToBounds = true
+//        layer.shadowColor = shadowColor?.cgColor
+//        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+//        layer.shadowOpacity = shadowOpacity
+//        layer.shadowPath = shadowPath.cgPath
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,13 +43,7 @@ class AppsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         self.bringSubview(toFront: appSwitch)
         
-        layer.cornerRadius = cornerRadius
-        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-        layer.masksToBounds = true
-        layer.shadowColor = shadowColor?.cgColor
-        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
-        layer.shadowOpacity = shadowOpacity
-        layer.shadowPath = shadowPath.cgPath
+        
     }
 }
 

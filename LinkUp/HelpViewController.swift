@@ -17,7 +17,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
     var bannerView: DFPBannerView!
     var gradient: CAGradientLayer!
     @IBOutlet weak var issuePicker: UIPickerView!
-    var pickerData: [String] = ["Cannot connect accounts", "Cannot create QR code", "QR Code is wrong", "Cannot scan/import QR code" , "Cannot edit/delete apps"]
+    var pickerData: [String] = ["Cannot connect accounts", "Cannot create QR code", "QR Code is wrong", "Cannot scan/import QR code" , "Cannot edit/delete apps", "Other (Please Specify)"]
     @IBOutlet weak var issueDetails: UITextView!
     var generalIssue:String!
     
@@ -29,7 +29,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
         self.issuePicker.delegate = self
         self.issuePicker.dataSource = self
         // Do any additional setup after loading the view.
-        createGradientLayer()
+       // createGradientLayer()
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -37,7 +37,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
         self.tabBarController?.tabBar.isTranslucent = true
         self.tabBarController?.view.backgroundColor = .clear
         
-        self.issueDetails.textColor = UIColor.white
+        self.issueDetails.textColor = UIColor.black
         self.issueDetails.delegate = self
         self.issueDetails.layer.borderWidth = 1.0
         let version : Any! = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")!

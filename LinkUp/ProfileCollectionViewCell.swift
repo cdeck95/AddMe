@@ -55,7 +55,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         profileImage.clipsToBounds = true
         nameLabel.text = card.name
         descLabel.text = "(\(card.descriptionLabel))"
-        backgroundColor = card.backgroundColor
+        //backgroundColor = card.backgroundColor
         accounts = card.Accounts
         qrCodeString = card.qrCodeString
         

@@ -26,7 +26,7 @@ import SideMenuSwift
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Apps] = []
 
-class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate, FCAlertViewDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, FCAlertViewDelegate, UIScrollViewDelegate {
 
     var profiles: [Profile]!
     var bannerView: DFPBannerView!
@@ -52,6 +52,14 @@ class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINav
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var profileImage: ProfileImage!
+    @IBOutlet var pageControl: UIPageControl!
+    
+    let collectionMargin = CGFloat(16)
+    let itemSpacing = CGFloat(10)
+    let itemHeight = CGFloat(260)
+    
+    var itemWidth = CGFloat(0)
+    var currentItem = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +87,9 @@ class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINav
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        //collectionView.scrollViewDelegate = self
+        itemWidth =  UIScreen.main.bounds.width - collectionMargin * 2.0
+        
         profiles = []
         let dict1 = ["profileID":"1", "name": "All (Default)", "qrCodeString": "qrCode for profile 1", "info":"All accounts"] as NSDictionary
         let profile = Profile(dictionary: dict1, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
@@ -96,7 +107,7 @@ class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINav
 //            profile.loadAccountsInProfile()
 //        }
         print("Profiles!... \(profiles!)")
-        addSlideMenuButton()
+       // addSlideMenuButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -301,8 +312,10 @@ class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINav
         gradient.frame = view.frame
 //        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
 //        gradient.locations = [0.0, 0.5, 1.0]
-        gradient.colors = [Color.glass.value.cgColor, Color.coral.value.cgColor, Color.bondiBlue.value.cgColor, Color.marina.value.cgColor]
-        gradient.locations = [0.0, 0.33, 0.66, 1.0]
+//        gradient.colors = [Color.glass.value.cgColor, Color.coral.value.cgColor, Color.bondiBlue.value.cgColor, Color.marina.value.cgColor]
+//        gradient.locations = [0.0, 0.33, 0.66, 1.0]
+        gradient.colors = [Color.chill.value.cgColor, Color.chill.value.cgColor]
+        gradient.locations = [0.0, 1.0]
         gradientView.frame = self.view.bounds
         gradientView.layer.addSublayer(gradient)
         self.view.addSubview(gradientView)
@@ -331,14 +344,16 @@ class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINav
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 340, height: 260)
+        return CGSize(width: itemWidth, height: itemHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20.0
+        return 10.0
     }
-
+    
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            let count = profiles.count + 1
+            pageControl.numberOfPages = count
             print(profiles)
             print("--------------------")
             return profiles.count + 1
@@ -346,7 +361,7 @@ class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINav
     
     @objc func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
-       // cell.backgroundColor = Color.bondiBlue.value
+        cell.layer.backgroundColor = UIColor.white.cgColor
        // cell.nameLabel.textColor = Color.glass.value
        // cell.descLabel.textColor = Color.glass.value
         if indexPath.item == profiles.count {
@@ -372,6 +387,52 @@ class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINav
             actionSheet.present(in: self, from: self.view)
         }
     }
+//    
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        print("snapping")
+//        guard let collectionView = scrollView as? UICollectionView else { return }
+//        let indexPath = IndexPath(item: pageControl.currentPage + 1, section: 0)
+//        collectionView.snapToCell(velocity: velocity, targetOffset: targetContentOffset, spacing: 10, indexPath: indexPath)
+//       // contentOffset = targetContentOffset.pointee.x
+//    }
+    
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//
+//        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+//    }
+//
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//
+//        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+//    }
+    
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//
+//        let pageWidth = Float(itemWidth + itemSpacing)
+//        let targetXContentOffset = Float(targetContentOffset.pointee.x)
+//        let contentWidth = Float(collectionView!.contentSize.width  )
+//        var newPage = Float(self.pageControl.currentPage)
+//
+//        if velocity.x == 0 {
+//            newPage = floor( (targetXContentOffset - Float(pageWidth) / 2) / Float(pageWidth)) + 1.0
+//        } else {
+//            newPage = Float(velocity.x > 0 ? self.pageControl.currentPage + 1 : self.pageControl.currentPage - 1)
+//            if newPage < 0 {
+//                newPage = 0
+//            }
+//            if (newPage > contentWidth / pageWidth) {
+//                newPage = ceil(contentWidth / pageWidth) - 1.0
+//            }
+//        }
+//
+//        self.pageControl.currentPage = Int(newPage)
+//        let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
+//        targetContentOffset.pointee = point
+//    }
+    
+//    override func calculateSectionInset() -> CGFloat {
+//        return 40
+//    }
     
     func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
         let title = ActionSheetTitle(title: "Select an option")
@@ -462,7 +523,34 @@ class ViewController: BaseViewController, UIImagePickerControllerDelegate, UINav
     
 }
 
-
+extension UICollectionView {
+    
+    func snapToCell(velocity: CGPoint, targetOffset: UnsafeMutablePointer<CGPoint>, contentInset: CGFloat = 0, spacing: CGFloat = 0, indexPath: IndexPath) {
+        // No snap needed as we're at the end of the scrollview
+        guard (contentOffset.x + frame.size.width) < contentSize.width else {
+            return
+        }
+  //      let indexPath =  indexPathForItem(at: targetOffset.pointee)
+//        guard let indexPath = indexPathForItem(at: targetOffset.pointee) else {
+//            print("target offset: \(targetOffset.pointee)")
+//            return
+//        }
+        guard let cellLayout = layoutAttributesForItem(at: indexPath) else {
+             print("in cell layout else")
+            return
+        }
+        
+        var offset = targetOffset.pointee
+        print("made it here in snap")
+        if velocity.x < 0 {
+            offset.x = cellLayout.frame.minX - max(contentInset, spacing)
+        } else {
+            offset.x = cellLayout.frame.maxX - contentInset + min(contentInset, spacing)
+        }
+        
+        targetOffset.pointee = offset
+    }
+}
 
 
 extension String

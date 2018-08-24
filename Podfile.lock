@@ -1,4 +1,5 @@
 PODS:
+  - ACFloatingTextfield-Objc (1.7)
   - AWSAuthCore (2.6.26):
     - AWSCore (= 2.6.26)
   - AWSAuthUI (2.6.26):
@@ -72,6 +73,7 @@ PODS:
   - TransitionButton (0.5.1)
 
 DEPENDENCIES:
+  - ACFloatingTextfield-Objc (~> 1.7)
   - AWSAuthUI
   - AWSCognito
   - AWSDynamoDB
@@ -96,6 +98,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - ACFloatingTextfield-Objc
     - AWSAuthCore
     - AWSAuthUI
     - AWSCognito
@@ -138,6 +141,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/marcosgriselli/SwipeableTabBarController.git
 
 SPEC CHECKSUMS:
+  ACFloatingTextfield-Objc: 8780c7a0d96b2039d8a60d3461a4bbcd22e3faf3
   AWSAuthCore: bc6c8d7320eae8ef18939504d5a8a1588606c3a1
   AWSAuthUI: 2d597886206772e31273d12e76f642fcddca9616
   AWSCognito: a478efa37e614803ba4554a29ca1be69d70e0e43
@@ -170,6 +174,6 @@ SPEC CHECKSUMS:
   SwipeableTabBarController: 0e3e229aa1edfc1b8b4daf24df7de2643578cf42
   TransitionButton: 20f92b3cc726b047e4df200fdab5307f33395a81
 
-PODFILE CHECKSUM: 0acd1caa9e4be9678ac4c094cade32d2c0feb5ab
+PODFILE CHECKSUM: 6fb265bc1517b55a8e6e1aaada430d88c2b82a91
 
 COCOAPODS: 1.6.0.beta.1
