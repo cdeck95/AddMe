@@ -11,9 +11,6 @@
 		DA10A612212606FF0049D983 /* trench100free.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA10A611212606F00049D983 /* trench100free.otf */; };
 		DA10A613212607010049D983 /* trench100free.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA10A610212606EF0049D983 /* trench100free.ttf */; };
 		DA10A615212621660049D983 /* Cards.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA10A614212621660049D983 /* Cards.plist */; };
-		DA10A61A21262BF50049D983 /* SwipingCarousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA10A61821262BD50049D983 /* SwipingCarousel.framework */; };
-		DA10A61B21262D0F0049D983 /* SwipingCarousel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA10A61821262BD50049D983 /* SwipingCarousel.framework */; };
-		DA10A61C21262D0F0049D983 /* SwipingCarousel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA10A61821262BD50049D983 /* SwipingCarousel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA130A84209643AF00622951 /* EFUIntPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA130A83209643AF00622951 /* EFUIntPixel.swift */; };
 		DA1B39F22116366E008CE7C6 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */; };
 		DA1B39FA2117C070008CE7C6 /* Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA1B39F92117C070008CE7C6 /* Dataset.swift */; };
@@ -23,11 +20,17 @@
 		DA37EE512125FA9F00A52AD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA37EE502125FA9F00A52AD9 /* Main.storyboard */; };
 		DA37EE532125FC8100A52AD9 /* AnimatedLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */; };
 		DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4388EE2086747000E0CD0D /* CameraViewController.swift */; };
+		DA5C4717212B37B00005FC2E /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA5C4716212B37B00005FC2E /* RefreshContents.xib */; };
+		DA5C4719212B86970005FC2E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5C4718212B86970005FC2E /* MenuViewController.swift */; };
 		DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA68505C205B5FA300BA36DE /* HelpViewController.swift */; };
 		DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EE92037859800E79B47 /* AppDelegate.swift */; };
 		DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EEB2037859800E79B47 /* ViewController.swift */; };
 		DA6A7EF12037859800E79B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF02037859800E79B47 /* Assets.xcassets */; };
 		DA6A7EF42037859800E79B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */; };
+		DA84C91A212B1E2D00AF84CC /* ScannedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */; };
+		DA84C91C212B223100AF84CC /* ScannedProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */; };
+		DA929D79212F920800CEFBD6 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */; };
+		DA929D7D212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */; };
 		DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4DE208568F000E62E04 /* Apps.swift */; };
 		DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */; };
 		DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E8208598D800E62E04 /* ProfileImage.swift */; };
@@ -57,20 +60,6 @@
 		DAF079202126FBBE0001B961 /* AccountsForProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0791F2126FBBE0001B961 /* AccountsForProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		DA10A61D21262D100049D983 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				DA10A61C21262D0F0049D983 /* SwipingCarousel.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		55CE2765784B5B9C64E7AF87 /* Pods_LinkUp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LinkUp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DE575B515AAA97684789E8 /* Pods-LinkUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LinkUp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -88,6 +77,8 @@
 		DA37EE502125FA9F00A52AD9 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedLaunchScreen.swift; sourceTree = "<group>"; };
 		DA4388EE2086747000E0CD0D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		DA5C4716212B37B00005FC2E /* RefreshContents.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
+		DA5C4718212B86970005FC2E /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		DA68505C205B5FA300BA36DE /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		DA6A7EE62037859800E79B47 /* LinkUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinkUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA6A7EE92037859800E79B47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +86,10 @@
 		DA6A7EF02037859800E79B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA6A7EF32037859800E79B47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA6A7EF52037859800E79B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedTableViewCell.swift; sourceTree = "<group>"; };
+		DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedProfileViewController.swift; sourceTree = "<group>"; };
+		DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPeekingPagesCollectionViewController.swift; sourceTree = "<group>"; };
 		DAA7D4DE208568F000E62E04 /* Apps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apps.swift; sourceTree = "<group>"; };
 		DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		DAA7D4E8208598D800E62E04 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
@@ -132,8 +127,6 @@
 				DAD432FD203F98A30033EF35 /* SystemConfiguration.framework in Frameworks */,
 				DAD432FB203F989B0033EF35 /* SafariServices.framework in Frameworks */,
 				A9078423A73AE248C65E103C /* Pods_LinkUp.framework in Frameworks */,
-				DA10A61A21262BF50049D983 /* SwipingCarousel.framework in Frameworks */,
-				DA10A61B21262D0F0049D983 /* SwipingCarousel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,8 +179,10 @@
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
 				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD96D092046399500F1525E /* AppsTableViewCell.swift */,
+				DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */,
 				DAA7D4DE208568F000E62E04 /* Apps.swift */,
 				DA4388EE2086747000E0CD0D /* CameraViewController.swift */,
+				DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */,
 				DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */,
 				DADA5B5E208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift */,
 				DA2B25F6204E2623004D3160 /* CredentialsManager.swift */,
@@ -195,15 +190,20 @@
 				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
 				DA1B39F92117C070008CE7C6 /* Dataset.swift */,
 				DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */,
-				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
 				DAF0791D21265CD90001B961 /* Extensions.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
+				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
+				DA37EE502125FA9F00A52AD9 /* Main.storyboard */,
+				DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */,
 				DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */,
 				DA37EE452125F68A00A52AD9 /* Profile.swift */,
 				DA10A614212621660049D983 /* Cards.plist */,
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
-				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
+				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
+				DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */,
+				DA5C4718212B86970005FC2E /* MenuViewController.swift */,
+				DA5C4716212B37B00005FC2E /* RefreshContents.xib */,
 				DAA7D4E8208598D800E62E04 /* ProfileImage.swift */,
 				DAD4330420411FB60033EF35 /* ScannerViewController.swift */,
 				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
@@ -212,7 +212,6 @@
 				DAC9C099211F26820004170F /* Account.swift */,
 				DA130A83209643AF00622951 /* EFUIntPixel.swift */,
 				DA6A7EF02037859800E79B47 /* Assets.xcassets */,
-				DA37EE502125FA9F00A52AD9 /* Main.storyboard */,
 				DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */,
 				DA1B39F12116366E008CE7C6 /* LaunchScreenViewController.swift */,
 				DAD432F8203D03F70033EF35 /* User.swift */,
@@ -249,7 +248,6 @@
 				DA6A7EE42037859800E79B47 /* Resources */,
 				D3364EABB47362E6D4221A3E /* [CP] Embed Pods Frameworks */,
 				AE2ED45769DE297E4D64EF4F /* [CP] Copy Pods Resources */,
-				DA10A61D21262D100049D983 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -300,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD432F7203D02240033EF35 /* awsconfiguration.json in Resources */,
+				DA5C4717212B37B00005FC2E /* RefreshContents.xib in Resources */,
 				DA10A612212606FF0049D983 /* trench100free.otf in Resources */,
 				DA10A613212607010049D983 /* trench100free.ttf in Resources */,
 				DA10A615212621660049D983 /* Cards.plist in Resources */,
@@ -318,7 +317,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-LinkUp/Pods-LinkUp-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -327,7 +326,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LinkUp/Pods-LinkUp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BDF905B8AE11B16302A9CA90 /* [CP] Check Pods Manifest.lock */ = {
@@ -354,7 +353,8 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ACFloatingTextfield-Objc/ACFloatingTextfield_Objc.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSAuthUI/AWSAuthUI.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
@@ -368,18 +368,26 @@
 				"${BUILT_PRODUCTS_DIR}/AWSUserPoolsSignIn/AWSUserPoolsSignIn.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CDAlertView/CDAlertView.framework",
+				"${BUILT_PRODUCTS_DIR}/ESTabBarController-swift/ESTabBarController_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FCAlertView/FCAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyAvatar/SwiftyAvatar.framework",
+				"${BUILT_PRODUCTS_DIR}/KSSwipeStack/KSSwipeStack.framework",
+				"${BUILT_PRODUCTS_DIR}/PMSuperButton/PMSuperButton.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Sheeeeeeeeet/Sheeeeeeeeet.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenuSwift/SideMenuSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
+				"${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ACFloatingTextfield_Objc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAuthCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAuthUI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
@@ -393,19 +401,26 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSUserPoolsSignIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CDAlertView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESTabBarController_swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FCAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyAvatar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSSwipeStack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMSuperButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sheeeeeeeeet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenuSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionButton.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -419,6 +434,7 @@
 				DA4388EF2086747000E0CD0D /* CameraViewController.swift in Sources */,
 				DA130A84209643AF00622951 /* EFUIntPixel.swift in Sources */,
 				DAD96CF62043458000F1525E /* QRCodeViewController.swift in Sources */,
+				DA84C91A212B1E2D00AF84CC /* ScannedTableViewCell.swift in Sources */,
 				DA37EE532125FC8100A52AD9 /* AnimatedLaunchScreen.swift in Sources */,
 				DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */,
 				DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */,
@@ -429,6 +445,8 @@
 				DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */,
 				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
+				DA929D7D212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift in Sources */,
+				DA84C91C212B223100AF84CC /* ScannedProfileViewController.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
 				DAC9C09A211F26820004170F /* Account.swift in Sources */,
@@ -445,7 +463,9 @@
 				DA37EE462125F68A00A52AD9 /* Profile.swift in Sources */,
 				DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */,
 				DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */,
+				DA929D79212F920800CEFBD6 /* ProfileTableViewCell.swift in Sources */,
 				DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */,
+				DA5C4719212B86970005FC2E /* MenuViewController.swift in Sources */,
 				DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */,
 				DAF0791E21265CD90001B961 /* Extensions.swift in Sources */,
 				DA1B39F22116366E008CE7C6 /* LaunchScreenViewController.swift in Sources */,

@@ -18,21 +18,20 @@ import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
 import GoogleMobileAds
-import SwipingCarousel
 import CDAlertView
+import FCAlertView
+import Sheeeeeeeeet
+import SideMenuSwift
 
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Apps] = []
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SwipingCarouselDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, FCAlertViewDelegate, UIScrollViewDelegate {
 
     var profiles: [Profile]!
     var bannerView: DFPBannerView!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var appsTableView: UITableView!
-    @IBOutlet weak var qrCodeButton: UIButton!
     var identityProvider:String!
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
@@ -46,38 +45,36 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let cellSpacingHeight: CGFloat = 15
     var isCellTapped = false
     var selectedSectionIndex = -1
+    var customView: UIView!
+    var labelsArray: Array<UILabel> = []
+    var isDarkModeEnabled = false
+    private var themeColor = UIColor.white
     
-    @IBOutlet weak var collectionView: UICollectionView! { didSet {
-        let layout = SwipingCarouselFlowLayout()
-        layout.activeDistance = 50 // your desired value. Remember 200 is the default.
-        collectionView.setCollectionViewLayout(layout, animated: false)
-        }
-    }
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet var profileImage: ProfileImage!
+    @IBOutlet var pageControl: UIPageControl!
+    
+    let collectionMargin = CGFloat(16)
+    let itemSpacing = CGFloat(10)
+    let itemHeight = CGFloat(260)
+    
+    var itemWidth = CGFloat(0)
+    var currentItem = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("----in view did load----")
-        //tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
 
-        // Add Refresh Control to Table View
-        if #available(iOS 10.0, *) {
-            collectionView.refreshControl = refreshControl
-        } else {
-            collectionView.addSubview(refreshControl)
-        }
-//        // Configure Refresh Control
+     
+        loadCustomRefreshContents()
+        // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
-//        setupView()
         imagePicker.delegate = self
         createGradientLayer()
-        //appsTableView.layer.backgroundColor = UIColor.clear.cgColor
-        //appsTableView.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
-//        self.tabBarController?.tabBar.isTranslucent = true
-//        self.tabBarController?.view.backgroundColor = .clear
         
         bannerView = DFPBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
@@ -85,26 +82,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bannerView.rootViewController = self
         bannerView.load(DFPRequest())
         
-        profileImage.center = self.view.center
         nameLabel.center = self.view.center
         collectionView.center = self.view.center
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        //collectionView.scrollViewDelegate = self
+        itemWidth =  UIScreen.main.bounds.width - collectionMargin * 2.0
+        
         profiles = []
-        let dict1 = ["profileID":"1", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 1", "info":"Snap & Insta"] as NSDictionary
+        let dict1 = ["profileID":"1", "name": "All (Default)", "qrCodeString": "qrCode for profile 1", "info":"All accounts"] as NSDictionary
         let profile = Profile(dictionary: dict1, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile)
-        var dict2 = ["profileID":"2", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 2", "info":"(Snapchat, Insta)"] as NSDictionary
+        var dict2 = ["profileID":"2", "name": "Gaming", "qrCodeString": "qrCode for profile 2", "info":"Xbox, PSN, Twitch"] as NSDictionary
         let profile2 = Profile(dictionary: dict2, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile2)
-        let dict3 = ["profileID":"3", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 3", "info":"Snap & Insta"] as NSDictionary
+        let dict3 = ["profileID":"3", "name": "Main Socials", "qrCodeString": "qrCode for profile 3", "info":"Facebook, Instagram, Twitter, Snachat"] as NSDictionary
         let profile3 = Profile(dictionary: dict3, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile3)
-        var dict4 = ["profileID":"4", "accounts": "[{'accountId': '136', 'displayName': 'Instagram', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Instagram', 'url': 'https://www.instagram.com/chris_deck', 'username': 'chris_deck'}, {'accountId': '145', 'displayName': 'Snapchat', 'cognitoId': 'us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85', 'platform': 'Snapchat', 'url': 'https://www.snapchat.com/add/chrisdeck', 'username': 'chrisdeck'}]", "name": "Going out", "qrCodeString": "qrCode for profile 4", "info":"(Snapchat, Insta)"] as NSDictionary
+        var dict4 = ["profileID":"4", "name": "Going out", "qrCodeString": "qrCode for profile 4", "info":"Snapchat, Insta"] as NSDictionary
         let profile4 = Profile(dictionary: dict4, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
         profiles.append(profile4)
+//        for profile in profiles {
+//            profile.loadAccountsInProfile()
+//        }
         print("Profiles!... \(profiles!)")
+       // addSlideMenuButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -171,6 +174,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                                 self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
                             } else {
                                 self.profileImage.image = UIImage(named: "launch_logo")
+                                self.profileImage.center = self.view.center
                                 //self.navigationItem.leftBarButtonItem = self.uploadImageButton
                                 //query the db for an image
                             }
@@ -191,106 +195,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//
-//    func loadApps(){
-//        print("loadApps()")
-//        loadAppsFromDB()
-//    }
-//
-    ////////////////////////////// BEGINNING OF JSON ///////////////////////////////////
-    
-    // TomMiller 2018/06/27 - Added struct to interact with JSON
-    struct JsonApp: Decodable {
-        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
-        let accounts: [[String: String]]
-    }
-    
-    var JsonApps = [JsonApp]()
-    ////////////////////////////// END OF JSON ///////////////////////////////////
-    
-//    // Tom 2018/04/18
-//    func loadAppsFromDB() {
-//        print("RIGHT HERE")
-//        apps = []
-//        var returnList: [Apps] = []
-//        let idString = self.credentialsManager.identityID!
-//        print(idString)
-//        let sema = DispatchSemaphore(value: 0);
-//        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/")!)
-//        print(request)
-//        request.httpMethod = "GET"
-//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
-//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-//
-//        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-//        data, response, error in
-//        if error != nil {
-//            print("error=\(error)")
-//            sema.signal()
-//            return
-//        } else {
-//            print("---no error----")
-//        }
-//            //////////////////////// New stuff from Tom
-//            do {
-//                print(data)
-//                print("decoding")
-//                let decoder = JSONDecoder()
-//                print("getting data")
-//                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
-//                print(JSONdata)
-//                if(JSONdata.accounts.count == 0){
-//                    print("no accounts")
-//                    returnList = []
-//                    sema.signal()
-//                } else {
-//                    //=======
-//                    for index in 0...JSONdata.accounts.count - 1 {
-//                       let listOfAccountInfo = JSONdata.accounts[index]
-//                        let displayName = listOfAccountInfo["displayName"]!
-//                        let platform = listOfAccountInfo["platform"]!
-//                        let url = listOfAccountInfo["url"]!
-//                        let username = listOfAccountInfo["username"]!
-//                        var appIdString = listOfAccountInfo["accountId"]!
-//                      //  var isSwitchOn = listOfAccountInfo["isSwitchOn"]!
-//    //                    if(appIdString.prefix(2) == "0x"){
-//    //                        appIdString.removeFirst(2)
-//    //                    }
-//                        print(appIdString)
-//                        let appId = Int(appIdString)!//, radix: 16)!
-//                        print(displayName)
-//                        print(platform)
-//                        print(url)
-//                        print(appId)
-//                        //print(username)
-//                        let app = Apps()
-//                        app?._appId = "\(appId)"
-//                        app?._displayName = displayName
-//                        app?._platform = platform
-//                        app?._uRL = url
-//                        app?._username = username
-//                        app?._isSwitchOn = "True"
-//                        print(app)
-//                        returnList.append(app!)
-//                    }
-//                }
-//                    apps = returnList
-//                    sema.signal();
-//                    //=======
-//                } catch let err {
-//                    print("Err", err)
-//                    apps = returnList
-//                    sema.signal(); // none found TODO: do something better than this shit.
-//                }
-//                print("Done")
-//        })
-//        task.resume()
-//        sema.wait(timeout: DispatchTime.distantFuture)
-//        apps = returnList
-//        cellSwitches = []
-//        //self.appsTableView.reloadData()
-//    }
-    
+ 
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
         print("getFBUserInfo()")
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
@@ -367,147 +272,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //Finally return the UIImage
         return UIImage(cgImage: cgImage)
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        print("height for row at method")
-//        if indexPath.section == selectedSectionIndex && isCellTapped {
-//            print("returning 180")
-//            return 180
-//        }
-//        print("returning 140")
-//        return 140
-//    }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("did select row at index path")
-//        self.tableView(tableView, cellForRowAt: indexPath).backgroundColor = UIColor.gray
-//
-//        // avoid paint the cell is the index is outside the bounds
-//        if self.selectedSectionIndex != -1 {
-//            tableView.cellForRow(at: NSIndexPath(row: self.selectedSectionIndex, section: 0) as IndexPath)?.backgroundColor = UIColor.white
-//        }
-//
-//        if selectedSectionIndex != indexPath.section {
-//            self.isCellTapped = true
-//            self.selectedSectionIndex = indexPath.section
-//        }
-//        else {
-//            // there is no cell selected anymore
-//            self.isCellTapped = false
-//            self.selectedSectionIndex = -1
-//        }
-//
-//        tableView.beginUpdates()
-//        tableView.endUpdates()
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return apps.count
-//    }
-//
-//    // There is just one row in every section
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
-//    }
-//
-//    // Set the spacing between sections
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return cellSpacingHeight
-//    }
-//
-//    // Make the background color show through
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = UIView()
-//        headerView.backgroundColor = UIColor.clear
-//        return headerView
-//    }
-//
-//
-//
-//    // This is where the table cells on the main page are modeled from.
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        // Create an object of the dynamic cell “PlainCell”
-//        let cell:AppsTableViewCell = appsTableView.dequeueReusableCell(withIdentifier: "PlainCell", for: indexPath) as! AppsTableViewCell
-//        print("Adding to table view now: \(cell)")
-//        if (!cellSwitches.contains(cell)) {
-//            cellSwitches.append(cell)
-//        }
-//        cell.NameLabel.text = apps[indexPath.section]._displayName
-//        switch apps[indexPath.section]._platform {
-//        case "Facebook"?:
-//            cell.appImage.image = UIImage(named: "fb-icon")
-//        case "Twitter"?:
-//            cell.appImage.image = UIImage(named: "twitter_icon")
-//        case "Instagram"?:
-//            cell.appImage.image = UIImage(named: "Instagram_icon")
-//        case "Snapchat"?:
-//            cell.appImage.image = UIImage(named: "snapchat_icon")
-//        case "GooglePlus"?:
-//            cell.appImage.image = UIImage(named: "google_plus_icon")
-//        case "LinkedIn"?:
-//            cell.appImage.image = UIImage(named: "linked_in_logo")
-//        case "Xbox"?:
-//            cell.appImage.image = UIImage(named: "xbox")
-//        case "PSN"?:
-//            cell.appImage.image = UIImage(named: "play-station")
-//        case "Twitch"?:
-//            cell.appImage.image = UIImage(named: "twitch")
-//        case "Custom"?:
-//            cell.appImage.image = UIImage(named: "custom")
-//        default:
-//            cell.appImage.image = UIImage(named: "AppIcon")
-//        }
-//        //cell.NameLabel.textColor = UIColor.white
-//        //cell.layer.backgroundColor = UIColor.clear.cgColor
-//        cell.url.text = apps[indexPath.section]._uRL!
-//        cell.id = Int(apps[indexPath.section]._appId!)
-//        //print(indexPath.row)
-//        if(indexPath.section == apps.count-1){
-//            print("-----------about to create code----------")
-//            createQRCode(self)
-//        }
-//        return cell
-//    }
-//    @IBAction func refreshTableView(_ sender: Any) {
-//        print("refreshTableView()")
-//        appsTableView.reloadData()
-//    }
-    
-    @objc private func refreshAppData(_ sender: Any) {
-        print("refreshAppData()")
-        fetchAppData()
-    }
-//
-    private func fetchAppData() {
-        print("fetchAppData()")
-        //load profiles
-        //setupActivityIndicatorView()
-        self.updateView()
-        self.refreshControl.endRefreshing()
-        //self.activityIndicatorView.stopAnimating()
-    }
-    
-    private func updateView() {
-        print("updateView()")
-        let hasProfiles = profiles.count > 0
-        print("has apps: \(hasProfiles)")
-        collectionView.isHidden = false
-        if hasProfiles {
-            collectionView.reloadData()
-        } else {
-        }
-    }
-//
-//    // MARK: -
-//    private func setupTableView() {
-//        print("setuptableView()")
-//        appsTableView.isHidden = false// true
-//        activityIndicatorView.isHidden = false
-//    }
-//
-//    private func setupActivityIndicatorView() {
-//        activityIndicatorView.startAnimating()
-//    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -546,10 +310,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         gradient = CAGradientLayer()
         let gradientView = UIView(frame: self.view.bounds)
         gradient.frame = view.frame
-        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
-        gradient.locations = [0.0, 0.5, 1.0]
-//        gradient.colors = [UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
-//        gradient.locations = [0.0, 1.0]
+//        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
+//        gradient.locations = [0.0, 0.5, 1.0]
+//        gradient.colors = [Color.glass.value.cgColor, Color.coral.value.cgColor, Color.bondiBlue.value.cgColor, Color.marina.value.cgColor]
+//        gradient.locations = [0.0, 0.33, 0.66, 1.0]
+        gradient.colors = [Color.chill.value.cgColor, Color.chill.value.cgColor]
+        gradient.locations = [0.0, 1.0]
         gradientView.frame = self.view.bounds
         gradientView.layer.addSublayer(gradient)
         self.view.addSubview(gradientView)
@@ -577,19 +343,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             ])
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets(top: 200, left: 120, bottom: 200, right: 120)
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 180, height: 160)
+        return CGSize(width: itemWidth, height: itemHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
+        return 10.0
     }
-
+    
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            let count = profiles.count + 1
+            pageControl.numberOfPages = count
             print(profiles)
             print("--------------------")
             return profiles.count + 1
@@ -597,71 +361,197 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @objc func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
+        cell.layer.backgroundColor = UIColor.white.cgColor
+       // cell.nameLabel.textColor = Color.glass.value
+       // cell.descLabel.textColor = Color.glass.value
         if indexPath.item == profiles.count {
             cell.profileImage.image = UIImage(named: "add_more.png")
-            cell.profileImage.frame = cell.bounds
+            //cell.profileImage.frame = cell.bounds
             cell.nameLabel.text = "Add a Profile"
             cell.descLabel.isHidden = true
-            cell.editButton.isHidden = true
-            cell.editButton.isEnabled = false
+            cell.openButton.setImage(UIImage(named: "ic_add_circle"), for: .normal)
         } else {
             print(profiles[indexPath.row])
             cell.populateWith(card: profiles[indexPath.row])
         }
-        cell.delegate = self
+        cell.layer.cornerRadius = 6.0
         return cell
     }
-
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            print("selected card \(indexPath.row)")
-            if(indexPath.row == profiles.count){
-                print("create new account")
-            } else {
-                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(indexPath.row == profiles.count){
+            print("will show add more")
+        } else {
+            print("will show options")
+            let actionSheet = createStandardActionSheet(indexPath: indexPath)
+            actionSheet.present(in: self, from: self.view)
+        }
+    }
+//    
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        print("snapping")
+//        guard let collectionView = scrollView as? UICollectionView else { return }
+//        let indexPath = IndexPath(item: pageControl.currentPage + 1, section: 0)
+//        collectionView.snapToCell(velocity: velocity, targetOffset: targetContentOffset, spacing: 10, indexPath: indexPath)
+//       // contentOffset = targetContentOffset.pointee.x
+//    }
+    
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//
+//        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+//    }
+//
+//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+//
+//        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+//    }
+    
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//
+//        let pageWidth = Float(itemWidth + itemSpacing)
+//        let targetXContentOffset = Float(targetContentOffset.pointee.x)
+//        let contentWidth = Float(collectionView!.contentSize.width  )
+//        var newPage = Float(self.pageControl.currentPage)
+//
+//        if velocity.x == 0 {
+//            newPage = floor( (targetXContentOffset - Float(pageWidth) / 2) / Float(pageWidth)) + 1.0
+//        } else {
+//            newPage = Float(velocity.x > 0 ? self.pageControl.currentPage + 1 : self.pageControl.currentPage - 1)
+//            if newPage < 0 {
+//                newPage = 0
+//            }
+//            if (newPage > contentWidth / pageWidth) {
+//                newPage = ceil(contentWidth / pageWidth) - 1.0
+//            }
+//        }
+//
+//        self.pageControl.currentPage = Int(newPage)
+//        let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
+//        targetContentOffset.pointee = point
+//    }
+    
+//    override func calculateSectionInset() -> CGFloat {
+//        return 40
+//    }
+    
+    func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
+        let title = ActionSheetTitle(title: "Select an option")
+        let item1 = ActionSheetItem(title: "View Code", value: "1", image: UIImage(named: "baseline_pageview_black_18dp"))
+        let item2 = ActionSheetItem(title: "Edit Profile", value: "2", image: UIImage(named: "baseline_create_black_18dp"))
+        let item3 = ActionSheetItem(title: "Share Profile", value: "3", image: UIImage(named: "baseline_share_black_18dp"))
+        let button = ActionSheetOkButton(title: "Cancel")
+        return ActionSheet(items: [title, item1, item2, item3, button]) { _, item in
+            guard let value = item.value as? String else { return }
+            if value == "1" {
+                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+                modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-                print(profiles[indexPath.row].description)
-                modalVC.profileID = profiles[indexPath.row].id
                 modalVC.modalPresentationStyle = .custom
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
-                present(modalVC, animated: true, completion: nil)
+                self.present(modalVC, animated: true, completion: nil)
+            } else if value == "2" {
+                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
+                    self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                    modalVC.accounts = self.profiles[indexPath.row].Accounts
+                    modalVC.profileImageImage = self.profiles[indexPath.row].image
+                    modalVC.profileID = self.profiles[indexPath.row].id
+                    modalVC.profileNameText = self.profiles[indexPath.row].name
+                    modalVC.profileDescriptionText = self.profiles[indexPath.row].descriptionLabel
+                    modalVC.modalTransitionStyle = .crossDissolve
+                    modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                    self.present(modalVC, animated: true, completion: nil)
+            } else if value == "3" {
+                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
+//                let encoder = JSONEncoder()
+//                encoder.outputFormatting = .prettyPrinted
+//                let data = try! encoder.encode(profiles[Apps])
+//                print(String(data: data, encoding: .utf8)!)
+                modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
+                modalVC.shouldShare = true
+                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                modalVC.modalPresentationStyle = .custom
+                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                self.present(modalVC, animated: true, completion: nil)
             }
-           
-        }
-    
-    
-    
-    func cellSwipedUp(_ cell: UICollectionViewCell) {
-        print("swipedUp")
-        guard let cell = cell as? ProfileCollectionViewCell else { return }
-        //Get the IndexPath from Cell being passed (swiped up).
-        let indexPath = collectionView?.indexPath(for: cell)
-        if indexPath?.row  == profiles.count {
-            print("swiped up on add more cell")
-        } else {
-            let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-            modalVC.qrCodeString = profiles[(indexPath?.row)!].qrCodeString
-            self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-            modalVC.modalPresentationStyle = .custom
-            modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
-            present(modalVC, animated: true, completion: nil)
         }
     }
     
-    func cellSwipedDown(_ cell: UICollectionViewCell) {
-        print("swiped down")
-        let alert = CDAlertView(title: "Deleting Profile", message: "Are you sure you wish to delete this profile?", type: .warning)
-        let doneAction = CDAlertViewAction(title: "Sure! 💪",
-                                           font: UIFont.systemFont(ofSize: 17),
-                                           textColor: UIColor(red: 27 / 255, green: 169 / 255, blue: 225 / 255, alpha: 1),
-                                           backgroundColor: nil,
-                                           handler: { action in print("deleting")})
-        alert.add(action: doneAction)
-        let nevermindAction = CDAlertViewAction(title: "Nevermind 😬")
-        alert.add(action: nevermindAction)
-        alert.show()
+    @objc private func refreshAppData(_ sender: Any) {
+        print("refreshAppData()")
+        fetchAppData()
+    }
+    //
+    private func fetchAppData() {
+        print("fetchAppData()")
+        //load profiles
+        //setupActivityIndicatorView()
+        self.updateView()
+        self.refreshControl.endRefreshing()
+        //self.activityIndicatorView.stopAnimating()
+    }
+    
+    private func updateView() {
+        print("updateView()")
+        let hasProfiles = profiles.count > 0
+        print("has apps: \(hasProfiles)")
+        collectionView.isHidden = false
+        if hasProfiles {
+            collectionView.reloadData()
+        } else {
+        }
+    }
+    
+    func loadCustomRefreshContents() {
+//        let refreshContents = Bundle.main.loadNibNamed("RefreshContents", owner: self, options: nil)
+//
+//        customView = refreshContents![0] as! UIView
+//        customView.frame = self.view.bounds
+//        
+//        for i in 0 ..< customView.subviews.count {
+//            labelsArray.append(customView.viewWithTag(i + 1) as! UILabel)
+//        }
+//
+//        refreshControl.addSubview(customView)
+        
+        if #available(iOS 10.0, *) {
+            collectionView.refreshControl = refreshControl
+        } else {
+            collectionView.addSubview(refreshControl)
+        }
+
     }
     
 }
+
+extension UICollectionView {
+    
+    func snapToCell(velocity: CGPoint, targetOffset: UnsafeMutablePointer<CGPoint>, contentInset: CGFloat = 0, spacing: CGFloat = 0, indexPath: IndexPath) {
+        // No snap needed as we're at the end of the scrollview
+        guard (contentOffset.x + frame.size.width) < contentSize.width else {
+            return
+        }
+  //      let indexPath =  indexPathForItem(at: targetOffset.pointee)
+//        guard let indexPath = indexPathForItem(at: targetOffset.pointee) else {
+//            print("target offset: \(targetOffset.pointee)")
+//            return
+//        }
+        guard let cellLayout = layoutAttributesForItem(at: indexPath) else {
+             print("in cell layout else")
+            return
+        }
+        
+        var offset = targetOffset.pointee
+        print("made it here in snap")
+        if velocity.x < 0 {
+            offset.x = cellLayout.frame.minX - max(contentInset, spacing)
+        } else {
+            offset.x = cellLayout.frame.maxX - contentInset + min(contentInset, spacing)
+        }
+        
+        targetOffset.pointee = offset
+    }
+}
+
 
 extension String
 {

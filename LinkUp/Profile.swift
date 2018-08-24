@@ -34,7 +34,6 @@ class Profile {
     init(dictionary: NSDictionary, imageIn: UIImage) {
         var tempAccounts: [Apps] = []
         print("RIGHT HERE")
-        var returnList: [Apps] = []
         let sema = DispatchSemaphore(value: 0);
         //let idString = self.credentialsManager.identityID!
         let idString = "us-east-1:528b7a0e-e5c6-4aa5-84aa-d96916e58f85"
@@ -103,6 +102,7 @@ class Profile {
         self.id = (dictionary["profileID"] as? String)!
         print(self.id)
         self.name = (dictionary["name"] as? String)!
+        
         self.qrCodeString = (dictionary["qrCodeString"] as? String)!
         self.backgroundColor = UIColor(red: 237/255, green: 250/255, blue: 253/255, alpha: 1)
         self.descriptionLabel = (dictionary["info"] as? String)!

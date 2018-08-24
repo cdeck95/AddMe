@@ -11,7 +11,7 @@ import AVFoundation
 import SafariServices
 import GoogleMobileAds
 
-class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate {
+class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate, UIPopoverControllerDelegate {
     
  
     var bannerView: DFPBannerView!
@@ -36,7 +36,9 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     override func viewDidAppear(_ animated: Bool) {
         imagePicker.delegate = self
         interstitial = createAndLoadInterstitial()
-        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
+        safariApps = []
+        nativeApps = []
+//        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
     }
     
     @IBAction func takePhoto(sender: AnyObject) {
@@ -79,7 +81,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                     dict = result
                     print("dict:  \(dict)")
                     convertToArray()
-                     openPlatforms()
+                     //openPlatforms()
                 }
                 catch let error as NSError {
                     print(error.localizedDescription)
@@ -187,6 +189,17 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
         print(safariApps)
         print(nativeApps)
+        
+        var allApps:[Apps] = []
+        for app in safariApps {
+            allApps.append(app)
+        }
+        for app in nativeApps {
+            allApps.append(app)
+        }
+        
+        //present popove
+       
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController)

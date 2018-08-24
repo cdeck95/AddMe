@@ -16,6 +16,7 @@ import AWSCore
 import AWSCognito
 import GoogleSignIn
 import FacebookCore
+import SideMenuSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,9 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().backgroundColor = .clear //UIColor.init(red: 174/255, green: 217/255, blue: 218/255, alpha: 1)
         // Set translucent. (Default value is already true, so this can be removed if desired.)
         //UINavigationBar.appearance().isTranslucent = true
-        
-        let tabBarController = self.window?.rootViewController as? UITabBarController
-        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
+    
+        SideMenuController.preferences.basic.menuWidth = 240
+        SideMenuController.preferences.basic.defaultCacheKey = "0"
         
         return AWSMobileClient.sharedInstance().interceptApplication(
             application, didFinishLaunchingWithOptions:
