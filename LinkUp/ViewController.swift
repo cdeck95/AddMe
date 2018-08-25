@@ -374,6 +374,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             print(profiles[indexPath.row])
             cell.populateWith(card: profiles[indexPath.row])
         }
+        cell.nameLabel.sizeToFit()
+        cell.descLabel.sizeToFit()
         cell.layer.cornerRadius = 6.0
         return cell
     }
@@ -436,9 +438,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
         let title = ActionSheetTitle(title: "Select an option")
-        let item1 = ActionSheetItem(title: "View Code", value: "1", image: UIImage(named: "baseline_pageview_black_18dp"))
-        let item2 = ActionSheetItem(title: "Edit Profile", value: "2", image: UIImage(named: "baseline_create_black_18dp"))
-        let item3 = ActionSheetItem(title: "Share Profile", value: "3", image: UIImage(named: "baseline_share_black_18dp"))
+        let item1 = ActionSheetItem(title: "View Code", value: "1", image: UIImage(named: "baseline_pageview_black_18pt"))
+        let item2 = ActionSheetItem(title: "Edit Profile", value: "2", image: UIImage(named: "baseline_create_black_18pt"))
+        let item3 = ActionSheetItem(title: "Share Profile", value: "3", image: UIImage(named: "baseline_share_black_18pt"))
         let button = ActionSheetOkButton(title: "Cancel")
         return ActionSheet(items: [title, item1, item2, item3, button]) { _, item in
             guard let value = item.value as? String else { return }
