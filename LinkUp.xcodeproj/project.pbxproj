@@ -27,6 +27,7 @@
 		DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EEB2037859800E79B47 /* ViewController.swift */; };
 		DA6A7EF12037859800E79B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF02037859800E79B47 /* Assets.xcassets */; };
 		DA6A7EF42037859800E79B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */; };
+		DA72C3E821375E940053F672 /* EFIntSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C3E721375E940053F672 /* EFIntSize.swift */; };
 		DA84C91A212B1E2D00AF84CC /* ScannedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */; };
 		DA84C91C212B223100AF84CC /* ScannedProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */; };
 		DA929D79212F920800CEFBD6 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */; };
@@ -89,6 +90,7 @@
 		DA6A7EF02037859800E79B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA6A7EF32037859800E79B47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA6A7EF52037859800E79B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA72C3E721375E940053F672 /* EFIntSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFIntSize.swift; sourceTree = "<group>"; };
 		DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedTableViewCell.swift; sourceTree = "<group>"; };
 		DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedProfileViewController.swift; sourceTree = "<group>"; };
 		DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
+				DA72C3E721375E940053F672 /* EFIntSize.swift */,
 				DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */,
 				DA5C4718212B86970005FC2E /* MenuViewController.swift */,
 				DA5C4716212B37B00005FC2E /* RefreshContents.xib */,
@@ -387,6 +390,7 @@
 				"${BUILT_PRODUCTS_DIR}/AWSUserPoolsSignIn/AWSUserPoolsSignIn.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CDAlertView/CDAlertView.framework",
+				"${BUILT_PRODUCTS_DIR}/EFQRCode/EFQRCode.framework",
 				"${BUILT_PRODUCTS_DIR}/ESTabBarController-swift/ESTabBarController_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -420,6 +424,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSUserPoolsSignIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CDAlertView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EFQRCode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESTabBarController_swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
@@ -462,6 +467,7 @@
 				DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */,
 				DA37EE4F2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift in Sources */,
 				DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */,
+				DA72C3E821375E940053F672 /* EFIntSize.swift in Sources */,
 				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
 				DA929D7D212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift in Sources */,

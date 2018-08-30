@@ -1482,10 +1482,10 @@
             </objects>
             <point key="canvasLocation" x="1556" y="156.97151424287858"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Swipeable Tab Bar Controller-->
         <scene sceneID="zew-Wa-OvN">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0fo-N0-SsQ" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0fo-N0-SsQ" customClass="SwipeableTabBarController" customModule="SwipeableTabBarController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aZm-Jq-Woc">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1648,7 +1648,7 @@
         <image name="AddMeLogo-2" width="417" height="417"/>
         <image name="Icon-20" width="20" height="27"/>
         <image name="Instagram_icon" width="599" height="600"/>
-        <image name="baseline_keyboard_arrow_right_black_18dp" width="36" height="36"/>
+        <image name="baseline_keyboard_arrow_right_black_18dp" width="18" height="18"/>
         <image name="custom" width="512" height="512"/>
         <image name="dance-floor-of-night-club" width="1920" height="1080"/>
         <image name="fb-icon" width="45" height="45"/>

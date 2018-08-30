@@ -446,7 +446,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             guard let value = item.value as? String else { return }
             if value == "1" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-                modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
+                modalVC.qrCodeString = self.profiles[(indexPath.row)].id
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 modalVC.modalPresentationStyle = .custom
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
