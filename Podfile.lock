@@ -32,6 +32,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
   - CDAlertView (0.8.3)
+  - EFQRCode (4.2.2)
   - ESTabBarController-swift (2.6.2)
   - FacebookCore (0.3.2):
     - Bolts (~> 1.8)
@@ -82,6 +83,7 @@ DEPENDENCIES:
   - AWSMobileClient (~> 2.6.6)
   - AWSUserPoolsSignIn (~> 2.6.6)
   - CDAlertView
+  - EFQRCode (~> 4.2.2)
   - ESTabBarController-swift
   - FacebookCore
   - FBSDKLoginKit
@@ -112,6 +114,7 @@ SPEC REPOS:
     - AWSUserPoolsSignIn
     - Bolts
     - CDAlertView
+    - EFQRCode
     - ESTabBarController-swift
     - FacebookCore
     - FBSDKCoreKit
@@ -155,6 +158,7 @@ SPEC CHECKSUMS:
   AWSUserPoolsSignIn: dfc849bcd5f965248ec8bb11c37e640bede7e377
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CDAlertView: 7ec9ce91ccd800a66a18f7fd92a9dea20c5326a2
+  EFQRCode: 203846c7b135b5f7c1d18bb7923bc32a74c8b363
   ESTabBarController-swift: f0a8679e43df1e60b7b36bbcaf1dc98ba6273c7d
   FacebookCore: fe93222bb70346730ef33b061d493e9e7a7cb1f5
   FBSDKCoreKit: 1a5b2e3ceb5ca827a53c54aa5f4a3480efff80d2
@@ -174,6 +178,6 @@ SPEC CHECKSUMS:
   SwipeableTabBarController: 0e3e229aa1edfc1b8b4daf24df7de2643578cf42
   TransitionButton: 20f92b3cc726b047e4df200fdab5307f33395a81
 
-PODFILE CHECKSUM: 6fb265bc1517b55a8e6e1aaada430d88c2b82a91
+PODFILE CHECKSUM: f01f0dc2a7eca35ed36d7e7fce5a16e26e5a55a0
 
 COCOAPODS: 1.6.0.beta.1

@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import CDAlertView
 import AWSCognito
+import EFQRCode
 
 class QRCodeViewController: UIViewController, HalfModalPresentable {
 
@@ -20,6 +21,23 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     var qrCode:UIImage!
     var qrCodeString:String = "empty"
     var shouldShare:Bool = false
+    
+    // Param
+    var inputCorrectionLevel = EFInputCorrectionLevel.h
+    var size: EFIntSize = EFIntSize(width: 1024, height: 1024)
+    var magnification: EFIntSize? = EFIntSize(width: 9, height: 9)
+    var backColor = UIColor.white
+    var frontColor = UIColor.black
+    var icon: UIImage? = nil
+    var iconSize: EFIntSize? = nil
+    var watermarkMode = EFWatermarkMode.scaleAspectFill
+    var mode: EFQRCodeMode = .none
+    var binarizationThreshold: CGFloat = 0.5
+    var pointShape: EFPointShape = .square
+    
+    // MARK:- Not commonly used
+    var foregroundPointOffset: CGFloat = 0
+    var allowTransparent: Bool = true
     
     @IBOutlet var shareButton: UIBarButtonItem!
    
@@ -51,28 +69,41 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     }
     
     func generateQRCode(from string: String) -> UIImage? {
+        if let tryImage = EFQRCode.generate(
+            content: qrCodeString,
+           // backgroundColor: Color.coral.value.cgColor,
+            foregroundColor: Color.bondiBlue.value.cgColor,
+            watermark: UIImage(named: "AddMeLogo-1.png")?.toCGImage()
+            ) {
+            print("Create QRCode image success: \(tryImage)")
+            return UIImage(cgImage: tryImage)
+        } else {
+            print("Create QRCode image failed!")
+            return nil
+        }
+        
         //Convert string to data
-        let stringData = string.data(using: String.Encoding.utf8)
-        
-        //Generate CIImage
-        let filter = CIFilter(name: "CIQRCodeGenerator")
-        filter?.setValue(stringData, forKey: "inputMessage")
-        filter?.setValue("H", forKey: "inputCorrectionLevel")
-        guard let ciImage = filter?.outputImage else { return nil }
-      //  var newCiImage = ciImage.replace(colorOld: EFUIntPixel(), colorNew: EFUIntPixel(red: 1,green: 82,blue: 73,alpha: 1))
-
-        
-        //Scale image to proper size
-       // let scale = CGFloat(size) / ciImage.extent.size.width
-        let transform = CGAffineTransform(scaleX: 3, y: 3)
-        let scaledCIImage = ciImage.transformed(by: transform)
-        
-        //Convert to CGImage
-        let ciContext = CIContext()
-        guard let cgImage = ciContext.createCGImage(scaledCIImage, from: scaledCIImage.extent) else { return nil }
-        
-        //Finally return the UIImage
-        return UIImage(cgImage: cgImage)
+//        let stringData = string.data(using: String.Encoding.utf8)
+//
+//        //Generate CIImage
+//        let filter = CIFilter(name: "CIQRCodeGenerator")
+//        filter?.setValue(stringData, forKey: "inputMessage")
+//        filter?.setValue("H", forKey: "inputCorrectionLevel")
+//        guard let ciImage = filter?.outputImage else { return nil }
+//      //  var newCiImage = ciImage.replace(colorOld: EFUIntPixel(), colorNew: EFUIntPixel(red: 1,green: 82,blue: 73,alpha: 1))
+//
+//
+//        //Scale image to proper size
+//       // let scale = CGFloat(size) / ciImage.extent.size.width
+//        let transform = CGAffineTransform(scaleX: 3, y: 3)
+//        let scaledCIImage = ciImage.transformed(by: transform)
+//
+//        //Convert to CGImage
+//        let ciContext = CIContext()
+//        guard let cgImage = ciContext.createCGImage(scaledCIImage, from: scaledCIImage.extent) else { return nil }
+//
+//        //Finally return the UIImage
+//        return UIImage(cgImage: cgImage)
     }
 
     
