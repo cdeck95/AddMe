@@ -11,12 +11,12 @@ import UIKit
 
 class Profile {
     let id: String
-    let Accounts: [Apps]
+    var Accounts: [Apps]
     let name: String
-    let qrCodeString: String
     let backgroundColor: UIColor
     let descriptionLabel: String
     let image: UIImage
+    let accounts: [String]
     
     public var description: String { return "Profile ID: \(self.id)" }
     
@@ -31,8 +31,18 @@ class Profile {
     var JsonApps = [JsonApp]()
     ////////////////////////////// END OF JSON ///////////////////////////////////
     
-    init(dictionary: NSDictionary, imageIn: UIImage) {
+    init(dictionary: NSDictionary, accountIds: [String], imageIn: UIImage) {
+        self.accounts = accountIds
         var tempAccounts: [Apps] = []
+        self.Accounts = tempAccounts
+        self.id = (dictionary["profileID"] as? String)!
+        print(self.id)
+        self.name = (dictionary["name"] as? String)!
+        print(self.Accounts)
+        
+        self.backgroundColor = UIColor(red: 237/255, green: 250/255, blue: 253/255, alpha: 1)
+        self.descriptionLabel = (dictionary["info"] as? String)!
+        self.image = imageIn
         print("RIGHT HERE")
         let sema = DispatchSemaphore(value: 0);
         //let idString = self.credentialsManager.identityID!
@@ -42,7 +52,6 @@ class Profile {
         request.httpMethod = "GET"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-        
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             data, response, error in
             if error != nil {
@@ -70,10 +79,12 @@ class Profile {
                         let url = listOfAccountInfo["url"]!
                         let username = listOfAccountInfo["username"]!
                         var appIdString = listOfAccountInfo["accountId"]!
-                        //  var isSwitchOn = listOfAccountInfo["isSwitchOn"]!
-                        //                    if(appIdString.prefix(2) == "0x"){
-                        //                        appIdString.removeFirst(2)
-                        //                    }
+                        var appSwitchIsOn: String
+                        if(self.accounts.contains(appIdString)){
+                            appSwitchIsOn = "True"
+                        } else {
+                            appSwitchIsOn = "False"
+                        }
                         print(appIdString)
                         let appId = Int(appIdString)!//, radix: 16)!
                         print(displayName)
@@ -87,11 +98,12 @@ class Profile {
                         app?._platform = platform
                         app?._uRL = url
                         app?._username = username
-                        app?._isSwitchOn = "True"
+                        app?._isSwitchOn = appSwitchIsOn
                         print(app)
-                        tempAccounts.append(app!)
+                        self.Accounts.append(app!)
                     }
                     sema.signal()
+                    
                 }
             } catch let error as NSError {
                 print(error)
@@ -99,30 +111,20 @@ class Profile {
             }
         })
         task.resume()
-        self.id = (dictionary["profileID"] as? String)!
-        print(self.id)
-        self.name = (dictionary["name"] as? String)!
-        
-        self.qrCodeString = (dictionary["qrCodeString"] as? String)!
-        self.backgroundColor = UIColor(red: 237/255, green: 250/255, blue: 253/255, alpha: 1)
-        self.descriptionLabel = (dictionary["info"] as? String)!
-        self.image = imageIn
         sema.wait(timeout: DispatchTime.distantFuture)
-        self.Accounts = tempAccounts
-        print(self.Accounts)
     }
     
     //Load some demo information into the [savedCards] Array.
-    static func loadCards() -> [Profile] {
-        var savedCards = [Profile]()
-        if let URL = Bundle.main.url(forResource: "Cards", withExtension: "plist") {
-            if let cardsFromPlist = NSArray(contentsOf: URL) {
-                for card in cardsFromPlist{
-                    let newCard = Profile(dictionary: card as! NSDictionary, imageIn: UIImage(named: "AddMeLogo-2.png")!)
-                    savedCards.append(newCard)
-                }
-            }
-        }
-        return savedCards
-    }
+//    static func loadCards() -> [Profile] {
+//        var savedCards = [Profile]()
+//        if let URL = Bundle.main.url(forResource: "Cards", withExtension: "plist") {
+//            if let cardsFromPlist = NSArray(contentsOf: URL) {
+//                for card in cardsFromPlist{
+//                    let newCard = Profile(dictionary: card as! NSDictionary, imageIn: UIImage(named: "AddMeLogo-2.png")!)
+//                    savedCards.append(newCard)
+//                }
+//            }
+//        }
+//        return savedCards
+//    }
 }

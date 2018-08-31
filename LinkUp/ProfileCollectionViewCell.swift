@@ -12,7 +12,6 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     var profileID: String!
     var accounts: [Apps]!
-    var qrCodeString: String!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     
@@ -57,7 +56,6 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         descLabel.text = "(\(card.descriptionLabel))"
         //backgroundColor = card.backgroundColor
         accounts = card.Accounts
-        qrCodeString = card.qrCodeString
         
         openButton.setImage(UIImage(named: "baseline_keyboard_arrow_right_black_18dp"), for: .normal)
         
