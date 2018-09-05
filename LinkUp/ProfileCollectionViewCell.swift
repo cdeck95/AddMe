@@ -47,7 +47,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         
         profileID = card.profileId
         print("card profile id: \(profileID)")
-        //profileImage.image = card.imageUrl
+        profileImage.sd_setImage(with: URL(string: card.imageUrl), completed: nil)
         //profileImage.layer.borderWidth = 2
         //profileImage.layer.borderColor = Color.glass.value.cgColor
         //profileImage.layer.cornerRadius = 6

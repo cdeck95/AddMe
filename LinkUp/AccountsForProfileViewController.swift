@@ -20,6 +20,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
     var profileNameText: String!
     var profileDescriptionText: String!
     @IBOutlet var profileImage: ProfileImage!
+    var profileImageUrl: String!
     var gradient: CAGradientLayer!
     
     override func viewDidLoad() {
@@ -35,7 +36,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         print("profile ID \(profileID)")
 //        print("accounts in profile: \(accounts)")
  //       print("all accounts: \(allAccounts)")
-        profileImage.image = profileImageImage
+        profileImage.sd_setImage(with: URL(string: profileImageUrl), completed: nil)    //   image = profileImageImage
 //        profileName.text = profileNameText
 //        profileDescription.text = profileDescriptionText
       //  appsTableView.layer.borderColor = Color.chill.value.cgColor

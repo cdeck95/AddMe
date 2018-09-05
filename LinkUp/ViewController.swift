@@ -22,6 +22,7 @@ import CDAlertView
 import FCAlertView
 import Sheeeeeeeeet
 import SideMenuSwift
+import SDWebImage
 
 var cellSwitches: [AppsTableViewCell] = []
 var apps: [Accounts] = []
@@ -360,6 +361,36 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(indexPath.row == profiles.count){
             print("will show add more")
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            alert.addTextField(withPlaceholder: "Name (i.e. Going Out") { (text) in
+                //print(text!)
+                let profileName = text
+                let alert2 = FCAlertView()
+                alert2.delegate = self
+                alert2.colorScheme = Color.bondiBlue.value
+                alert2.addTextField(withPlaceholder: "Description (i.e. Facebook, Snap") { (text2) in
+                    let profileDescription = text2
+                    let profile = PagedProfile.Profile(profileId: "", accounts: self.loadAppsFromDB(), name: profileName!, description: profileDescription!, cognitoId: self.credentialsManager.identityID, imageUrl: "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
+                    self.addProfile(profile: profile)
+                }
+                alert2.showAlert(inView: self,
+                                withTitle: "Add Profile",
+                                withSubtitle: "Enter your details below",
+                                withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                withDoneButtonTitle: "Add",
+                                andButtons: ["Cancel"])
+            }
+            
+            
+            alert.showAlert(inView: self,
+                            withTitle: "Add Profile",
+                            withSubtitle: "Enter your details below",
+                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withDoneButtonTitle: "Add",
+                            andButtons: ["Cancel"])
+            return
         } else {
             print("will show options")
             let actionSheet = createStandardActionSheet(indexPath: indexPath)
@@ -394,7 +425,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //                }
                     modalVC.allAccounts = allAccounts
                     modalVC.accounts = self.profiles[indexPath.row].accounts
-                   // modalVC.profileImageImage = self.profiles[indexPath.row].imageUrl
+                    modalVC.profileImageUrl = self.profiles[indexPath.row].imageUrl
                     modalVC.profileID = self.profiles[indexPath.row].profileId
                     modalVC.profileNameText = self.profiles[indexPath.row].name
                     modalVC.profileDescriptionText = self.profiles[indexPath.row].description
@@ -558,7 +589,45 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         sema.wait(timeout: DispatchTime.distantFuture)
         return returnList
     }
-
+    
+    func addProfile(profile: PagedProfile.Profile){
+        // Adds a users account to the DB.
+            var success = true
+            let sema = DispatchSemaphore(value: 0);
+            let identityId = self.credentialsManager.identityID!
+            var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/profiles/")!)
+            print("Request: \(request)")
+            request.httpMethod = "POST"
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+            let jsonData = try! JSONEncoder().encode(profile)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            //print(postString)
+            request.httpBody = jsonString.data(using: String.Encoding.utf8)
+            
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                data, response, error in
+                if error != nil {
+                    print("error=\(error)")
+                    success = false
+                    sema.signal()
+                    return
+                }
+                success = true
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                var responseOne = responseString
+                print("Response \(responseOne!)")
+                sema.signal()
+            })
+            task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        if(success){
+            CDAlertView(title: "Success!", message: "Your account is now added to the database", type: .success).show()
+        } else{
+            CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+        }
+    }
 }
 
 extension UICollectionView {
@@ -623,6 +692,20 @@ extension String
             return false
         default:
             return nil
+        }
+    }
+}
+
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
         }
     }
 }
