@@ -10,24 +10,27 @@ import UIKit
 import Foundation
 import MessageUI
 import GoogleMobileAds
+import Sheeeeeeeeet
 
-class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
+class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet var gradientLayer: UIView!
+    
     var bannerView: DFPBannerView!
     var gradient: CAGradientLayer!
-    @IBOutlet weak var issuePicker: UIPickerView!
-    var pickerData: [String] = ["Cannot connect accounts", "Cannot create QR code", "QR Code is wrong", "Cannot scan/import QR code" , "Cannot edit/delete apps", "Other (Please Specify)"]
+//    @IBOutlet weak var issuePicker: UIPickerView!
+//    var pickerData: [String] = ["Cannot connect accounts", "Cannot create QR code", "QR Code is wrong", "Cannot scan/import QR code" , "Cannot edit/delete apps", "Other (Please Specify)"]
     @IBOutlet weak var issueDetails: UITextView!
     var generalIssue:String!
+    
+    @IBOutlet var helpIssueTableView: UITableView!
     
     override func viewDidLoad() {
         print("Loading Help Screen")
         super.viewDidLoad()
-        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
+      //  tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
         //Connect data:
-        self.issuePicker.delegate = self
-        self.issuePicker.dataSource = self
+//        self.issuePicker.delegate = self
+//        self.issuePicker.dataSource = self
         // Do any additional setup after loading the view.
        // createGradientLayer()
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -46,13 +49,20 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
         print("Version: \(version)")
         print("Build: \(build)")
         print("OS: \(systemVersion)")
-        issueDetails.text = "Please describe issue here...\n\nOS: \(systemVersion) \nVersion: \(version!) \nBuild: \(build!)"
+        issueDetails.text = "\n\nOS: \(systemVersion) \nVersion: \(version!) \nBuild: \(build!)"
         
         bannerView = DFPBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
         bannerView.adUnitID = "/6499/example/banner"
         bannerView.rootViewController = self
         bannerView.load(DFPRequest())
+        
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.helpIssueTableView.layer.backgroundColor = UIColor.clear.cgColor
+        self.helpIssueTableView.layer.borderColor = UIColor.clear.cgColor
     }
 
     override func didReceiveMemoryWarning() {
@@ -107,29 +117,29 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
         print("Mail Compose Control")
         controller.dismiss(animated: true, completion: nil)
     }
+//
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        print("Number of Components")
+//        return 1
+//    }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        print("Number of Components")
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        print("Picker View count: \(pickerData.count)")
-        return pickerData.count
-    }
-    
-    
-    // The data to return for the row and component (column) that's being passed in
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        print("pickerView array \(pickerData[row])")
-        return pickerData[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent  component: Int) {
-        print("pickerView general issue:")
-        generalIssue = pickerData[row] as String
-        print(generalIssue)
-    }
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        print("Picker View count: \(pickerData.count)")
+//        return pickerData.count
+//    }
+//
+//
+//    // The data to return for the row and component (column) that's being passed in
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        print("pickerView array \(pickerData[row])")
+//        return pickerData[row]
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent  component: Int) {
+//        print("pickerView general issue:")
+//        generalIssue = pickerData[row] as String
+//        print(generalIssue)
+//    }
     
     //hide keyboard when user touches outside keyboard
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -151,17 +161,17 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
         //        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor, UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1).cgColor, UIColor(red: 1/255, green: 82/255, blue: 73/255, alpha:1).cgColor]
         //        gradient.locations = [0.0, 0.5, 1.0]
         self.view.backgroundColor = UIColor.clear
-        self.gradientLayer.layer.addSublayer(gradient)
-        self.view.sendSubview(toBack: self.gradientLayer)//(gradient, at: 0)
+       // self.gradientLayer.layer.addSublayer(gradient)
+      //  self.view.sendSubview(toBack: self.gradientLayer)//(gradient, at: 0)
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        issueDetails.layer.borderColor = UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1).cgColor
+        issueDetails.layer.borderColor = Color.coral.value.cgColor
         issueDetails.layer.borderWidth = 2.0
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        issueDetails.layer.borderColor = UIColor(red: 1/255, green: 82/255, blue: 73/255, alpha:1).cgColor
+        issueDetails.layer.borderColor = Color.marina.value.cgColor
     }
     
     func addBannerViewToView(_ bannerView: DFPBannerView) {
@@ -183,6 +193,45 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
                                 multiplier: 1,
                                 constant: 0)
             ])
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:HelpTableViewCell = helpIssueTableView.dequeueReusableCell(withIdentifier: "HelpCell", for: indexPath) as! HelpTableViewCell
+        cell.generalIssue.text = "Issue Category"
+        generalIssue = "Issue category"
+        cell.layer.backgroundColor = UIColor.white.cgColor
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let actionSheet = createStandardActionSheet(indexPath: indexPath)
+        actionSheet.present(in: self, from: self.view)
+    }
+    
+    func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
+        let title = ActionSheetTitle(title: "What are you having trouble with?")
+        let item1 = ActionSheetItem(title: "App Crashing", value: "1", image: UIImage(named: "baseline_bug_report_black_18pt"))
+        let item2 = ActionSheetItem(title: "QR code", value: "2", image: UIImage(named: "baseline_share_black_18pt"))
+        let item3 = ActionSheetItem(title: "Camera", value: "3", image: UIImage(named: "baseline_camera_alt_black_18pt"))
+        let item4 = ActionSheetItem(title: "Profiles", value: "4", image: UIImage(named: "baseline_account_circle_black_18pt"))
+        let item5 = ActionSheetItem(title: "Accounts", value: "5", image: UIImage(named: "baseline_account_circle_black_18pt"))
+        let item6 = ActionSheetItem(title: "Other (please specify)", value: "6", image: UIImage(named: "baseline_help_black_18pt"))
+        let button = ActionSheetOkButton(title: "Cancel")
+        return ActionSheet(items: [title, item1, item2, item3, item4, item5, item6, button]) { _, item in
+            let value = item.title
+            if(value == "Cancel"){
+                //do nothing
+            } else {
+                let cell = self.helpIssueTableView.cellForRow(at: indexPath) as! HelpTableViewCell
+                cell.generalIssue.text = value
+                self.generalIssue = value
+            }
+            self.helpIssueTableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 
 }

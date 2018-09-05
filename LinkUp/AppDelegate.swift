@@ -37,8 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set translucent. (Default value is already true, so this can be removed if desired.)
         //UINavigationBar.appearance().isTranslucent = true
     
-        SideMenuController.preferences.basic.menuWidth = 240
-        SideMenuController.preferences.basic.defaultCacheKey = "0"
+//        SideMenuController.preferences.basic.menuWidth = 240
+//        SideMenuController.preferences.basic.defaultCacheKey = "0"
         
         return AWSMobileClient.sharedInstance().interceptApplication(
             application, didFinishLaunchingWithOptions:

@@ -31,6 +31,7 @@
 		DA72C40A2139EAA10053F672 /* ScansTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C4092139EAA10053F672 /* ScansTableViewController.swift */; };
 		DA72C40C213E07320053F672 /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C40B213E07320053F672 /* Scan.swift */; };
 		DA72C40E213F65DB0053F672 /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C40D213F65DB0053F672 /* Accounts.swift */; };
+		DA72C3E821375E940053F672 /* EFIntSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C3E721375E940053F672 /* EFIntSize.swift */; };
 		DA84C91A212B1E2D00AF84CC /* ScannedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */; };
 		DA84C91C212B223100AF84CC /* ScannedProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */; };
 		DA929D79212F920800CEFBD6 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */; };
@@ -38,6 +39,10 @@
 		DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */; };
 		DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E8208598D800E62E04 /* ProfileImage.swift */; };
 		DAC9C098211E44B60004170F /* TabBarControllerSwipeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */; };
+		DAC9C09A211F26820004170F /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC9C099211F26820004170F /* Account.swift */; };
+		DACCF2642131C86100FAD6B5 /* HelpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACCF2632131C86100FAD6B5 /* HelpTableViewCell.swift */; };
+		DACCF2682131DBD100FAD6B5 /* Raleway in Resources */ = {isa = PBXBuildFile; fileRef = DACCF2662131DBD000FAD6B5 /* Raleway */; };
+		DACCF2692131DBD100FAD6B5 /* Comfortaa in Resources */ = {isa = PBXBuildFile; fileRef = DACCF2672131DBD100FAD6B5 /* Comfortaa */; };
 		DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACEDEC020914EBB0011F978 /* LogoutViewController.swift */; };
 		DAD432F7203D02240033EF35 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DAD432F6203D02240033EF35 /* awsconfiguration.json */; };
 		DAD432F9203D03F70033EF35 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD432F8203D03F70033EF35 /* User.swift */; };
@@ -92,6 +97,7 @@
 		DA72C4092139EAA10053F672 /* ScansTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScansTableViewController.swift; sourceTree = "<group>"; };
 		DA72C40B213E07320053F672 /* Scan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.swift; sourceTree = "<group>"; };
 		DA72C40D213F65DB0053F672 /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
+		DA72C3E721375E940053F672 /* EFIntSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFIntSize.swift; sourceTree = "<group>"; };
 		DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedTableViewCell.swift; sourceTree = "<group>"; };
 		DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedProfileViewController.swift; sourceTree = "<group>"; };
 		DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -99,6 +105,10 @@
 		DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		DAA7D4E8208598D800E62E04 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControllerSwipeExtension.swift; sourceTree = "<group>"; };
+		DAC9C099211F26820004170F /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		DACCF2632131C86100FAD6B5 /* HelpTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpTableViewCell.swift; sourceTree = "<group>"; };
+		DACCF2662131DBD000FAD6B5 /* Raleway */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Raleway; sourceTree = "<group>"; };
+		DACCF2672131DBD100FAD6B5 /* Comfortaa */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Comfortaa; sourceTree = "<group>"; };
 		DACEDEC020914EBB0011F978 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		DAD432F6203D02240033EF35 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		DAD432F8203D03F70033EF35 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -179,6 +189,7 @@
 		DA6A7EE82037859800E79B47 /* LinkUp */ = {
 			isa = PBXGroup;
 			children = (
+				DACCF2652131DBAE00FAD6B5 /* Fonts */,
 				DAF0791F2126FBBE0001B961 /* AccountsForProfileViewController.swift */,
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
 				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
@@ -196,6 +207,7 @@
 				DAF0791D21265CD90001B961 /* Extensions.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
+				DACCF2632131C86100FAD6B5 /* HelpTableViewCell.swift */,
 				DA37EE502125FA9F00A52AD9 /* Main.storyboard */,
 				DA72C4092139EAA10053F672 /* ScansTableViewController.swift */,
 				DA72C40B213E07320053F672 /* Scan.swift */,
@@ -208,6 +220,7 @@
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
+				DA72C3E721375E940053F672 /* EFIntSize.swift */,
 				DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */,
 				DA5C4718212B86970005FC2E /* MenuViewController.swift */,
 				DA5C4716212B37B00005FC2E /* RefreshContents.xib */,
@@ -228,8 +241,6 @@
 				DAE3A2B02093D7AE002689BA /* HalfModalTransitionAnimator.swift */,
 				DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */,
 				DA37EE522125FC8100A52AD9 /* AnimatedLaunchScreen.swift */,
-				DA10A611212606F00049D983 /* trench100free.otf */,
-				DA10A610212606EF0049D983 /* trench100free.ttf */,
 			);
 			path = LinkUp;
 			sourceTree = "<group>";
@@ -239,6 +250,17 @@
 			children = (
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		DACCF2652131DBAE00FAD6B5 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				DA10A611212606F00049D983 /* trench100free.otf */,
+				DA10A610212606EF0049D983 /* trench100free.ttf */,
+				DACCF2672131DBD100FAD6B5 /* Comfortaa */,
+				DACCF2662131DBD000FAD6B5 /* Raleway */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +325,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DACCF2682131DBD100FAD6B5 /* Raleway in Resources */,
 				DAD432F7203D02240033EF35 /* awsconfiguration.json in Resources */,
 				DA5C4717212B37B00005FC2E /* RefreshContents.xib in Resources */,
 				DA10A612212606FF0049D983 /* trench100free.otf in Resources */,
@@ -311,6 +334,7 @@
 				DA6A7EF42037859800E79B47 /* LaunchScreen.storyboard in Resources */,
 				DA6A7EF12037859800E79B47 /* Assets.xcassets in Resources */,
 				DA37EE512125FA9F00A52AD9 /* Main.storyboard in Resources */,
+				DACCF2692131DBD100FAD6B5 /* Comfortaa in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +398,7 @@
 				"${BUILT_PRODUCTS_DIR}/AWSUserPoolsSignIn/AWSUserPoolsSignIn.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CDAlertView/CDAlertView.framework",
+				"${BUILT_PRODUCTS_DIR}/EFQRCode/EFQRCode.framework",
 				"${BUILT_PRODUCTS_DIR}/ESTabBarController-swift/ESTabBarController_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -408,6 +433,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSUserPoolsSignIn.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CDAlertView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EFQRCode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ESTabBarController_swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
@@ -452,6 +478,7 @@
 				DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */,
 				DA37EE4F2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift in Sources */,
 				DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */,
+				DA72C3E821375E940053F672 /* EFIntSize.swift in Sources */,
 				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
 				DA929D7D212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift in Sources */,
@@ -472,6 +499,7 @@
 				DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */,
 				DA37EE462125F68A00A52AD9 /* Profile.swift in Sources */,
 				DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */,
+				DACCF2642131C86100FAD6B5 /* HelpTableViewCell.swift in Sources */,
 				DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */,
 				DA929D79212F920800CEFBD6 /* ProfileTableViewCell.swift in Sources */,
 				DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */,
