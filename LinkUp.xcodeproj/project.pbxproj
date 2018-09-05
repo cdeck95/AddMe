@@ -27,12 +27,15 @@
 		DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6A7EEB2037859800E79B47 /* ViewController.swift */; };
 		DA6A7EF12037859800E79B47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF02037859800E79B47 /* Assets.xcassets */; };
 		DA6A7EF42037859800E79B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */; };
+		DA72C4082139E95A0053F672 /* ScansTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C4072139E95A0053F672 /* ScansTableViewCell.swift */; };
+		DA72C40A2139EAA10053F672 /* ScansTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C4092139EAA10053F672 /* ScansTableViewController.swift */; };
+		DA72C40C213E07320053F672 /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C40B213E07320053F672 /* Scan.swift */; };
+		DA72C40E213F65DB0053F672 /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C40D213F65DB0053F672 /* Accounts.swift */; };
 		DA72C3E821375E940053F672 /* EFIntSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C3E721375E940053F672 /* EFIntSize.swift */; };
 		DA84C91A212B1E2D00AF84CC /* ScannedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */; };
 		DA84C91C212B223100AF84CC /* ScannedProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */; };
 		DA929D79212F920800CEFBD6 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */; };
 		DA929D7D212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */; };
-		DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4DE208568F000E62E04 /* Apps.swift */; };
 		DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */; };
 		DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E8208598D800E62E04 /* ProfileImage.swift */; };
 		DAC9C098211E44B60004170F /* TabBarControllerSwipeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */; };
@@ -90,12 +93,15 @@
 		DA6A7EF02037859800E79B47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA6A7EF32037859800E79B47 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA6A7EF52037859800E79B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA72C4072139E95A0053F672 /* ScansTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScansTableViewCell.swift; sourceTree = "<group>"; };
+		DA72C4092139EAA10053F672 /* ScansTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScansTableViewController.swift; sourceTree = "<group>"; };
+		DA72C40B213E07320053F672 /* Scan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.swift; sourceTree = "<group>"; };
+		DA72C40D213F65DB0053F672 /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
 		DA72C3E721375E940053F672 /* EFIntSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EFIntSize.swift; sourceTree = "<group>"; };
 		DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedTableViewCell.swift; sourceTree = "<group>"; };
 		DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedProfileViewController.swift; sourceTree = "<group>"; };
 		DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPeekingPagesCollectionViewController.swift; sourceTree = "<group>"; };
-		DAA7D4DE208568F000E62E04 /* Apps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apps.swift; sourceTree = "<group>"; };
 		DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		DAA7D4E8208598D800E62E04 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControllerSwipeExtension.swift; sourceTree = "<group>"; };
@@ -189,7 +195,6 @@
 				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD96D092046399500F1525E /* AppsTableViewCell.swift */,
 				DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */,
-				DAA7D4DE208568F000E62E04 /* Apps.swift */,
 				DA4388EE2086747000E0CD0D /* CameraViewController.swift */,
 				DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */,
 				DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */,
@@ -204,9 +209,13 @@
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
 				DACCF2632131C86100FAD6B5 /* HelpTableViewCell.swift */,
 				DA37EE502125FA9F00A52AD9 /* Main.storyboard */,
+				DA72C4092139EAA10053F672 /* ScansTableViewController.swift */,
+				DA72C40B213E07320053F672 /* Scan.swift */,
+				DA72C4072139E95A0053F672 /* ScansTableViewCell.swift */,
 				DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */,
 				DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */,
 				DA37EE452125F68A00A52AD9 /* Profile.swift */,
+				DA72C40D213F65DB0053F672 /* Accounts.swift */,
 				DA10A614212621660049D983 /* Cards.plist */,
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DACEDEC020914EBB0011F978 /* LogoutViewController.swift */,
@@ -220,7 +229,6 @@
 				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
 				DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */,
 				DAD96CF52043458000F1525E /* QRCodeViewController.swift */,
-				DAC9C099211F26820004170F /* Account.swift */,
 				DA130A83209643AF00622951 /* EFUIntPixel.swift */,
 				DA6A7EF02037859800E79B47 /* Assets.xcassets */,
 				DA6A7EF22037859800E79B47 /* LaunchScreen.storyboard */,
@@ -402,6 +410,7 @@
 				"${BUILT_PRODUCTS_DIR}/KSSwipeStack/KSSwipeStack.framework",
 				"${BUILT_PRODUCTS_DIR}/PMSuperButton/PMSuperButton.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Sheeeeeeeeet/Sheeeeeeeeet.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenuSwift/SideMenuSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
@@ -436,6 +445,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KSSwipeStack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMSuperButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sheeeeeeeeet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenuSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
@@ -464,6 +474,7 @@
 				DAD96CFC2044C1FF00F1525E /* CustomButton.swift in Sources */,
 				DA1B39FA2117C070008CE7C6 /* Dataset.swift in Sources */,
 				DA6A7EEC2037859800E79B47 /* ViewController.swift in Sources */,
+				DA72C40A2139EAA10053F672 /* ScansTableViewController.swift in Sources */,
 				DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */,
 				DA37EE4F2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift in Sources */,
 				DA2B25F7204E2623004D3160 /* CredentialsManager.swift in Sources */,
@@ -471,14 +482,15 @@
 				DAD96CF82043522C00F1525E /* SettingsViewController.swift in Sources */,
 				DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */,
 				DA929D7D212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift in Sources */,
+				DA72C40C213E07320053F672 /* Scan.swift in Sources */,
 				DA84C91C212B223100AF84CC /* ScannedProfileViewController.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
-				DAC9C09A211F26820004170F /* Account.swift in Sources */,
 				DAE3A2AB2093D730002689BA /* HalfModalPresentationController.swift in Sources */,
+				DA72C40E213F65DB0053F672 /* Accounts.swift in Sources */,
+				DA72C4082139E95A0053F672 /* ScansTableViewCell.swift in Sources */,
 				DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */,
 				DADA5B5B208B952F009BC5B2 /* EditAppViewController.swift in Sources */,
-				DAA7D4DF208568F000E62E04 /* Apps.swift in Sources */,
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
 				DAC9C098211E44B60004170F /* TabBarControllerSwipeExtension.swift in Sources */,

@@ -19,8 +19,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var twitter = 0
     var facebook = 0
     var keys: Dictionary<String, String>.Keys!
-    var nativeApps = [Apps]()
-    var safariApps = [Apps]()
+    var nativeApps = [Accounts]()
+    var safariApps = [Accounts]()
     var interstitial: DFPInterstitial!
     
     override func viewDidLoad() {
@@ -141,14 +141,14 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     func openPlatforms(){
         if(safariApps.count > 0){
-            let url = URL(string: (safariApps.first?._uRL)!)
+            let url = URL(string: (safariApps.first?.url)!)
             let svc = SFSafariViewController(url: url!)
             svc.delegate = self
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.navigationController?.pushViewController(svc, animated: true)
             safariApps.removeFirst()
         } else if(nativeApps.count > 0){
-            let url = URL(string: (nativeApps.first?._uRL)!)
+            let url = URL(string: (nativeApps.first?.url)!)
             openNative(url: url!)
         }
     }
@@ -190,9 +190,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         for (displayName, url) in dict {
             print("display name: \(displayName)")
             print("url: \(url)")
-            let app = Apps()
-            app?._displayName = displayName
-            app?._uRL = url
+            var app = Accounts(accountId: "", userId: "", cognitoId: "", displayName: displayName, platform: "", url: url, username: "")
             self.tabBarController?.hidesBottomBarWhenPushed = true
             var platform = ""
             if (url.contains("twitter.com")){
@@ -212,23 +210,23 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             
             switch platform {
             case "Twitter":
-                app?._platform = platform
-                nativeApps.append(app!)
+                app.platform = platform
+                nativeApps.append(app)
             case "Twitch":
-                app?._platform = platform
-                nativeApps.append(app!)
+                app.platform = platform
+                nativeApps.append(app)
             case "Instagram":
-                app?._platform = platform
-                nativeApps.append(app!)
+                app.platform = platform
+                nativeApps.append(app)
             case "LinkedIn":
-                app?._platform = platform
-                nativeApps.append(app!)
+                app.platform = platform
+                nativeApps.append(app)
             case "Snapchat":
-                app?._platform = platform
-                nativeApps.append(app!)
+                app.platform = platform
+                nativeApps.append(app)
             default:
-                app?._platform = platform
-                safariApps.append(app!)
+                app.platform = platform
+                safariApps.append(app)
             }
         }
         print(safariApps)

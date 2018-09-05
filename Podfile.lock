@@ -67,6 +67,9 @@ PODS:
     - RxSwift
   - PMSuperButton (2.1.2)
   - RxSwift (4.2.0)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
   - Sheeeeeeeeet (0.9.5)
   - SideMenuSwift (0.4.1)
   - SkyFloatingLabelTextField (3.5.1)
@@ -92,6 +95,7 @@ DEPENDENCIES:
   - GoogleSignIn (~> 4.0)
   - KSSwipeStack
   - PMSuperButton
+  - SDWebImage (~> 4.0)
   - Sheeeeeeeeet
   - SideMenuSwift
   - SkyFloatingLabelTextField (~> 3.0)
@@ -128,6 +132,7 @@ SPEC REPOS:
     - KSSwipeStack
     - PMSuperButton
     - RxSwift
+    - SDWebImage
     - Sheeeeeeeeet
     - SideMenuSwift
     - SkyFloatingLabelTextField
@@ -172,12 +177,14 @@ SPEC CHECKSUMS:
   KSSwipeStack: 419a6c7fbeeff766f74987022fee1daa3f678340
   PMSuperButton: 968f45a9a157499fcdd195ee54613a4cce980bdb
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   Sheeeeeeeeet: e7a54ed2007d12b5b3b5d2fa5b98ce9b994ca335
   SideMenuSwift: c4309bd978c61a61d5941eb0fa2112f6b346a331
   SkyFloatingLabelTextField: 4cbeece9c3aae97c6019d8fae511cb5b755874f7
   SwipeableTabBarController: 0e3e229aa1edfc1b8b4daf24df7de2643578cf42
   TransitionButton: 20f92b3cc726b047e4df200fdab5307f33395a81
 
-PODFILE CHECKSUM: f01f0dc2a7eca35ed36d7e7fce5a16e26e5a55a0
+PODFILE CHECKSUM: 99b6d11daef33e810df6eb70cbb020a817140867
+
 
 COCOAPODS: 1.6.0.beta.1

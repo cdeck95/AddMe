@@ -22,13 +22,14 @@ import CDAlertView
 import FCAlertView
 import Sheeeeeeeeet
 import SideMenuSwift
+import SDWebImage
 
 var cellSwitches: [AppsTableViewCell] = []
-var apps: [Apps] = []
+var apps: [Accounts] = []
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, FCAlertViewDelegate, UIScrollViewDelegate {
 
-    var profiles: [Profile]!
+    var profiles: [PagedProfile.Profile]!
     var bannerView: DFPBannerView!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
@@ -64,8 +65,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         print("----in view did load----")
-
-     
         loadCustomRefreshContents()
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
@@ -89,25 +88,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         collectionView.dataSource = self
         //collectionView.scrollViewDelegate = self
         itemWidth =  UIScreen.main.bounds.width - collectionMargin * 2.0
-        
-        profiles = []
-        let dict1 = ["profileID":"1", "name": "All (Default)", "qrCodeString": "qrCode for profile 1", "info":"All accounts"] as NSDictionary
-        let profile = Profile(dictionary: dict1, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-        profiles.append(profile)
-        var dict2 = ["profileID":"2", "name": "Gaming", "qrCodeString": "qrCode for profile 2", "info":"Xbox, PSN, Twitch"] as NSDictionary
-        let profile2 = Profile(dictionary: dict2, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-        profiles.append(profile2)
-        let dict3 = ["profileID":"3", "name": "Main Socials", "qrCodeString": "qrCode for profile 3", "info":"Facebook, Instagram, Twitter, Snachat"] as NSDictionary
-        let profile3 = Profile(dictionary: dict3, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-        profiles.append(profile3)
-        var dict4 = ["profileID":"4", "name": "Going out", "qrCodeString": "qrCode for profile 4", "info":"Snapchat, Insta"] as NSDictionary
-        let profile4 = Profile(dictionary: dict4, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-        profiles.append(profile4)
-//        for profile in profiles {
-//            profile.loadAccountsInProfile()
-//        }
-        print("Profiles!... \(profiles!)")
-       // addSlideMenuButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,7 +146,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             self.credentialsManager.setIdentityID(id: id!)
                             print(self.credentialsManager.identityID)
                             self.datasetManager.createDataset()
-                            //self.fetchAppData()
+                            self.loadProfiles()
                             if AWSFacebookSignInProvider.sharedInstance().isLoggedIn {
                                 print("facebook sign in confirmed")
                                 self.navigationItem.leftBarButtonItem = nil
@@ -233,7 +213,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print(isSelectedForQRCode)
                 if (isSelectedForQRCode){
                     let app = apps[index]
-                    jsonStringAsArray += "\"\(app._displayName!)\": \"\(app._uRL!)\",\n"
+                    jsonStringAsArray += "\"\(app.displayName)\": \"\(app.url)\",\n"
                 } else {
                     print("app not found to make QR code")
                 }
@@ -383,58 +363,42 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(indexPath.row == profiles.count){
             print("will show add more")
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            alert.addTextField(withPlaceholder: "Name (i.e. Going Out") { (text) in
+                //print(text!)
+                let profileName = text
+                let alert2 = FCAlertView()
+                alert2.delegate = self
+                alert2.colorScheme = Color.bondiBlue.value
+                alert2.addTextField(withPlaceholder: "Description (i.e. Facebook, Snap") { (text2) in
+                    let profileDescription = text2
+                    let profile = PagedProfile.Profile(profileId: "", accounts: self.loadAppsFromDB(), name: profileName!, description: profileDescription!, cognitoId: self.credentialsManager.identityID, imageUrl: "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
+                    self.addProfile(profile: profile)
+                }
+                alert2.showAlert(inView: self,
+                                withTitle: "Add Profile",
+                                withSubtitle: "Enter your details below",
+                                withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                withDoneButtonTitle: "Add",
+                                andButtons: ["Cancel"])
+            }
+            
+            
+            alert.showAlert(inView: self,
+                            withTitle: "Add Profile",
+                            withSubtitle: "Enter your details below",
+                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withDoneButtonTitle: "Add",
+                            andButtons: ["Cancel"])
+            return
         } else {
             print("will show options")
             let actionSheet = createStandardActionSheet(indexPath: indexPath)
             actionSheet.present(in: self, from: self.view)
         }
     }
-//    
-//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        print("snapping")
-//        guard let collectionView = scrollView as? UICollectionView else { return }
-//        let indexPath = IndexPath(item: pageControl.currentPage + 1, section: 0)
-//        collectionView.snapToCell(velocity: velocity, targetOffset: targetContentOffset, spacing: 10, indexPath: indexPath)
-//       // contentOffset = targetContentOffset.pointee.x
-//    }
-    
-//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//
-//        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-//    }
-//
-//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-//
-//        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-//    }
-    
-//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//
-//        let pageWidth = Float(itemWidth + itemSpacing)
-//        let targetXContentOffset = Float(targetContentOffset.pointee.x)
-//        let contentWidth = Float(collectionView!.contentSize.width  )
-//        var newPage = Float(self.pageControl.currentPage)
-//
-//        if velocity.x == 0 {
-//            newPage = floor( (targetXContentOffset - Float(pageWidth) / 2) / Float(pageWidth)) + 1.0
-//        } else {
-//            newPage = Float(velocity.x > 0 ? self.pageControl.currentPage + 1 : self.pageControl.currentPage - 1)
-//            if newPage < 0 {
-//                newPage = 0
-//            }
-//            if (newPage > contentWidth / pageWidth) {
-//                newPage = ceil(contentWidth / pageWidth) - 1.0
-//            }
-//        }
-//
-//        self.pageControl.currentPage = Int(newPage)
-//        let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
-//        targetContentOffset.pointee = point
-//    }
-    
-//    override func calculateSectionInset() -> CGFloat {
-//        return 40
-//    }
     
     func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
         let title = ActionSheetTitle(title: "Select an option")
@@ -446,7 +410,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             guard let value = item.value as? String else { return }
             if value == "1" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-                modalVC.qrCodeString = self.profiles[(indexPath.row)].id
+                modalVC.qrCodeString = self.profiles[(indexPath.row)].profileId
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 modalVC.modalPresentationStyle = .custom
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
@@ -454,11 +418,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             } else if value == "2" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
                     self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-                    modalVC.accounts = self.profiles[indexPath.row].Accounts
-                    modalVC.profileImageImage = self.profiles[indexPath.row].image
-                    modalVC.profileID = self.profiles[indexPath.row].id
+                let allAccounts = self.loadAppsFromDB()
+//                let accountsInProfile = self.profiles[indexPath.row].accounts
+//                for var account in allAccounts {
+//                    if(accountsInProfile.contains(where: { $0.accountId == account.accountId })) {
+//                        account.isSwitchOn = true
+//                    }
+//                }
+                    modalVC.allAccounts = allAccounts
+                    modalVC.accounts = self.profiles[indexPath.row].accounts
+                    modalVC.profileImageUrl = self.profiles[indexPath.row].imageUrl
+                    modalVC.profileID = self.profiles[indexPath.row].profileId
                     modalVC.profileNameText = self.profiles[indexPath.row].name
-                    modalVC.profileDescriptionText = self.profiles[indexPath.row].descriptionLabel
+                    modalVC.profileDescriptionText = self.profiles[indexPath.row].description
                     modalVC.modalTransitionStyle = .crossDissolve
                     modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                     self.present(modalVC, animated: true, completion: nil)
@@ -468,7 +440,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //                encoder.outputFormatting = .prettyPrinted
 //                let data = try! encoder.encode(profiles[Apps])
 //                print(String(data: data, encoding: .utf8)!)
-                modalVC.qrCodeString = self.profiles[(indexPath.row)].qrCodeString
+                modalVC.qrCodeString = self.profiles[(indexPath.row)].profileId
                 modalVC.shouldShare = true
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 modalVC.modalPresentationStyle = .custom
@@ -482,14 +454,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("refreshAppData()")
         fetchAppData()
     }
-    //
+
     private func fetchAppData() {
         print("fetchAppData()")
-        //load profiles
-        //setupActivityIndicatorView()
+        loadProfiles()
         self.updateView()
         self.refreshControl.endRefreshing()
-        //self.activityIndicatorView.stopAnimating()
+
     }
     
     private func updateView() {
@@ -504,25 +475,161 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func loadCustomRefreshContents() {
-//        let refreshContents = Bundle.main.loadNibNamed("RefreshContents", owner: self, options: nil)
-//
-//        customView = refreshContents![0] as! UIView
-//        customView.frame = self.view.bounds
-//        
-//        for i in 0 ..< customView.subviews.count {
-//            labelsArray.append(customView.viewWithTag(i + 1) as! UILabel)
-//        }
-//
-//        refreshControl.addSubview(customView)
         
         if #available(iOS 10.0, *) {
             collectionView.refreshControl = refreshControl
         } else {
             collectionView.addSubview(refreshControl)
         }
-
     }
     
+    func loadProfiles(){
+        profiles = []
+        
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/profiles")!)
+        request.httpMethod = "GET"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                sema.signal()
+                return
+            } else {
+                print("---no error----")
+            }
+            //////////////////////// New stuff from Tom
+            do {
+                print("decoding")
+                let decoder = JSONDecoder()
+                print("getting data")
+                print(data)
+                print(response)
+                let JSONdata = try decoder.decode(PagedProfile.self, from: data!)
+                //=======
+                for index in 0...JSONdata.profiles.count - 1 {
+                    let profile = JSONdata.profiles[index]
+                    print(profile)
+                   self.profiles.append(profile)
+                }
+                sema.signal();
+                //=======
+            } catch let err {
+                print("Err", err)
+                sema.signal(); // none found TODO: do something better than this shit.
+            }
+            print("Done")
+            /////////////////////////
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        self.collectionView.reloadData()
+    }
+    
+    // TomMiller 2018/06/27 - Added struct to interact with JSON
+    struct JsonApp: Decodable {
+        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
+        var accounts: [[String: String]]
+    }
+    
+    var JsonApps = [JsonApp]()
+    
+//    ///////////////////////////// NEW STUFF /////////////////////////////////
+    func loadAppsFromDB() -> [Accounts] {
+        print("RIGHT HERE")
+        var returnList: [Accounts] = []
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
+        request.httpMethod = "GET"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                sema.signal()
+                return
+            } else {
+                print("---no error----")
+            }
+            //////////////////////// New stuff from Tom
+            do {
+                print("decoding")
+                let decoder = JSONDecoder()
+                print("getting data")
+                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+                //=======
+                for index in 0...JSONdata.accounts.count - 1 {
+                    let listOfAccountInfo = JSONdata.accounts[index]
+                    let accountId = listOfAccountInfo["accountId"]
+                    let displayName = listOfAccountInfo["displayName"]
+                    let userId = listOfAccountInfo["userId"]
+                    let cognitoId = listOfAccountInfo["cognitoId"]
+                    let platform = listOfAccountInfo["platform"]
+                    let url = listOfAccountInfo["url"]
+                    let username = listOfAccountInfo["username"]
+                    let account = Accounts(accountId: accountId!, userId: userId!, cognitoId: cognitoId!, displayName: displayName!, platform: platform!, url: url!, username: username!)
+                    returnList.append(account)
+                }
+                sema.signal();
+                //=======
+            } catch let err {
+                print("Err", err)
+                sema.signal(); // none found TODO: do something better than this shit.
+            }
+            print("Done")
+            /////////////////////////
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        return returnList
+    }
+    
+    func addProfile(profile: PagedProfile.Profile){
+        // Adds a users account to the DB.
+            var success = true
+            let sema = DispatchSemaphore(value: 0);
+            let identityId = self.credentialsManager.identityID!
+            var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/profiles/")!)
+            print("Request: \(request)")
+            request.httpMethod = "POST"
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+            let jsonData = try! JSONEncoder().encode(profile)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            //print(postString)
+            request.httpBody = jsonString.data(using: String.Encoding.utf8)
+            
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                data, response, error in
+                if error != nil {
+                    print("error=\(error)")
+                    success = false
+                    sema.signal()
+                    return
+                }
+                success = true
+                let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+                var responseOne = responseString
+                print("Response \(responseOne!)")
+                sema.signal()
+            })
+            task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        if(success){
+            CDAlertView(title: "Success!", message: "Your account is now added to the database", type: .success).show()
+        } else{
+            CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+        }
+    }
 }
 
 extension UICollectionView {
@@ -552,6 +659,7 @@ extension UICollectionView {
         
         targetOffset.pointee = offset
     }
+    
 }
 
 
@@ -586,6 +694,20 @@ extension String
             return false
         default:
             return nil
+        }
+    }
+}
+
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
         }
     }
 }

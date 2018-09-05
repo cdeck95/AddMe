@@ -14,11 +14,13 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var appsTableView: UITableView!
     var profileID:String!
-    var accounts:[Apps]!
+    var accounts:[Accounts]!
+    var allAccounts:[Accounts]!
     var profileImageImage: UIImage!
     var profileNameText: String!
     var profileDescriptionText: String!
     @IBOutlet var profileImage: ProfileImage!
+    var profileImageUrl: String!
     var gradient: CAGradientLayer!
     
     override func viewDidLoad() {
@@ -32,8 +34,9 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
     
     override func viewDidAppear(_ animated: Bool) {
         print("profile ID \(profileID)")
-        print("accounts: \(accounts)")
-        profileImage.image = profileImageImage
+//        print("accounts in profile: \(accounts)")
+ //       print("all accounts: \(allAccounts)")
+        profileImage.sd_setImage(with: URL(string: profileImageUrl), completed: nil)    //   image = profileImageImage
 //        profileName.text = profileNameText
 //        profileDescription.text = profileDescriptionText
       //  appsTableView.layer.borderColor = Color.chill.value.cgColor
@@ -62,7 +65,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
             if(section == 0){
                 return 2
             } else {
-                return accounts.count
+                return allAccounts.count
             }
         }
 
@@ -93,35 +96,50 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                 if (!cellSwitches.contains(cell)) {
                     cellSwitches.append(cell)
                 }
-                cell.NameLabel.text = accounts[indexPath.row]._displayName
-                switch accounts[indexPath.row]._platform {
-                case "Facebook"?:
+                cell.NameLabel.text = allAccounts[indexPath.row].displayName
+                switch allAccounts[indexPath.row].platform {
+                case "Facebook":
                     cell.appImage.image = UIImage(named: "fb-icon")
-                case "Twitter"?:
+                case "Twitter":
                     cell.appImage.image = UIImage(named: "twitter_icon")
-                case "Instagram"?:
+                case "Instagram":
                     cell.appImage.image = UIImage(named: "Instagram_icon")
-                case "Snapchat"?:
+                case "Snapchat":
                     cell.appImage.image = UIImage(named: "snapchat_icon")
-                case "GooglePlus"?:
+                case "GooglePlus":
                     cell.appImage.image = UIImage(named: "google_plus_icon")
-                case "LinkedIn"?:
+                case "LinkedIn":
                     cell.appImage.image = UIImage(named: "linked_in_logo")
-                case "Xbox"?:
+                case "Xbox":
                     cell.appImage.image = UIImage(named: "xbox")
-                case "PSN"?:
+                case "PSN":
                     cell.appImage.image = UIImage(named: "play-station")
-                case "Twitch"?:
+                case "Twitch":
                     cell.appImage.image = UIImage(named: "twitch")
-                case "Custom"?:
+                case "Custom":
                     cell.appImage.image = UIImage(named: "custom")
                 default:
                     cell.appImage.image = UIImage(named: "AppIcon")
                 }
                 //cell.NameLabel.textColor = UIColor.white
                 cell.layer.backgroundColor = UIColor.white.cgColor
-                cell.url.text = "@\(accounts[indexPath.row]._username!)"
-                cell.id = Int(accounts[indexPath.row]._appId!)
+                cell.url.text = "@\(allAccounts[indexPath.row].username)"
+                cell.id = Int(allAccounts[indexPath.row].accountId)
+                
+                for account in accounts {
+                    print(allAccounts[indexPath.row].accountId)
+                    print(account.accountId)
+                    if(allAccounts[indexPath.row].accountId == account.accountId){
+                        cell.appSwitch.setOn(true, animated: true)
+                        print("turning switch on")
+                        break
+                        //do nothing, the switch is already set
+                    } else {
+                        print("turning switch off")
+                        cell.appSwitch.setOn(false, animated: true)
+                    }
+                }
+                
                 //print(indexPath.row)
                 return cell
             }

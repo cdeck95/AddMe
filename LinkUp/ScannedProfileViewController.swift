@@ -10,7 +10,7 @@ import UIKit
 
 class ScannedProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
-    var allApps: [Apps]!
+    var allApps: [Accounts]!
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var accountsForProfileTableView: UITableView!
@@ -41,26 +41,26 @@ class ScannedProfileViewController: UIViewController, UITableViewDelegate, UITab
         // Create an object of the dynamic cell “AccountsCell”
         let cell:ScannedTableViewCell = accountsForProfileTableView.dequeueReusableCell(withIdentifier: "ScannedProfileCell", for: indexPath) as! ScannedTableViewCell
         cell.url.text = "@test"
-        switch allApps[indexPath.row]._platform {
-        case "Facebook"?:
+        switch allApps[indexPath.row].platform {
+        case "Facebook":
             cell.appIcon.image = UIImage(named: "fb-icon")
-        case "Twitter"?:
+        case "Twitter":
             cell.appIcon.image = UIImage(named: "twitter_icon")
-        case "Instagram"?:
+        case "Instagram":
             cell.appIcon.image = UIImage(named: "Instagram_icon")
-        case "Snapchat"?:
+        case "Snapchat":
             cell.appIcon.image = UIImage(named: "snapchat_icon")
-        case "GooglePlus"?:
+        case "GooglePlus":
             cell.appIcon.image = UIImage(named: "google_plus_icon")
-        case "LinkedIn"?:
+        case "LinkedIn":
             cell.appIcon.image = UIImage(named: "linked_in_logo")
-        case "Xbox"?:
+        case "Xbox":
             cell.appIcon.image = UIImage(named: "xbox")
-        case "PSN"?:
+        case "PSN":
             cell.appIcon.image = UIImage(named: "play-station")
-        case "Twitch"?:
+        case "Twitch":
             cell.appIcon.image = UIImage(named: "twitch")
-        case "Custom"?:
+        case "Custom":
             cell.appIcon.image = UIImage(named: "custom")
         default:
             cell.appIcon.image = UIImage(named: "AppIcon")
