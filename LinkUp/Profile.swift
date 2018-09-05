@@ -18,7 +18,7 @@ struct PagedProfile: Codable {
         let cognitoId: String
         let imageUrl: String
     }
-    let profiles: [Profile]
+    var profiles: [Profile]
 }
 
 

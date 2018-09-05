@@ -385,6 +385,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             } else if value == "2" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
                     self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                let allAccounts = self.loadAppsFromDB()
+//                let accountsInProfile = self.profiles[indexPath.row].accounts
+//                for var account in allAccounts {
+//                    if(accountsInProfile.contains(where: { $0.accountId == account.accountId })) {
+//                        account.isSwitchOn = true
+//                    }
+//                }
+                    modalVC.allAccounts = allAccounts
                     modalVC.accounts = self.profiles[indexPath.row].accounts
                    // modalVC.profileImageImage = self.profiles[indexPath.row].imageUrl
                     modalVC.profileID = self.profiles[indexPath.row].profileId
@@ -489,53 +497,68 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.collectionView.reloadData()
     }
     
+    // TomMiller 2018/06/27 - Added struct to interact with JSON
+    struct JsonApp: Decodable {
+        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
+        var accounts: [[String: String]]
+    }
+    
+    var JsonApps = [JsonApp]()
+    
 //    ///////////////////////////// NEW STUFF /////////////////////////////////
-//    func loadAppsFromDB() -> [String] {
-//        print("RIGHT HERE")
-//        var returnList: [String] = []
-//        let idString = self.credentialsManager.identityID!
-//        print(idString)
-//        let sema = DispatchSemaphore(value: 0);
-//        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
-//        request.httpMethod = "GET"
-//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
-//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-//
-//        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-//            data, response, error in
-//            if error != nil {
-//                print("error=\(error)")
-//                sema.signal()
-//                return
-//            } else {
-//                print("---no error----")
-//            }
-//            //////////////////////// New stuff from Tom
-//            do {
-//                print("decoding")
-//                let decoder = JSONDecoder()
-//                print("getting data")
-//                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
-//                //=======
-//                for index in 0...JSONdata.profiles.count - 1 {
-//                    let listOfAccountInfo = JSONdata.profiles[index]
-//                    var appIdString = listOfAccountInfo["accountId"]
-//                    returnList.append(appIdString!)
-//                }
-//                sema.signal();
-//                //=======
-//            } catch let err {
-//                print("Err", err)
-//                sema.signal(); // none found TODO: do something better than this shit.
-//            }
-//            print("Done")
-//            /////////////////////////
-//        })
-//        task.resume()
-//        sema.wait(timeout: DispatchTime.distantFuture)
-//        return returnList
-//    }
-//
+    func loadAppsFromDB() -> [Accounts] {
+        print("RIGHT HERE")
+        var returnList: [Accounts] = []
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
+        request.httpMethod = "GET"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                sema.signal()
+                return
+            } else {
+                print("---no error----")
+            }
+            //////////////////////// New stuff from Tom
+            do {
+                print("decoding")
+                let decoder = JSONDecoder()
+                print("getting data")
+                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+                //=======
+                for index in 0...JSONdata.accounts.count - 1 {
+                    let listOfAccountInfo = JSONdata.accounts[index]
+                    let accountId = listOfAccountInfo["accountId"]
+                    let displayName = listOfAccountInfo["displayName"]
+                    let userId = listOfAccountInfo["userId"]
+                    let cognitoId = listOfAccountInfo["cognitoId"]
+                    let platform = listOfAccountInfo["platform"]
+                    let url = listOfAccountInfo["url"]
+                    let username = listOfAccountInfo["username"]
+                    let account = Accounts(accountId: accountId!, userId: userId!, cognitoId: cognitoId!, displayName: displayName!, platform: platform!, url: url!, username: username!)
+                    returnList.append(account)
+                }
+                sema.signal();
+                //=======
+            } catch let err {
+                print("Err", err)
+                sema.signal(); // none found TODO: do something better than this shit.
+            }
+            print("Done")
+            /////////////////////////
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        return returnList
+    }
+
 }
 
 extension UICollectionView {

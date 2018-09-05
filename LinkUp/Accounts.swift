@@ -17,4 +17,5 @@ struct Accounts: Codable {
     var platform: String
     var url: String
     var username: String
+   // var isSwitchOn = false
 }
