@@ -24,11 +24,11 @@ import Sheeeeeeeeet
 import SideMenuSwift
 
 var cellSwitches: [AppsTableViewCell] = []
-var apps: [Apps] = []
+var apps: [Accounts] = []
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, FCAlertViewDelegate, UIScrollViewDelegate {
 
-    var profiles: [Profile]!
+    var profiles: [PagedProfile.Profile]!
     var bannerView: DFPBannerView!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     @IBOutlet weak var nameLabel: UILabel!
@@ -212,7 +212,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print(isSelectedForQRCode)
                 if (isSelectedForQRCode){
                     let app = apps[index]
-                    jsonStringAsArray += "\"\(app._displayName!)\": \"\(app._uRL!)\",\n"
+                    jsonStringAsArray += "\"\(app.displayName)\": \"\(app.url)\",\n"
                 } else {
                     print("app not found to make QR code")
                 }
@@ -377,7 +377,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             guard let value = item.value as? String else { return }
             if value == "1" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-                modalVC.qrCodeString = self.profiles[(indexPath.row)].id
+                modalVC.qrCodeString = self.profiles[(indexPath.row)].profileId
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 modalVC.modalPresentationStyle = .custom
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
@@ -385,11 +385,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             } else if value == "2" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
                     self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-                    modalVC.accounts = self.profiles[indexPath.row].Accounts
-                    modalVC.profileImageImage = self.profiles[indexPath.row].image
-                    modalVC.profileID = self.profiles[indexPath.row].id
+                    modalVC.accounts = self.profiles[indexPath.row].accounts
+                   // modalVC.profileImageImage = self.profiles[indexPath.row].imageUrl
+                    modalVC.profileID = self.profiles[indexPath.row].profileId
                     modalVC.profileNameText = self.profiles[indexPath.row].name
-                    modalVC.profileDescriptionText = self.profiles[indexPath.row].descriptionLabel
+                    modalVC.profileDescriptionText = self.profiles[indexPath.row].description
                     modalVC.modalTransitionStyle = .crossDissolve
                     modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                     self.present(modalVC, animated: true, completion: nil)
@@ -399,7 +399,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //                encoder.outputFormatting = .prettyPrinted
 //                let data = try! encoder.encode(profiles[Apps])
 //                print(String(data: data, encoding: .utf8)!)
-                modalVC.qrCodeString = self.profiles[(indexPath.row)].id
+                modalVC.qrCodeString = self.profiles[(indexPath.row)].profileId
                 modalVC.shouldShare = true
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 modalVC.modalPresentationStyle = .custom
@@ -442,27 +442,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    struct JsonApp: Decodable {
-        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
-        let profiles: [[String: String]]
-    }
-    
-    var JsonApps = [JsonApp]()
-    
     func loadProfiles(){
         profiles = []
-//        let dict1 = ["profileID":"1", "name": "All (Default)", "qrCodeString": "qrCode for profile 1", "info":"All accounts"] as NSDictionary
-//        let profile = Profile(dictionary: dict1, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-//        profiles.append(profile)
-//        var dict2 = ["profileID":"2", "name": "Gaming", "qrCodeString": "qrCode for profile 2", "info":"Xbox, PSN, Twitch"] as NSDictionary
-//        let profile2 = Profile(dictionary: dict2, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-//        profiles.append(profile2)
-//        let dict3 = ["profileID":"3", "name": "Main Socials", "qrCodeString": "qrCode for profile 3", "info":"Facebook, Instagram, Twitter, Snachat"] as NSDictionary
-//        let profile3 = Profile(dictionary: dict3, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-//        profiles.append(profile3)
-//        var dict4 = ["profileID":"4", "name": "Going out", "qrCodeString": "qrCode for profile 4", "info":"Snapchat, Insta"] as NSDictionary
-//        let profile4 = Profile(dictionary: dict4, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-//        profiles.append(profile4)
         
         let idString = self.credentialsManager.identityID!
         print(idString)
@@ -487,25 +468,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print("getting data")
                 print(data)
                 print(response)
-                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+                let JSONdata = try decoder.decode(PagedProfile.self, from: data!)
                 //=======
                 for index in 0...JSONdata.profiles.count - 1 {
-                    let listOfProfileInfo = JSONdata.profiles[index]
-                    let profileName = listOfProfileInfo["name"]!
-                    let profileDescription = listOfProfileInfo["description"]!
-                    let profileImageURL = listOfProfileInfo["imageUrl"]
-                    let accounts = listOfProfileInfo["accounts"]!
-                    print(listOfProfileInfo)
-                    let profileId = listOfProfileInfo["profileId"]!
-                    print(profileName)
-                    print(profileDescription)
-                    print(profileImageURL)
-                    print(accounts)
-                    print(profileId)
-                    let dict1 = ["profileID": profileId, "name": profileName, "info": profileDescription] as NSDictionary
-                    let profile = Profile(dictionary: dict1, accountIds: ["1", "2"], imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
+                    let profile = JSONdata.profiles[index]
                     print(profile)
-                    self.profiles.append(profile)
+                   self.profiles.append(profile)
                 }
                 sema.signal();
                 //=======
@@ -521,6 +489,53 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.collectionView.reloadData()
     }
     
+//    ///////////////////////////// NEW STUFF /////////////////////////////////
+//    func loadAppsFromDB() -> [String] {
+//        print("RIGHT HERE")
+//        var returnList: [String] = []
+//        let idString = self.credentialsManager.identityID!
+//        print(idString)
+//        let sema = DispatchSemaphore(value: 0);
+//        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
+//        request.httpMethod = "GET"
+//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+//
+//        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+//            data, response, error in
+//            if error != nil {
+//                print("error=\(error)")
+//                sema.signal()
+//                return
+//            } else {
+//                print("---no error----")
+//            }
+//            //////////////////////// New stuff from Tom
+//            do {
+//                print("decoding")
+//                let decoder = JSONDecoder()
+//                print("getting data")
+//                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+//                //=======
+//                for index in 0...JSONdata.profiles.count - 1 {
+//                    let listOfAccountInfo = JSONdata.profiles[index]
+//                    var appIdString = listOfAccountInfo["accountId"]
+//                    returnList.append(appIdString!)
+//                }
+//                sema.signal();
+//                //=======
+//            } catch let err {
+//                print("Err", err)
+//                sema.signal(); // none found TODO: do something better than this shit.
+//            }
+//            print("Done")
+//            /////////////////////////
+//        })
+//        task.resume()
+//        sema.wait(timeout: DispatchTime.distantFuture)
+//        return returnList
+//    }
+//
 }
 
 extension UICollectionView {

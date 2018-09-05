@@ -14,7 +14,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var appsTableView: UITableView!
     var profileID:String!
-    var accounts:[Apps]!
+    var accounts:[Accounts]!
     var profileImageImage: UIImage!
     var profileNameText: String!
     var profileDescriptionText: String!
@@ -93,35 +93,35 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                 if (!cellSwitches.contains(cell)) {
                     cellSwitches.append(cell)
                 }
-                cell.NameLabel.text = accounts[indexPath.row]._displayName
-                switch accounts[indexPath.row]._platform {
-                case "Facebook"?:
+                cell.NameLabel.text = accounts[indexPath.row].displayName
+                switch accounts[indexPath.row].platform {
+                case "Facebook":
                     cell.appImage.image = UIImage(named: "fb-icon")
-                case "Twitter"?:
+                case "Twitter":
                     cell.appImage.image = UIImage(named: "twitter_icon")
-                case "Instagram"?:
+                case "Instagram":
                     cell.appImage.image = UIImage(named: "Instagram_icon")
-                case "Snapchat"?:
+                case "Snapchat":
                     cell.appImage.image = UIImage(named: "snapchat_icon")
-                case "GooglePlus"?:
+                case "GooglePlus":
                     cell.appImage.image = UIImage(named: "google_plus_icon")
-                case "LinkedIn"?:
+                case "LinkedIn":
                     cell.appImage.image = UIImage(named: "linked_in_logo")
-                case "Xbox"?:
+                case "Xbox":
                     cell.appImage.image = UIImage(named: "xbox")
-                case "PSN"?:
+                case "PSN":
                     cell.appImage.image = UIImage(named: "play-station")
-                case "Twitch"?:
+                case "Twitch":
                     cell.appImage.image = UIImage(named: "twitch")
-                case "Custom"?:
+                case "Custom":
                     cell.appImage.image = UIImage(named: "custom")
                 default:
                     cell.appImage.image = UIImage(named: "AppIcon")
                 }
                 //cell.NameLabel.textColor = UIColor.white
                 cell.layer.backgroundColor = UIColor.white.cgColor
-                cell.url.text = "@\(accounts[indexPath.row]._username!)"
-                cell.id = Int(accounts[indexPath.row]._appId!)
+                cell.url.text = "@\(accounts[indexPath.row].username)"
+                cell.id = Int(accounts[indexPath.row].accountId)
                 //print(indexPath.row)
                 return cell
             }

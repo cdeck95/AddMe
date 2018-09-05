@@ -1421,9 +1421,10 @@
                         <segue destination="RUY-Ao-dKI" kind="relationship" relationship="viewControllers" id="1iN-vn-hdl"/>
                         <segue destination="CKU-dI-L1W" kind="relationship" relationship="viewControllers" id="teT-bw-6PE"/>
                         <segue destination="hJi-V4-nng" kind="relationship" relationship="viewControllers" id="Vki-kf-s0u"/>
-                        <segue destination="ISd-IL-6IN" kind="relationship" relationship="viewControllers" id="Utq-OF-i8n"/>
-                        <segue destination="MaD-TQ-yjv" kind="relationship" relationship="viewControllers" id="tOu-Gt-tCd"/>
-                        <segue destination="Xxm-9S-FT7" kind="relationship" relationship="viewControllers" id="hjv-dR-XN9"/>
+                        <segue destination="Nyx-lw-c8Z" kind="relationship" relationship="viewControllers" id="167-FK-bup"/>
+                        <segue destination="MaD-TQ-yjv" kind="relationship" relationship="viewControllers" id="bMJ-xv-ajv"/>
+                        <segue destination="ISd-IL-6IN" kind="relationship" relationship="viewControllers" id="3V2-0F-qv2"/>
+                        <segue destination="Xxm-9S-FT7" kind="relationship" relationship="viewControllers" id="QJc-gB-akQ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3I-Y6-pgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1470,16 +1471,16 @@
             </objects>
             <point key="canvasLocation" x="2652" y="912.5937031484259"/>
         </scene>
-        <!--Table View Controller-->
+        <!--My Links-->
         <scene sceneID="BrM-8w-l8u">
             <objects>
-                <tableViewController id="Nyx-lw-c8Z" sceneMemberID="viewController">
+                <tableViewController id="Nyx-lw-c8Z" customClass="ScansTableViewController" customModule="LinkUp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="XD4-Ah-W00">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="zcz-Ip-skD" customClass="ScansTableViewCell" customModule="LinkUp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScansTableViewCell" rowHeight="100" id="zcz-Ip-skD" customClass="ScansTableViewCell" customModule="LinkUp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zcz-Ip-skD" id="5Tb-HP-ujo">
@@ -1493,17 +1494,8 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faw-gY-vao">
-                                            <rect key="frame" x="101" y="24" width="232" height="36"/>
+                                            <rect key="frame" x="101" y="8" width="232" height="36"/>
                                             <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSl-gh-Mbu">
-                                            <rect key="frame" x="101" y="68" width="258" height="21"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="j6G-ZW-eOn"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="Trench-Thin" family="Trench" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1514,23 +1506,37 @@
                                             </constraints>
                                             <state key="normal" image="baseline_keyboard_arrow_right_black_18dp"/>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSl-gh-Mbu">
+                                            <rect key="frame" x="101" y="39" width="258" height="52"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="52" id="j6G-ZW-eOn"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Trench-Thin" family="Trench" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="LcG-wZ-cl7" firstAttribute="trailing" secondItem="JSl-gh-Mbu" secondAttribute="trailing" id="0YP-2O-WSt"/>
                                         <constraint firstItem="M6y-ee-etM" firstAttribute="centerY" secondItem="LcG-wZ-cl7" secondAttribute="centerY" id="48d-b2-tL7"/>
-                                        <constraint firstItem="JSl-gh-Mbu" firstAttribute="bottom" secondItem="5Tb-HP-ujo" secondAttribute="bottomMargin" id="5LB-eG-aPH"/>
+                                        <constraint firstItem="JSl-gh-Mbu" firstAttribute="bottom" secondItem="5Tb-HP-ujo" secondAttribute="bottomMargin" constant="2" id="5LB-eG-aPH"/>
                                         <constraint firstItem="faw-gY-vao" firstAttribute="leading" secondItem="JSl-gh-Mbu" secondAttribute="leading" id="89Y-p4-fkZ"/>
                                         <constraint firstItem="LcG-wZ-cl7" firstAttribute="leading" secondItem="faw-gY-vao" secondAttribute="trailing" constant="8" symbolic="YES" id="KWh-Rc-nHb"/>
-                                        <constraint firstItem="JSl-gh-Mbu" firstAttribute="top" secondItem="faw-gY-vao" secondAttribute="bottom" constant="8" symbolic="YES" id="KcJ-Wo-7oq"/>
+                                        <constraint firstItem="JSl-gh-Mbu" firstAttribute="top" secondItem="faw-gY-vao" secondAttribute="bottom" constant="-5" id="KcJ-Wo-7oq"/>
                                         <constraint firstItem="faw-gY-vao" firstAttribute="leading" secondItem="M6y-ee-etM" secondAttribute="trailing" constant="8" symbolic="YES" id="Vkv-pc-pCm"/>
-                                        <constraint firstItem="faw-gY-vao" firstAttribute="top" secondItem="5Tb-HP-ujo" secondAttribute="topMargin" constant="13" id="YsF-LB-Oa9"/>
+                                        <constraint firstItem="faw-gY-vao" firstAttribute="top" secondItem="5Tb-HP-ujo" secondAttribute="topMargin" constant="-3" id="YsF-LB-Oa9"/>
                                         <constraint firstItem="LcG-wZ-cl7" firstAttribute="centerY" secondItem="5Tb-HP-ujo" secondAttribute="centerY" id="ZCT-qs-nei"/>
                                         <constraint firstItem="LcG-wZ-cl7" firstAttribute="trailing" secondItem="5Tb-HP-ujo" secondAttribute="trailingMargin" id="bPF-ea-SKY"/>
                                         <constraint firstItem="M6y-ee-etM" firstAttribute="leading" secondItem="5Tb-HP-ujo" secondAttribute="leadingMargin" id="iIL-bW-KTD"/>
-                                        <constraint firstItem="JSl-gh-Mbu" firstAttribute="top" secondItem="LcG-wZ-cl7" secondAttribute="bottom" constant="8" symbolic="YES" id="q7N-8x-FME"/>
+                                        <constraint firstItem="JSl-gh-Mbu" firstAttribute="top" secondItem="LcG-wZ-cl7" secondAttribute="bottom" constant="-21" id="q7N-8x-FME"/>
                                         <constraint firstItem="M6y-ee-etM" firstAttribute="top" secondItem="5Tb-HP-ujo" secondAttribute="topMargin" constant="-3" id="x3X-kB-H9C"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="profileDescription" destination="JSl-gh-Mbu" id="bIc-x3-Lbq"/>
+                                    <outlet property="profileImage" destination="M6y-ee-etM" id="AL1-Wj-96s"/>
+                                    <outlet property="profileName" destination="faw-gY-vao" id="lVx-8c-NC6"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1538,6 +1544,10 @@
                             <outlet property="delegate" destination="Nyx-lw-c8Z" id="I15-iz-zGq"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="My Links" image="baseline_group_black_24pt" id="qbM-oX-P4R"/>
+                    <connections>
+                        <outlet property="scansTableView" destination="XD4-Ah-W00" id="5Ch-mA-aQK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GVC-53-pza" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1645,6 +1655,7 @@
         <image name="AddMeLogo-2" width="417" height="417"/>
         <image name="Icon-20" width="20" height="27"/>
         <image name="Instagram_icon" width="599" height="600"/>
+        <image name="baseline_group_black_24pt" width="24" height="24"/>
         <image name="baseline_keyboard_arrow_right_black_18dp" width="18" height="18"/>
         <image name="custom" width="512" height="512"/>
         <image name="dance-floor-of-night-club" width="1920" height="1080"/>

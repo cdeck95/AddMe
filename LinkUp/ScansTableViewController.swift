@@ -10,7 +10,10 @@ import UIKit
 
 class ScansTableViewController: UITableViewController {
 
-    var scans: [String]!
+    var scanIds: [String]!
+    var fakeScanData:[Scan] = []
+    
+    @IBOutlet var scansTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,11 @@ class ScansTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        loadScans()
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -36,12 +44,17 @@ class ScansTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return scans.count
+        return fakeScanData.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScansTableViewCell", for: indexPath) as! ScansTableViewCell
-
+        cell.profileName.text = fakeScanData[indexPath.row].name
+        cell.profileImage.image = fakeScanData[indexPath.row].profileImage
+        cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.width / 2;
+        cell.profileImage.clipsToBounds = true;
+        cell.profileDescription.text = fakeScanData[indexPath.row].descriptionLabel
+        cell.profileDescription.sizeToFit()
 
         return cell
     }
@@ -103,6 +116,25 @@ class ScansTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         //Return false if you do not want the item to be re-orderable.
         return false
+    }
+    
+    func loadScans(){
+        //TODO - load scan IDs from API
+        scanIds = ["1","2","3"]
+        //TODO - take scanIDs and load scan info from API
+        let dict1 = ["profileID":"1", "name": "Dan Boehmke", "id": "1", "descriptionLabel":"All accounts"] as NSDictionary
+        let scan = Scan(dictionary: dict1, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
+        fakeScanData.append(scan)
+        let dict2 = ["profileID":"2", "name": "Tom Miller", "id": "2", "descriptionLabel":"Xbox, PSN, Twitch"] as NSDictionary
+        let scan2 = Scan(dictionary: dict2, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
+        fakeScanData.append(scan2)
+        let dict3 = ["profileID":"3", "name": "Chris Deck", "id": "3", "descriptionLabel":"Facebook, Instagram, Twitter, Snachat"] as NSDictionary
+        let scan3 = Scan(dictionary: dict3, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
+        fakeScanData.append(scan3)
+        let dict4 = ["profileID":"4", "name": "Chris Porch", "id": "4", "descriptionLabel":"Snapchat, Insta"] as NSDictionary
+        let scan4 = Scan(dictionary: dict4, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
+        fakeScanData.append(scan4)
+        scansTableView.reloadData()
     }
  
 

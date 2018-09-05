@@ -20,8 +20,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     var detector: CIDetector?
     var dict: [String: String]!
     var keys: Dictionary<String, String>.Keys!
-    var nativeApps = [Apps]()
-    var safariApps = [Apps]()
+    var nativeApps = [Accounts]()
+    var safariApps = [Accounts]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,14 +97,14 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     func openPlatforms(){
         if(safariApps.count > 0){
-            let url = URL(string: (safariApps.first?._uRL)!)
+            let url = URL(string: (safariApps.first?.url)!)
             let svc = SFSafariViewController(url: url!)
             svc.delegate = self
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.navigationController?.pushViewController(svc, animated: true)
             safariApps.removeFirst()
         } else if(nativeApps.count > 0){
-            let url = URL(string: (nativeApps.first?._uRL)!)
+            let url = URL(string: (nativeApps.first?.url)!)
             openNative(url: url!)
         }
     }
@@ -146,9 +146,9 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         for (displayName, url) in dict {
             print("display name: \(displayName)")
             print("url: \(url)")
-            let app = Apps()
-            app?._displayName = displayName
-            app?._uRL = url
+            var app:Accounts!
+            app.displayName = displayName
+            app.url = url
             self.tabBarController?.hidesBottomBarWhenPushed = true
             var platform = ""
             if (url.contains("twitter.com")){
@@ -168,29 +168,29 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
             
             switch platform {
             case "Twitter":
-                app?._platform = platform
+                app.platform = platform
                 nativeApps.append(app!)
             case "Twitch":
-                app?._platform = platform
+                app.platform = platform
                 nativeApps.append(app!)
             case "Instagram":
-                app?._platform = platform
+                app.platform = platform
                 nativeApps.append(app!)
             case "LinkedIn":
-                app?._platform = platform
+                app.platform = platform
                 nativeApps.append(app!)
             case "Snapchat":
-                app?._platform = platform
+                app.platform = platform
                 nativeApps.append(app!)
             default:
-                app?._platform = platform
+                app.platform = platform
                 safariApps.append(app!)
             }
         }
         print(safariApps)
         print(nativeApps)
         
-        var allApps:[Apps] = []
+        var allApps:[Accounts] = []
         for app in safariApps {
             allApps.append(app)
         }

@@ -10,6 +10,10 @@ import UIKit
 
 class ScansTableViewCell: UITableViewCell {
 
+    @IBOutlet var profileImage: UIImageView!
+    @IBOutlet var profileName: UILabel!
+    @IBOutlet var profileDescription: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -104,31 +104,31 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("creating cells for table view in settings")
         let cell:SettingsTableViewCell = settingsAppsTableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsTableViewCell
-        cell.nameLabel.text = apps[indexPath.row]._displayName!
-        cell.usernameLabel.text = "@\(apps[indexPath.row]._username!)"
-        cell.appID = apps[indexPath.row]._appId!
+        cell.nameLabel.text = apps[indexPath.row].displayName
+        cell.usernameLabel.text = "@\(apps[indexPath.row].username)"
+        cell.appID = apps[indexPath.row].accountId
         cell.layer.backgroundColor = UIColor.white.cgColor
         
-        switch apps[indexPath.row]._platform {
-        case "Facebook"?:
+        switch apps[indexPath.row].platform {
+        case "Facebook":
             cell.appImage.image = UIImage(named: "fb-icon")
-        case "Twitter"?:
+        case "Twitter":
             cell.appImage.image = UIImage(named: "twitter_icon")
-        case "Instagram"?:
+        case "Instagram":
             cell.appImage.image = UIImage(named: "Instagram_icon")
-        case "Snapchat"?:
+        case "Snapchat":
             cell.appImage.image = UIImage(named: "snapchat_icon")
-        case "GooglePlus"?:
+        case "GooglePlus":
             cell.appImage.image = UIImage(named: "google_plus_icon")
-        case "LinkedIn"?:
+        case "LinkedIn":
             cell.appImage.image = UIImage(named: "linked_in_logo")
-        case "Xbox"?:
+        case "Xbox":
             cell.appImage.image = UIImage(named: "xbox")
-        case "PSN"?:
+        case "PSN":
             cell.appImage.image = UIImage(named: "play-station")
-        case "Twitch"?:
+        case "Twitch":
             cell.appImage.image = UIImage(named: "twitch")
-        case "Custom"?:
+        case "Custom":
             cell.appImage.image = UIImage(named: "custom")
         default:
             cell.appImage.image = UIImage(named: "AppIcon")
@@ -251,7 +251,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     ///////////////////////////// NEW STUFF /////////////////////////////////
     func loadAppsFromDB() {
         print("RIGHT HERE")
-        var returnList: [Apps] = []
+        var returnList: [Accounts] = []
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
@@ -296,12 +296,12 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     print(url)
                     print(appId)
                     print(username)
-                    let app = Apps()
-                    app?._appId = "\(appId)"
-                    app?._displayName = displayName
-                    app?._platform = platform
-                    app?._uRL = url
-                    app?._username = username
+                    var app:Accounts!
+                    app.accountId = "\(appId)"
+                    app.displayName = displayName
+                    app.platform = platform
+                    app.url = url
+                    app.username = username
                     print(app)
                     returnList.append(app!)
                 }

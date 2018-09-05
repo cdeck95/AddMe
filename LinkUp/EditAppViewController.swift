@@ -50,7 +50,7 @@ class EditAppViewController: UIViewController, UITextFieldDelegate {
     
     func loadAppFromDB(){
         print("EditAppViewController viewDidAppear()")
-        let returnList: [Apps] = []
+        let returnList: [Accounts] = []
         //let idString = self.credentialsManager.identityID!
         print(identityID!)
         let sema = DispatchSemaphore(value: 0);
