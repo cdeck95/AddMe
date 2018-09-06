@@ -8,6 +8,7 @@
 
 import UIKit
 import FCAlertView
+import CDAlertView
 
 class AccountsForProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, HalfModalPresentable, FCAlertViewDelegate {
 
@@ -22,6 +23,8 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet var profileImage: ProfileImage!
     var profileImageUrl: String!
     var gradient: CAGradientLayer!
+    var cells:[AppsTableViewCell]!
+    var cognitoId:String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +32,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         self.profileImage.center = self.view.center
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
         self.profileImage.clipsToBounds = true;
+        cells = []
         // Do any additional setup after loading the view.
     }
     
@@ -125,6 +129,11 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                 cell.layer.backgroundColor = UIColor.white.cgColor
                 cell.url.text = "@\(allAccounts[indexPath.row].username)"
                 cell.id = Int(allAccounts[indexPath.row].accountId)
+                cell.userId = allAccounts[indexPath.row].userId
+                cell.username = allAccounts[indexPath.row].username
+                cell.platform = allAccounts[indexPath.row].platform
+                cell.cognitoId = allAccounts[indexPath.row].cognitoId
+                self.cognitoId = allAccounts[indexPath.row].cognitoId
                 
                 for account in accounts {
                     print(allAccounts[indexPath.row].accountId)
@@ -140,7 +149,11 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                     }
                 }
                 
-                //print(indexPath.row)
+                if(!cells.contains(cell)){
+                    print("adding cell to array")
+                    print(cell.appSwitch.isOn)
+                    self.cells.append(cell)
+                }
                 return cell
             }
         return UITableViewCell()
@@ -200,6 +213,16 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
     }
     @IBAction func save(_ sender: Any) {
         //call API to update
+        var accountsInProfile:[Accounts] = []
+        print("in save function \(cells)")
+        for cell in cells {
+            if(cell.appSwitch.isOn){
+                accountsInProfile.append(Accounts(accountId: "\(cell.id!)", userId: cell.userId, cognitoId: cell.cognitoId, displayName: cell.NameLabel.text!, platform: cell.platform, url: cell.url.text!, username: cell.username))
+            }
+        }
+        print("Saving the profile with the following accounts: \(accountsInProfile)")
+        let profile = PagedProfile.Profile(profileId: self.profileID, accounts: accountsInProfile, name: self.profileNameText, description: self.profileDescriptionText, cognitoId: self.cognitoId, imageUrl: self.profileImageUrl)
+        self.updateProfile(profile: profile)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -234,6 +257,44 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         }
         
         return vw
+    }
+    
+    func updateProfile(profile: PagedProfile.Profile){
+        // Adds a users account to the DB.
+        var success = true
+        let sema = DispatchSemaphore(value: 0);
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(self.cognitoId!)/profiles/")!)
+        print("Request: \(request)")
+        request.httpMethod = "UPDATE"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        let jsonData = try! JSONEncoder().encode(profile)
+        let jsonString = String(data: jsonData, encoding: .utf8)!
+        print(jsonString)
+        //print(postString)
+        request.httpBody = jsonString.data(using: String.Encoding.utf8)
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                success = false
+                sema.signal()
+                return
+            }
+            success = true
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            var responseOne = responseString
+            print("Response \(responseOne!)")
+            sema.signal()
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        if(success){
+            CDAlertView(title: "Success!", message: "Your profile has been updated", type: .success).show()
+        } else{
+            CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+        }
     }
     
 }

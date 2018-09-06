@@ -410,7 +410,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             guard let value = item.value as? String else { return }
             if value == "1" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-                modalVC.qrCodeString = self.profiles[(indexPath.row)].profileId
+                let qrCodeString = "{\"profileId\": \"\(self.profiles[indexPath.row].profileId)\"}"
+                print(qrCodeString)
+                modalVC.qrCodeString = qrCodeString//self.profiles[(indexPath.row)].profileId
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 modalVC.modalPresentationStyle = .custom
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
@@ -419,28 +421,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
                     self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 let allAccounts = self.loadAppsFromDB()
-//                let accountsInProfile = self.profiles[indexPath.row].accounts
-//                for var account in allAccounts {
-//                    if(accountsInProfile.contains(where: { $0.accountId == account.accountId })) {
-//                        account.isSwitchOn = true
-//                    }
-//                }
-                    modalVC.allAccounts = allAccounts
-                    modalVC.accounts = self.profiles[indexPath.row].accounts
-                    modalVC.profileImageUrl = self.profiles[indexPath.row].imageUrl
-                    modalVC.profileID = self.profiles[indexPath.row].profileId
-                    modalVC.profileNameText = self.profiles[indexPath.row].name
-                    modalVC.profileDescriptionText = self.profiles[indexPath.row].description
-                    modalVC.modalTransitionStyle = .crossDissolve
-                    modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
-                    self.present(modalVC, animated: true, completion: nil)
+                modalVC.allAccounts = allAccounts
+                modalVC.accounts = self.profiles[indexPath.row].accounts
+                modalVC.profileImageUrl = self.profiles[indexPath.row].imageUrl
+                modalVC.profileID = self.profiles[indexPath.row].profileId
+                modalVC.profileNameText = self.profiles[indexPath.row].name
+                modalVC.profileDescriptionText = self.profiles[indexPath.row].description
+                modalVC.modalTransitionStyle = .crossDissolve
+                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                self.present(modalVC, animated: true, completion: nil)
             } else if value == "3" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-//                let encoder = JSONEncoder()
-//                encoder.outputFormatting = .prettyPrinted
-//                let data = try! encoder.encode(profiles[Apps])
-//                print(String(data: data, encoding: .utf8)!)
-                modalVC.qrCodeString = self.profiles[(indexPath.row)].profileId
+                
+                let qrCodeString = "{\"profileId\": \"\(self.profiles[indexPath.row].profileId)\"}"
+                print(qrCodeString)
+                modalVC.qrCodeString = qrCodeString//self.profiles[(indexPath.row)].profileId
                 modalVC.shouldShare = true
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 modalVC.modalPresentationStyle = .custom

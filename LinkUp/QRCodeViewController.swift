@@ -54,7 +54,6 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        qrCodeString = datasetManager.dataset.string(forKey: "jsonStringAsArray")
         createQRCode(self)
         print("qr code string: \(qrCodeString)")
         if(shouldShare){

@@ -1,14 +1,14 @@
 //
-//  AppsTableViewCell.swift
-//  AddMe
+//  ScannedProfileTableViewCell.swift
+//  LinkUp
 //
-//  Created by Christopher Deck on 2/27/18.
+//  Created by Christopher Deck on 9/6/18.
 //  Copyright © 2018 Christopher Deck. All rights reserved.
 //
 
 import UIKit
 
-class AppsTableViewCell: UITableViewCell {
+class ScannedProfileTableViewCell: UITableViewCell {
 
     @IBInspectable var cornerRadius: CGFloat = 8
     @IBInspectable var shadowOffsetWidth: Int = 4
@@ -16,16 +16,17 @@ class AppsTableViewCell: UITableViewCell {
     @IBInspectable var shadowColor: UIColor? = Color.glass.value
     @IBInspectable var shadowOpacity: Float = 0.3
     @IBOutlet weak var NameLabel: UILabel!
-    @IBOutlet weak var url: UILabel!
+    @IBOutlet weak var username: UILabel!
     @IBOutlet var urlIcon: UIImageView!
     
     var userId:String!
     var cognitoId:String!
-    var username:String!
+    var url:String!
     var platform:String!
     var id:Int!
+    
    
-    @IBOutlet weak var appSwitch: UISwitch!
+    @IBOutlet var openButton: UIButton!
     @IBOutlet var appImage: UIImageView!
     
     
@@ -33,21 +34,19 @@ class AppsTableViewCell: UITableViewCell {
         print("AppTableViewCell.swift awakeFromNib()")
         super.awakeFromNib()
         // Initialization code
-//        layer.cornerRadius = cornerRadius
-//        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
-//        layer.masksToBounds = true
-//        layer.shadowColor = shadowColor?.cgColor
-//        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
-//        layer.shadowOpacity = shadowOpacity
-//        layer.shadowPath = shadowPath.cgPath
+        //        layer.cornerRadius = cornerRadius
+        //        let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
+        //        layer.masksToBounds = true
+        //        layer.shadowColor = shadowColor?.cgColor
+        //        layer.shadowOffset = CGSize(width: shadowOffsetWidth, height: shadowOffsetHeight);
+        //        layer.shadowOpacity = shadowOpacity
+        //        layer.shadowPath = shadowPath.cgPath
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         print("AppTableViewCell.swift setSelected()")
         super.setSelected(selected, animated: animated)
-        self.bringSubview(toFront: appSwitch)
-        
         
     }
-}
 
+}
