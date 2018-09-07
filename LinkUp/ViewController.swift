@@ -38,6 +38,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var datasetManager = Dataset.sharedInstance
     var dataset: AWSCognitoDataset!
     private let refreshControl = UIRefreshControl()
+    var newProfileName: String!
+    var newProfileDesc: String!
     
     @IBOutlet var uploadImageButton: UIBarButtonItem!
     var token: String!
@@ -367,24 +369,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             alert.delegate = self
             alert.colorScheme = Color.bondiBlue.value
             alert.addTextField(withPlaceholder: "Name (i.e. Going Out") { (text) in
-                //print(text!)
-                let profileName = text
-                let alert2 = FCAlertView()
-                alert2.delegate = self
-                alert2.colorScheme = Color.bondiBlue.value
-                alert2.addTextField(withPlaceholder: "Description (i.e. Facebook, Snap") { (text2) in
-                    let profileDescription = text2
-                    let profile = PagedProfile.Profile(profileId: "", accounts: self.loadAppsFromDB(), name: profileName!, description: profileDescription!, cognitoId: self.credentialsManager.identityID, imageUrl: "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-                    self.addProfile(profile: profile)
-                }
-                alert2.showAlert(inView: self,
-                                withTitle: "Add Profile",
-                                withSubtitle: "Enter your details below",
-                                withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
-                                withDoneButtonTitle: "Add",
-                                andButtons: ["Cancel"])
+                self.newProfileName = text!
             }
-            
+            alert.addTextField(withPlaceholder: "Description (i.e. Facebook, Snap") { (text) in
+                self.newProfileDesc = text!
+            }
             
             alert.showAlert(inView: self,
                             withTitle: "Add Profile",
@@ -398,6 +387,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let actionSheet = createStandardActionSheet(indexPath: indexPath)
             actionSheet.present(in: self, from: self.view)
         }
+    }
+    
+    func fcAlertDoneButtonClicked(_ alertView: FCAlertView){
+        // Done Button was Pressed, Perform the Action you'd like here.
+        let profileName = newProfileName
+        print(profileName)
+        let profileDescription = newProfileDesc
+        print(profileDescription)
+        let profile = PagedProfile.Profile(profileId: "", accounts: self.loadAppsFromDB(), name: profileName!, description: profileDescription!, cognitoId: self.credentialsManager.identityID, imageUrl: "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
+        self.addProfile(profile: profile)
     }
     
     func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {

@@ -13,7 +13,7 @@ import GoogleMobileAds
 
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate, UIPopoverControllerDelegate {
     
- 
+    var credentialsManager = CredentialsManager.sharedInstance
     var bannerView: DFPBannerView!
     var interstitial: DFPInterstitial!
     let imagePicker = UIImagePickerController()
@@ -22,10 +22,12 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     var keys: Dictionary<String, String>.Keys!
     var nativeApps = [Accounts]()
     var safariApps = [Accounts]()
+    var profile:PagedProfile.Profile!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.credentialsManager.createCredentialsProvider()
         bannerView = DFPBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
         bannerView.adUnitID = "/6499/example/banner"
@@ -38,6 +40,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         interstitial = createAndLoadInterstitial()
         safariApps = []
         nativeApps = []
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
 //        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
     }
     
@@ -80,7 +83,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                     }
                     dict = result
                     print("dict:  \(dict)")
-                    convertToArray()
+                    getProfile(dict: dict)
+                    // convertToArray()
                      //openPlatforms()
                 }
                 catch let error as NSError {
@@ -253,6 +257,66 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     func interstitialDidDismissScreen(_ ad: DFPInterstitial) {
         //interstitial = createAndLoadInterstitial()
         dismiss(animated: true, completion: nil)
+    }
+    
+    func getProfile(dict: [String:String]){
+        //profiles = []
+        let profileId = dict.first?.value
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/profiles/2") {
+            var request = URLRequest(url: url)
+            print(request)
+            request.httpMethod = "GET"
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                data, response, error in
+                if error != nil {
+                    print("error=\(error)")
+                    sema.signal()
+                    return
+                } else {
+                    print("---no error----")
+                }
+                //////////////////////// New stuff from Tom
+                do {
+                    print("decoding")
+                    let decoder = JSONDecoder()
+                    print("getting data")
+                    print(data)
+                    print(response)
+                    let profileDict = try decoder.decode(Dictionary<String, PagedProfile.Profile>.self, from: data!)
+                    self.profile = profileDict.first?.value
+                    print(self.profile)
+                    OperationQueue.main.addOperation {
+                        print("in completion")
+                        let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleProfileViewController") as! SingleProfileViewController
+                        //self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                        modalVC.allAccounts = self.profile?.accounts
+                        modalVC.profile = self.profile
+                        //modalVC.modalTransitionStyle = .crossDissolve
+                        //modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                        self.navigationController?.setNavigationBarHidden(true, animated: true)
+                        self.navigationController?.pushViewController(modalVC, animated: true)
+                    }
+                    sema.signal();
+                    //=======
+                } catch let err {
+                    print("Err", err)
+                    sema.signal(); // none found TODO: do something better than this shit.
+                }
+                print("Done")
+                /////////////////////////
+            })
+            task.resume()
+            sema.wait(timeout: DispatchTime.distantFuture)
+            
+            //send to another view controller to view profile
+        } else {
+            print("could not open url, it was nil")
+        }
     }
     
 }
