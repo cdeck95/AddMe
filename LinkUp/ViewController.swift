@@ -402,12 +402,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let item1 = ActionSheetItem(title: "View Code", value: "1", image: UIImage(named: "baseline_pageview_black_18pt"))
         let item2 = ActionSheetItem(title: "Edit Profile", value: "2", image: UIImage(named: "baseline_create_black_18pt"))
         let item3 = ActionSheetItem(title: "Share Profile", value: "3", image: UIImage(named: "baseline_share_black_18pt"))
-        let item4 = ActionSheetItem(title: "Delete Profile", value: "4", image: UIImage(named: "ic_cancel"))
         let deleteButton = ActionSheetDangerButton(title: "Delete Profile")
         let button = ActionSheetOkButton(title: "Cancel")
-        return ActionSheet(items: [title, item1, item2, item3, item4, deleteButton, button]) { _, item in
-            guard let value = item.value as? String else { return }
-            print(value)
+        return ActionSheet(items: [title, item1, item2, item3, deleteButton, button]) { _, item in
+           
+            guard let value = item.value as? String else {
+                if item is ActionSheetDangerButton {
+                    self.deleteProfile(profileId: self.profiles[indexPath.row].profileId)
+                }
+                return
+            }
+           
             if value == "1" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
                 let qrCodeString = "{\"profileId\": \"\(self.profiles[indexPath.row].profileId)\"}"
@@ -441,8 +446,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 modalVC.modalPresentationStyle = .custom
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                 self.present(modalVC, animated: true, completion: nil)
-            } else if value == "4" {
-                self.deleteProfile(profileId: self.profiles[indexPath.row].profileId)
             }
         }
     }
