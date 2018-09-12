@@ -34,6 +34,7 @@
 		DA72C40E213F65DB0053F672 /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C40D213F65DB0053F672 /* Accounts.swift */; };
 		DA72C4122141DFE60053F672 /* SingleProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C4112141DFE60053F672 /* SingleProfileViewController.swift */; };
 		DA72C4142141E45A0053F672 /* ScannedProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C4132141E45A0053F672 /* ScannedProfileTableViewCell.swift */; };
+		DA72C4162148B8250053F672 /* SingleProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72C4152148B8250053F672 /* SingleProfile.swift */; };
 		DA84C91A212B1E2D00AF84CC /* ScannedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */; };
 		DA84C91C212B223100AF84CC /* ScannedProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */; };
 		DA929D79212F920800CEFBD6 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */; };
@@ -100,6 +101,7 @@
 		DA72C40D213F65DB0053F672 /* Accounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accounts.swift; sourceTree = "<group>"; };
 		DA72C4112141DFE60053F672 /* SingleProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleProfileViewController.swift; sourceTree = "<group>"; };
 		DA72C4132141E45A0053F672 /* ScannedProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedProfileTableViewCell.swift; sourceTree = "<group>"; };
+		DA72C4152148B8250053F672 /* SingleProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleProfile.swift; sourceTree = "<group>"; };
 		DA84C919212B1E2D00AF84CC /* ScannedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedTableViewCell.swift; sourceTree = "<group>"; };
 		DA84C91B212B223100AF84CC /* ScannedProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedProfileViewController.swift; sourceTree = "<group>"; };
 		DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				DA929D78212F920800CEFBD6 /* ProfileTableViewCell.swift */,
 				DA37EE4E2125F9FD00A52AD9 /* ProfileCollectionViewCell.swift */,
 				DA37EE452125F68A00A52AD9 /* Profile.swift */,
+				DA72C4152148B8250053F672 /* SingleProfile.swift */,
 				DA72C40D213F65DB0053F672 /* Accounts.swift */,
 				DA10A614212621660049D983 /* Cards.plist */,
 				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
@@ -500,6 +503,7 @@
 				DADA5B5F208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift in Sources */,
 				DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */,
 				DA37EE462125F68A00A52AD9 /* Profile.swift in Sources */,
+				DA72C4162148B8250053F672 /* SingleProfile.swift in Sources */,
 				DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */,
 				DACCF2642131C86100FAD6B5 /* HelpTableViewCell.swift in Sources */,
 				DAE3A2B12093D7AE002689BA /* HalfModalTransitionAnimator.swift in Sources */,

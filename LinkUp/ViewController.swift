@@ -96,8 +96,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("----in view will appear----")
         self.tabBarController?.tabBar.isHidden = false
         presentAuthUIViewController()
-        collectionView.reloadData()
-       // appsTableView.reloadData()
+        refreshAppData(self)
         UIView.animate(withDuration: 0.2, animations: {self.view.layoutIfNeeded()})
     }
     
@@ -403,9 +402,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let item1 = ActionSheetItem(title: "View Code", value: "1", image: UIImage(named: "baseline_pageview_black_18pt"))
         let item2 = ActionSheetItem(title: "Edit Profile", value: "2", image: UIImage(named: "baseline_create_black_18pt"))
         let item3 = ActionSheetItem(title: "Share Profile", value: "3", image: UIImage(named: "baseline_share_black_18pt"))
+        let item4 = ActionSheetItem(title: "Delete Profile", value: "4", image: UIImage(named: "ic_cancel"))
+        let deleteButton = ActionSheetDangerButton(title: "Delete Profile")
         let button = ActionSheetOkButton(title: "Cancel")
-        return ActionSheet(items: [title, item1, item2, item3, button]) { _, item in
+        return ActionSheet(items: [title, item1, item2, item3, item4, deleteButton, button]) { _, item in
             guard let value = item.value as? String else { return }
+            print(value)
             if value == "1" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
                 let qrCodeString = "{\"profileId\": \"\(self.profiles[indexPath.row].profileId)\"}"
@@ -439,6 +441,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 modalVC.modalPresentationStyle = .custom
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                 self.present(modalVC, animated: true, completion: nil)
+            } else if value == "4" {
+                self.deleteProfile(profileId: self.profiles[indexPath.row].profileId)
             }
         }
     }
@@ -451,21 +455,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     private func fetchAppData() {
         print("fetchAppData()")
         loadProfiles()
-        self.updateView()
-        self.refreshControl.endRefreshing()
-
+       // self.updateView()
     }
     
-    private func updateView() {
-        print("updateView()")
-        let hasProfiles = profiles.count > 0
-        print("has apps: \(hasProfiles)")
-        collectionView.isHidden = false
-        if hasProfiles {
-            collectionView.reloadData()
-        } else {
-        }
-    }
+
     
     func loadCustomRefreshContents() {
         
@@ -521,6 +514,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         self.collectionView.reloadData()
+        self.collectionView.collectionViewLayout.invalidateLayout()
+        self.refreshControl.endRefreshing()
     }
     
     // TomMiller 2018/06/27 - Added struct to interact with JSON
@@ -607,7 +602,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //            print(jsonString)
             //print(postString)
             request.httpBody = json //jsonString.data(using: String.Encoding.utf8)
-            
+            var profile:SingleProfile!
             let task = URLSession.shared.dataTask(with: request, completionHandler: {
                 data, response, error in
                 if error != nil {
@@ -620,12 +615,66 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
                 var responseOne = responseString
                 print("Response \(responseOne!)")
+                do {
+                    let decoder = JSONDecoder()
+                    print("getting data")
+                    profile = try decoder.decode(SingleProfile.self, from: data!)
+                } catch let err {
+                    print("Err", err)
+                    sema.signal(); // none found TODO: do something better than this shit.
+                }
+                
                 sema.signal()
             })
             task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         if(success){
             CDAlertView(title: "Success!", message: "Your account is now added to the database", type: .success).show()
+            let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
+            self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+            modalVC.allAccounts = allAccounts
+            modalVC.accounts = profile.profile.accounts
+            modalVC.profileImageUrl = profile.profile.imageUrl
+            modalVC.profileID = profile.profile.profileId
+            modalVC.profileNameText = profile.profile.name
+            modalVC.profileDescriptionText = profile.profile.description
+            modalVC.modalTransitionStyle = .crossDissolve
+            modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+            self.present(modalVC, animated: true, completion: nil)
+        } else{
+            CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+        }
+    }
+    
+    func deleteProfile(profileId: Int){
+        // Adds a users account to the DB.
+        var success = true
+        let sema = DispatchSemaphore(value: 0);
+        let identityId = self.credentialsManager.identityID!
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/profiles/\(profileId)")!)
+        print("Request: \(request)")
+        request.httpMethod = "DELETE"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+       
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                success = false
+                sema.signal()
+                return
+            }
+            success = true
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            var responseOne = responseString
+            print("Response \(responseOne!)")
+            sema.signal()
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        if(success){
+            CDAlertView(title: "Success!", message: "Your account is now deleted from the database", type: .success).show()
         } else{
             CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
         }

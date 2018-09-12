@@ -284,7 +284,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
             "accounts": \(accountIds),
             "name": "\(self.profileNameText!)",
             "description": "\(self.profileDescriptionText!)",
-            "imageUrl": "\(self.profileImageUrl!)"
+            "imageUrl": "\(self.profileImageUrl ?? "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")"
         }
         """.data(using: .utf8)!
         print("request body: \(String(data: json, encoding: .utf8)!)")
