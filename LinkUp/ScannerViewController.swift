@@ -308,7 +308,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/scans/2") {
+        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/scans/\(profileId!)") {
             var request = URLRequest(url: url)
             print(request)
             request.httpMethod = "POST"

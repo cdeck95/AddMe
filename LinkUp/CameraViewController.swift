@@ -22,7 +22,6 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     var keys: Dictionary<String, String>.Keys!
     var nativeApps = [PagedAccounts.Accounts]()
     var safariApps = [PagedAccounts.Accounts]()
-    var profile:PagedProfile.Profile!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -265,7 +264,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/profiles/2") {
+        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/profiles/\(profileId!)") {
             var request = URLRequest(url: url)
             print(request)
             request.httpMethod = "GET"
@@ -287,15 +286,13 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                     print("getting data")
                     print(data)
                     print(response)
-                    let profileDict = try decoder.decode(Dictionary<String, PagedProfile.Profile>.self, from: data!)
-                    self.profile = profileDict.first?.value
-                    print(self.profile)
+                    let profile = try decoder.decode(SingleProfile.self, from: data!)
                     OperationQueue.main.addOperation {
                         print("in completion")
                         let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleProfileViewController") as! SingleProfileViewController
                         //self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-                        modalVC.allAccounts = self.profile?.accounts
-                        modalVC.profile = self.profile
+                        modalVC.allAccounts = profile.profile.accounts
+                        modalVC.profile = profile.profile
                         //modalVC.modalTransitionStyle = .crossDissolve
                         //modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                         self.navigationController?.setNavigationBarHidden(true, animated: true)
