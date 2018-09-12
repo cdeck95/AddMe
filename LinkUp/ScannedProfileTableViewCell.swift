@@ -19,7 +19,7 @@ class ScannedProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var username: UILabel!
     @IBOutlet var urlIcon: UIImageView!
     
-    var userId:String!
+    var userId:Int!
     var cognitoId:String!
     var url:String!
     var platform:String!

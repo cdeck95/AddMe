@@ -25,7 +25,7 @@ import SideMenuSwift
 import SDWebImage
 
 var cellSwitches: [AppsTableViewCell] = []
-var apps: [Accounts] = []
+var apps: [PagedAccounts.Accounts] = []
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, FCAlertViewDelegate, UIScrollViewDelegate {
 
@@ -395,8 +395,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print(profileName)
         let profileDescription = newProfileDesc
         print(profileDescription)
-        let profile = PagedProfile.Profile(profileId: "", accounts: self.loadAppsFromDB(), name: profileName!, description: profileDescription!, cognitoId: self.credentialsManager.identityID, imageUrl: "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
-        self.addProfile(profile: profile)
+        self.addProfile(profileName: profileName!, profileDescription: profileDescription!)
     }
     
     func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
@@ -533,9 +532,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var JsonApps = [JsonApp]()
     
 //    ///////////////////////////// NEW STUFF /////////////////////////////////
-    func loadAppsFromDB() -> [Accounts] {
+    func loadAppsFromDB() -> [PagedAccounts.Accounts] {
         print("RIGHT HERE")
-        var returnList: [Accounts] = []
+        var returnList: [PagedAccounts.Accounts] = []
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
@@ -558,18 +557,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print("decoding")
                 let decoder = JSONDecoder()
                 print("getting data")
-                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+                let JSONdata = try decoder.decode(PagedAccounts.self, from: data!)
                 //=======
                 for index in 0...JSONdata.accounts.count - 1 {
-                    let listOfAccountInfo = JSONdata.accounts[index]
-                    let accountId = listOfAccountInfo["accountId"]
-                    let displayName = listOfAccountInfo["displayName"]
-                    let userId = listOfAccountInfo["userId"]
-                    let cognitoId = listOfAccountInfo["cognitoId"]
-                    let platform = listOfAccountInfo["platform"]
-                    let url = listOfAccountInfo["url"]
-                    let username = listOfAccountInfo["username"]
-                    let account = Accounts(accountId: accountId!, userId: userId!, cognitoId: cognitoId!, displayName: displayName!, platform: platform!, url: url!, username: username!)
+                    let account = JSONdata.accounts[index]
+                    print(account)
                     returnList.append(account)
                 }
                 sema.signal();
@@ -586,7 +578,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return returnList
     }
     
-    func addProfile(profile: PagedProfile.Profile){
+    func addProfile(profileName: String, profileDescription: String){
         // Adds a users account to the DB.
             var success = true
             let sema = DispatchSemaphore(value: 0);
@@ -596,11 +588,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             request.httpMethod = "POST"
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-            let jsonData = try! JSONEncoder().encode(profile)
-            let jsonString = String(data: jsonData, encoding: .utf8)!
-            print(jsonString)
+            var allAccounts:[PagedAccounts.Accounts] = loadAppsFromDB()
+            var accountIds:[Int] = []
+            for account in allAccounts {
+                accountIds.append(account.accountId)
+            }
+            let json = """
+                    {
+                    "accounts": \(accountIds),
+                    "name": "\(profileName)",
+                    "description": "\(profileDescription)",
+                    "imageUrl": "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                    }
+                    """.data(using: .utf8)!
+            print("request body: \(String(data: json, encoding: .utf8)!)")
+//            let jsonData = try! JSONEncoder().encode(profile)
+//            let jsonString = String(data: jsonData, encoding: .utf8)!
+//            print(jsonString)
             //print(postString)
-            request.httpBody = jsonString.data(using: String.Encoding.utf8)
+            request.httpBody = json //jsonString.data(using: String.Encoding.utf8)
             
             let task = URLSession.shared.dataTask(with: request, completionHandler: {
                 data, response, error in

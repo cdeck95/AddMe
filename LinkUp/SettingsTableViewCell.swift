@@ -14,7 +14,7 @@ class SettingsTableViewCell: UITableViewCell {
     @IBInspectable var shadowOffsetHeight: Int = 3
     @IBInspectable var shadowColor: UIColor? = UIColor.gray
     @IBInspectable var shadowOpacity: Float = 0.3
-    var appID:String!
+    var appID:Int!
     var onButtonTapped : (() -> Void)? = nil
     
     @IBOutlet weak var editButton: UIButton!

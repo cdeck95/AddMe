@@ -10,8 +10,8 @@ import UIKit
 
 class ProfileCollectionViewCell: UICollectionViewCell {
     
-    var profileID: String!
-    var accounts: [Accounts]!
+    var profileID: Int!
+    var accounts: [PagedAccounts.Accounts]!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     
@@ -47,7 +47,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         
         profileID = card.profileId
         print("card profile id: \(profileID)")
-        profileImage.sd_setImage(with: URL(string: card.imageUrl), completed: nil)
+        profileImage.sd_setImage(with: URL(string: card.imageUrl ?? "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"), completed: nil)
         //profileImage.layer.borderWidth = 2
         //profileImage.layer.borderColor = Color.glass.value.cgColor
         //profileImage.layer.cornerRadius = 6

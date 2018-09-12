@@ -10,7 +10,7 @@ import UIKit
 
 class ScannedProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
-    var allApps: [Accounts]!
+    var allApps: [PagedAccounts.Accounts]!
     @IBOutlet var profileImage: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var accountsForProfileTableView: UITableView!

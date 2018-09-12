@@ -20,8 +20,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     var detector: CIDetector?
     var dict: [String: String]!
     var keys: Dictionary<String, String>.Keys!
-    var nativeApps = [Accounts]()
-    var safariApps = [Accounts]()
+    var nativeApps = [PagedAccounts.Accounts]()
+    var safariApps = [PagedAccounts.Accounts]()
     var profile:PagedProfile.Profile!
     
     override func viewDidLoad() {
@@ -150,7 +150,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         for (displayName, url) in dict {
             print("display name: \(displayName)")
             print("url: \(url)")
-            var app:Accounts!
+            var app:PagedAccounts.Accounts!
             app.displayName = displayName
             app.url = url
             self.tabBarController?.hidesBottomBarWhenPushed = true
@@ -194,7 +194,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         print(safariApps)
         print(nativeApps)
         
-        var allApps:[Accounts] = []
+        var allApps:[PagedAccounts.Accounts] = []
         for app in safariApps {
             allApps.append(app)
         }

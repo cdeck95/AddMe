@@ -21,8 +21,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var twitter = 0
     var facebook = 0
     var keys: Dictionary<String, String>.Keys!
-    var nativeApps = [Accounts]()
-    var safariApps = [Accounts]()
+    var nativeApps = [PagedAccounts.Accounts]()
+    var safariApps = [PagedAccounts.Accounts]()
     var interstitial: DFPInterstitial!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     var profile:PagedProfile.Profile!
@@ -206,7 +206,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         for (displayName, url) in dict {
             print("display name: \(displayName)")
             print("url: \(url)")
-            var app = Accounts(accountId: "", userId: "", cognitoId: "", displayName: displayName, platform: "", url: url, username: "")
+            var app = PagedAccounts.Accounts(accountId: -1, userId: -1, cognitoId: "", displayName: displayName, platform: "", url: url, username: "")
             self.tabBarController?.hidesBottomBarWhenPushed = true
             var platform = ""
             if (url.contains("twitter.com")){
@@ -308,10 +308,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/profiles/2") {
+        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/scans/2") {
             var request = URLRequest(url: url)
             print(request)
-            request.httpMethod = "GET"
+            request.httpMethod = "POST"
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
             let task = URLSession.shared.dataTask(with: request, completionHandler: {

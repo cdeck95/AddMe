@@ -15,7 +15,7 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
 
     @IBOutlet var profileImage: ProfileImage!
     @IBOutlet var doneButton: UIBarButtonItem!
-    var allAccounts:[Accounts]!
+    var allAccounts:[PagedAccounts.Accounts]!
     @IBOutlet var profileTableView: UITableView!
     var profile:PagedProfile.Profile!
     @IBOutlet var navigationBar: UINavigationBar!

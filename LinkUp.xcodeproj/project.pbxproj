@@ -57,7 +57,6 @@
 		DAD96CFE2045F0ED00F1525E /* AddAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */; };
 		DAD96D002045F59F00F1525E /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */; };
 		DAD96D0A2046399500F1525E /* AppsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD96D092046399500F1525E /* AppsTableViewCell.swift */; };
-		DADA5B5B208B952F009BC5B2 /* EditAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */; };
 		DADA5B5D208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */; };
 		DADA5B5F208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADA5B5E208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift */; };
 		DAE3A2AB2093D730002689BA /* HalfModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2AA2093D730002689BA /* HalfModalPresentationController.swift */; };
@@ -124,7 +123,6 @@
 		DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAppViewController.swift; sourceTree = "<group>"; };
 		DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		DAD96D092046399500F1525E /* AppsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsTableViewCell.swift; sourceTree = "<group>"; };
-		DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAppViewController.swift; sourceTree = "<group>"; };
 		DADA5B5C208BCC01009BC5B2 /* ChooseSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseSettingsTableViewController.swift; sourceTree = "<group>"; };
 		DADA5B5E208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		DAE3A2AA2093D730002689BA /* HalfModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalPresentationController.swift; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 				DAD96CFF2045F59F00F1525E /* CollectionViewCell.swift */,
 				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
 				DA1B39F92117C070008CE7C6 /* Dataset.swift */,
-				DADA5B5A208B952F009BC5B2 /* EditAppViewController.swift */,
 				DAF0791D21265CD90001B961 /* Extensions.swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
@@ -496,7 +493,6 @@
 				DA72C40E213F65DB0053F672 /* Accounts.swift in Sources */,
 				DA72C4082139E95A0053F672 /* ScansTableViewCell.swift in Sources */,
 				DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */,
-				DADA5B5B208B952F009BC5B2 /* EditAppViewController.swift in Sources */,
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
 				DAC9C098211E44B60004170F /* TabBarControllerSwipeExtension.swift in Sources */,

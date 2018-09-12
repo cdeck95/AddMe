@@ -135,12 +135,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         print(cell.appID)
-        cell.onButtonTapped = {
-            let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "EditAppViewController") as! EditAppViewController
-            VC1.AppID = cell.appID!
-            //pass all information, do not do api call
-            self.navigationController!.showDetailViewController(VC1, sender: cell)
-        }
+   
         return cell
     }
     
@@ -251,7 +246,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     ///////////////////////////// NEW STUFF /////////////////////////////////
     func loadAppsFromDB() {
         print("RIGHT HERE")
-        var returnList: [Accounts] = []
+        var returnList: [PagedAccounts.Accounts] = []
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
@@ -296,8 +291,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     print(url)
                     print(appId)
                     print(username)
-                    var app:Accounts!
-                    app.accountId = "\(appId)"
+                    var app:PagedAccounts.Accounts!
+                    app.accountId = appId
                     app.displayName = displayName
                     app.platform = platform
                     app.url = url

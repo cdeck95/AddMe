@@ -8,14 +8,28 @@
 
 import Foundation
 
-struct Accounts: Codable {
-    
-    var accountId: String
-    var userId: String
-    var cognitoId: String
-    var displayName: String
-    var platform: String
-    var url: String
-    var username: String
-   // var isSwitchOn = false
+struct PagedAccounts:Codable {
+    struct Accounts: Codable {
+        
+        var accountId: Int
+        var userId: Int
+        var cognitoId: String
+        var displayName: String
+        var platform: String
+        var url: String
+        var username: String
+        // var isSwitchOn = false
+        
+        enum CodingKeys: String, CodingKey {
+            case accountId
+            case userId
+            case displayName
+            case cognitoId
+            case platform
+            case url
+            case username
+        }
+    }
+    var accounts:[Accounts]
 }
+

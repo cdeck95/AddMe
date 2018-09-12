@@ -14,9 +14,9 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
 
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var appsTableView: UITableView!
-    var profileID:String!
-    var accounts:[Accounts]!
-    var allAccounts:[Accounts]!
+    var profileID:Int!
+    var accounts:[PagedAccounts.Accounts]!
+    var allAccounts:[PagedAccounts.Accounts]!
     var profileImageImage: UIImage!
     var profileNameText: String!
     var profileDescriptionText: String!
@@ -40,7 +40,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         print("profile ID \(profileID)")
 //        print("accounts in profile: \(accounts)")
  //       print("all accounts: \(allAccounts)")
-        profileImage.sd_setImage(with: URL(string: profileImageUrl), completed: nil)    //   image = profileImageImage
+        profileImage.sd_setImage(with: URL(string: profileImageUrl ?? "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"), completed: nil)    //   image = profileImageImage
 //        profileName.text = profileNameText
 //        profileDescription.text = profileDescriptionText
       //  appsTableView.layer.borderColor = Color.chill.value.cgColor
@@ -128,6 +128,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                 //cell.NameLabel.textColor = UIColor.white
                 cell.layer.backgroundColor = UIColor.white.cgColor
                 cell.url.text = "@\(allAccounts[indexPath.row].username)"
+                cell.urlFull = allAccounts[indexPath.row].url
                 cell.id = Int(allAccounts[indexPath.row].accountId)
                 cell.userId = allAccounts[indexPath.row].userId
                 cell.username = allAccounts[indexPath.row].username
@@ -167,6 +168,8 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                 alert.colorScheme = Color.bondiBlue.value
                 alert.addTextField(withPlaceholder: "Profile Name") { (text) in
                     self.appsTableView.deselectRow(at: indexPath, animated: true)
+                    self.profileNameText = text
+                    self.appsTableView.reloadData()
                     print(text!)
                 }
                 alert.showAlert(inView: self,
@@ -182,6 +185,8 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                 alert.colorScheme = Color.bondiBlue.value
                 alert.addTextField(withPlaceholder: "Profile Description (i.e. Insta, Snap, Facebook") { (text) in
                     self.appsTableView.deselectRow(at: indexPath, animated: true)
+                    self.profileDescriptionText = text
+                    self.appsTableView.reloadData()
                     print(text!)
                 }
                 
@@ -213,16 +218,17 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
     }
     @IBAction func save(_ sender: Any) {
         //call API to update
-        var accountsInProfile:[Accounts] = []
+        var accountsInProfile:[PagedAccounts.Accounts] = []
         print("in save function \(cells)")
         for cell in cells {
             if(cell.appSwitch.isOn){
-                accountsInProfile.append(Accounts(accountId: "\(cell.id!)", userId: cell.userId, cognitoId: cell.cognitoId, displayName: cell.NameLabel.text!, platform: cell.platform, url: cell.url.text!, username: cell.username))
+                accountsInProfile.append(PagedAccounts.Accounts(accountId: cell.id!, userId: cell.userId, cognitoId: cell.cognitoId, displayName: cell.NameLabel.text!, platform: cell.platform, url: cell.urlFull, username: cell.username))
             }
         }
         print("Saving the profile with the following accounts: \(accountsInProfile)")
-        let profile = PagedProfile.Profile(profileId: self.profileID, accounts: accountsInProfile, name: self.profileNameText, description: self.profileDescriptionText, cognitoId: self.cognitoId, imageUrl: self.profileImageUrl)
-        self.updateProfile(profile: profile)
+
+        let profileAccounts = accountsInProfile
+        self.updateProfile(profileAccounts: profileAccounts, profileId: self.profileID)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -259,20 +265,36 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         return vw
     }
     
-    func updateProfile(profile: PagedProfile.Profile){
+    func updateProfile(profileAccounts: [PagedAccounts.Accounts], profileId: Int){
         // Adds a users account to the DB.
         var success = true
         let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(self.cognitoId!)/profiles/")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(self.cognitoId!)/profiles/\(profileId)")!)
         print("Request: \(request)")
-        request.httpMethod = "UPDATE"
+        request.httpMethod = "PUT"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        let jsonData = try! JSONEncoder().encode(profile)
-        let jsonString = String(data: jsonData, encoding: .utf8)!
-        print(jsonString)
+        //let accountData = try! JSONEncoder().encode(profile.accounts)
+        var accountIds:[Int] = []
+        for account in profileAccounts {
+            accountIds.append(account.accountId)
+        }
+        let json = """
+        {
+            "accounts": \(accountIds),
+            "name": "\(self.profileNameText!)",
+            "description": "\(self.profileDescriptionText!)",
+            "imageUrl": "\(self.profileImageUrl!)"
+        }
+        """.data(using: .utf8)!
+        print("request body: \(String(data: json, encoding: .utf8)!)")
+       
+//        let jsonData = try! JSONEncoder().encode(profile)
+//        print("Custom encode: \n \(jsonData)")
+//        let jsonString = String(data: jsonData, encoding: .utf8)!
+//        print(jsonString)
         //print(postString)
-        request.httpBody = jsonString.data(using: String.Encoding.utf8)
+        request.httpBody = json//jsonString.data(using: String.Encoding.utf8)
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             data, response, error in
@@ -297,4 +319,35 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         }
     }
     
+}
+
+extension PagedProfile.Profile {
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        //try container.encode(profileId, forKey: .profileId)
+        try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
+        //try container.encode(cognitoId, forKey: .cognitoId)
+        try container.encode(imageUrl, forKey: .imageUrl)
+        try container.encode(accounts, forKey: .accounts)
+    }
+}
+
+extension PagedAccounts.Accounts {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        accountId = try container.decode(Int.self, forKey: .accountId)
+        userId = try container.decode(Int.self, forKey: .userId)
+        displayName = try container.decode(String.self, forKey: .displayName)
+        username = try container.decode(String.self, forKey: .username)
+        url = try container.decode(String.self, forKey: .url)
+        platform = try container.decode(String.self, forKey: .platform)
+        cognitoId  = try container.decode(String.self, forKey: .cognitoId)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        //try container.encode(profileId, forKey: .profileId)
+        try container.encode(accountId, forKey: .accountId)
+    }
 }
