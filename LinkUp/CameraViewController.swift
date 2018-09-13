@@ -22,6 +22,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     var keys: Dictionary<String, String>.Keys!
     var nativeApps = [PagedAccounts.Accounts]()
     var safariApps = [PagedAccounts.Accounts]()
+    var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -268,6 +269,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
             var request = URLRequest(url: url)
             print(request)
             request.httpMethod = "GET"
+            request.cachePolicy = .reloadIgnoringCacheData
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
             let task = URLSession.shared.dataTask(with: request, completionHandler: {
@@ -290,11 +292,11 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                     OperationQueue.main.addOperation {
                         print("in completion")
                         let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleProfileViewController") as! SingleProfileViewController
-                        //self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                         modalVC.allAccounts = profile.profile.accounts
                         modalVC.profile = profile.profile
-                        //modalVC.modalTransitionStyle = .crossDissolve
-                        //modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                        modalVC.modalTransitionStyle = .crossDissolve
+                        modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                         self.navigationController?.setNavigationBarHidden(true, animated: true)
                         self.navigationController?.pushViewController(modalVC, animated: true)
                     }

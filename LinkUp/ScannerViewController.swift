@@ -25,7 +25,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var safariApps = [PagedAccounts.Accounts]()
     var interstitial: DFPInterstitial!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
-    var profile:PagedProfile.Profile!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -310,10 +309,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         let sema = DispatchSemaphore(value: 0);
         if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/scans/\(profileId!)") {
             var request = URLRequest(url: url)
-            print(request)
             request.httpMethod = "POST"
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+            request.cachePolicy = .reloadIgnoringCacheData
+            print(request)
             let task = URLSession.shared.dataTask(with: request, completionHandler: {
                 data, response, error in
                 if error != nil {
@@ -328,19 +328,19 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                     print("decoding")
                     let decoder = JSONDecoder()
                     print("getting data")
-                    print(data)
+                   // print(data)
                     print(response)
-                    let profileDict = try decoder.decode(Dictionary<String, PagedProfile.Profile>.self, from: data!)
-                    self.profile = profileDict.first?.value
-                    print(self.profile)
+                    let profile = try decoder.decode(SingleProfile.self, from: data!)
+                    //let profile = (try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)) //as? SingleProfile
+                    print(profile)
                     OperationQueue.main.addOperation {
                         print("in completion")
                         let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleProfileViewController") as! SingleProfileViewController
-                        //self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-                        modalVC.allAccounts = self.profile?.accounts
-                        modalVC.profile = self.profile
-                        //modalVC.modalTransitionStyle = .crossDissolve
-                        //modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                        modalVC.allAccounts = profile.profile.accounts
+                        modalVC.profile = profile.profile
+                        modalVC.modalTransitionStyle = .crossDissolve
+                        modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                         self.navigationController?.pushViewController(modalVC, animated: true)
                     }
                     sema.signal();

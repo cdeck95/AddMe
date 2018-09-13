@@ -9,5 +9,24 @@
 import Foundation
 
 struct SingleProfile: Codable {
-    var profile: PagedProfile.Profile
+    var profile: Profile
+    
+    struct Profile: Codable {
+        let profileId: Int
+        let accounts: [PagedAccounts.Accounts]
+        let name: String
+        let description: String
+        let cognitoId: String
+        let imageUrl: String?
+        
+//        enum CodingKeys: String, CodingKey {
+//            case profileId
+//            case accounts
+//            case description
+//            case cognitoId
+//            case imageUrl
+//            case name
+//        }
+    }
+        
 }

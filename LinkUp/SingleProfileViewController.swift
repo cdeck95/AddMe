@@ -17,7 +17,7 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
     @IBOutlet var doneButton: UIBarButtonItem!
     var allAccounts:[PagedAccounts.Accounts]!
     @IBOutlet var profileTableView: UITableView!
-    var profile:PagedProfile.Profile!
+    var profile:SingleProfile.Profile!
     @IBOutlet var navigationBar: UINavigationBar!
     
     override func viewDidLoad() {
