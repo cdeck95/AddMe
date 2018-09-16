@@ -16,7 +16,7 @@ import CDAlertView
 import FBSDKLoginKit
 import FCAlertView
 
-class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, HalfModalPresentable, FCAlertViewDelegate {
+class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FCAlertViewDelegate, HalfModalPresentable {
     
     @IBOutlet weak var collection: UICollectionView!
     var datasetManager = Dataset.sharedInstance
@@ -26,7 +26,9 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     let cellSizes = Array( repeatElement(CGSize(width:160, height:110), count: 10))
     var apps: [String]!
     var credentialsManager = CredentialsManager.sharedInstance
-    
+    var accountName: String!
+    var accountPlatform: String!
+    var accountUsername: String!
     
     override func viewDidLoad() {
         print("Loaded AddAppViewController")
@@ -65,6 +67,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                     alert.colorScheme = Color.bondiBlue.value
                     alert.addTextField(withPlaceholder: "Display Name (i.e. Business Facebook") { (text) in
                         print(text!)
+                        self.accountName = text!
+                        self.accountPlatform = key
                     }
                     
                     alert.showAlert(inView: self,
@@ -81,9 +85,13 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                     alert.colorScheme = Color.bondiBlue.value
                     alert.addTextField(withPlaceholder: "Display Name (i.e. Business Facebook") { (text) in
                         print(text!)
+                        self.accountName = text!
+                        self.accountPlatform = key
                     }
                     alert.addTextField(withPlaceholder: "Username") { (text) in
                         print(text!)
+                        self.accountUsername = text!
+                        self.accountPlatform = key
                     }
                     
                     alert.showAlert(inView: self,
@@ -101,9 +109,13 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 alert.colorScheme = Color.bondiBlue.value
                 alert.addTextField(withPlaceholder: "Display Name (i.e. Business Facebook") { (text) in
                     print(text!)
+                    self.accountName = text!
+                    self.accountPlatform = key
                 }
                 alert.addTextField(withPlaceholder: "Username") { (text) in
                     print(text!)
+                    self.accountUsername = text!
+                    self.accountPlatform = key
                 }
                 
                 alert.showAlert(inView: self,
@@ -120,9 +132,13 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                 alert.colorScheme = Color.bondiBlue.value
                 alert.addTextField(withPlaceholder: "Display Name (i.e. Business Facebook") { (text) in
                     print(text!)
+                    self.accountName = text!
+                    self.accountPlatform = key
                 }
                 alert.addTextField(withPlaceholder: "Username") { (text) in
                     print(text!)
+                    self.accountUsername = text!
+                    self.accountPlatform = key
                 }
                 
                 alert.showAlert(inView: self,
@@ -133,6 +149,39 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
                                 andButtons: ["Cancel"])
                 
             return
+        }
+        
+        func fcAlertDoneButtonClicked(_ alertView: FCAlertView){
+            var url = ""
+            switch key {
+            case "Facebook":
+                url = "https://www.facebook.com/\(accountUsername)"
+            case "Twitter":
+                url = "https://www.twitter.com/\(accountUsername)"
+            case "Instagram":
+                url = "https://www.instagram.com/\(accountUsername)"
+            case "Snapchat":
+                url = "https://www.snapchat.com/add/\(accountUsername)"
+            case "LinkedIn":
+                url = "https://www.linkedin.com/in/\(accountUsername)"
+            case "GooglePlus":
+                url = "https://plus.google.com/\(accountUsername)"
+            case "Xbox":
+                let usernameURL = accountUsername.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                url = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
+            case "PSN":
+                let usernameURL = accountUsername.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                url = "https://my.playstation.com/profile/\(usernameURL!)"
+            case "Twitch":
+                url  = "https://m.twitch.tv/\(accountUsername)/profile"
+            case "Custom":
+                url  = "\(accountUsername)"
+            default:
+                print("unknown app found: \(key)")
+                url = "\(accountUsername)"
+            }
+            let account = PagedAccounts.Accounts(accountId: -1, userId: -1, cognitoId: credentialsManager.identityID, displayName: accountName, platform: accountPlatform, url: url, username: accountUsername)
+            self.addToDB(account: account)
         }
         
         
@@ -189,26 +238,26 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func presentAlert(message: String){
         let alertController = UIAlertController(title: "Woah!", message: message, preferredStyle: .alert)
-        
+
         //the confirm action taking the inputs
         let confirmAction = UIAlertAction(title: "OK", style: .default) { (_) in
         }
-        
+
         //adding the action to dialogbox
         alertController.addAction(confirmAction)
 
         //finally presenting the dialog box
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    func alertView(alertView: FCAlertView, clickedButtonIndex index: Int, buttonTitle title: String) {
-        
-        if title == "Button 1" {
-            // Perform Action for Button 1
-        }else if title == "Button 2"{
-            // Perform Action for Button 2
-        }
-    }
+//
+//    func alertView(alertView: FCAlertView, clickedButtonIndex index: Int, buttonTitle title: String) {
+//
+//        if title == "Button 1" {
+//            // Perform Action for Button 1
+//        }else if title == "Button 2"{
+//            // Perform Action for Button 2
+//        }
+//    }
     
     @IBAction func dismiss(_ sender: Any) {
         self.dismiss(animated: true, completion: {})
@@ -281,14 +330,14 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     // Adds a users account to the DB.
-    func addToDB(cognitoId: String, displayName: String, platform: String, url: String, username: String){
+    func addToDB(account: PagedAccounts.Accounts){
         let identityId = self.credentialsManager.identityID!
         var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts/")!)
         print(request)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        let postString = "{\"displayName\": \"\(displayName)\", \"platform\": \"\(platform)\", \"url\": \"\(url)\", \"username\": \"\(username)\"}"
+        let postString = "{\"displayName\": \"\(account.displayName)\", \"platform\": \"\(account.platform)\", \"url\": \"\(account.url)\", \"username\": \"\(account.username)\"}"
         print(postString)
         request.httpBody = postString.data(using: String.Encoding.utf8)
         
@@ -349,5 +398,51 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         dismiss(animated: true, completion: nil)
+    }
+    
+    func loadAppsFromDB() -> [PagedAccounts.Accounts] {
+        print("RIGHT HERE")
+        var returnList: [PagedAccounts.Accounts] = []
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
+        request.httpMethod = "GET"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                sema.signal()
+                return
+            } else {
+                print("---no error----")
+            }
+            //////////////////////// New stuff from Tom
+            do {
+                print("decoding")
+                let decoder = JSONDecoder()
+                print("getting data")
+                let JSONdata = try decoder.decode(PagedAccounts.self, from: data!)
+                //=======
+                for index in 0...JSONdata.accounts.count - 1 {
+                    let account = JSONdata.accounts[index]
+                    print(account)
+                    returnList.append(account)
+                }
+                sema.signal();
+                //=======
+            } catch let err {
+                print("Err", err)
+                sema.signal(); // none found TODO: do something better than this shit.
+            }
+            print("Done")
+            /////////////////////////
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        return returnList
     }
 }

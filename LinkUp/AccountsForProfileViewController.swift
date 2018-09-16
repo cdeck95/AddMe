@@ -168,7 +168,11 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                 alert.colorScheme = Color.bondiBlue.value
                 alert.addTextField(withPlaceholder: "Profile Name") { (text) in
                     self.appsTableView.deselectRow(at: indexPath, animated: true)
-                    self.profileNameText = text
+                    if(text) == "" {
+                        print("field was blank")
+                    } else {
+                        self.profileNameText = text
+                    }
                     self.appsTableView.reloadData()
                     print(text!)
                 }
@@ -185,7 +189,11 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                 alert.colorScheme = Color.bondiBlue.value
                 alert.addTextField(withPlaceholder: "Profile Description (i.e. Insta, Snap, Facebook") { (text) in
                     self.appsTableView.deselectRow(at: indexPath, animated: true)
-                    self.profileDescriptionText = text
+                    if(text) == "" {
+                        print("field was blank")
+                    } else {
+                        self.profileDescriptionText = text
+                    }
                     self.appsTableView.reloadData()
                     print(text!)
                 }

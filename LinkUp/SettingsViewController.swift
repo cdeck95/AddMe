@@ -234,14 +234,14 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     ////////////////////////////// BEGINNING OF JSON ///////////////////////////////////
     
-    // TomMiller 2018/06/27 - Added struct to interact with JSON
-    struct JsonApp: Decodable {
-        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
-        let accounts: [[String: String]]
-    }
-    
-    var JsonApps = [JsonApp]()
-    ////////////////////////////// END OF JSON ///////////////////////////////////
+//    // TomMiller 2018/06/27 - Added struct to interact with JSON
+//    struct JsonApp: Decodable {
+//        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
+//        let accounts: [[String: String]]
+//    }
+//
+//    var JsonApps = [JsonApp]()
+//    ////////////////////////////// END OF JSON ///////////////////////////////////
     
     ///////////////////////////// NEW STUFF /////////////////////////////////
     func loadAppsFromDB() {
@@ -273,32 +273,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 print("decoding")
                 let decoder = JSONDecoder()
                 print("getting data")
-                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+                let pagedAccounts = try decoder.decode(PagedAccounts.self, from: data!)
                 //=======
-                for index in 0...JSONdata.accounts.count - 1 {
-                    let listOfAccountInfo = JSONdata.accounts[index]
-                    let displayName = listOfAccountInfo["displayName"]!
-                    let platform = listOfAccountInfo["platform"]!
-                    let url = listOfAccountInfo["url"]!
-                    let username = listOfAccountInfo["username"]!
-                    var appIdString = listOfAccountInfo["accountId"]!
-//                    if(appIdString.prefix(2) == "0x"){
-//                        appIdString.removeFirst(2)
-//                    }
-                    let appId = Int(appIdString)!//, radix: 16)!
-                    print(displayName)
-                    print(platform)
-                    print(url)
-                    print(appId)
-                    print(username)
-                    var app:PagedAccounts.Accounts!
-                    app.accountId = appId
-                    app.displayName = displayName
-                    app.platform = platform
-                    app.url = url
-                    app.username = username
-                    print(app)
-                    returnList.append(app!)
+                for index in 0...pagedAccounts.accounts.count - 1 {
+                    let account = pagedAccounts.accounts[index]
+                    returnList.append(account)
                 }
                 apps = returnList
                 sema.signal();
