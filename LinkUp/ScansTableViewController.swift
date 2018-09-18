@@ -10,13 +10,17 @@ import UIKit
 
 class ScansTableViewController: UITableViewController {
 
-    var scanIds: [String]!
-    var fakeScanData:[Scan] = []
+    //var scanIds: [String]!
+    var pagedScans:PagedScans!
+    var scans:[PagedProfile.Profile]!
+    var credentialsManager = CredentialsManager.sharedInstance
     
     @IBOutlet var scansTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        scans = []
+        credentialsManager.createCredentialsProvider()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -44,16 +48,16 @@ class ScansTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return fakeScanData.count
+        return scans.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScansTableViewCell", for: indexPath) as! ScansTableViewCell
-        cell.profileName.text = fakeScanData[indexPath.row].name
-        cell.profileImage.image = fakeScanData[indexPath.row].profileImage
+        cell.profileName.text = pagedScans.scanned_profiles[indexPath.row].name
+        cell.profileImage.sd_setImage(with: URL(string: pagedScans.scanned_profiles[indexPath.row].imageUrl ?? "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"), completed: nil)
         cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.width / 2;
         cell.profileImage.clipsToBounds = true;
-        cell.profileDescription.text = fakeScanData[indexPath.row].descriptionLabel
+        cell.profileDescription.text = pagedScans.scanned_profiles[indexPath.row].description
         cell.profileDescription.sizeToFit()
 
         return cell
@@ -119,24 +123,60 @@ class ScansTableViewController: UITableViewController {
     }
     
     func loadScans(){
-        //TODO - load scan IDs from API
-        scanIds = ["1","2","3"]
         //TODO - take scanIDs and load scan info from API
-        let dict1 = ["profileID":"1", "name": "Dan Boehmke", "id": "1", "descriptionLabel":"All accounts"] as NSDictionary
-        let scan = Scan(dictionary: dict1, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-        fakeScanData.append(scan)
-        let dict2 = ["profileID":"2", "name": "Tom Miller", "id": "2", "descriptionLabel":"Xbox, PSN, Twitch"] as NSDictionary
-        let scan2 = Scan(dictionary: dict2, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-        fakeScanData.append(scan2)
-        let dict3 = ["profileID":"3", "name": "Chris Deck", "id": "3", "descriptionLabel":"Facebook, Instagram, Twitter, Snachat"] as NSDictionary
-        let scan3 = Scan(dictionary: dict3, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-        fakeScanData.append(scan3)
-        let dict4 = ["profileID":"4", "name": "Chris Porch", "id": "4", "descriptionLabel":"Snapchat, Insta"] as NSDictionary
-        let scan4 = Scan(dictionary: dict4, imageIn: UIImage(named: "dance-floor-of-night-club.png")!)
-        fakeScanData.append(scan4)
+        scans = []
+        scans = loadProfiles()
+        pagedScans = PagedScans(scanned_profiles: scans)
+        
         scansTableView.reloadData()
     }
- 
+    
+    func loadProfiles() -> [PagedProfile.Profile]{
+        //profiles = []
+        var returnList:[PagedProfile.Profile] = []
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/scans")!)
+        request.httpMethod = "GET"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                sema.signal()
+                return
+            } else {
+                print("---no error----")
+            }
+            //////////////////////// New stuff from Tom
+            do {
+                print("decoding")
+                let decoder = JSONDecoder()
+                print("getting data")
+                print(data)
+                print(response)
+                let JSONdata = try decoder.decode(PagedScans.self, from: data!)
+                //=======
+                for index in 0...JSONdata.scanned_profiles.count - 1 {
+                    let profile = JSONdata.scanned_profiles[index]
+                    print(profile)
+                    returnList.append(profile)
+                }
+                sema.signal();
+                //=======
+            } catch let err {
+                print("Err", err)
+                sema.signal(); // none found TODO: do something better than this shit.
+            }
+            print("Done")
+            /////////////////////////
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        return returnList
+    }
 
 
 }

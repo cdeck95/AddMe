@@ -10,5 +10,9 @@ import Foundation
 import UIKit
 
 struct PagedScans: Codable {
-    let scans:[PagedProfile.Profile]
+    var scanned_profiles:[PagedProfile.Profile]
+    
+    enum CodingKeys: String, CodingKey {
+        case scanned_profiles
+    }
 }
