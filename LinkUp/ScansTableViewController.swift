@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import FCAlertView
+import Sheeeeeeeeet
 
-class ScansTableViewController: UITableViewController {
+class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
 
     //var scanIds: [String]!
     var pagedScans:PagedScans!
-    var scans:[PagedProfile.Profile]!
+    var scans:[PagedScans.Scan]!
     var credentialsManager = CredentialsManager.sharedInstance
     
     @IBOutlet var scansTableView: UITableView!
@@ -58,9 +60,63 @@ class ScansTableViewController: UITableViewController {
         cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.width / 2;
         cell.profileImage.clipsToBounds = true;
         cell.profileDescription.text = pagedScans.scanned_profiles[indexPath.row].description
+        cell.profileDescription.numberOfLines = 0
         cell.profileDescription.sizeToFit()
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if(indexPath.row == scans.count){
+//            print("will show add more")
+//            let alert = FCAlertView()
+//            alert.delegate = self
+//            alert.colorScheme = Color.bondiBlue.value
+//            alert.addTextField(withPlaceholder: "Name (i.e. Going Out") { (text) in
+//
+//            }
+//            alert.addTextField(withPlaceholder: "Description (i.e. Facebook, Snap") { (text) in
+//
+//            }
+//
+//            alert.showAlert(inView: self,
+//                            withTitle: "Add Profile",
+//                            withSubtitle: "Enter your details below",
+//                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+//                            withDoneButtonTitle: "Add",
+//                            andButtons: ["Cancel"])
+//            return
+//        } else {
+            print("will show options")
+            let actionSheet = createStandardActionSheet(indexPath: indexPath)
+            actionSheet.present(in: self, from: self.view)
+    }
+
+    func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
+        let title = ActionSheetTitle(title: "Select an option")
+        let item1 = ActionSheetItem(title: "View Profile", value: "1", image: UIImage(named: "baseline_pageview_black_18pt"))
+        let deleteButton = ActionSheetDangerButton(title: "Delete Scan")
+        let button = ActionSheetOkButton(title: "Cancel")
+        return ActionSheet(items: [title, item1, deleteButton, button]) { _, item in
+            
+            guard let value = item.value as? String else {
+                if item is ActionSheetDangerButton {
+                    self.deleteScan(profileId: self.scans[indexPath.row].profileId)
+                }
+                return
+            }
+            
+            if value == "1" {
+                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleProfileViewController") as! SingleProfileViewController
+               // self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                let profile = self.loadFullProfile(profileId: self.scans[indexPath.row].profileId)
+                modalVC.allAccounts = profile.accounts
+                modalVC.profile = profile
+                modalVC.modalTransitionStyle = .crossDissolve
+               // modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                self.navigationController?.pushViewController(modalVC, animated: true)
+            }
+        }
     }
 
     /*
@@ -131,9 +187,9 @@ class ScansTableViewController: UITableViewController {
         scansTableView.reloadData()
     }
     
-    func loadProfiles() -> [PagedProfile.Profile]{
+    func loadProfiles() -> [PagedScans.Scan]{
         //profiles = []
-        var returnList:[PagedProfile.Profile] = []
+        var returnList:[PagedScans.Scan] = []
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
@@ -177,6 +233,100 @@ class ScansTableViewController: UITableViewController {
         sema.wait(timeout: DispatchTime.distantFuture)
         return returnList
     }
+    
+    func loadFullProfile(profileId: Int) -> SingleProfile.Profile{
+        //profiles = []
+        var profile:SingleProfile.Profile!
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/profiles/\(profileId)")!)
+        request.httpMethod = "GET"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                sema.signal()
+                return
+            } else {
+                print("---no error----")
+            }
+            //////////////////////// New stuff from Tom
+            do {
+                print("decoding")
+                let decoder = JSONDecoder()
+                print("getting data")
+                print(data)
+                print(response)
+                let singleProfile = try decoder.decode(SingleProfile.self, from: data!)
+                profile = singleProfile.profile
+                sema.signal();
+                //=======
+            } catch let err {
+                print("Err", err)
+                sema.signal(); // none found TODO: do something better than this shit.
+            }
+            print("Done")
+            /////////////////////////
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        return profile
+    }
 
+    func deleteScan(profileId: Int){
+        // Adds a users account to the DB.
+        var success = true
+        let sema = DispatchSemaphore(value: 0);
+        let identityId = self.credentialsManager.identityID!
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/scans/\(profileId)")!)
+        print("Request: \(request)")
+        request.httpMethod = "DELETE"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+        
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                success = false
+                sema.signal()
+                return
+            }
+            success = true
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            var responseOne = responseString
+            print("Response \(responseOne!)")
+            sema.signal()
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        if(success){
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+    
+            alert.showAlert(inView: self,
+                            withTitle: "Success",
+                            withSubtitle: "The scan was successfully removed from your history.",
+                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withDoneButtonTitle: "Got it!",
+                            andButtons: [])
+        } else{
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            
+            alert.showAlert(inView: self,
+                            withTitle: "Oops!",
+                            withSubtitle: "Something went wrong. If this keeps happening, please contact support.",
+                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withDoneButtonTitle: "Got it!",
+                            andButtons: [])
+        }
+    }
 
 }

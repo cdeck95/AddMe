@@ -19,6 +19,7 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
     @IBOutlet var profileTableView: UITableView!
     var profile:SingleProfile.Profile!
     @IBOutlet var navigationBar: UINavigationBar!
+    var gradient: CAGradientLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,13 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
-
+        self.view.backgroundColor = Color.chill.value
+        createGradientLayer()
+        self.profileTableView.backgroundColor = UIColor.clear
+        profileImage.sd_setImage(with: URL(string: profile.imageUrl ?? "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"), completed: nil)
+        self.profileImage.center = self.view.center
+        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
+        self.profileImage.clipsToBounds = true;
         // Do any additional setup after loading the view.
     }
 
@@ -161,6 +168,18 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
         }
         
         return vw
+    }
+    
+    func createGradientLayer() {
+        gradient = CAGradientLayer()
+        let gradientView = UIView(frame: self.view.bounds)
+        gradient.frame = view.frame
+        gradient.colors = [Color.glass.value.cgColor, Color.glass.value.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradientView.frame = self.view.bounds
+        gradientView.layer.addSublayer(gradient)
+        self.view.addSubview(gradientView)
+        self.view.sendSubview(toBack: gradientView)
     }
     
     /*
