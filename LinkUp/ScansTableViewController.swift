@@ -109,7 +109,7 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
             if value == "1" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleProfileViewController") as! SingleProfileViewController
                // self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
-                let profile = self.loadFullProfile(profileId: self.scans[indexPath.row].profileId)
+                let profile = self.loadFullProfile(profileId: self.scans[indexPath.row].profileId, idString: self.scans[indexPath.row].cognitoId)
                 modalVC.allAccounts = profile.accounts
                 modalVC.profile = profile
                 modalVC.modalTransitionStyle = .crossDissolve
@@ -234,10 +234,10 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
         return returnList
     }
     
-    func loadFullProfile(profileId: Int) -> SingleProfile.Profile{
+    func loadFullProfile(profileId: Int, idString: String) -> SingleProfile.Profile{
         //profiles = []
         var profile:SingleProfile.Profile!
-        let idString = self.credentialsManager.identityID!
+       // let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
         var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/profiles/\(profileId)")!)
