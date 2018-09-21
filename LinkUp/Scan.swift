@@ -13,7 +13,7 @@ struct PagedScans: Codable {
     var scanned_profiles:[Scan]
     
     enum CodingKeys: String, CodingKey {
-        case scanned_profiles = "scanned_profiles:"
+        case scanned_profiles = "scanned_profiles"
     }
     
     struct Scan:Codable{

@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import SafariServices
 import GoogleMobileAds
+import TransitionButton
 
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate, UIPopoverControllerDelegate {
     
@@ -23,6 +24,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     var nativeApps = [PagedAccounts.Accounts]()
     var safariApps = [PagedAccounts.Accounts]()
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
+    @IBOutlet var importButton: TransitionButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +47,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @IBAction func takePhoto(sender: AnyObject) {
-        
+        importButton.startAnimation()
         if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             return
         }
@@ -53,7 +55,10 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         
+        //sleep(1)
+        
         present(imagePicker, animated: true, completion: nil)
+        importButton.stopAnimation()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {

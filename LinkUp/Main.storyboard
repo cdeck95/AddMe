@@ -341,7 +341,7 @@
             </objects>
             <point key="canvasLocation" x="970.39999999999998" y="891.90404797601207"/>
         </scene>
-        <!--Scans Table View Controller-->
+        <!--My Links-->
         <scene sceneID="cZp-K8-qhl">
             <objects>
                 <tableViewController id="knf-SJ-Hxy" customClass="ScansTableViewController" customModule="LinkUp" customModuleProvider="target" sceneMemberID="viewController">
@@ -364,7 +364,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4C-T7-xMl">
-                                            <rect key="frame" x="102" y="11" width="257" height="21"/>
+                                            <rect key="frame" x="102" y="22" width="257" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="Lpa-vm-jAv"/>
                                             </constraints>
@@ -372,8 +372,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFM-5P-Pjc">
-                                            <rect key="frame" x="102" y="34" width="257" height="55"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFM-5P-Pjc">
+                                            <rect key="frame" x="102" y="41" width="257" height="39"/>
                                             <fontDescription key="fontDescription" name="Trench-Thin" family="Trench" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -381,15 +381,15 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="A4C-T7-xMl" firstAttribute="trailing" secondItem="C8E-Aw-fFY" secondAttribute="trailingMargin" id="2uq-eO-A6W"/>
-                                        <constraint firstItem="EF8-nw-9ik" firstAttribute="bottom" secondItem="BFM-5P-Pjc" secondAttribute="bottom" id="3NH-Ty-Atl"/>
+                                        <constraint firstItem="EF8-nw-9ik" firstAttribute="bottom" secondItem="BFM-5P-Pjc" secondAttribute="bottom" constant="9" id="3NH-Ty-Atl"/>
                                         <constraint firstItem="A4C-T7-xMl" firstAttribute="leading" secondItem="BFM-5P-Pjc" secondAttribute="leading" id="O0S-uE-jMG"/>
-                                        <constraint firstItem="EF8-nw-9ik" firstAttribute="top" secondItem="A4C-T7-xMl" secondAttribute="top" id="VcF-pE-NSJ"/>
+                                        <constraint firstItem="EF8-nw-9ik" firstAttribute="top" secondItem="A4C-T7-xMl" secondAttribute="top" constant="-11" id="VcF-pE-NSJ"/>
                                         <constraint firstItem="EF8-nw-9ik" firstAttribute="top" secondItem="C8E-Aw-fFY" secondAttribute="topMargin" id="W7d-99-NjH"/>
                                         <constraint firstItem="A4C-T7-xMl" firstAttribute="leading" secondItem="EF8-nw-9ik" secondAttribute="trailing" constant="8" symbolic="YES" id="Wcg-Af-wcG"/>
                                         <constraint firstItem="EF8-nw-9ik" firstAttribute="leading" secondItem="C8E-Aw-fFY" secondAttribute="leadingMargin" id="ZVj-ri-ZOc"/>
                                         <constraint firstItem="A4C-T7-xMl" firstAttribute="trailing" secondItem="BFM-5P-Pjc" secondAttribute="trailing" id="ah0-65-C9A"/>
                                         <constraint firstItem="EF8-nw-9ik" firstAttribute="bottom" secondItem="C8E-Aw-fFY" secondAttribute="bottomMargin" id="uqy-8L-8Qr"/>
-                                        <constraint firstItem="BFM-5P-Pjc" firstAttribute="top" secondItem="A4C-T7-xMl" secondAttribute="bottom" constant="2" id="wzM-Kv-uKM"/>
+                                        <constraint firstItem="BFM-5P-Pjc" firstAttribute="top" secondItem="A4C-T7-xMl" secondAttribute="bottom" constant="-2" id="wzM-Kv-uKM"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -404,14 +404,14 @@
                             <outlet property="delegate" destination="knf-SJ-Hxy" id="WkY-ag-EUM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Rwv-8X-x3O"/>
+                    <navigationItem key="navigationItem" title="My Links" id="Rwv-8X-x3O"/>
                     <connections>
                         <outlet property="scansTableView" destination="sD3-Cb-XXb" id="0vg-gu-g5H"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XGY-EG-ogz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5712.8000000000002" y="829.83508245877067"/>
+            <point key="canvasLocation" x="5729" y="892"/>
         </scene>
         <!--Personal Code-->
         <scene sceneID="DbI-Gd-gQa">
@@ -1145,8 +1145,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Have a code?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3M4-Ed-Nj2">
-                                <rect key="frame" x="101" y="315" width="175" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have a code?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3M4-Ed-Nj2">
+                                <rect key="frame" x="101" y="315" width="174.5" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" red="0.0039215686269999999" green="0.32156862749999998" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1154,16 +1154,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3YW-kg-9Ay" userLabel="Subview">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-Df-W87" customClass="CustomButton" customModule="LinkUp" customModuleProvider="target">
-                                        <rect key="frame" x="148" y="546" width="78" height="24"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Import" image="ic_file_upload">
-                                            <color key="titleColor" red="0.3411764706" green="0.73725490199999999" blue="0.56470588239999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="takePhotoWithSender:" destination="beM-FT-25w" eventType="touchUpInside" id="Ign-N4-ZZS"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select import below to display your photo library and select a code." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6Q-Hy-qNZ">
                                         <rect key="frame" x="0.0" y="383" width="375" height="119"/>
                                         <constraints>
@@ -1173,12 +1163,35 @@
                                         <color key="textColor" red="0.0039215686269999999" green="0.32156862749999998" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zqd-Df-W87" customClass="TransitionButton" customModule="TransitionButton">
+                                        <rect key="frame" x="142" y="535" width="91" height="31"/>
+                                        <color key="backgroundColor" red="0.85399362290000003" green="0.86086572939999995" blue="0.8652145175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="91" id="i2E-0S-whJ"/>
+                                            <constraint firstAttribute="height" constant="31" id="uwU-vq-rnO"/>
+                                        </constraints>
+                                        <state key="normal" title="Import" image="ic_file_upload">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.23921568630000001" green="0.85490196080000003" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="spinnerColor">
+                                                <color key="value" red="0.23921568630000001" green="0.85490196080000003" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="takePhotoWithSender:" destination="beM-FT-25w" eventType="touchUpInside" id="Ign-N4-ZZS"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="y6Q-Hy-qNZ" firstAttribute="top" secondItem="3YW-kg-9Ay" secondAttribute="top" constant="383" id="4zv-dg-VSw"/>
                                     <constraint firstAttribute="trailing" secondItem="y6Q-Hy-qNZ" secondAttribute="trailing" id="Zf3-1Z-Wae"/>
-                                    <constraint firstItem="Zqd-Df-W87" firstAttribute="top" secondItem="y6Q-Hy-qNZ" secondAttribute="bottom" constant="44" id="cvd-eq-BeY"/>
+                                    <constraint firstItem="Zqd-Df-W87" firstAttribute="top" secondItem="y6Q-Hy-qNZ" secondAttribute="bottom" constant="33" id="cvd-eq-BeY"/>
                                     <constraint firstItem="y6Q-Hy-qNZ" firstAttribute="centerX" secondItem="Zqd-Df-W87" secondAttribute="centerX" id="dQw-IB-hXH"/>
                                     <constraint firstItem="y6Q-Hy-qNZ" firstAttribute="leading" secondItem="3YW-kg-9Ay" secondAttribute="leadingMargin" constant="-8" id="tme-Rh-JPS"/>
                                     <constraint firstAttribute="bottom" secondItem="y6Q-Hy-qNZ" secondAttribute="bottom" constant="165" id="zrU-He-cAq"/>
@@ -1200,10 +1213,14 @@
                             <constraint firstItem="3YW-kg-9Ay" firstAttribute="leading" secondItem="UTD-hu-S6f" secondAttribute="leading" id="e6Y-cY-1of"/>
                             <constraint firstItem="3YW-kg-9Ay" firstAttribute="centerY" secondItem="3M4-Ed-Nj2" secondAttribute="centerY" id="fhP-eQ-pkj"/>
                             <constraint firstItem="3YW-kg-9Ay" firstAttribute="top" secondItem="UTD-hu-S6f" secondAttribute="top" id="sXV-BC-aIX"/>
+                            <constraint firstItem="3M4-Ed-Nj2" firstAttribute="leading" secondItem="4lS-AO-B9d" secondAttribute="leading" constant="101" id="xqE-JK-mc9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4lS-AO-B9d"/>
                     </view>
                     <navigationItem key="navigationItem" title="Import" id="4n3-Fh-z2H"/>
+                    <connections>
+                        <outlet property="importButton" destination="Zqd-Df-W87" id="PYh-VF-gJX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8vV-N5-84A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1481,6 +1498,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8F5-mN-Wcr">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1672,6 +1690,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Xbc-yX-5PT">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1680,7 +1699,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qr1-gS-P8h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4773.6000000000004" y="829.83508245877067"/>
+            <point key="canvasLocation" x="4706" y="892"/>
         </scene>
     </scenes>
     <resources>

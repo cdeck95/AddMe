@@ -16,6 +16,7 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
     var pagedScans:PagedScans!
     var scans:[PagedScans.Scan]!
     var credentialsManager = CredentialsManager.sharedInstance
+    var gradient:CAGradientLayer!
     
     @IBOutlet var scansTableView: UITableView!
     
@@ -23,16 +24,29 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
         super.viewDidLoad()
         scans = []
         credentialsManager.createCredentialsProvider()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        createGradientLayer()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+        
+        var refreshControl: UIRefreshControl = {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action:
+                #selector(ScansTableViewController.handleRefresh(_:)),
+                                     for: UIControlEvents.valueChanged)
+            refreshControl.tintColor = UIColor.red
+            
+            return refreshControl
+        }()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         loadScans()
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        loadProfiles()
     }
     
     
@@ -315,6 +329,7 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
                             withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
                             withDoneButtonTitle: "Got it!",
                             andButtons: [])
+            loadProfiles()
         } else{
             let alert = FCAlertView()
             alert.delegate = self
@@ -326,7 +341,24 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
                             withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
                             withDoneButtonTitle: "Got it!",
                             andButtons: [])
+            loadProfiles()
         }
+    }
+    
+    func createGradientLayer() {
+        gradient = CAGradientLayer()
+        let gradientView = UIView(frame: self.view.bounds)
+        gradient.frame = view.frame
+        //        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
+        //        gradient.locations = [0.0, 0.5, 1.0]
+        //        gradient.colors = [Color.glass.value.cgColor, Color.coral.value.cgColor, Color.bondiBlue.value.cgColor, Color.marina.value.cgColor]
+        //        gradient.locations = [0.0, 0.33, 0.66, 1.0]
+        gradient.colors = [Color.chill.value.cgColor, Color.chill.value.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradientView.frame = self.view.bounds
+        gradientView.layer.addSublayer(gradient)
+        self.view.addSubview(gradientView)
+        self.view.sendSubview(toBack: gradientView)
     }
 
 }
