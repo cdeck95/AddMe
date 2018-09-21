@@ -13,7 +13,7 @@ import Sheeeeeeeeet
 class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
 
     //var scanIds: [String]!
-    var pagedScans:PagedScans!
+   // var pagedScans:PagedScans!
     var scans:[PagedScans.Scan]!
     var credentialsManager = CredentialsManager.sharedInstance
     var gradient:CAGradientLayer!
@@ -23,8 +23,10 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         scans = []
+        loadScans()
+        print(scans)
         credentialsManager.createCredentialsProvider()
-        createGradientLayer()
+        //createGradientLayer()
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -35,18 +37,20 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
             refreshControl.addTarget(self, action:
                 #selector(ScansTableViewController.handleRefresh(_:)),
                                      for: UIControlEvents.valueChanged)
-            refreshControl.tintColor = UIColor.red
+            refreshControl.tintColor = Color.coral.value
             
             return refreshControl
         }()
+        self.tableView.addSubview(refreshControl)
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        loadScans()
+        
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        loadProfiles()
+        loadScans()
+        refreshControl.endRefreshing()
     }
     
     
@@ -69,11 +73,11 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScansTableViewCell", for: indexPath) as! ScansTableViewCell
-        cell.profileName.text = pagedScans.scanned_profiles[indexPath.row].name
-        cell.profileImage.sd_setImage(with: URL(string: pagedScans.scanned_profiles[indexPath.row].imageUrl ?? "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"), completed: nil)
+        cell.profileName.text = scans[indexPath.row].name
+        cell.profileImage.sd_setImage(with: URL(string: scans[indexPath.row].imageUrl ?? "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"), completed: nil)
         cell.profileImage.layer.cornerRadius = cell.profileImage.frame.size.width / 2;
         cell.profileImage.clipsToBounds = true;
-        cell.profileDescription.text = pagedScans.scanned_profiles[indexPath.row].description
+        cell.profileDescription.text = scans[indexPath.row].description
         cell.profileDescription.numberOfLines = 0
         cell.profileDescription.sizeToFit()
 
@@ -196,7 +200,8 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
         //TODO - take scanIDs and load scan info from API
         scans = []
         scans = loadProfiles()
-        pagedScans = PagedScans(scanned_profiles: scans)
+        print("have scans")
+       // pagedScans = PagedScans(scanned_profiles: scans)
         
         scansTableView.reloadData()
     }
@@ -229,10 +234,12 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
                 print(response)
                 let JSONdata = try decoder.decode(PagedScans.self, from: data!)
                 //=======
-                for index in 0...JSONdata.scanned_profiles.count - 1 {
-                    let profile = JSONdata.scanned_profiles[index]
-                    print(profile)
-                    returnList.append(profile)
+                if(JSONdata.scanned_profiles.count > 0){
+                    for index in 0...JSONdata.scanned_profiles.count - 1 {
+                        let profile = JSONdata.scanned_profiles[index]
+                        print(profile)
+                        returnList.append(profile)
+                    }
                 }
                 sema.signal();
                 //=======

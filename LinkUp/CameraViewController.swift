@@ -270,7 +270,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
-        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/profiles/\(profileId!)") {
+        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/scans/\(profileId!)") {
             var request = URLRequest(url: url)
             print(request)
             request.httpMethod = "GET"
