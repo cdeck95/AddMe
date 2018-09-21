@@ -336,11 +336,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                     OperationQueue.main.addOperation {
                         print("in completion")
                         let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleProfileViewController") as! SingleProfileViewController
-                       // self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                         modalVC.allAccounts = profile.profile.accounts
                         modalVC.profile = profile.profile
                         modalVC.modalTransitionStyle = .crossDissolve
-                       // modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                        modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                         self.navigationController?.pushViewController(modalVC, animated: true)
                     }
                     sema.signal();

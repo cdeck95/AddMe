@@ -33,9 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 87/255, green: 188/255, blue: 144/255, alpha: 1) //marine (medium green)
        // UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 165/255, green: 165/255, blue: 175/255, alpha: 1)
         // Sets the translucent background color
-        UINavigationBar.appearance().backgroundColor = .clear
-        UINavigationBar.appearance().isTranslucent = false
-       
+//        UINavigationBar.appearance().backgroundColor = .clear
+//        UINavigationBar.appearance().isTranslucent = false
+//       
     
 //        SideMenuController.preferences.basic.menuWidth = 240
 //        SideMenuController.preferences.basic.defaultCacheKey = "0"

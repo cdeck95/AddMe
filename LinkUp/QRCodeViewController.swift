@@ -19,7 +19,7 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     var credentialsManager = CredentialsManager.sharedInstance
     var datasetManager = Dataset.sharedInstance
     var qrCode:UIImage!
-    var qrCodeString:String = "empty"
+    var profileId:Int!
     var shouldShare:Bool = false
     
     // Param
@@ -44,18 +44,18 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initialize the Cognito Sync client
-        let syncClient = AWSCognito.default()
-        dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
-        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
-            // Your handler code here
-            return nil
-        }
+//        // Initialize the Cognito Sync client
+//        let syncClient = AWSCognito.default()
+//        dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
+//        dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
+//            // Your handler code here
+//            return nil
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         createQRCode(self)
-        print("qr code string: \(qrCodeString)")
+        print("qr code string: \(profileId)")
         if(shouldShare){
             shareButtonClicked(sender: shareButton)
         }
@@ -69,7 +69,7 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
     
     func generateQRCode(from string: String) -> UIImage? {
         if let tryImage = EFQRCode.generate(
-            content: qrCodeString,
+            content: "\(profileId)",
            // backgroundColor: Color.coral.value.cgColor,
             foregroundColor: Color.bondiBlue.value.cgColor,
             watermark: UIImage(named: "AddMeLogo-1.png")?.toCGImage()
@@ -111,35 +111,70 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
         self.navigationController?.pushViewController(scannerVC, animated: true)
     }
     
-
     @IBAction func createQRCode(_ sender: Any) {
-//        var jsonStringAsArray = "{\n"
-//        print("createQRCode()")
-//        if(cellSwitches.count > 0){
-//            for index in 0...cellSwitches.count - 1{
-//                let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
-//                let appID = cellSwitches[index].id
-//                print(appID)
-//                print(isSelectedForQRCode)
-//                if (isSelectedForQRCode){
-//                    let app = apps[index]
-//                    jsonStringAsArray += "\"\(app._displayName!)\": \"\(app._uRL!)\",\n"
-//                } else {
-//                    print("app not found to make QR code")
-//                }
-//            }
-//        } else {
-//            print("no apps - casnnot create code")
-//        }
-//        jsonStringAsArray += "}"
-//        let result = jsonStringAsArray.replacingLastOccurrenceOfString(",",
-//                                                                       with: "")
-//        print(result)
-//        if(datasetManager.dataset != nil){
-//            datasetManager.dataset.setString(result, forKey: "jsonStringAsArray")
-//        }
-        QRCode.image = generateQRCode(from: qrCodeString)
+        //profiles = []
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/profiles/\(profileId!)/qr") {
+            let data = try? Data(contentsOf: url) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            QRCode.image = UIImage(data: data!)
+        } else {
+            print("could not open url, it was nil")
+        }
+        //QRCode.image = generateQRCode(from: qrCodeString)
     }
+//            var request = URLRequest(url: url)
+//            request.httpMethod = "GET"
+//            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+//            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+//            request.cachePolicy = .reloadIgnoringCacheData
+//            print(request)
+//
+//            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+//                data, response, error in
+//                if error != nil {
+//                    print("error=\(error)")
+//                    sema.signal()
+//                    return
+//                } else {
+//                    print("---no error----")
+//                }
+//                //////////////////////// New stuff from Tom
+//                do {
+//                    print("decoding")
+//                    let decoder = JSONDecoder()
+//                    print("getting data")
+//                    // print(data)
+//                    print(response)
+//                    let qrCodePNG = try decoder.decode(SingleProfile.self, from: data!)
+//                    //let profile = (try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)) //as? SingleProfile
+//                    print(profile)
+//                    OperationQueue.main.addOperation {
+//                        print("in completion")
+//                        let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleProfileViewController") as! SingleProfileViewController
+//                        // self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+//                        modalVC.allAccounts = profile.profile.accounts
+//                        modalVC.profile = profile.profile
+//                        modalVC.modalTransitionStyle = .crossDissolve
+//                        // modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+//                        self.navigationController?.pushViewController(modalVC, animated: true)
+//                    }
+//                    sema.signal();
+//                    //=======
+//                } catch let err {
+//                    print("Err", err)
+//                    sema.signal(); // none found TODO: do something better than this shit.
+//                }
+//                print("Done")
+//                /////////////////////////
+//            })
+//            task.resume()
+//            sema.wait(timeout: DispatchTime.distantFuture)
+            
+            //send to another view controller to view profile
+        
+ //   }
     
     @IBAction func shareButtonClicked(sender: UIBarButtonItem) {
         print("share button clicked")

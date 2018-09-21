@@ -11,7 +11,7 @@ import FCAlertView
 import CDAlertView
 import SafariServices
 
-class SingleProfileViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, FCAlertViewDelegate {
+class SingleProfileViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, FCAlertViewDelegate, HalfModalPresentable {
 
     @IBOutlet var profileImage: ProfileImage!
     @IBOutlet var doneButton: UIBarButtonItem!
@@ -23,18 +23,23 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = .clear
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.view.backgroundColor = .clear
         self.view.backgroundColor = Color.chill.value
         createGradientLayer()
         self.profileTableView.backgroundColor = UIColor.clear
-        profileImage.sd_setImage(with: URL(string: profile.imageUrl ?? "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"), completed: nil)
+      //
         self.profileImage.center = self.view.center
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2;
         self.profileImage.clipsToBounds = true;
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        profileImage.sd_setImage(with: URL(string: profile.imageUrl ?? "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"), completed: nil)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     override func didReceiveMemoryWarning() {

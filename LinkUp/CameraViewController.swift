@@ -302,7 +302,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                         modalVC.profile = profile.profile
                         modalVC.modalTransitionStyle = .crossDissolve
                         modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
-                        self.navigationController?.setNavigationBarHidden(true, animated: true)
+                       // self.navigationController?.setNavigationBarHidden(true, animated: true)
+                        //self.navigationController?.present(modalVC, animated: true, completion: nil)
                         self.navigationController?.pushViewController(modalVC, animated: true)
                     }
                     sema.signal();

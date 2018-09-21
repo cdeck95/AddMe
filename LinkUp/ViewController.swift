@@ -415,9 +415,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
            
             if value == "1" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
-                let qrCodeString = "{\"profileId\": \"\(self.profiles[indexPath.row].profileId)\"}"
-                print(qrCodeString)
-                modalVC.qrCodeString = qrCodeString//self.profiles[(indexPath.row)].profileId
+                //let qrCodeString = "{\"profileId\": \"\(self.profiles[indexPath.row].profileId)\"}"
+               //print(qrCodeString)
+                modalVC.profileId = self.profiles[indexPath.row].profileId
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 modalVC.modalPresentationStyle = .custom
                 modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
@@ -440,7 +440,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 
                 let qrCodeString = "{\"profileId\": \"\(self.profiles[indexPath.row].profileId)\"}"
                 print(qrCodeString)
-                modalVC.qrCodeString = qrCodeString//self.profiles[(indexPath.row)].profileId
+                modalVC.profileId = self.profiles[(indexPath.row)].profileId
                 modalVC.shouldShare = true
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 modalVC.modalPresentationStyle = .custom
