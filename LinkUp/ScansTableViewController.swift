@@ -26,13 +26,13 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
         loadScans()
         print(scans)
         credentialsManager.createCredentialsProvider()
-        createGradientLayer()
+       // createGradientLayer()
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
         
-        var refreshControl: UIRefreshControl = {
+        let refreshControl: UIRefreshControl = {
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(self, action:
                 #selector(ScansTableViewController.handleRefresh(_:)),
