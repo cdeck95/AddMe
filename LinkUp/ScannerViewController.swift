@@ -30,7 +30,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         super.viewDidLoad()
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
-        self.navigationController?.navigationBar.isHidden  = true
+        //self.navigationController?.navigationBar.isHidden  = true
         self.credentialsManager.createCredentialsProvider()
         //tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
 //

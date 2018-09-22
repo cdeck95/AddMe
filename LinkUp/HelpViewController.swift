@@ -18,7 +18,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
     var bannerView: DFPBannerView!
     var gradient: CAGradientLayer!
 //    @IBOutlet weak var issuePicker: UIPickerView!
-//    var pickerData: [String] = ["Cannot connect accounts", "Cannot create QR code", "QR Code is wrong", "Cannot scan/import QR code" , "Cannot edit/delete apps", "Other (Please Specify)"]
+    var pickerData: [String] = ["Cannot connect accounts", "Cannot create QR code", "QR Code is wrong", "Cannot scan/import QR code" , "Cannot edit/delete apps", "Other (Please Specify)"]
     @IBOutlet weak var issueDetails: UITextView!
     var generalIssue:String!
     
@@ -29,8 +29,8 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
         super.viewDidLoad()
       //  tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
         //Connect data:
-//        self.issuePicker.delegate = self
-//        self.issuePicker.dataSource = self
+     //   self.issuePicker.delegate = self
+     //   self.issuePicker.dataSource = self
         // Do any additional setup after loading the view.
        // createGradientLayer()
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -61,8 +61,8 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.helpIssueTableView.layer.backgroundColor = UIColor.clear.cgColor
-        self.helpIssueTableView.layer.borderColor = UIColor.clear.cgColor
+//        self.helpIssueTableView.layer.backgroundColor = UIColor.clear.cgColor
+//        self.helpIssueTableView.layer.borderColor = UIColor.clear.cgColor
     }
 
     override func didReceiveMemoryWarning() {
@@ -122,14 +122,14 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
 //        print("Number of Components")
 //        return 1
 //    }
-    
+//
 //    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 //        print("Picker View count: \(pickerData.count)")
 //        return pickerData.count
 //    }
 //
-//
-//    // The data to return for the row and component (column) that's being passed in
+////
+////    // The data to return for the row and component (column) that's being passed in
 //    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 //        print("pickerView array \(pickerData[row])")
 //        return pickerData[row]
