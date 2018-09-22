@@ -13,21 +13,29 @@ import GoogleMobileAds
 
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate {
     
+   // var profiles: [PagedProfile.Profile]!
+    var credentialsManager = CredentialsManager.sharedInstance
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     var dict: [String: String]!
     var twitter = 0
     var facebook = 0
     var keys: Dictionary<String, String>.Keys!
-    var nativeApps = [Apps]()
-    var safariApps = [Apps]()
+    var nativeApps = [PagedAccounts.Accounts]()
+    var safariApps = [PagedAccounts.Accounts]()
     var interstitial: DFPInterstitial!
+    var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
-        self.navigationController?.navigationBar.isHidden  = true
+        //self.navigationController?.navigationBar.isHidden  = true
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+        self.credentialsManager.createCredentialsProvider()
         //tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
 //
 //        interstitial = DFPInterstitial(adUnitID: "/6499/example/interstitial")
@@ -97,14 +105,24 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()
+       // let group = DispatchGroup()
+       // group.enter()
+      
         
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            found(code: stringValue)
+           // DispatchQueue.main.async {
+                self.found(code: stringValue)
+           //     group.leave()
+           // }
         }
-        dismiss(animated: true)
+        //group.notify(queue: .main) {
+            self.dismiss(animated: true){
+            
+        //    }
+        }
     }
     
     func found(code: String) {
@@ -122,11 +140,12 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 }
                 dict = result
                 print("dict:  \(dict)")
-                convertToArray()
-                openPlatforms()
+//                convertToArray()
+//                openPlatforms()
+                getProfile(dict: dict)
         }
             catch let error as NSError {
-                print(error.localizedDescription)
+                print("error \(error.localizedDescription)")
             }
         }
     }
@@ -141,14 +160,14 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     
     func openPlatforms(){
         if(safariApps.count > 0){
-            let url = URL(string: (safariApps.first?._uRL)!)
+            let url = URL(string: (safariApps.first?.url)!)
             let svc = SFSafariViewController(url: url!)
             svc.delegate = self
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.navigationController?.pushViewController(svc, animated: true)
             safariApps.removeFirst()
         } else if(nativeApps.count > 0){
-            let url = URL(string: (nativeApps.first?._uRL)!)
+            let url = URL(string: (nativeApps.first?.url)!)
             openNative(url: url!)
         }
     }
@@ -190,9 +209,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         for (displayName, url) in dict {
             print("display name: \(displayName)")
             print("url: \(url)")
-            let app = Apps()
-            app?._displayName = displayName
-            app?._uRL = url
+            var app = PagedAccounts.Accounts(accountId: -1, userId: -1, cognitoId: "", displayName: displayName, platform: "", url: url, username: "")
             self.tabBarController?.hidesBottomBarWhenPushed = true
             var platform = ""
             if (url.contains("twitter.com")){
@@ -212,23 +229,23 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             
             switch platform {
             case "Twitter":
-                app?._platform = platform
-                nativeApps.append(app!)
+                app.platform = platform
+                nativeApps.append(app)
             case "Twitch":
-                app?._platform = platform
-                nativeApps.append(app!)
+                app.platform = platform
+                nativeApps.append(app)
             case "Instagram":
-                app?._platform = platform
-                nativeApps.append(app!)
+                app.platform = platform
+                nativeApps.append(app)
             case "LinkedIn":
-                app?._platform = platform
-                nativeApps.append(app!)
+                app.platform = platform
+                nativeApps.append(app)
             case "Snapchat":
-                app?._platform = platform
-                nativeApps.append(app!)
+                app.platform = platform
+                nativeApps.append(app)
             default:
-                app?._platform = platform
-                safariApps.append(app!)
+                app.platform = platform
+                safariApps.append(app)
             }
         }
         print(safariApps)
@@ -286,5 +303,65 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     func interstitialDidDismissScreen(_ ad: DFPInterstitial) {
         //interstitial = createAndLoadInterstitial()
         dismiss(animated: true, completion: nil)
+    }
+    
+    func getProfile(dict: [String:String]){
+        //profiles = []
+        let profileId = dict.first?.value
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/scans/\(profileId!)") {
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+            request.cachePolicy = .reloadIgnoringCacheData
+            print(request)
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                data, response, error in
+                if error != nil {
+                    print("error=\(error)")
+                    sema.signal()
+                    return
+                } else {
+                    print("---no error----")
+                }
+                //////////////////////// New stuff from Tom
+                do {
+                    print("decoding")
+                    let decoder = JSONDecoder()
+                    print("getting data")
+                   // print(data)
+                    print(response)
+                    let profile = try decoder.decode(SingleProfile.self, from: data!)
+                    //let profile = (try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)) //as? SingleProfile
+                    print(profile)
+                    OperationQueue.main.addOperation {
+                        print("in completion")
+                        let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleProfileViewController") as! SingleProfileViewController
+                        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                        modalVC.allAccounts = profile.profile.accounts
+                        modalVC.profile = profile.profile
+                        modalVC.modalTransitionStyle = .crossDissolve
+                        modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                        self.navigationController?.pushViewController(modalVC, animated: true)
+                    }
+                    sema.signal();
+                    //=======
+                } catch let err {
+                    print("Err", err)
+                    sema.signal(); // none found TODO: do something better than this shit.
+                }
+                print("Done")
+                /////////////////////////
+            })
+            task.resume()
+            sema.wait(timeout: DispatchTime.distantFuture)
+            
+            //send to another view controller to view profile
+        } else {
+            print("could not open url, it was nil")
+        }
     }
 }

@@ -13,6 +13,7 @@ target 'LinkUp' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
+    pod 'SDWebImage', '~> 4.0'
     pod 'SideMenuSwift'
     pod 'AWSUserPoolsSignIn', '~> 2.6.6'
     pod 'AWSAuthUI'
@@ -35,5 +36,6 @@ target 'LinkUp' do
     pod 'PMSuperButton'
     pod "ESTabBarController-swift"
     pod 'ACFloatingTextfield-Objc', '~> 1.7'
+    pod "EFQRCode", '~> 4.2.2'
 
 end

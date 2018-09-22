@@ -10,27 +10,37 @@ import UIKit
 import AVFoundation
 import SafariServices
 import GoogleMobileAds
+import TransitionButton
 
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate, UIPopoverControllerDelegate {
     
- 
+    var gradient:CAGradientLayer!
+    var credentialsManager = CredentialsManager.sharedInstance
     var bannerView: DFPBannerView!
     var interstitial: DFPInterstitial!
     let imagePicker = UIImagePickerController()
     var detector: CIDetector?
     var dict: [String: String]!
     var keys: Dictionary<String, String>.Keys!
-    var nativeApps = [Apps]()
-    var safariApps = [Apps]()
+    var nativeApps = [PagedAccounts.Accounts]()
+    var safariApps = [PagedAccounts.Accounts]()
+    var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
+    @IBOutlet var importButton: TransitionButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.credentialsManager.createCredentialsProvider()
         bannerView = DFPBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
         bannerView.adUnitID = "/6499/example/banner"
         bannerView.rootViewController = self
         bannerView.load(DFPRequest())
+        createGradientLayer()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,11 +48,12 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         interstitial = createAndLoadInterstitial()
         safariApps = []
         nativeApps = []
+    //    self.navigationController?.setNavigationBarHidden(true, animated: true)
 //        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
     }
     
     @IBAction func takePhoto(sender: AnyObject) {
-        
+        importButton.startAnimation()
         if !UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             return
         }
@@ -50,7 +61,10 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         
+        //sleep(1)
+        
         present(imagePicker, animated: true, completion: nil)
+        importButton.stopAnimation()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -80,7 +94,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                     }
                     dict = result
                     print("dict:  \(dict)")
-                    convertToArray()
+                    getProfile(dict: dict)
+                    // convertToArray()
                      //openPlatforms()
                 }
                 catch let error as NSError {
@@ -97,14 +112,14 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     func openPlatforms(){
         if(safariApps.count > 0){
-            let url = URL(string: (safariApps.first?._uRL)!)
+            let url = URL(string: (safariApps.first?.url)!)
             let svc = SFSafariViewController(url: url!)
             svc.delegate = self
             self.navigationController?.setNavigationBarHidden(true, animated: true)
             self.navigationController?.pushViewController(svc, animated: true)
             safariApps.removeFirst()
         } else if(nativeApps.count > 0){
-            let url = URL(string: (nativeApps.first?._uRL)!)
+            let url = URL(string: (nativeApps.first?.url)!)
             openNative(url: url!)
         }
     }
@@ -146,9 +161,9 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         for (displayName, url) in dict {
             print("display name: \(displayName)")
             print("url: \(url)")
-            let app = Apps()
-            app?._displayName = displayName
-            app?._uRL = url
+            var app:PagedAccounts.Accounts!
+            app.displayName = displayName
+            app.url = url
             self.tabBarController?.hidesBottomBarWhenPushed = true
             var platform = ""
             if (url.contains("twitter.com")){
@@ -168,29 +183,29 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
             
             switch platform {
             case "Twitter":
-                app?._platform = platform
+                app.platform = platform
                 nativeApps.append(app!)
             case "Twitch":
-                app?._platform = platform
+                app.platform = platform
                 nativeApps.append(app!)
             case "Instagram":
-                app?._platform = platform
+                app.platform = platform
                 nativeApps.append(app!)
             case "LinkedIn":
-                app?._platform = platform
+                app.platform = platform
                 nativeApps.append(app!)
             case "Snapchat":
-                app?._platform = platform
+                app.platform = platform
                 nativeApps.append(app!)
             default:
-                app?._platform = platform
+                app.platform = platform
                 safariApps.append(app!)
             }
         }
         print(safariApps)
         print(nativeApps)
         
-        var allApps:[Apps] = []
+        var allApps:[PagedAccounts.Accounts] = []
         for app in safariApps {
             allApps.append(app)
         }
@@ -253,6 +268,78 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
     func interstitialDidDismissScreen(_ ad: DFPInterstitial) {
         //interstitial = createAndLoadInterstitial()
         dismiss(animated: true, completion: nil)
+    }
+    
+    func getProfile(dict: [String:String]){
+        //profiles = []
+        let profileId = dict.first?.value
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/scans/\(profileId!)") {
+            var request = URLRequest(url: url)
+            print(request)
+            request.httpMethod = "POST"
+            request.cachePolicy = .reloadIgnoringCacheData
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+            let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                data, response, error in
+                if error != nil {
+                    print("error=\(error)")
+                    sema.signal()
+                    return
+                } else {
+                    print("---no error----")
+                }
+                //////////////////////// New stuff from Tom
+                do {
+                    print("decoding")
+                    let decoder = JSONDecoder()
+                    print("getting data")
+                    print(data)
+                    print(response)
+                    let profile = try decoder.decode(SingleProfile.self, from: data!)
+                    OperationQueue.main.addOperation {
+                        print("in completion")
+                        let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "SingleProfileViewController") as! SingleProfileViewController
+                        self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                        modalVC.allAccounts = profile.profile.accounts
+                        modalVC.profile = profile.profile
+                        modalVC.modalTransitionStyle = .crossDissolve
+                        modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                       // self.navigationController?.setNavigationBarHidden(true, animated: true)
+                        //self.navigationController?.present(modalVC, animated: true, completion: nil)
+                        self.navigationController?.pushViewController(modalVC, animated: true)
+                    }
+                    sema.signal();
+                    //=======
+                } catch let err {
+                    print("Err", err)
+                    sema.signal(); // none found TODO: do something better than this shit.
+                }
+                print("Done")
+                /////////////////////////
+            })
+            task.resume()
+            sema.wait(timeout: DispatchTime.distantFuture)
+            
+            //send to another view controller to view profile
+        } else {
+            print("could not open url, it was nil")
+        }
+    }
+    
+    func createGradientLayer() {
+        gradient = CAGradientLayer()
+        let gradientView = UIView(frame: self.view.bounds)
+        gradient.frame = view.frame
+        gradient.colors = [Color.glass.value.cgColor, Color.glass.value.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradientView.frame = self.view.bounds
+        gradientView.layer.addSublayer(gradient)
+        self.view.addSubview(gradientView)
+        self.view.sendSubview(toBack: gradientView)
     }
     
 }

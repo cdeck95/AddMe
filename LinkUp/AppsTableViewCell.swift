@@ -19,6 +19,11 @@ class AppsTableViewCell: UITableViewCell {
     @IBOutlet weak var url: UILabel!
     @IBOutlet var urlIcon: UIImageView!
     
+    var urlFull:String!
+    var userId:Int!
+    var cognitoId:String!
+    var username:String!
+    var platform:String!
     var id:Int!
    
     @IBOutlet weak var appSwitch: UISwitch!

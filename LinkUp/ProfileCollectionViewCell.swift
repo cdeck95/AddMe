@@ -10,9 +10,8 @@ import UIKit
 
 class ProfileCollectionViewCell: UICollectionViewCell {
     
-    var profileID: String!
-    var accounts: [Apps]!
-    var qrCodeString: String!
+    var profileID: Int!
+    var accounts: [PagedAccounts.Accounts]!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet var nameLabel: UILabel!
     
@@ -33,7 +32,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         // ...
     }
     
-    func populateWith(card: Profile) {
+    func populateWith(card: PagedProfile.Profile) {
         //This creates the shadows and modifies the cards a little bit
         contentView.layer.cornerRadius = 6.0
         contentView.layer.borderWidth = 1.0
@@ -46,18 +45,17 @@ class ProfileCollectionViewCell: UICollectionViewCell {
         layer.masksToBounds = true
         layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
         
-        profileID = card.id
+        profileID = card.profileId
         print("card profile id: \(profileID)")
-        profileImage.image = card.image
+        profileImage.sd_setImage(with: URL(string: card.imageUrl ?? "https://images.pexels.com/photos/708440/pexels-photo-708440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"), completed: nil)
         //profileImage.layer.borderWidth = 2
         //profileImage.layer.borderColor = Color.glass.value.cgColor
         //profileImage.layer.cornerRadius = 6
         profileImage.clipsToBounds = true
         nameLabel.text = card.name
-        descLabel.text = "(\(card.descriptionLabel))"
+        descLabel.text = "(\(card.description))"
         //backgroundColor = card.backgroundColor
-        accounts = card.Accounts
-        qrCodeString = card.qrCodeString
+        accounts = []//card.Accounts
         
         openButton.setImage(UIImage(named: "baseline_keyboard_arrow_right_black_18dp"), for: .normal)
         

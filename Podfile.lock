@@ -32,6 +32,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
   - CDAlertView (0.8.3)
+  - EFQRCode (4.2.2)
   - ESTabBarController-swift (2.6.2)
   - FacebookCore (0.3.2):
     - Bolts (~> 1.8)
@@ -66,6 +67,9 @@ PODS:
     - RxSwift
   - PMSuperButton (2.1.2)
   - RxSwift (4.2.0)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
   - Sheeeeeeeeet (0.9.5)
   - SideMenuSwift (0.4.1)
   - SkyFloatingLabelTextField (3.5.1)
@@ -82,6 +86,7 @@ DEPENDENCIES:
   - AWSMobileClient (~> 2.6.6)
   - AWSUserPoolsSignIn (~> 2.6.6)
   - CDAlertView
+  - EFQRCode (~> 4.2.2)
   - ESTabBarController-swift
   - FacebookCore
   - FBSDKLoginKit
@@ -90,6 +95,7 @@ DEPENDENCIES:
   - GoogleSignIn (~> 4.0)
   - KSSwipeStack
   - PMSuperButton
+  - SDWebImage (~> 4.0)
   - Sheeeeeeeeet
   - SideMenuSwift
   - SkyFloatingLabelTextField (~> 3.0)
@@ -112,6 +118,7 @@ SPEC REPOS:
     - AWSUserPoolsSignIn
     - Bolts
     - CDAlertView
+    - EFQRCode
     - ESTabBarController-swift
     - FacebookCore
     - FBSDKCoreKit
@@ -125,6 +132,7 @@ SPEC REPOS:
     - KSSwipeStack
     - PMSuperButton
     - RxSwift
+    - SDWebImage
     - Sheeeeeeeeet
     - SideMenuSwift
     - SkyFloatingLabelTextField
@@ -155,6 +163,7 @@ SPEC CHECKSUMS:
   AWSUserPoolsSignIn: dfc849bcd5f965248ec8bb11c37e640bede7e377
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CDAlertView: 7ec9ce91ccd800a66a18f7fd92a9dea20c5326a2
+  EFQRCode: 203846c7b135b5f7c1d18bb7923bc32a74c8b363
   ESTabBarController-swift: f0a8679e43df1e60b7b36bbcaf1dc98ba6273c7d
   FacebookCore: fe93222bb70346730ef33b061d493e9e7a7cb1f5
   FBSDKCoreKit: 1a5b2e3ceb5ca827a53c54aa5f4a3480efff80d2
@@ -168,12 +177,13 @@ SPEC CHECKSUMS:
   KSSwipeStack: 419a6c7fbeeff766f74987022fee1daa3f678340
   PMSuperButton: 968f45a9a157499fcdd195ee54613a4cce980bdb
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   Sheeeeeeeeet: e7a54ed2007d12b5b3b5d2fa5b98ce9b994ca335
   SideMenuSwift: c4309bd978c61a61d5941eb0fa2112f6b346a331
   SkyFloatingLabelTextField: 4cbeece9c3aae97c6019d8fae511cb5b755874f7
   SwipeableTabBarController: 0e3e229aa1edfc1b8b4daf24df7de2643578cf42
   TransitionButton: 20f92b3cc726b047e4df200fdab5307f33395a81
 
-PODFILE CHECKSUM: 6fb265bc1517b55a8e6e1aaada430d88c2b82a91
+PODFILE CHECKSUM: 413c91007bbed485a3285118cdb82b2b11883028
 
 COCOAPODS: 1.6.0.beta.1

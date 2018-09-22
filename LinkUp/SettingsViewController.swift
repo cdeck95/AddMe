@@ -21,7 +21,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
+        //tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
         let syncClient = AWSCognito.default()
         dataset = syncClient.openOrCreateDataset("AddMeDataSet\(credentialsManager.identityID)")
         dataset.synchronize().continueWith {(task: AWSTask!) -> AnyObject! in
@@ -104,43 +104,38 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("creating cells for table view in settings")
         let cell:SettingsTableViewCell = settingsAppsTableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsTableViewCell
-        cell.nameLabel.text = apps[indexPath.row]._displayName!
-        cell.usernameLabel.text = "@\(apps[indexPath.row]._username!)"
-        cell.appID = apps[indexPath.row]._appId!
+        cell.nameLabel.text = apps[indexPath.row].displayName
+        cell.usernameLabel.text = "@\(apps[indexPath.row].username)"
+        cell.appID = apps[indexPath.row].accountId
         cell.layer.backgroundColor = UIColor.white.cgColor
         
-        switch apps[indexPath.row]._platform {
-        case "Facebook"?:
+        switch apps[indexPath.row].platform {
+        case "Facebook":
             cell.appImage.image = UIImage(named: "fb-icon")
-        case "Twitter"?:
+        case "Twitter":
             cell.appImage.image = UIImage(named: "twitter_icon")
-        case "Instagram"?:
+        case "Instagram":
             cell.appImage.image = UIImage(named: "Instagram_icon")
-        case "Snapchat"?:
+        case "Snapchat":
             cell.appImage.image = UIImage(named: "snapchat_icon")
-        case "GooglePlus"?:
+        case "GooglePlus":
             cell.appImage.image = UIImage(named: "google_plus_icon")
-        case "LinkedIn"?:
+        case "LinkedIn":
             cell.appImage.image = UIImage(named: "linked_in_logo")
-        case "Xbox"?:
+        case "Xbox":
             cell.appImage.image = UIImage(named: "xbox")
-        case "PSN"?:
+        case "PSN":
             cell.appImage.image = UIImage(named: "play-station")
-        case "Twitch"?:
+        case "Twitch":
             cell.appImage.image = UIImage(named: "twitch")
-        case "Custom"?:
+        case "Custom":
             cell.appImage.image = UIImage(named: "custom")
         default:
             cell.appImage.image = UIImage(named: "AppIcon")
         }
         
         print(cell.appID)
-        cell.onButtonTapped = {
-            let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "EditAppViewController") as! EditAppViewController
-            VC1.AppID = cell.appID!
-            //pass all information, do not do api call
-            self.navigationController!.showDetailViewController(VC1, sender: cell)
-        }
+   
         return cell
     }
     
@@ -239,19 +234,19 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     ////////////////////////////// BEGINNING OF JSON ///////////////////////////////////
     
-    // TomMiller 2018/06/27 - Added struct to interact with JSON
-    struct JsonApp: Decodable {
-        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
-        let accounts: [[String: String]]
-    }
-    
-    var JsonApps = [JsonApp]()
-    ////////////////////////////// END OF JSON ///////////////////////////////////
+//    // TomMiller 2018/06/27 - Added struct to interact with JSON
+//    struct JsonApp: Decodable {
+//        //["{\"accounts\":[{\"cognitoId\":\"us-east-1:bafa67f1-8631-4c47-966d-f9f069b2107c\",\"displayName\":\"tomTweets\",\"platform\":\"Twitter\",\"url\":\"http://www.twitter.com/TomsTwitter\"}]}", ""]
+//        let accounts: [[String: String]]
+//    }
+//
+//    var JsonApps = [JsonApp]()
+//    ////////////////////////////// END OF JSON ///////////////////////////////////
     
     ///////////////////////////// NEW STUFF /////////////////////////////////
     func loadAppsFromDB() {
         print("RIGHT HERE")
-        var returnList: [Apps] = []
+        var returnList: [PagedAccounts.Accounts] = []
         let idString = self.credentialsManager.identityID!
         print(idString)
         let sema = DispatchSemaphore(value: 0);
@@ -278,32 +273,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 print("decoding")
                 let decoder = JSONDecoder()
                 print("getting data")
-                let JSONdata = try decoder.decode(JsonApp.self, from: data!)
+                let pagedAccounts = try decoder.decode(PagedAccounts.self, from: data!)
                 //=======
-                for index in 0...JSONdata.accounts.count - 1 {
-                    let listOfAccountInfo = JSONdata.accounts[index]
-                    let displayName = listOfAccountInfo["displayName"]!
-                    let platform = listOfAccountInfo["platform"]!
-                    let url = listOfAccountInfo["url"]!
-                    let username = listOfAccountInfo["username"]!
-                    var appIdString = listOfAccountInfo["accountId"]!
-//                    if(appIdString.prefix(2) == "0x"){
-//                        appIdString.removeFirst(2)
-//                    }
-                    let appId = Int(appIdString)!//, radix: 16)!
-                    print(displayName)
-                    print(platform)
-                    print(url)
-                    print(appId)
-                    print(username)
-                    let app = Apps()
-                    app?._appId = "\(appId)"
-                    app?._displayName = displayName
-                    app?._platform = platform
-                    app?._uRL = url
-                    app?._username = username
-                    print(app)
-                    returnList.append(app!)
+                for index in 0...pagedAccounts.accounts.count - 1 {
+                    let account = pagedAccounts.accounts[index]
+                    returnList.append(account)
                 }
                 apps = returnList
                 sema.signal();

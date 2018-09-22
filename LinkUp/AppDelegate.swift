@@ -33,12 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 87/255, green: 188/255, blue: 144/255, alpha: 1) //marine (medium green)
        // UITabBar.appearance().unselectedItemTintColor = UIColor.init(red: 165/255, green: 165/255, blue: 175/255, alpha: 1)
         // Sets the translucent background color
-        UINavigationBar.appearance().backgroundColor = .clear //UIColor.init(red: 174/255, green: 217/255, blue: 218/255, alpha: 1)
-        // Set translucent. (Default value is already true, so this can be removed if desired.)
-        //UINavigationBar.appearance().isTranslucent = true
+//        UINavigationBar.appearance().backgroundColor = .clear
+//        UINavigationBar.appearance().isTranslucent = false
+//       
     
-        SideMenuController.preferences.basic.menuWidth = 240
-        SideMenuController.preferences.basic.defaultCacheKey = "0"
+//        SideMenuController.preferences.basic.menuWidth = 240
+//        SideMenuController.preferences.basic.defaultCacheKey = "0"
         
         return AWSMobileClient.sharedInstance().interceptApplication(
             application, didFinishLaunchingWithOptions:

@@ -14,19 +14,13 @@ class LaunchScreenViewController: UIViewController {
     @IBOutlet var animationView: UIView!
     var gradient: CAGradientLayer!
     @IBOutlet var imageView: UIImageView!
+    var animatedView:AnimatedLaunchScreen!
     
     fileprivate var launchScreenViewController: UIViewController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         createGradientLayer()
-        let view = AnimatedLaunchScreen(containerView: animationView)
-        self.animationView.addSubview(view)
-        self.animationView.bringSubview(toFront: view)
-        view.animate()
-        gradient.frame = imageView.bounds
-        createGradientLayer()
-        showSplashViewController()
         self.navigationController?.navigationBar.isHidden = true
         
         // Do any additional setup after loading the view.
@@ -34,7 +28,18 @@ class LaunchScreenViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        animatedView = AnimatedLaunchScreen(containerView: animationView)
+        self.animationView.addSubview(animatedView)
+        self.animationView.bringSubview(toFront: animatedView)
+        gradient.frame = imageView.bounds
+        animatedView.animate()
+        showSplashViewController()
+        createGradientLayer()
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.animatedView.removeFromSuperview()
     }
 
     override func didReceiveMemoryWarning() {
