@@ -69,6 +69,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("----in view did load----")
         loadCustomRefreshContents()
         // Configure Refresh Control
+        profiles = []
         refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
         imagePicker.delegate = self
         createGradientLayer()
@@ -452,7 +453,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @objc private func refreshAppData(_ sender: Any) {
         print("refreshAppData()")
-        fetchAppData()
+        if AWSSignInManager.sharedInstance().isLoggedIn {
+            fetchAppData()
+        }
     }
 
     private func fetchAppData() {
