@@ -405,13 +405,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 print("decoding")
                 let decoder = JSONDecoder()
                 print("getting data")
-                let pagedAccounts = try decoder.decode(PagedAccounts.self, from: data!)
+                let response = try JSONSerialization.jsonObject(with: data!, options: [])
                 //=======
-                for index in 0...pagedAccounts.accounts.count - 1 {
-                    let account = pagedAccounts.accounts[index]
-                    returnList.append(account)
-                }
-                apps = returnList
+                print(response)
                 sema.signal();
                 //=======
             } catch let err {
@@ -437,7 +433,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         request.httpMethod = "PUT"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-        
+       
         var url = ""
         switch self.account.platform {
         case "Facebook":
@@ -467,7 +463,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             self.account.url = "\(newUsername)"
         }
         
-        let postString = "{\"displayName\": \"\(newDisplayName)\", \"platform\": \"\(self.account.platform)\", \"url\": \"\(self.account.url)\", \"username\": \"\(self.account.username)\"}"
+        let postString = "{\"displayName\": \"\(self.account.displayName)\", \"platform\": \"\(self.account.platform)\", \"url\": \"\(self.account.url)\", \"username\": \"\(newUsername)\"}"
+        print(request)
         print(postString)
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             data, response, error in
@@ -481,9 +478,10 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             //////////////////////// New stuff from Tom
             do {
                 print("decoding")
-                let decoder = JSONDecoder()
+                //let decoder = JSONDecoder()
                 print("getting data")
-                let response = try JSONSerialization.data(withJSONObject: data!, options: [])
+                let response = try JSONSerialization.jsonObject(with: data!, options: [])
+                
                 //=======
                 print(response)
                 sema.signal();
