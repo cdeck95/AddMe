@@ -125,12 +125,12 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
             cell.cognitoId = allAccounts[indexPath.row].cognitoId
             return cell
         }
-        return UITableViewCell()
+        //return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.section == 0){
-            //do nothing
+            self.profileTableView.deselectRow(at: indexPath, animated: true)
         } else {
             let cell = profileTableView.cellForRow(at: indexPath) as! ScannedProfileTableViewCell
             let url = URL(string: cell.url!)!
@@ -142,6 +142,7 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
                 self.navigationController?.setNavigationBarHidden(true, animated: true)
                 self.navigationController?.pushViewController(svc, animated: true)
             }
+            self.profileTableView.deselectRow(at: indexPath, animated: true)
         }
         
     }

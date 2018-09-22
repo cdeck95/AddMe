@@ -61,8 +61,8 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        self.helpIssueTableView.layer.backgroundColor = UIColor.clear.cgColor
-//        self.helpIssueTableView.layer.borderColor = UIColor.clear.cgColor
+        self.helpIssueTableView.layer.backgroundColor = UIColor.clear.cgColor
+        self.helpIssueTableView.layer.borderColor = UIColor.clear.cgColor
     }
 
     override func didReceiveMemoryWarning() {
@@ -200,10 +200,11 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:HelpTableViewCell = helpIssueTableView.dequeueReusableCell(withIdentifier: "HelpCell", for: indexPath) as! HelpTableViewCell
-        cell.generalIssue.text = "Issue Category"
-        generalIssue = "Issue category"
-        cell.layer.backgroundColor = UIColor.white.cgColor
+        let cell:HelpTableViewCell = helpIssueTableView.dequeueReusableCell(withIdentifier: "HelpTableViewCell", for: indexPath) as! HelpTableViewCell
+        cell.generalIssueLabel.text = "Issue Category"
+        cell.generalIssue.text = "Please select..."
+        generalIssue = "Please select..."
+        cell.layer.backgroundColor = UIColor.clear.cgColor
         return cell
     }
     

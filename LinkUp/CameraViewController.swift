@@ -14,6 +14,7 @@ import TransitionButton
 
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate, UIPopoverControllerDelegate {
     
+    var gradient:CAGradientLayer!
     var credentialsManager = CredentialsManager.sharedInstance
     var bannerView: DFPBannerView!
     var interstitial: DFPInterstitial!
@@ -35,6 +36,11 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         bannerView.adUnitID = "/6499/example/banner"
         bannerView.rootViewController = self
         bannerView.load(DFPRequest())
+        createGradientLayer()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,7 +48,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         interstitial = createAndLoadInterstitial()
         safariApps = []
         nativeApps = []
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    //    self.navigationController?.setNavigationBarHidden(true, animated: true)
 //        tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
     }
     
@@ -273,7 +279,7 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         if let url = URL(string: "https://api.tc2pro.com/users/\(idString)/scans/\(profileId!)") {
             var request = URLRequest(url: url)
             print(request)
-            request.httpMethod = "GET"
+            request.httpMethod = "POST"
             request.cachePolicy = .reloadIgnoringCacheData
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
@@ -322,6 +328,18 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
         } else {
             print("could not open url, it was nil")
         }
+    }
+    
+    func createGradientLayer() {
+        gradient = CAGradientLayer()
+        let gradientView = UIView(frame: self.view.bounds)
+        gradient.frame = view.frame
+        gradient.colors = [Color.glass.value.cgColor, Color.glass.value.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradientView.frame = self.view.bounds
+        gradientView.layer.addSublayer(gradient)
+        self.view.addSubview(gradientView)
+        self.view.sendSubview(toBack: gradientView)
     }
     
 }

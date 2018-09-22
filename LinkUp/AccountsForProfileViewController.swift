@@ -213,6 +213,10 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         
     }
     
+    func fcAlertDoneButtonClicked(_ alertView: FCAlertView!) {
+        print("done button clicked")
+    }
+    
     func createGradientLayer() {
         gradient = CAGradientLayer()
         let gradientView = UIView(frame: self.view.bounds)

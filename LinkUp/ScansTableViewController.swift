@@ -26,7 +26,7 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
         loadScans()
         print(scans)
         credentialsManager.createCredentialsProvider()
-        //createGradientLayer()
+        createGradientLayer()
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -355,7 +355,7 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
     func createGradientLayer() {
         gradient = CAGradientLayer()
         let gradientView = UIView(frame: self.view.bounds)
-        gradient.frame = view.frame
+        gradient.frame = self.view.frame
         //        gradient.colors = [UIColor(red: 61/255, green: 218/255, blue: 215/255, alpha: 1).cgColor, UIColor(red: 42/255, green: 147/255, blue: 213/255, alpha: 1).cgColor, UIColor(red: 19/255, green: 85/255, blue: 137/255, alpha: 1).cgColor]
         //        gradient.locations = [0.0, 0.5, 1.0]
         //        gradient.colors = [Color.glass.value.cgColor, Color.coral.value.cgColor, Color.bondiBlue.value.cgColor, Color.marina.value.cgColor]

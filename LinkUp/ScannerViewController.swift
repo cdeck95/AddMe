@@ -31,6 +31,10 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         //self.navigationController?.navigationBar.isHidden  = true
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
         self.credentialsManager.createCredentialsProvider()
         //tabBarController?.setupSwipeGestureRecognizers(allowCyclingThoughTabs: true)
 //

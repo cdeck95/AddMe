@@ -151,38 +151,85 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             return
         }
         
-        func fcAlertDoneButtonClicked(_ alertView: FCAlertView){
-            var url = ""
-            switch key {
-            case "Facebook":
-                url = "https://www.facebook.com/\(accountUsername)"
-            case "Twitter":
-                url = "https://www.twitter.com/\(accountUsername)"
-            case "Instagram":
-                url = "https://www.instagram.com/\(accountUsername)"
-            case "Snapchat":
-                url = "https://www.snapchat.com/add/\(accountUsername)"
-            case "LinkedIn":
-                url = "https://www.linkedin.com/in/\(accountUsername)"
-            case "GooglePlus":
-                url = "https://plus.google.com/\(accountUsername)"
-            case "Xbox":
-                let usernameURL = accountUsername.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                url = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
-            case "PSN":
-                let usernameURL = accountUsername.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-                url = "https://my.playstation.com/profile/\(usernameURL!)"
-            case "Twitch":
-                url  = "https://m.twitch.tv/\(accountUsername)/profile"
-            case "Custom":
-                url  = "\(accountUsername)"
-            default:
-                print("unknown app found: \(key)")
-                url = "\(accountUsername)"
-            }
-            let account = PagedAccounts.Accounts(accountId: -1, userId: -1, cognitoId: credentialsManager.identityID, displayName: accountName, platform: accountPlatform, url: url, username: accountUsername)
-            self.addToDB(account: account)
-        }
+//        func fcAlertDoneButtonClicked(_ alertView: FCAlertView){
+//            print("small")
+//            var url = ""
+//            switch key {
+//            case "Facebook":
+//                url = "https://www.facebook.com/\(accountUsername)"
+//            case "Twitter":
+//                url = "https://www.twitter.com/\(accountUsername)"
+//            case "Instagram":
+//                url = "https://www.instagram.com/\(accountUsername)"
+//            case "Snapchat":
+//                url = "https://www.snapchat.com/add/\(accountUsername)"
+//            case "LinkedIn":
+//                url = "https://www.linkedin.com/in/\(accountUsername)"
+//            case "GooglePlus":
+//                url = "https://plus.google.com/\(accountUsername)"
+//            case "Xbox":
+//                let usernameURL = accountUsername.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+//                url = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
+//            case "PSN":
+//                let usernameURL = accountUsername.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+//                url = "https://my.playstation.com/profile/\(usernameURL!)"
+//            case "Twitch":
+//                url  = "https://m.twitch.tv/\(accountUsername)/profile"
+//            case "Custom":
+//                url  = "\(accountUsername)"
+//            default:
+//                print("unknown app found: \(key)")
+//                url = "\(accountUsername)"
+//            }
+//            let account = PagedAccounts.Accounts(accountId: -1, userId: -1, cognitoId: credentialsManager.identityID, displayName: accountName, platform: accountPlatform, url: url, username: accountUsername)
+//            self.addToDB(account: account)
+//        }
+//
+//        func alertView(alertView: FCAlertView, clickedButtonIndex: Int, buttonTitle: String){
+//            print("detecting button touch")
+//            if title == "Button 1" {
+//                // Perform Action for Button 1
+//            }else if title == "Button 2"{
+//                // Perform Action for Button 2
+//            }
+//        }
+//
+//
+//
+//
+//        func FCAlertDoneButtonClicked(_ alertView: FCAlertView){
+//            print("big")
+//            var url = ""
+//            switch key {
+//            case "Facebook":
+//                url = "https://www.facebook.com/\(accountUsername)"
+//            case "Twitter":
+//                url = "https://www.twitter.com/\(accountUsername)"
+//            case "Instagram":
+//                url = "https://www.instagram.com/\(accountUsername)"
+//            case "Snapchat":
+//                url = "https://www.snapchat.com/add/\(accountUsername)"
+//            case "LinkedIn":
+//                url = "https://www.linkedin.com/in/\(accountUsername)"
+//            case "GooglePlus":
+//                url = "https://plus.google.com/\(accountUsername)"
+//            case "Xbox":
+//                let usernameURL = accountUsername.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+//                url = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
+//            case "PSN":
+//                let usernameURL = accountUsername.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+//                url = "https://my.playstation.com/profile/\(usernameURL!)"
+//            case "Twitch":
+//                url  = "https://m.twitch.tv/\(accountUsername)/profile"
+//            case "Custom":
+//                url  = "\(accountUsername)"
+//            default:
+//                print("unknown app found: \(key)")
+//                url = "\(accountUsername)"
+//            }
+//            let account = PagedAccounts.Accounts(accountId: -1, userId: -1, cognitoId: credentialsManager.identityID, displayName: accountName, platform: accountPlatform, url: url, username: accountUsername)
+//            self.addToDB(account: account)
+//        }
         
         
 //        //the confirm action taking the inputs
@@ -332,13 +379,14 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     // Adds a users account to the DB.
     func addToDB(account: PagedAccounts.Accounts){
         let identityId = self.credentialsManager.identityID!
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts/")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts")!)
         print(request)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
         let postString = "{\"displayName\": \"\(account.displayName)\", \"platform\": \"\(account.platform)\", \"url\": \"\(account.url)\", \"username\": \"\(account.username)\"}"
         print(postString)
+        
         request.httpBody = postString.data(using: String.Encoding.utf8)
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
@@ -444,5 +492,39 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         return returnList
+    }
+    
+    func fcAlertDoneButtonClicked(_ alertView: FCAlertView!) {
+        print("done button clicked")
+        var url = ""
+        switch self.accountPlatform {
+        case "Facebook":
+            url = "https://www.facebook.com/\(accountUsername!)"
+        case "Twitter":
+            url = "https://www.twitter.com/\(accountUsername!)"
+        case "Instagram":
+            url = "https://www.instagram.com/\(accountUsername!)"
+        case "Snapchat":
+            url = "https://www.snapchat.com/add/\(accountUsername!)"
+        case "LinkedIn":
+            url = "https://www.linkedin.com/in/\(accountUsername!)"
+        case "GooglePlus":
+            url = "https://plus.google.com/\(accountUsername!)"
+        case "Xbox":
+            let usernameURL = accountUsername!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+            url = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
+        case "PSN":
+            let usernameURL = accountUsername!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+            url = "https://my.playstation.com/profile/\(usernameURL!)"
+        case "Twitch":
+            url  = "https://m.twitch.tv/\(accountUsername!)/profile"
+        case "Custom":
+            url  = "\(accountUsername)"
+        default:
+            print("unknown app found: \(self.accountPlatform)")
+            url = "\(accountUsername!)"
+        }
+        let account = PagedAccounts.Accounts(accountId: -1, userId: -1, cognitoId: credentialsManager.identityID, displayName: accountName, platform: accountPlatform, url: url, username: accountUsername!)
+        self.addToDB(account: account)
     }
 }
