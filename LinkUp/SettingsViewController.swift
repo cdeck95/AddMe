@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     var newDisplayName:String = ""
     var newUsername:String = ""
     var account:PagedAccounts.Accounts!
+    var flag:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,6 +176,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     if(text != ""){
                         self.newDisplayName = text!
                         self.account = apps[indexPath.row]
+                        self.flag = 1
                     }
                     print(text!)
                 }
@@ -196,6 +198,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     if(text != ""){
                         self.newUsername = text!
                         self.account = apps[indexPath.row]
+                        self.flag = 2
                     }
                     print(text!)
                 }
@@ -211,39 +214,37 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func fcAlertDoneButtonClicked(_ alertView: FCAlertView!) {
-        if(newUsername != ""){
+        if(flag == 1 && newUsername != ""){
             updateUsername()
-            if(newDisplayName != ""){
-                updateDisplayName()
-            }
-        } else if(newDisplayName != ""){
+        } else if (flag == 1 && newUsername == ""){
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            
+            alert.showAlert(inView: self,
+                            withTitle: "Error",
+                            withSubtitle: "Please enter some text to update.",
+                            withCustomImage: UIImage(named: "AppIcon-3"),
+                            withDoneButtonTitle: nil,
+                            andButtons: nil)
+            
+        }
+        if(flag == 2 && newDisplayName != ""){
             updateDisplayName()
-        } else{
-//            let alert = FCAlertView()
-//            alert.delegate = self
-//            alert.colorScheme = Color.bondiBlue.value
-//            let cell = self.settingsAppsTableView.cellForRow(at: indexPath) as! SettingsTableViewCell
-//            alert.addTextField(withPlaceholder: cell.usernameLabel.text) { (text) in
-//                self.settingsAppsTableView.deselectRow(at: indexPath, animated: true)
-//                if(text != ""){
-//                    self.newUsername = text
-//                    self.accountId = apps[indexPath.row].accountId
-//                }
-//                print(text!)
-//            }
-//
-//            alert.showAlert(inView: self,
-//                            withTitle: "Error",
-//                            withSubtitle: "Please enter some text to update.",
-//                            withCustomImage: cell.appImage.image,
-//                            withDoneButtonTitle: "OK",
-//                            andButtons: ["OK"])
-//
+        } else if (flag == 2 && newDisplayName == ""){
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+
+            alert.showAlert(inView: self,
+                            withTitle: "Error",
+                            withSubtitle: "Please enter some text to update.",
+                            withCustomImage: UIImage(named: "AppIcon-3"),
+                            withDoneButtonTitle: nil,
+                            andButtons: nil)
+
         }
     }
-    
-
-    
     
     
     @objc func switched(s: UISwitch){

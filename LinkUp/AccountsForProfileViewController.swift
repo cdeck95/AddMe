@@ -25,6 +25,9 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
     var gradient: CAGradientLayer!
     var cells:[AppsTableViewCell]!
     var cognitoId:String!
+    var profileName:String!
+    var profileDescription:String!
+    var flag:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,9 +174,9 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                     if(text) == "" {
                         print("field was blank")
                     } else {
-                        self.profileNameText = text
+                        self.profileName = text
+                        self.flag = 1
                     }
-                    self.appsTableView.reloadData()
                     print(text!)
                 }
                 alert.showAlert(inView: self,
@@ -192,9 +195,9 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                     if(text) == "" {
                         print("field was blank")
                     } else {
-                        self.profileDescriptionText = text
+                        self.profileDescription = text
+                        self.flag = 2
                     }
-                    self.appsTableView.reloadData()
                     print(text!)
                 }
                 
@@ -215,7 +218,13 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
     
     func fcAlertDoneButtonClicked(_ alertView: FCAlertView!) {
         print("done button clicked")
-    }
+        if(self.flag == 1){
+            self.profileNameText = self.profileName
+        } else if (self.flag == 2){
+             self.profileDescriptionText = self.profileDescription
+        }
+        self.appsTableView.reloadData()
+    } 
     
     func createGradientLayer() {
         gradient = CAGradientLayer()
