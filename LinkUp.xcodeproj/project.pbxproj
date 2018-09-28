@@ -634,7 +634,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 82DE575B515AAA97684789E8 /* Pods-LinkUp.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;
@@ -657,7 +657,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D549C2ED06E508209DBCB84D /* Pods-LinkUp.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YL6P5CDG5A;

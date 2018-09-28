@@ -164,7 +164,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 return
             }
             
-            
+            self.account = apps[indexPath.row]
             
             if value == "1" {
                 let alert = FCAlertView()
@@ -175,10 +175,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.settingsAppsTableView.deselectRow(at: indexPath, animated: true)
                     if(text != ""){
                         self.newDisplayName = text!
-                        self.account = apps[indexPath.row]
+                        //self.account = apps[indexPath.row]
                         self.flag = 1
+                        print(text!)
                     }
-                    print(text!)
+                    
                 }
                 
                 alert.showAlert(inView: self,
@@ -196,11 +197,11 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 alert.addTextField(withPlaceholder: cell.usernameLabel.text) { (text) in
                     self.settingsAppsTableView.deselectRow(at: indexPath, animated: true)
                     if(text != ""){
+                        print(text!)
                         self.newUsername = text!
-                        self.account = apps[indexPath.row]
+                      //  self.account = apps[indexPath.row]
                         self.flag = 2
                     }
-                    print(text!)
                 }
                 
                 alert.showAlert(inView: self,
@@ -214,9 +215,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func fcAlertDoneButtonClicked(_ alertView: FCAlertView!) {
-        if(flag == 1 && newUsername != ""){
+        if(flag == 2 && self.newUsername != ""){
             updateUsername()
-        } else if (flag == 1 && newUsername == ""){
+        } else if (flag == 2 && self.newUsername == ""){
             let alert = FCAlertView()
             alert.delegate = self
             alert.colorScheme = Color.bondiBlue.value
@@ -226,12 +227,14 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                             withSubtitle: "Please enter some text to update.",
                             withCustomImage: UIImage(named: "AppIcon-3"),
                             withDoneButtonTitle: nil,
-                            andButtons: nil)
+                            andButtons: ["OK"])
+            alert.hideDoneButton = true
             
         }
-        if(flag == 2 && newDisplayName != ""){
+        if(flag == 1 && newDisplayName != ""){
+            self.account.displayName = newDisplayName
             updateDisplayName()
-        } else if (flag == 2 && newDisplayName == ""){
+        } else if (flag == 1 && newDisplayName == ""){
             let alert = FCAlertView()
             alert.delegate = self
             alert.colorScheme = Color.bondiBlue.value
@@ -241,7 +244,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                             withSubtitle: "Please enter some text to update.",
                             withCustomImage: UIImage(named: "AppIcon-3"),
                             withDoneButtonTitle: nil,
-                            andButtons: nil)
+                            andButtons: ["OK"])
+             alert.hideDoneButton = true
 
         }
     }
@@ -388,9 +392,9 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
         
-        let postString = "{\"displayName\": \"\(newDisplayName)\", \"platform\": \"\(self.account.platform)\", \"url\": \"\(self.account.url)\", \"username\": \"\(self.account.username)\"}"
+        let postString = "{\"displayName\": \"\(self.account.displayName)\", \"platform\": \"\(self.account.platform)\", \"url\": \"\(self.account.url)\", \"username\": \"\(self.account.username)\"}"
         print(postString)
-        
+        request.cachePolicy = .reloadIgnoringLocalCacheData
         request.httpBody = postString.data(using: String.Encoding.utf8)
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             data, response, error in
@@ -406,7 +410,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
                 print("decoding")
                 let decoder = JSONDecoder()
                 print("getting data")
-                let response = try JSONSerialization.jsonObject(with: data!, options: [])
+                let response = try JSONSerialization.jsonObject(with: data!, options: []) as? Dictionary<String, AnyObject>
                 //=======
                 print(response)
                 sema.signal();
@@ -421,21 +425,20 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         })
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
-        self.settingsAppsTableView.reloadData()
+        loadAppsFromDB()
     }
     
     func updateUsername() {
-        print("RIGHT HERE")
-        var returnList: [PagedAccounts.Accounts] = []
-        let idString = self.credentialsManager.identityID!
-        print(idString)
-        let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/\(self.account.accountId)")!)
-        request.httpMethod = "PUT"
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-       
-        var url = ""
+//        print("RIGHT HERE")
+//        let idString = self.credentialsManager.identityID!
+//        print(idString)
+       // let sema = DispatchSemaphore(value: 0);
+        //var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/\(self.account.accountId)")!)
+//        request.httpMethod = "PUT"
+//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+//        request.cachePolicy = .reloadIgnoringLocalCacheData
+        self.account.username = newUsername
         switch self.account.platform {
         case "Facebook":
             self.account.url = "https://www.facebook.com/\(newUsername)"
@@ -463,41 +466,40 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             print("unknown app found: \(self.account.platform)")
             self.account.url = "\(newUsername)"
         }
-        
-        let postString = "{\"displayName\": \"\(self.account.displayName)\", \"platform\": \"\(self.account.platform)\", \"url\": \"\(self.account.url)\", \"username\": \"\(newUsername)\"}"
-        print(request)
-        print(postString)
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                sema.signal()
-                return
-            } else {
-                print("---no error----")
-            }
-            //////////////////////// New stuff from Tom
-            do {
-                print("decoding")
-                //let decoder = JSONDecoder()
-                print("getting data")
-                let response = try JSONSerialization.jsonObject(with: data!, options: [])
-                
-                //=======
-                print(response)
-                sema.signal();
-                //=======
-            } catch let err {
-                print("Err", err)
-                apps = returnList
-                sema.signal(); // none found TODO: do something better than this shit.
-            }
-            print("Done")
-            /////////////////////////
-        })
-        task.resume()
-        sema.wait(timeout: DispatchTime.distantFuture)
-        self.settingsAppsTableView.reloadData()
+        updateDisplayName()
+//        let postString = "{\"displayName\": \"\(self.account.displayName)\", \"platform\": \"\(self.account.platform)\", \"url\": \"\(self.account.url)\", \"username\": \"\(newUsername)\"}"
+//        print(request)
+//        print(postString)
+//        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+//            data, response, error in
+//            if error != nil {
+//                print("error=\(error)")
+//                sema.signal()
+//                return
+//            } else {
+//                print("---no error----")
+//            }
+//            //////////////////////// New stuff from Tom
+//            do {
+//                print("decoding")
+//                //let decoder = JSONDecoder()
+//                print("getting data")
+//                let response = try JSONSerialization.jsonObject(with: data!, options: []) as? Dictionary<String, AnyObject>
+//
+//                //=======
+//                print(response)
+//                sema.signal();
+//                //=======
+//            } catch let err {
+//                print("Err", err)
+//                sema.signal(); // none found TODO: do something better than this shit.
+//            }
+//            print("Done")
+//            /////////////////////////
+//        })
+//        task.resume()
+//        sema.wait(timeout: DispatchTime.distantFuture)
+//        loadAppsFromDB()
     }
     
     func deleteAccount(accountId: Int) {
@@ -509,7 +511,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         request.httpMethod = "DELETE"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-        
+        print(request)
         let task = URLSession.shared.dataTask(with: request, completionHandler: {
             data, response, error in
             if error != nil {
@@ -521,7 +523,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             //////////////////////// New stuff from Tom
             do {
-                let response = try JSONSerialization.data(withJSONObject: data!, options: [])
+                let response = try JSONSerialization.jsonObject(with: data!, options: []) as? Dictionary<String, AnyObject>
                 //=======
                 print(response)
                 sema.signal();
@@ -535,7 +537,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         })
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
-        self.settingsAppsTableView.reloadData()
+        loadAppsFromDB()
     }
     
     func loadCustomRefreshContents() {

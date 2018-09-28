@@ -425,7 +425,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.present(modalVC, animated: true, completion: nil)
             } else if value == "2" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
-                    self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                   // self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 let allAccounts = self.loadAppsFromDB()
                 modalVC.allAccounts = allAccounts
                 modalVC.accounts = self.profiles[indexPath.row].accounts
@@ -433,8 +433,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 modalVC.profileID = self.profiles[indexPath.row].profileId
                 modalVC.profileNameText = self.profiles[indexPath.row].name
                 modalVC.profileDescriptionText = self.profiles[indexPath.row].description
-                modalVC.modalTransitionStyle = .crossDissolve
-                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                //modalVC.modalTransitionStyle = .crossDissolve
+                //modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                 self.present(modalVC, animated: true, completion: nil)
             } else if value == "3" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
@@ -477,18 +477,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func loadProfiles(){
         profiles = []
-        if(AWSSignInManager.sharedInstance().isLoggedIn){
-            if(self.credentialsManager.identityID == nil){
-                credentialsManager.createCredentialsProvider()
-                self.credentialsManager.credentialsProvider.getIdentityId().continueWith { (task: AWSTask!) -> AnyObject! in
-                    
-                    if (task.error != nil) {
-                        print("ERROR: Unable to get ID. Error description: \(task.error!)")
-                        
-                    } else {
-                        print("Signed in user with the following ID:")
-                        let id = task.result! as? String
-                        self.credentialsManager.setIdentityID(id: id!)
+//        if(AWSSignInManager.sharedInstance().isLoggedIn){
+//            if(self.credentialsManager.identityID == nil){
+//                credentialsManager.createCredentialsProvider()
+//                self.credentialsManager.credentialsProvider.getIdentityId().continueWith { (task: AWSTask!) -> AnyObject! in
+//                    if (task.error != nil) {
+//                        print("ERROR: Unable to get ID. Error description: \(task.error!)")
+//
+//                    } else {
+//                        print("Signed in user with the following ID:")
+//                        let id = task.result! as? String
+//                        self.credentialsManager.setIdentityID(id: id!)
                         let idString = self.credentialsManager.identityID!
                         print(idString)
                         let sema = DispatchSemaphore(value: 0);
@@ -533,11 +532,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                         self.collectionView.reloadData()
                         self.collectionView.collectionViewLayout.invalidateLayout()
                         self.refreshControl.endRefreshing()
-                    }
-                    return nil
-                }
-            }
-        }
+            //        }
+             //       return nil
+             //   }
+           // }
+       // }
     }
     
     // TomMiller 2018/06/27 - Added struct to interact with JSON

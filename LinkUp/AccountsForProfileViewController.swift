@@ -10,7 +10,7 @@ import UIKit
 import FCAlertView
 import CDAlertView
 
-class AccountsForProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, HalfModalPresentable, FCAlertViewDelegate {
+class AccountsForProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FCAlertViewDelegate {
 
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var appsTableView: UITableView!
@@ -254,7 +254,8 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
     }
     
     @IBAction func cancel(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        print("cancel hit")
+       self.dismiss(animated: true, completion: nil) //self.navigationController?.popViewController(animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
