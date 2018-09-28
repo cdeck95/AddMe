@@ -477,51 +477,67 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func loadProfiles(){
         profiles = []
-        
-        let idString = self.credentialsManager.identityID!
-        print(idString)
-        let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/profiles")!)
-        request.httpMethod = "GET"
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                sema.signal()
-                return
-            } else {
-                print("---no error----")
-            }
-            //////////////////////// New stuff from Tom
-            do {
-                print("decoding")
-                let decoder = JSONDecoder()
-                print("getting data")
-                print(data)
-                print(response)
-                let JSONdata = try decoder.decode(PagedProfile.self, from: data!)
-                //=======
-                for index in 0...JSONdata.profiles.count - 1 {
-                    let profile = JSONdata.profiles[index]
-                    print(profile)
-                   self.profiles.append(profile)
+        if(AWSSignInManager.sharedInstance().isLoggedIn){
+            if(self.credentialsManager.identityID == nil){
+                credentialsManager.createCredentialsProvider()
+                self.credentialsManager.credentialsProvider.getIdentityId().continueWith { (task: AWSTask!) -> AnyObject! in
+                    
+                    if (task.error != nil) {
+                        print("ERROR: Unable to get ID. Error description: \(task.error!)")
+                        
+                    } else {
+                        print("Signed in user with the following ID:")
+                        let id = task.result! as? String
+                        self.credentialsManager.setIdentityID(id: id!)
+                        let idString = self.credentialsManager.identityID!
+                        print(idString)
+                        let sema = DispatchSemaphore(value: 0);
+                        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/profiles")!)
+                        request.httpMethod = "GET"
+                        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+                        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+                        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                            data, response, error in
+                            if error != nil {
+                                print("error=\(error)")
+                                sema.signal()
+                                return
+                            } else {
+                                print("---no error----")
+                            }
+                            //////////////////////// New stuff from Tom
+                            do {
+                                print("decoding")
+                                let decoder = JSONDecoder()
+                                print("getting data")
+                                print(data)
+                                print(response)
+                                let JSONdata = try decoder.decode(PagedProfile.self, from: data!)
+                                //=======
+                                for index in 0...JSONdata.profiles.count - 1 {
+                                    let profile = JSONdata.profiles[index]
+                                    print(profile)
+                                    self.profiles.append(profile)
+                                }
+                                sema.signal();
+                                //=======
+                            } catch let err {
+                                print("Err", err)
+                                sema.signal(); // none found TODO: do something better than this shit.
+                            }
+                            print("Done")
+                            /////////////////////////
+                        })
+                        task.resume()
+                        sema.wait(timeout: DispatchTime.distantFuture)
+                        self.collectionView.reloadData()
+                        self.collectionView.collectionViewLayout.invalidateLayout()
+                        self.refreshControl.endRefreshing()
+                    }
+                    return nil
                 }
-                sema.signal();
-                //=======
-            } catch let err {
-                print("Err", err)
-                sema.signal(); // none found TODO: do something better than this shit.
             }
-            print("Done")
-            /////////////////////////
-        })
-        task.resume()
-        sema.wait(timeout: DispatchTime.distantFuture)
-        self.collectionView.reloadData()
-        self.collectionView.collectionViewLayout.invalidateLayout()
-        self.refreshControl.endRefreshing()
+        }
     }
     
     // TomMiller 2018/06/27 - Added struct to interact with JSON

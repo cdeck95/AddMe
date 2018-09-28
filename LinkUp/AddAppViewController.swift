@@ -241,7 +241,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     // Adds a users account to the DB.
     func addToDB(account: PagedAccounts.Accounts){
         let identityId = self.credentialsManager.identityID!
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts")!)
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/accounts/")!)
         print(request)
         request.httpMethod = "POST"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
