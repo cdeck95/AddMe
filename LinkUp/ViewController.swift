@@ -69,6 +69,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("----in view did load----")
         loadCustomRefreshContents()
         // Configure Refresh Control
+        profiles = []
         refreshControl.addTarget(self, action: #selector(refreshAppData(_:)), for: .valueChanged)
         imagePicker.delegate = self
         createGradientLayer()
@@ -424,7 +425,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.present(modalVC, animated: true, completion: nil)
             } else if value == "2" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
-                    self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                   // self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 let allAccounts = self.loadAppsFromDB()
                 modalVC.allAccounts = allAccounts
                 modalVC.accounts = self.profiles[indexPath.row].accounts
@@ -432,8 +433,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 modalVC.profileID = self.profiles[indexPath.row].profileId
                 modalVC.profileNameText = self.profiles[indexPath.row].name
                 modalVC.profileDescriptionText = self.profiles[indexPath.row].description
-                modalVC.modalTransitionStyle = .crossDissolve
-                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                //modalVC.modalTransitionStyle = .crossDissolve
+                //modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                 self.present(modalVC, animated: true, completion: nil)
             } else if value == "3" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
@@ -452,7 +453,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @objc private func refreshAppData(_ sender: Any) {
         print("refreshAppData()")
-        fetchAppData()
+        if AWSSignInManager.sharedInstance().isLoggedIn {
+            fetchAppData()
+        }
     }
 
     private func fetchAppData() {
@@ -474,51 +477,66 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func loadProfiles(){
         profiles = []
-        
-        let idString = self.credentialsManager.identityID!
-        print(idString)
-        let sema = DispatchSemaphore(value: 0);
-        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/profiles")!)
-        request.httpMethod = "GET"
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print("error=\(error)")
-                sema.signal()
-                return
-            } else {
-                print("---no error----")
-            }
-            //////////////////////// New stuff from Tom
-            do {
-                print("decoding")
-                let decoder = JSONDecoder()
-                print("getting data")
-                print(data)
-                print(response)
-                let JSONdata = try decoder.decode(PagedProfile.self, from: data!)
-                //=======
-                for index in 0...JSONdata.profiles.count - 1 {
-                    let profile = JSONdata.profiles[index]
-                    print(profile)
-                   self.profiles.append(profile)
-                }
-                sema.signal();
-                //=======
-            } catch let err {
-                print("Err", err)
-                sema.signal(); // none found TODO: do something better than this shit.
-            }
-            print("Done")
-            /////////////////////////
-        })
-        task.resume()
-        sema.wait(timeout: DispatchTime.distantFuture)
-        self.collectionView.reloadData()
-        self.collectionView.collectionViewLayout.invalidateLayout()
-        self.refreshControl.endRefreshing()
+//        if(AWSSignInManager.sharedInstance().isLoggedIn){
+//            if(self.credentialsManager.identityID == nil){
+//                credentialsManager.createCredentialsProvider()
+//                self.credentialsManager.credentialsProvider.getIdentityId().continueWith { (task: AWSTask!) -> AnyObject! in
+//                    if (task.error != nil) {
+//                        print("ERROR: Unable to get ID. Error description: \(task.error!)")
+//
+//                    } else {
+//                        print("Signed in user with the following ID:")
+//                        let id = task.result! as? String
+//                        self.credentialsManager.setIdentityID(id: id!)
+                        let idString = self.credentialsManager.identityID!
+                        print(idString)
+                        let sema = DispatchSemaphore(value: 0);
+                        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/profiles")!)
+                        request.httpMethod = "GET"
+                        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+                        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+                        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+                            data, response, error in
+                            if error != nil {
+                                print("error=\(error)")
+                                sema.signal()
+                                return
+                            } else {
+                                print("---no error----")
+                            }
+                            //////////////////////// New stuff from Tom
+                            do {
+                                print("decoding")
+                                let decoder = JSONDecoder()
+                                print("getting data")
+                                print(data)
+                                print(response)
+                                let JSONdata = try decoder.decode(PagedProfile.self, from: data!)
+                                //=======
+                                for index in 0...JSONdata.profiles.count - 1 {
+                                    let profile = JSONdata.profiles[index]
+                                    print(profile)
+                                    self.profiles.append(profile)
+                                }
+                                sema.signal();
+                                //=======
+                            } catch let err {
+                                print("Err", err)
+                                sema.signal(); // none found TODO: do something better than this shit.
+                            }
+                            print("Done")
+                            /////////////////////////
+                        })
+                        task.resume()
+                        sema.wait(timeout: DispatchTime.distantFuture)
+                        self.collectionView.reloadData()
+                        self.collectionView.collectionViewLayout.invalidateLayout()
+                        self.refreshControl.endRefreshing()
+            //        }
+             //       return nil
+             //   }
+           // }
+       // }
     }
     
     // TomMiller 2018/06/27 - Added struct to interact with JSON
