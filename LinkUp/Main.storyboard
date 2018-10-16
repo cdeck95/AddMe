@@ -13,7 +13,7 @@
         <array key="Roboto-Bold.ttf">
             <string>Roboto-Bold</string>
         </array>
-        <array key="trench100free.ttf">
+        <array key="trench100free.otf">
             <string>Trench-Thin</string>
         </array>
     </customFonts>
@@ -48,7 +48,7 @@
                                                     <fontDescription key="fontDescription" name="Trench-Thin" family="Trench" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="UDT-OM-3Ze">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-2" translatesAutoresizingMaskIntoConstraints="NO" id="UDT-OM-3Ze">
                                                     <rect key="frame" x="0.0" y="0.0" width="344" height="164"/>
                                                 </imageView>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXp-ow-JfJ">
@@ -357,7 +357,7 @@
                                     <action selector="sendEmail:" destination="ISd-IL-6IN" eventType="touchUpInside" id="hzp-Bq-snK"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="nP3-FW-QjF">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-2" translatesAutoresizingMaskIntoConstraints="NO" id="nP3-FW-QjF">
                                 <rect key="frame" x="16" y="64" width="343" height="121"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -490,7 +490,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="wrW-6v-ex3">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-2" translatesAutoresizingMaskIntoConstraints="NO" id="wrW-6v-ex3">
                                 <rect key="frame" x="72" y="75" width="231" height="230"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="ndz-lO-Wx6"/>
@@ -1111,7 +1111,7 @@
                                     <action selector="takePhotoWithSender:" destination="beM-FT-25w" eventType="touchUpInside" id="Ign-N4-ZZS"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="1tr-mZ-jSV">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-2" translatesAutoresizingMaskIntoConstraints="NO" id="1tr-mZ-jSV">
                                 <rect key="frame" x="0.0" y="64" width="375" height="261"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1194,7 +1194,7 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="nez-qf-XoZ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-2" translatesAutoresizingMaskIntoConstraints="NO" id="nez-qf-XoZ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="274"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="274" id="CNY-Tf-u1X"/>
@@ -1231,7 +1231,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="rIX-j4-Cb7">
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo-2" translatesAutoresizingMaskIntoConstraints="NO" id="rIX-j4-Cb7">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
@@ -1618,6 +1618,7 @@
         <image name="Icon-20" width="20" height="27"/>
         <image name="Instagram_icon" width="599" height="600"/>
         <image name="Logo" width="1024" height="1024"/>
+        <image name="Logo-2" width="4268" height="4268"/>
         <image name="baseline_group_black_24pt" width="24" height="24"/>
         <image name="baseline_keyboard_arrow_right_black_18dp" width="18" height="18"/>
         <image name="custom" width="512" height="512"/>
@@ -1633,7 +1634,6 @@
         <image name="ic_refresh" width="24" height="24"/>
         <image name="ic_screen_share" width="24" height="24"/>
         <image name="ic_settings" width="24" height="24"/>
-        <image name="icon" width="60" height="60"/>
         <image name="linked_in_logo" width="597" height="336"/>
         <image name="play-station" width="2000" height="1522"/>
         <image name="snapchat_icon" width="400" height="400"/>

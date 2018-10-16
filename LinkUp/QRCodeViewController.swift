@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import AWSCognito
+import FCAlertView
 
 class QRCodeViewController: UIViewController,  FCAlertViewDelegate, HalfModalPresentable {
 
@@ -70,7 +71,7 @@ class QRCodeViewController: UIViewController,  FCAlertViewDelegate, HalfModalPre
         activityVC.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
         activityVC.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             if (error == nil) {
-                if (activityType == UIActivityType.saveToCameraRoll) {
+                if (activityType == UIActivity.ActivityType.saveToCameraRoll) {
                     let alert = FCAlertView()
                     alert.delegate = self
                     alert.colorScheme = Color.bondiBlue.value
@@ -82,7 +83,7 @@ class QRCodeViewController: UIViewController,  FCAlertViewDelegate, HalfModalPre
                                     andButtons: [])
                     
                     return
-                } else if (activityType == UIActivityType.copyToPasteboard) {
+                } else if (activityType == UIActivity.ActivityType.copyToPasteboard) {
                     let alert = FCAlertView()
                     alert.delegate = self
                     alert.colorScheme = Color.bondiBlue.value

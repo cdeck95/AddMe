@@ -20,7 +20,7 @@ class LaunchScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //createGradientLayer()
+        createGradientLayer()
         self.navigationController?.navigationBar.isHidden = true
         
         // Do any additional setup after loading the view.
@@ -33,7 +33,7 @@ class LaunchScreenViewController: UIViewController {
         animatedView = AnimatedLaunchScreen(containerView: animationView)
         self.animationView.addSubview(animatedView)
         self.animationView.bringSubviewToFront(animatedView)
-        self.view.bringSubviewToFront(animationView)
+        //self.view.bringSubviewToFront(animationView)
         gradient.frame = imageView.bounds
         animatedView.animate()
         showSplashViewController()
@@ -75,9 +75,9 @@ class LaunchScreenViewController: UIViewController {
         gradientView.layer.addSublayer(gradient)
         //self.view.layer.insertSublayer(gradient, at: 0)
         
-        imageView.addSubview(view)
+    //    imageView.addSubview(view)
 //        
-        imageView.bringSubviewToFront(view)
+    //    imageView.bringSubviewToFront(view)
 //        gradient.frame = view.bounds
 //       // gradientLayer.colors = [UIColor.blue.cgColor, UIColor.white.cgColor]
 //        gradient.colors = [UIColor(red: 0.47, green: 0.79, blue: 0.83, alpha: 1), UIColor(red: 0.34, green: 0.74, blue: 0.56, alpha: 1)]
