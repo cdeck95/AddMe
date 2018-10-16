@@ -10,8 +10,9 @@ import UIKit
 import AVFoundation
 import SafariServices
 import GoogleMobileAds
+import FCAlertView
 
-class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate {
+class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate, FCAlertViewDelegate {
     
    // var profiles: [PagedProfile.Profile]!
     var credentialsManager = CredentialsManager.sharedInstance
@@ -329,11 +330,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 }
                 //////////////////////// New stuff from Tom
                 do {
-                    print("decoding")
                     let decoder = JSONDecoder()
-                    print("getting data")
-                   // print(data)
-                    print(response)
+                    let parser = APIMessageParser(received: response.debugDescription, parent: self)
                     let profile = try decoder.decode(SingleProfile.self, from: data!)
                     //let profile = (try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)) //as? SingleProfile
                     print(profile)

@@ -18,7 +18,6 @@ import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
 import GoogleMobileAds
-import CDAlertView
 import FCAlertView
 import Sheeeeeeeeet
 import SideMenuSwift
@@ -66,7 +65,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("----in view did load----")
         loadCustomRefreshContents()
         // Configure Refresh Control
         profiles = []
@@ -94,7 +92,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("----in view will appear----")
         self.tabBarController?.tabBar.isHidden = false
         presentAuthUIViewController()
         refreshAppData(self)
@@ -102,7 +99,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func presentAuthUIViewController() {
-        print("presentAuthUIViewController()")
         let config = AWSAuthUIConfiguration()
         config.enableUserPoolsUI = true
         config.addSignInButtonView(class: AWSFacebookSignInButton.self)
@@ -112,7 +108,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         config.font = UIFont (name: "Helvetica Neue", size: 14)
         config.canCancel = true
         
-        print("in present auth ui method")
         if !AWSSignInManager.sharedInstance().isLoggedIn {
             AWSAuthUIViewController
                 .presentViewController(with: self.navigationController!,
@@ -179,7 +174,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
  
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
-        print("getFBUserInfo()")
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
         request.start { (response, result) in
             switch result {
@@ -206,7 +200,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func createQRCode(_ sender: Any) {
        // loadApps()
         var jsonStringAsArray = "{\n"
-        print("createQRCode()")
         if(cellSwitches.count > 0){
             for index in 0...cellSwitches.count - 1{
                 let isSelectedForQRCode = cellSwitches[index].appSwitch.isOn
@@ -333,13 +326,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return 10.0
     }
     
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            let count = profiles.count + 1
-            pageControl.numberOfPages = count
-            print(profiles)
-            print("--------------------")
-            return profiles.count + 1
-        }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let count = profiles.count + 1
+        pageControl.numberOfPages = count
+        return profiles.count + 1
+    }
     
     @objc func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
@@ -364,7 +355,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(indexPath.row == profiles.count){
-            print("will show add more")
             let alert = FCAlertView()
             alert.delegate = self
             alert.colorScheme = Color.bondiBlue.value
@@ -383,7 +373,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             andButtons: ["Cancel"])
             return
         } else {
-            print("will show options")
             let actionSheet = createStandardActionSheet(indexPath: indexPath)
             actionSheet.present(in: self, from: self.view)
         }
@@ -391,14 +380,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func fcAlertDoneButtonClicked(_ alertView: FCAlertView){
         // Done Button was Pressed, Perform the Action you'd like here.
+        print("Done button")
         let profileName = newProfileName
         print(profileName)
         let profileDescription = newProfileDesc
         print(profileDescription)
-        self.addProfile(profileName: profileName!, profileDescription: profileDescription!)
+        if ((profileName?.count)! > 0 && (profileDescription?.count)! > 0){
+            self.addProfile(profileName: profileName!, profileDescription: profileDescription!)
+        }else{
+            print("Empty fields while adding a new profile")
+        }
     }
     
     func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
+        print("CreateStandardActionSheet")
         let title = ActionSheetTitle(title: "Select an option")
         let item1 = ActionSheetItem(title: "View Code", value: "1", image: UIImage(named: "baseline_pageview_black_18pt"))
         let item2 = ActionSheetItem(title: "Edit Profile", value: "2", image: UIImage(named: "baseline_create_black_18pt"))
@@ -440,7 +435,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
                 
                 let qrCodeString = "{\"profileId\": \"\(self.profiles[indexPath.row].profileId)\"}"
-                print(qrCodeString)
                 modalVC.profileId = self.profiles[(indexPath.row)].profileId
                 modalVC.shouldShare = true
                 self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
@@ -452,14 +446,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @objc private func refreshAppData(_ sender: Any) {
-        print("refreshAppData()")
         if AWSSignInManager.sharedInstance().isLoggedIn {
             fetchAppData()
         }
     }
 
     private func fetchAppData() {
-        print("fetchAppData()")
         loadProfiles()
        // self.updateView()
     }
@@ -467,7 +459,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     
     func loadCustomRefreshContents() {
-        
         if #available(iOS 10.0, *) {
             collectionView.refreshControl = refreshControl
         } else {
@@ -479,7 +470,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         profiles = []
         
         let idString = self.credentialsManager.identityID!
-        print(idString)
         let sema = DispatchSemaphore(value: 0);
         var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/profiles")!)
         request.httpMethod = "GET"
@@ -496,25 +486,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             //////////////////////// New stuff from Tom
             do {
-                print("decoding")
                 let decoder = JSONDecoder()
-                print("getting data")
-                print(data)
-                print(response)
+                let parser = APIMessageParser(received: response.debugDescription, parent: self)
                 let JSONdata = try decoder.decode(PagedProfile.self, from: data!)
-                //=======
                 for index in 0...JSONdata.profiles.count - 1 {
                     let profile = JSONdata.profiles[index]
-                    print(profile)
                    self.profiles.append(profile)
                 }
                 sema.signal();
-                //=======
             } catch let err {
                 print("Err", err)
                 sema.signal(); // none found TODO: do something better than this shit.
             }
-            print("Done")
             /////////////////////////
         })
         task.resume()
@@ -534,10 +517,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
 //    ///////////////////////////// NEW STUFF /////////////////////////////////
     func loadAppsFromDB() -> [PagedAccounts.Accounts] {
-        print("RIGHT HERE")
         var returnList: [PagedAccounts.Accounts] = []
         let idString = self.credentialsManager.identityID!
-        print(idString)
         let sema = DispatchSemaphore(value: 0);
         var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts")!)
         request.httpMethod = "GET"
@@ -555,23 +536,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             //////////////////////// New stuff from Tom
             do {
-                print("decoding")
                 let decoder = JSONDecoder()
-                print("getting data")
+                let parser = APIMessageParser(received: response.debugDescription, parent: self)
                 let JSONdata = try decoder.decode(PagedAccounts.self, from: data!)
-                //=======
                 for index in 0...JSONdata.accounts.count - 1 {
                     let account = JSONdata.accounts[index]
-                    print(account)
                     returnList.append(account)
                 }
                 sema.signal();
-                //=======
             } catch let err {
                 print("Err", err)
                 sema.signal(); // none found TODO: do something better than this shit.
             }
-            print("Done")
             /////////////////////////
         })
         task.resume()
@@ -585,7 +561,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let sema = DispatchSemaphore(value: 0);
             let identityId = self.credentialsManager.identityID!
             var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/profiles/")!)
-            print("Request: \(request)")
             request.httpMethod = "POST"
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
@@ -620,10 +595,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 success = true
                 let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
                 var responseOne = responseString
-                print("Response \(responseOne!)")
                 do {
                     let decoder = JSONDecoder()
-                    print("getting data")
+//                    let parcer = APIMessageParser(received: response.debugDescription, parent: self)
+//                    print(parcer.getTitle())
+                    
+                    let alert = FCAlertView()
+                                alert.delegate = self
+                                alert.colorScheme = Color.bondiBlue.value
+                                alert.makeAlertTypeSuccess()
+                                alert.showAlert(inView: self,
+                                                withTitle: "Success!",
+                                                withSubtitle: "Your account has been added to the database.",
+                                                withCustomImage: nil,
+                                                withDoneButtonTitle: nil,
+                                                andButtons: [])
+                    
                     profile = try decoder.decode(SingleProfile.self, from: data!)
                 } catch let err {
                     print("Err", err)
@@ -635,7 +622,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         if(success){
-            CDAlertView(title: "Success!", message: "Your account is now added to the database", type: .success).show()
+//            let alert = FCAlertView()
+//            alert.delegate = self
+//            alert.colorScheme = Color.bondiBlue.value
+//            alert.showAlert(inView: self,
+//                            withTitle: "Success!",
+//                            withSubtitle: "Your account has been added to the database.",
+//                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+//                            withDoneButtonTitle: nil,
+//                            andButtons: [])
             let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
             self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
             modalVC.allAccounts = allAccounts
@@ -648,17 +643,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
             self.present(modalVC, animated: true, completion: nil)
         } else{
-            CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+            print("Need to handle error here")
+//            let alert = FCAlertView()
+//            alert.delegate = self
+//            alert.colorScheme = Color.bondiBlue.value
+//            alert.showAlert(inView: self,
+//                            withTitle: "Oops!",
+//                            withSubtitle: "Something went wrong. Please try again. If this keeps happening, contact our support team and we will be happy to assist.",
+//                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+//                            withDoneButtonTitle: nil,
+//                            andButtons: [])
         }
     }
     
     func deleteProfile(profileId: Int){
-        // Adds a users account to the DB.
         var success = true
         let sema = DispatchSemaphore(value: 0);
         let identityId = self.credentialsManager.identityID!
         var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(identityId)/profiles/\(profileId)")!)
-        print("Request: \(request)")
         request.httpMethod = "DELETE"
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
@@ -674,15 +676,33 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             success = true
             let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             var responseOne = responseString
-            print("Response \(responseOne!)")
             sema.signal()
         })
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         if(success){
-            CDAlertView(title: "Success!", message: "Your account is now deleted from the database", type: .success).show()
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            alert.showAlert(inView: self,
+                            withTitle: "Success!",
+                            withSubtitle: "Your account has been deleted.",
+                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withDoneButtonTitle: nil,
+                            andButtons: ["Ok"])
+            alert.hideDoneButton = true
+            loadProfiles()
         } else{
-            CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            alert.showAlert(inView: self,
+                            withTitle: "Uh Oh!",
+                            withSubtitle: "Something went wrong. Please try again. If this keeps happening, contact our support team and we will be happy to assist.",
+                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withDoneButtonTitle: nil,
+                            andButtons: ["Ok"])
+            alert.hideDoneButton = true
         }
     }
 }
@@ -700,12 +720,10 @@ extension UICollectionView {
 //            return
 //        }
         guard let cellLayout = layoutAttributesForItem(at: indexPath) else {
-             print("in cell layout else")
             return
         }
         
         var offset = targetOffset.pointee
-        print("made it here in snap")
         if velocity.x < 0 {
             offset.x = cellLayout.frame.minX - max(contentInset, spacing)
         } else {
