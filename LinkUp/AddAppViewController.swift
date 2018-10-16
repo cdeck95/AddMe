@@ -12,7 +12,6 @@ import AWSFacebookSignIn
 import AWSAuthUI
 import FacebookCore
 import AWSDynamoDB
-import CDAlertView
 import FBSDKLoginKit
 import FCAlertView
 
@@ -263,7 +262,15 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             print(responseOne!)
         })
         task.resume()
-        CDAlertView(title: "Success!", message: "Your account is now added to the database", type: .success).show()
+        let alert = FCAlertView()
+        alert.delegate = self
+        alert.colorScheme = Color.bondiBlue.value
+        alert.showAlert(inView: self,
+                        withTitle: "Success!",
+                        withSubtitle: "Your account is now added to the database.",
+                        withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                        withDoneButtonTitle: nil,
+                        andButtons: ["Ok"])
     }
     
     // This will check some things to avoid adding duplicate entries for a user.
@@ -332,9 +339,8 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             }
             //////////////////////// New stuff from Tom
             do {
-                print("decoding")
                 let decoder = JSONDecoder()
-                print("getting data")
+                let parser = APIMessageParser(received: response.debugDescription, parent: self.inputViewController!)
                 let JSONdata = try decoder.decode(PagedAccounts.self, from: data!)
                 //=======
                 for index in 0...JSONdata.accounts.count - 1 {
@@ -359,34 +365,38 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
     func fcAlertDoneButtonClicked(_ alertView: FCAlertView!) {
         print("done button clicked")
         var url = ""
-        switch self.accountPlatform {
-        case "Facebook":
-            url = "https://www.facebook.com/\(accountUsername!)"
-        case "Twitter":
-            url = "https://www.twitter.com/\(accountUsername!)"
-        case "Instagram":
-            url = "https://www.instagram.com/\(accountUsername!)"
-        case "Snapchat":
-            url = "https://www.snapchat.com/add/\(accountUsername!)"
-        case "LinkedIn":
-            url = "https://www.linkedin.com/in/\(accountUsername!)"
-        case "GooglePlus":
-            url = "https://plus.google.com/\(accountUsername!)"
-        case "Xbox":
-            let usernameURL = accountUsername!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-            url = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
-        case "PSN":
-            let usernameURL = accountUsername!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
-            url = "https://my.playstation.com/profile/\(usernameURL!)"
-        case "Twitch":
-            url  = "https://m.twitch.tv/\(accountUsername!)/profile"
-        case "Custom":
-            url  = "\(accountUsername)"
-        default:
-            print("unknown app found: \(self.accountPlatform)")
-            url = "\(accountUsername!)"
+        if (self.accountUsername.count > 0 && self.accountPlatform.count > 0){
+            switch self.accountPlatform {
+            case "Facebook":
+                url = "https://www.facebook.com/\(accountUsername!)"
+            case "Twitter":
+                url = "https://www.twitter.com/\(accountUsername!)"
+            case "Instagram":
+                url = "https://www.instagram.com/\(accountUsername!)"
+            case "Snapchat":
+                url = "https://www.snapchat.com/add/\(accountUsername!)"
+            case "LinkedIn":
+                url = "https://www.linkedin.com/in/\(accountUsername!)"
+            case "GooglePlus":
+                url = "https://plus.google.com/\(accountUsername!)"
+            case "Xbox":
+                let usernameURL = accountUsername!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                url = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
+            case "PSN":
+                let usernameURL = accountUsername!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+                url = "https://my.playstation.com/profile/\(usernameURL!)"
+            case "Twitch":
+                url  = "https://m.twitch.tv/\(accountUsername!)/profile"
+            case "Custom":
+                url  = "\(accountUsername)"
+            default:
+                print("unknown app found: \(self.accountPlatform)")
+                url = "\(accountUsername!)"
+            }
+            let account = PagedAccounts.Accounts(accountId: -1, userId: -1, cognitoId: credentialsManager.identityID, displayName: accountName, platform: accountPlatform, url: url, username: accountUsername!)
+            self.addToDB(account: account)
+        }else{
+            print("Empty fields while adding new social media account")
         }
-        let account = PagedAccounts.Accounts(accountId: -1, userId: -1, cognitoId: credentialsManager.identityID, displayName: accountName, platform: accountPlatform, url: url, username: accountUsername!)
-        self.addToDB(account: account)
     }
 }

@@ -11,8 +11,9 @@ import AVFoundation
 import SafariServices
 import GoogleMobileAds
 import TransitionButton
+import FCAlertView
 
-class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate, UIPopoverControllerDelegate {
+class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate, UIPopoverControllerDelegate, FCAlertViewDelegate {
     
     var gradient:CAGradientLayer!
     var credentialsManager = CredentialsManager.sharedInstance
@@ -294,9 +295,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate, U
                 }
                 //////////////////////// New stuff from Tom
                 do {
-                    print("decoding")
                     let decoder = JSONDecoder()
-                    print("getting data")
+                    let parser = APIMessageParser(received: response.debugDescription, parent: self.inputViewController!)
                     print(data)
                     print(response)
                     let profile = try decoder.decode(SingleProfile.self, from: data!)

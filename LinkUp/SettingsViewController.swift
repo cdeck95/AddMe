@@ -8,7 +8,6 @@
 
 import UIKit
 import AWSCognito
-import CDAlertView
 import FCAlertView
 import Sheeeeeeeeet
 
@@ -355,9 +354,8 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             //////////////////////// New stuff from Tom
             do {
-                print("decoding")
                 let decoder = JSONDecoder()
-                print("getting data")
+                let parser = APIMessageParser(received: response.debugDescription, parent: self.inputViewController!)
                 let pagedAccounts = try decoder.decode(PagedAccounts.self, from: data!)
                 //=======
                 for index in 0...pagedAccounts.accounts.count - 1 {

@@ -64,6 +64,7 @@
 		DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */; };
 		DAF0791E21265CD90001B961 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0791D21265CD90001B961 /* Extensions.swift */; };
 		DAF079202126FBBE0001B961 /* AccountsForProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0791F2126FBBE0001B961 /* AccountsForProfileViewController.swift */; };
+		E231768E216D934A00A32861 /* APIMessageParser .swift in Sources */ = {isa = PBXBuildFile; fileRef = E231768D216D934A00A32861 /* APIMessageParser .swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,6 +130,7 @@
 		DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalTransitioningDelegate.swift; sourceTree = "<group>"; };
 		DAF0791D21265CD90001B961 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DAF0791F2126FBBE0001B961 /* AccountsForProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsForProfileViewController.swift; sourceTree = "<group>"; };
+		E231768D216D934A00A32861 /* APIMessageParser .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIMessageParser .swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 				DAD96CFB2044C1FF00F1525E /* CustomButton.swift */,
 				DA1B39F92117C070008CE7C6 /* Dataset.swift */,
 				DAF0791D21265CD90001B961 /* Extensions.swift */,
+				E231768D216D934A00A32861 /* APIMessageParser .swift */,
 				DAD432FE203F9AE30033EF35 /* FacebookProvider.swift */,
 				DA68505C205B5FA300BA36DE /* HelpViewController.swift */,
 				DACCF2632131C86100FAD6B5 /* HelpTableViewCell.swift */,
@@ -345,7 +348,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LinkUp/Pods-LinkUp-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -354,7 +357,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LinkUp/Pods-LinkUp-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BDF905B8AE11B16302A9CA90 /* [CP] Check Pods Manifest.lock */ = {
@@ -381,7 +384,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ACFloatingTextfield-Objc/ACFloatingTextfield_Objc.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSAuthCore/AWSAuthCore.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSAuthUI/AWSAuthUI.framework",
@@ -452,7 +455,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LinkUp/Pods-LinkUp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -505,6 +508,7 @@
 				DACEDEC120914EBB0011F978 /* LogoutViewController.swift in Sources */,
 				DAF0791E21265CD90001B961 /* Extensions.swift in Sources */,
 				DA1B39F22116366E008CE7C6 /* LaunchScreenViewController.swift in Sources */,
+				E231768E216D934A00A32861 /* APIMessageParser .swift in Sources */,
 				DAD96D002045F59F00F1525E /* CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -637,7 +641,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YL6P5CDG5A;
+				DEVELOPMENT_TEAM = DH5ERNNE66;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -645,7 +649,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/LinkUp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = chrisdeck;
+				PRODUCT_BUNDLE_IDENTIFIER = tommillerable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -660,7 +664,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YL6P5CDG5A;
+				DEVELOPMENT_TEAM = DH5ERNNE66;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -668,7 +672,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/LinkUp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = chrisdeck;
+				PRODUCT_BUNDLE_IDENTIFIER = tommillerable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;

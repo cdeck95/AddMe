@@ -8,11 +8,11 @@
 
 import UIKit
 import Foundation
-import CDAlertView
 import AWSCognito
 import EFQRCode
+import FCAlertView
 
-class QRCodeViewController: UIViewController, HalfModalPresentable {
+class QRCodeViewController: UIViewController,  FCAlertViewDelegate, HalfModalPresentable {
 
     @IBOutlet weak var QRCode: UIImageView!
     var dataset: AWSCognitoDataset!
@@ -186,16 +186,41 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
         activityVC.completionWithItemsHandler = {(activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             if (error == nil) {
                 if (activityType == UIActivityType.saveToCameraRoll) {
-                    CDAlertView(title: "Success!", message: "Your QR code is now saved to your camera roll!", type: .success).show()
+                    let alert = FCAlertView()
+                    alert.delegate = self
+                    alert.colorScheme = Color.bondiBlue.value
+                    alert.showAlert(inView: self,
+                                    withTitle: "Success!",
+                                    withSubtitle: "Your QR code is now saved to your camera roll!",
+                                    withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                    withDoneButtonTitle: "Okay",
+                                    andButtons: [])
+                    
                     return
                 } else if (activityType == UIActivityType.copyToPasteboard) {
-                    CDAlertView(title: "Success!", message: "Your QR code is now copied to your Pasteboard!", type: .success).show()
+                    let alert = FCAlertView()
+                    alert.delegate = self
+                    alert.colorScheme = Color.bondiBlue.value
+                    alert.showAlert(inView: self,
+                                    withTitle: "Success!",
+                                    withSubtitle: "Your QR code is now copied to your Pasteboard!",
+                                    withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                    withDoneButtonTitle: "Okay",
+                                    andButtons: [])
                     return
                 } else if (activityType == UIActivityType.message) {
                     self.dismiss(animated: false, completion: nil)
                 }
             } else {
-                CDAlertView(title: "Uh Oh!", message: "Something went wrong. Please try again. If this keeps happening, contact our support team and we will be happy to assist.", type: .error).show()
+                let alert = FCAlertView()
+                alert.delegate = self
+                alert.colorScheme = Color.bondiBlue.value
+                alert.showAlert(inView: self,
+                                withTitle: "Uh Oh!",
+                                withSubtitle: "Something went wrong. Please try again. If this keeps happening, contact our support team and we will be happy to assist.",
+                                withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                withDoneButtonTitle: "Okay",
+                                andButtons: [])
                 print(error)
                 return
             }

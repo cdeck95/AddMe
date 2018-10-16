@@ -68,7 +68,7 @@
                                                         <fragment content="Going out">
                                                             <attributes>
                                                                 <color key="NSColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="NSFont" size="24" name="Trench-Thin"/>
+                                                                <font key="NSFont" metaFont="system" size="24"/>
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
@@ -272,7 +272,7 @@
         <!--Help-->
         <scene sceneID="ROI-b7-Jnk">
             <objects>
-                <viewController title="Help" id="ISd-IL-6IN" customClass="HelpViewController" customModule="LinkUp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Help" title="Help" id="ISd-IL-6IN" customClass="HelpViewController" customModule="LinkUp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zUU-Hi-49w">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
