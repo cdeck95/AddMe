@@ -79,7 +79,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate,
             if (text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""){
                print("They didn't enter any details")
                 let alert = UIAlertController(title: "Enter more details please.", message: "It's important that you let us know what went wrong, so we can fix it for you in the future.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+                //alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
                 self.present(alert, animated: true)
             }else{
                 self.present(mailComposeViewController, animated: true, completion: nil)
