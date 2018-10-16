@@ -198,11 +198,8 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
             }
             //////////////////////// New stuff from Tom
             do {
-                print("decoding")
                 let decoder = JSONDecoder()
-                print("getting data")
-                print(data)
-                print(response)
+                let parser = APIMessageParser(received: response.debugDescription, parent: self.inputViewController!)
                 let JSONdata = try decoder.decode(PagedScans.self, from: data!)
                 //=======
                 if(JSONdata.scanned_profiles.count > 0){

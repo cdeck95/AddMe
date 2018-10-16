@@ -334,14 +334,27 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         if(success){
-            //TODO: make FCAlertView
-            //CDAlertView(title: "Success!", message: "Your profile has been updated", type: .success).show()
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            alert.showAlert(inView: self,
+                            withTitle: "Success!",
+                            withSubtitle: "Your profile has been updated.",
+                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withDoneButtonTitle: "Okay",
+                            andButtons: [])
         } else{
-            //TODO: make FCAlertView
-            //CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            alert.showAlert(inView: self,
+                            withTitle: "Oops!",
+                            withSubtitle: "Something went wrong. Try again. If this keeps happening, contact support.",
+                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withDoneButtonTitle: "Okay",
+                            andButtons: [])
         }
     }
-    
 }
 
 extension PagedProfile.Profile {
