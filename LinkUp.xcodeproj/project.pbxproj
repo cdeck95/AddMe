@@ -40,7 +40,6 @@
 		DA929D7D212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */; };
 		DAA7D4E32085690F00E62E04 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */; };
 		DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA7D4E8208598D800E62E04 /* ProfileImage.swift */; };
-		DAC9C098211E44B60004170F /* TabBarControllerSwipeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */; };
 		DACCF2642131C86100FAD6B5 /* HelpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACCF2632131C86100FAD6B5 /* HelpTableViewCell.swift */; };
 		DACCF2682131DBD100FAD6B5 /* Raleway in Resources */ = {isa = PBXBuildFile; fileRef = DACCF2662131DBD000FAD6B5 /* Raleway */; };
 		DACCF2692131DBD100FAD6B5 /* Comfortaa in Resources */ = {isa = PBXBuildFile; fileRef = DACCF2672131DBD100FAD6B5 /* Comfortaa */; };
@@ -107,7 +106,6 @@
 		DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPeekingPagesCollectionViewController.swift; sourceTree = "<group>"; };
 		DAA7D4E22085690F00E62E04 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		DAA7D4E8208598D800E62E04 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
-		DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarControllerSwipeExtension.swift; sourceTree = "<group>"; };
 		DACCF2632131C86100FAD6B5 /* HelpTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpTableViewCell.swift; sourceTree = "<group>"; };
 		DACCF2662131DBD000FAD6B5 /* Raleway */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Raleway; sourceTree = "<group>"; };
 		DACCF2672131DBD100FAD6B5 /* Comfortaa */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Comfortaa; sourceTree = "<group>"; };
@@ -225,7 +223,6 @@
 				DAD96CF72043522C00F1525E /* SettingsViewController.swift */,
 				DA72C4152148B8250053F672 /* SingleProfile.swift */,
 				DA72C4112141DFE60053F672 /* SingleProfileViewController.swift */,
-				DAC9C097211E44B60004170F /* TabBarControllerSwipeExtension.swift */,
 				DA6A7EEB2037859800E79B47 /* ViewController.swift */,
 				DA72C3E721375E940053F672 /* EFIntSize.swift */,
 				DA929D7C212FA8C900CEFBD6 /* HorizontalPeekingPagesCollectionViewController.swift */,
@@ -497,7 +494,6 @@
 				DAA7D4E9208598D800E62E04 /* ProfileImage.swift in Sources */,
 				DAD432FF203F9AE30033EF35 /* FacebookProvider.swift in Sources */,
 				DAD4330520411FB60033EF35 /* ScannerViewController.swift in Sources */,
-				DAC9C098211E44B60004170F /* TabBarControllerSwipeExtension.swift in Sources */,
 				DAD432F9203D03F70033EF35 /* User.swift in Sources */,
 				DADA5B5F208BCEB4009BC5B2 /* ChooseSettingsTableViewCell.swift in Sources */,
 				DAE3A2AF2093D775002689BA /* HalfModalInteractiveTransition.swift in Sources */,
@@ -642,7 +638,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 82DE575B515AAA97684789E8 /* Pods-LinkUp.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DH5ERNNE66;
@@ -665,7 +661,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D549C2ED06E508209DBCB84D /* Pods-LinkUp.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-3";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DH5ERNNE66;

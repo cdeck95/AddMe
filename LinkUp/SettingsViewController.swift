@@ -9,6 +9,7 @@
 import UIKit
 import AWSCognito
 import FCAlertView
+import Sheeeeeeeeet
 
 class SettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FCAlertViewDelegate{
 
@@ -17,6 +18,10 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     var dataset: AWSCognitoDataset!
     var customView: UIView!
     var labelsArray: Array<UILabel> = []
+    var newDisplayName:String = ""
+    var newUsername:String = ""
+    var account:PagedAccounts.Accounts!
+    var flag:Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,30 +144,110 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alert = FCAlertView()
-        alert.delegate = self
-        alert.colorScheme = Color.bondiBlue.value
-        let cell = tableView.cellForRow(at: indexPath) as! SettingsTableViewCell
-        alert.addTextField(withPlaceholder: cell.nameLabel.text) { (text) in
-            self.settingsAppsTableView.deselectRow(at: indexPath, animated: true)
-            print(text!)
-        }
-        alert.addTextField(withPlaceholder: cell.usernameLabel.text) { (text) in
-            self.settingsAppsTableView.deselectRow(at: indexPath, animated: true)
-            print(text!)
-        }
-        
-        alert.showAlert(inView: self,
-                        withTitle: "Edit Account",
-                        withSubtitle: "Please update your account information.",
-                        withCustomImage: cell.appImage.image,
-                        withDoneButtonTitle: "Update",
-                        andButtons: ["Cancel"])
-        return
+        let actionSheet = createStandardActionSheet(indexPath: indexPath)
+        actionSheet.present(in: self, from: self.view)
     }
     
-
+    func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
+        let title = ActionSheetTitle(title: "Select an option")
+        let item1 = ActionSheetItem(title: "Edit Display Name", value: "1", image: UIImage(named: "baseline_create_black_18pt"))
+        let item2 = ActionSheetItem(title: "Edit Username", value: "2", image: UIImage(named: "baseline_create_black_18pt"))
+        let deleteButton = ActionSheetDangerButton(title: "Delete Profile")
+        let button = ActionSheetOkButton(title: "Cancel")
+        return ActionSheet(items: [title, item1, item2, deleteButton, button]) { _, item in
+            
+            guard let value = item.value as? String else {
+                if item is ActionSheetDangerButton {
+                    self.deleteAccount(accountId: apps[indexPath.row].accountId)
+                }
+                return
+            }
+            
+            self.account = apps[indexPath.row]
+            
+            if value == "1" {
+                let alert = FCAlertView()
+                alert.delegate = self
+                alert.colorScheme = Color.bondiBlue.value
+                let cell = self.settingsAppsTableView.cellForRow(at: indexPath) as! SettingsTableViewCell
+                alert.addTextField(withPlaceholder: cell.nameLabel.text) { (text) in
+                    self.settingsAppsTableView.deselectRow(at: indexPath, animated: true)
+                    if(text != ""){
+                        self.newDisplayName = text!
+                        //self.account = apps[indexPath.row]
+                        self.flag = 1
+                        print(text!)
+                    }
+                    
+                }
+                
+                alert.showAlert(inView: self,
+                                withTitle: "Edit Account",
+                                withSubtitle: "Please update your account information.",
+                                withCustomImage: cell.appImage.image,
+                                withDoneButtonTitle: "Update",
+                                andButtons: ["Cancel"])
+                return
+            } else if value == "2" {
+                let alert = FCAlertView()
+                alert.delegate = self
+                alert.colorScheme = Color.bondiBlue.value
+                let cell = self.settingsAppsTableView.cellForRow(at: indexPath) as! SettingsTableViewCell
+                alert.addTextField(withPlaceholder: cell.usernameLabel.text) { (text) in
+                    self.settingsAppsTableView.deselectRow(at: indexPath, animated: true)
+                    if(text != ""){
+                        print(text!)
+                        self.newUsername = text!
+                      //  self.account = apps[indexPath.row]
+                        self.flag = 2
+                    }
+                }
+                
+                alert.showAlert(inView: self,
+                                withTitle: "Edit Account",
+                                withSubtitle: "Please update your account username.",
+                                withCustomImage: cell.appImage.image,
+                                withDoneButtonTitle: "Update",
+                                andButtons: ["Cancel"])
+            }
+        }
+    }
     
+    func fcAlertDoneButtonClicked(_ alertView: FCAlertView!) {
+        if(flag == 2 && self.newUsername != ""){
+            updateUsername()
+        } else if (flag == 2 && self.newUsername == ""){
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            
+            alert.showAlert(inView: self,
+                            withTitle: "Error",
+                            withSubtitle: "Please enter some text to update.",
+                            withCustomImage: UIImage(named: "AppIcon-3"),
+                            withDoneButtonTitle: nil,
+                            andButtons: ["OK"])
+            alert.hideDoneButton = true
+            
+        }
+        if(flag == 1 && newDisplayName != ""){
+            self.account.displayName = newDisplayName
+            updateDisplayName()
+        } else if (flag == 1 && newDisplayName == ""){
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+
+            alert.showAlert(inView: self,
+                            withTitle: "Error",
+                            withSubtitle: "Please enter some text to update.",
+                            withCustomImage: UIImage(named: "AppIcon-3"),
+                            withDoneButtonTitle: nil,
+                            andButtons: ["OK"])
+             alert.hideDoneButton = true
+
+        }
+    }
     
     
     @objc func switched(s: UISwitch){
@@ -291,6 +376,166 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         self.settingsAppsTableView.reloadData()
+    }
+    
+    ///////////////////////////// NEW STUFF /////////////////////////////////
+    func updateDisplayName() {
+        print("RIGHT HERE")
+        var returnList: [PagedAccounts.Accounts] = []
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/\(self.account.accountId)")!)
+        request.httpMethod = "PUT"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+        
+        let postString = "{\"displayName\": \"\(self.account.displayName)\", \"platform\": \"\(self.account.platform)\", \"url\": \"\(self.account.url)\", \"username\": \"\(self.account.username)\"}"
+        print(postString)
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+        request.httpBody = postString.data(using: String.Encoding.utf8)
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                sema.signal()
+                return
+            } else {
+                print("---no error----")
+            }
+            //////////////////////// New stuff from Tom
+            do {
+                print("decoding")
+                let decoder = JSONDecoder()
+                print("getting data")
+                let response = try JSONSerialization.jsonObject(with: data!, options: []) as? Dictionary<String, AnyObject>
+                //=======
+                print(response)
+                sema.signal();
+                //=======
+            } catch let err {
+                print("Err", err)
+                apps = returnList
+                sema.signal(); // none found TODO: do something better than this shit.
+            }
+            print("Done")
+            /////////////////////////
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        loadAppsFromDB()
+    }
+    
+    func updateUsername() {
+//        print("RIGHT HERE")
+//        let idString = self.credentialsManager.identityID!
+//        print(idString)
+       // let sema = DispatchSemaphore(value: 0);
+        //var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/\(self.account.accountId)")!)
+//        request.httpMethod = "PUT"
+//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+//        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+//        request.cachePolicy = .reloadIgnoringLocalCacheData
+        self.account.username = newUsername
+        switch self.account.platform {
+        case "Facebook":
+            self.account.url = "https://www.facebook.com/\(newUsername)"
+        case "Twitter":
+            self.account.url = "https://www.twitter.com/\(newUsername)"
+        case "Instagram":
+            self.account.url = "https://www.instagram.com/\(newUsername)"
+        case "Snapchat":
+            self.account.url = "https://www.snapchat.com/add/\(newUsername)"
+        case "LinkedIn":
+            self.account.url = "https://www.linkedin.com/in/\(newUsername)"
+        case "GooglePlus":
+            self.account.url = "https://plus.google.com/\(newUsername)"
+        case "Xbox":
+            let usernameURL = newUsername.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+            self.account.url = "https://account.xbox.com/en-us/Profile?GamerTag=\(usernameURL!)"
+        case "PSN":
+            let usernameURL = newUsername.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+            self.account.url = "https://my.playstation.com/profile/\(usernameURL!)"
+        case "Twitch":
+            self.account.url  = "https://m.twitch.tv/\(newUsername)/profile"
+        case "Custom":
+            self.account.url  = "\(newUsername)"
+        default:
+            print("unknown app found: \(self.account.platform)")
+            self.account.url = "\(newUsername)"
+        }
+        updateDisplayName()
+//        let postString = "{\"displayName\": \"\(self.account.displayName)\", \"platform\": \"\(self.account.platform)\", \"url\": \"\(self.account.url)\", \"username\": \"\(newUsername)\"}"
+//        print(request)
+//        print(postString)
+//        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+//            data, response, error in
+//            if error != nil {
+//                print("error=\(error)")
+//                sema.signal()
+//                return
+//            } else {
+//                print("---no error----")
+//            }
+//            //////////////////////// New stuff from Tom
+//            do {
+//                print("decoding")
+//                //let decoder = JSONDecoder()
+//                print("getting data")
+//                let response = try JSONSerialization.jsonObject(with: data!, options: []) as? Dictionary<String, AnyObject>
+//
+//                //=======
+//                print(response)
+//                sema.signal();
+//                //=======
+//            } catch let err {
+//                print("Err", err)
+//                sema.signal(); // none found TODO: do something better than this shit.
+//            }
+//            print("Done")
+//            /////////////////////////
+//        })
+//        task.resume()
+//        sema.wait(timeout: DispatchTime.distantFuture)
+//        loadAppsFromDB()
+    }
+    
+    func deleteAccount(accountId: Int) {
+        print("RIGHT HERE")
+        let idString = self.credentialsManager.identityID!
+        print(idString)
+        let sema = DispatchSemaphore(value: 0);
+        var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/accounts/\(accountId)")!)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")  // the request is JSON
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")        // the expected response is also JSON
+        print(request)
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print("error=\(error)")
+                sema.signal()
+                return
+            } else {
+                print("---no error----")
+            }
+            //////////////////////// New stuff from Tom
+            do {
+                let response = try JSONSerialization.jsonObject(with: data!, options: []) as? Dictionary<String, AnyObject>
+                //=======
+                print(response)
+                sema.signal();
+                //=======
+            } catch let err {
+                print("Err", err)
+                sema.signal(); // none found TODO: do something better than this shit.
+            }
+            print("Done")
+            /////////////////////////
+        })
+        task.resume()
+        sema.wait(timeout: DispatchTime.distantFuture)
+        loadAppsFromDB()
     }
     
     func loadCustomRefreshContents() {

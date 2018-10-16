@@ -85,30 +85,12 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if(indexPath.row == scans.count){
-//            print("will show add more")
-//            let alert = FCAlertView()
-//            alert.delegate = self
-//            alert.colorScheme = Color.bondiBlue.value
-//            alert.addTextField(withPlaceholder: "Name (i.e. Going Out") { (text) in
-//
-//            }
-//            alert.addTextField(withPlaceholder: "Description (i.e. Facebook, Snap") { (text) in
-//
-//            }
-//
-//            alert.showAlert(inView: self,
-//                            withTitle: "Add Profile",
-//                            withSubtitle: "Enter your details below",
-//                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
-//                            withDoneButtonTitle: "Add",
-//                            andButtons: ["Cancel"])
-//            return
-//        } else {
-            print("will show options")
-            let actionSheet = createStandardActionSheet(indexPath: indexPath)
-            actionSheet.present(in: self, from: self.view)
+        print("will show options")
+        let actionSheet = createStandardActionSheet(indexPath: indexPath)
+        actionSheet.present(in: self, from: self.view)
     }
+    
+   
 
     func createStandardActionSheet(indexPath: IndexPath) -> ActionSheet {
         let title = ActionSheetTitle(title: "Select an option")
@@ -166,25 +148,14 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let vw = UIView()
-        if(section == 0){
-            vw.backgroundColor = .clear
-            let textView = UITextView()
-            textView.text = "Previous Scans"
-            textView.font = UIFont(name: "Trench", size: UIFont.labelFontSize)
-            textView.textColor = .black
-            textView.sizeToFit()
-            textView.backgroundColor = .clear
-            vw.addSubview(textView)
-        } else {
-            vw.backgroundColor = .clear
-            let textView = UITextView()
-            textView.text = "Social Accounts"
-            textView.font = UIFont(name: "Trench", size: UIFont.labelFontSize)
-            textView.textColor = .black
-            textView.sizeToFit()
-            textView.backgroundColor = .clear
-            vw.addSubview(textView)
-        }
+        vw.backgroundColor = .clear
+        let textView = UITextView()
+        textView.text = "Previous Scans"
+        textView.font = UIFont(name: "Trench", size: UIFont.labelFontSize)
+        textView.textColor = .black
+        textView.sizeToFit()
+        textView.backgroundColor = .clear
+        vw.addSubview(textView)
         
         return vw
     }

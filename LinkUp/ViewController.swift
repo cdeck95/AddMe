@@ -420,7 +420,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.present(modalVC, animated: true, completion: nil)
             } else if value == "2" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
-                    self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                   // self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
                 let allAccounts = self.loadAppsFromDB()
                 modalVC.allAccounts = allAccounts
                 modalVC.accounts = self.profiles[indexPath.row].accounts
@@ -428,8 +428,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 modalVC.profileID = self.profiles[indexPath.row].profileId
                 modalVC.profileNameText = self.profiles[indexPath.row].name
                 modalVC.profileDescriptionText = self.profiles[indexPath.row].description
-                modalVC.modalTransitionStyle = .crossDissolve
-                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                //modalVC.modalTransitionStyle = .crossDissolve
+                //modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
                 self.present(modalVC, animated: true, completion: nil)
             } else if value == "3" {
                 let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "QRCodeViewController") as! QRCodeViewController
@@ -468,7 +468,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func loadProfiles(){
         profiles = []
-        
         let idString = self.credentialsManager.identityID!
         let sema = DispatchSemaphore(value: 0);
         var request = URLRequest(url:URL(string: "https://api.tc2pro.com/users/\(idString)/profiles")!)

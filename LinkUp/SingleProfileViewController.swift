@@ -10,7 +10,7 @@ import UIKit
 import FCAlertView
 import SafariServices
 
-class SingleProfileViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, FCAlertViewDelegate, HalfModalPresentable {
+class SingleProfileViewController: UIViewController, SFSafariViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, HalfModalPresentable {
 
     @IBOutlet var profileImage: ProfileImage!
     @IBOutlet var doneButton: UIBarButtonItem!
