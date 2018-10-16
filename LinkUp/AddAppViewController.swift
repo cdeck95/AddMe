@@ -11,7 +11,6 @@ import AWSCognito
 import AWSFacebookSignIn
 import AWSAuthUI
 import FacebookCore
-import AWSDynamoDB
 import FBSDKLoginKit
 import FCAlertView
 
@@ -291,7 +290,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             }
             
             let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-            responseOne = responseString as! String as! String
+            responseOne = responseString as! String 
             print(responseOne)
             sema.signal()
         })

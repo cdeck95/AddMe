@@ -46,7 +46,7 @@ class AppsTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         print("AppTableViewCell.swift setSelected()")
         super.setSelected(selected, animated: animated)
-        self.bringSubview(toFront: appSwitch)
+        self.bringSubviewToFront(appSwitch)
         
         
     }
