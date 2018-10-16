@@ -18,10 +18,8 @@ import AWSCognitoIdentityProviderASF
 import GoogleSignIn
 import FacebookCore
 import GoogleMobileAds
-import CDAlertView
 import FCAlertView
 import Sheeeeeeeeet
-import SideMenuSwift
 import SDWebImage
 
 var cellSwitches: [AppsTableViewCell] = []
@@ -107,7 +105,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         config.enableUserPoolsUI = true
         config.addSignInButtonView(class: AWSFacebookSignInButton.self)
         config.addSignInButtonView(class: AWSGoogleSignInButton.self)
-        config.logoImage = UIImage(named: "launch_logo")
+        config.logoImage = UIImage(named: "Logo")
         config.backgroundColor = UIColor.white
         config.font = UIFont (name: "Helvetica Neue", size: 14)
         config.canCancel = true
@@ -277,8 +275,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let qrcodeImg = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        if let qrcodeImg = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             self.profileImage.image = qrcodeImg
             //send image to DB
         }
@@ -301,7 +302,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         gradientView.frame = self.view.bounds
         gradientView.layer.addSublayer(gradient)
         self.view.addSubview(gradientView)
-        self.view.sendSubview(toBack: gradientView)
+        self.view.sendSubviewToBack(gradientView)
     }
     
     func addBannerViewToView(_ bannerView: DFPBannerView) {
@@ -650,7 +651,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         if(success){
-            CDAlertView(title: "Success!", message: "Your account is now added to the database", type: .success).show()
+            //TODO: FCAlertView
+            //CDAlertView(title: "Success!", message: "Your account is now added to the database", type: .success).show()
             let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
             self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
             modalVC.allAccounts = allAccounts
@@ -663,7 +665,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
             self.present(modalVC, animated: true, completion: nil)
         } else{
-            CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+            //TODO: FCAlertView
+            //CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
         }
     }
     
@@ -695,9 +698,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         if(success){
-            CDAlertView(title: "Success!", message: "Your account is now deleted from the database", type: .success).show()
+            //TODO: FCAlertView
+            //CDAlertView(title: "Success!", message: "Your account is now deleted from the database", type: .success).show()
         } else{
-            CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+            //TODO: FCAlertView
+            //CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
         }
     }
 }
@@ -782,3 +787,13 @@ extension UIImageView {
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
+}

@@ -13,7 +13,7 @@
         <array key="Roboto-Bold.ttf">
             <string>Roboto-Bold</string>
         </array>
-        <array key="trench100free.otf">
+        <array key="trench100free.ttf">
             <string>Trench-Thin</string>
         </array>
     </customFonts>
@@ -48,7 +48,7 @@
                                                     <fontDescription key="fontDescription" name="Trench-Thin" family="Trench" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddMeLogo-2" translatesAutoresizingMaskIntoConstraints="NO" id="UDT-OM-3Ze">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="UDT-OM-3Ze">
                                                     <rect key="frame" x="0.0" y="0.0" width="344" height="164"/>
                                                 </imageView>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXp-ow-JfJ">
@@ -105,7 +105,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="sIK-BD-0QP"/>
                                 </connections>
                             </collectionView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="38H-tt-FLy" customClass="ProfileImage" customModule="LinkUp" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="38H-tt-FLy" customClass="ProfileImage" customModule="LinkUp" customModuleProvider="target">
                                 <rect key="frame" x="123" y="80" width="130" height="50"/>
                             </imageView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="ahW-de-XoM">
@@ -359,6 +359,7 @@
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="nP3-FW-QjF">
                                 <rect key="frame" x="16" y="64" width="343" height="121"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="121" id="J7d-Zm-3kg"/>
                                 </constraints>
@@ -489,7 +490,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="wrW-6v-ex3">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="wrW-6v-ex3">
                                 <rect key="frame" x="72" y="75" width="231" height="230"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="ndz-lO-Wx6"/>
@@ -663,7 +664,7 @@
                                     <outlet property="delegate" destination="kfP-sb-4Uj" id="vVF-Kw-XDY"/>
                                 </connections>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="5zL-QO-qlv" customClass="ProfileImage" customModule="LinkUp" customModuleProvider="target">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="5zL-QO-qlv" customClass="ProfileImage" customModule="LinkUp" customModuleProvider="target">
                                 <rect key="frame" x="125" y="71" width="125" height="125"/>
                             </imageView>
                         </subviews>
@@ -1110,8 +1111,9 @@
                                     <action selector="takePhotoWithSender:" destination="beM-FT-25w" eventType="touchUpInside" id="Ign-N4-ZZS"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="1tr-mZ-jSV">
-                                <rect key="frame" x="16" y="64" width="343" height="261"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="1tr-mZ-jSV">
+                                <rect key="frame" x="0.0" y="64" width="375" height="261"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="261" id="ilS-Oc-jZa"/>
                                 </constraints>
@@ -1125,9 +1127,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="1tr-mZ-jSV" firstAttribute="leading" secondItem="UTD-hu-S6f" secondAttribute="leadingMargin" id="18Z-c1-429"/>
+                            <constraint firstItem="1tr-mZ-jSV" firstAttribute="leading" secondItem="UTD-hu-S6f" secondAttribute="leadingMargin" constant="-16" id="18Z-c1-429"/>
                             <constraint firstItem="Zqd-Df-W87" firstAttribute="top" secondItem="y6Q-Hy-qNZ" secondAttribute="bottom" constant="27" id="6Vb-Gf-1k6"/>
-                            <constraint firstAttribute="trailing" secondItem="1tr-mZ-jSV" secondAttribute="trailing" constant="16" id="6bz-F9-Tp1"/>
+                            <constraint firstAttribute="trailing" secondItem="1tr-mZ-jSV" secondAttribute="trailing" id="6bz-F9-Tp1"/>
                             <constraint firstItem="1tr-mZ-jSV" firstAttribute="top" secondItem="4lS-AO-B9d" secondAttribute="top" id="G58-gZ-enC"/>
                             <constraint firstItem="3M4-Ed-Nj2" firstAttribute="top" secondItem="1tr-mZ-jSV" secondAttribute="bottom" constant="34" id="a1y-ij-4qe"/>
                             <constraint firstItem="3M4-Ed-Nj2" firstAttribute="centerX" secondItem="Zqd-Df-W87" secondAttribute="centerX" id="fQy-L8-79j"/>
@@ -1192,10 +1194,10 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="nez-qf-XoZ">
-                                <rect key="frame" x="72" y="138" width="231" height="200"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="nez-qf-XoZ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="274"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="CNY-Tf-u1X"/>
+                                    <constraint firstAttribute="height" constant="274" id="CNY-Tf-u1X"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -1204,9 +1206,9 @@
                             <constraint firstItem="q2u-C9-jZG" firstAttribute="bottom" secondItem="2Gf-oD-Gee" secondAttribute="bottom" constant="224" id="27j-HM-rnG"/>
                             <constraint firstItem="2Gf-oD-Gee" firstAttribute="leading" secondItem="mol-hU-0sO" secondAttribute="leadingMargin" id="M5N-39-iqg"/>
                             <constraint firstItem="nez-qf-XoZ" firstAttribute="centerX" secondItem="mol-hU-0sO" secondAttribute="centerX" id="cc1-W0-a1j"/>
-                            <constraint firstItem="nez-qf-XoZ" firstAttribute="leading" secondItem="q2u-C9-jZG" secondAttribute="leading" constant="72" id="h1z-gr-Mhj"/>
+                            <constraint firstItem="nez-qf-XoZ" firstAttribute="leading" secondItem="q2u-C9-jZG" secondAttribute="leading" id="h1z-gr-Mhj"/>
                             <constraint firstItem="2Gf-oD-Gee" firstAttribute="top" secondItem="nez-qf-XoZ" secondAttribute="bottom" constant="8" symbolic="YES" id="qpZ-Mg-dlZ"/>
-                            <constraint firstItem="nez-qf-XoZ" firstAttribute="top" secondItem="q2u-C9-jZG" secondAttribute="top" constant="74" id="rsN-2K-HM4"/>
+                            <constraint firstItem="nez-qf-XoZ" firstAttribute="top" secondItem="q2u-C9-jZG" secondAttribute="top" id="rsN-2K-HM4"/>
                             <constraint firstItem="2Gf-oD-Gee" firstAttribute="centerX" secondItem="nez-qf-XoZ" secondAttribute="centerX" id="uLL-kb-9cV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="q2u-C9-jZG"/>
@@ -1229,12 +1231,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddMeLogo-2" translatesAutoresizingMaskIntoConstraints="NO" id="rIX-j4-Cb7">
-                                <rect key="frame" x="-21" y="-100" width="417" height="789"/>
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="rIX-j4-Cb7">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="789" id="d5V-9K-SUI"/>
-                                </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftR-cT-mhI">
                                 <rect key="frame" x="67" y="514" width="241" height="84"/>
@@ -1243,16 +1242,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ftR-cT-mhI" firstAttribute="centerX" secondItem="0fi-LN-Dax" secondAttribute="centerX" id="GlP-8L-Gdz"/>
-                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="leading" secondItem="0fi-LN-Dax" secondAttribute="leading" id="Mgl-Mm-Jtd"/>
-                            <constraint firstItem="ftR-cT-mhI" firstAttribute="top" secondItem="pe3-Q0-XyV" secondAttribute="top" constant="450" id="OZG-Ce-BqN"/>
-                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="bottom" secondItem="pe3-Q0-XyV" secondAttribute="bottom" id="ZJP-M7-mnb"/>
-                            <constraint firstItem="pe3-Q0-XyV" firstAttribute="bottom" secondItem="ftR-cT-mhI" secondAttribute="bottom" constant="69" id="bQF-M1-1FR"/>
-                            <constraint firstItem="ftR-cT-mhI" firstAttribute="leading" secondItem="pe3-Q0-XyV" secondAttribute="leading" constant="67" id="eca-xJ-kXU"/>
-                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="top" secondItem="0fi-LN-Dax" secondAttribute="top" id="eos-hM-pkc"/>
-                            <constraint firstItem="ftR-cT-mhI" firstAttribute="centerX" secondItem="rIX-j4-Cb7" secondAttribute="centerX" id="lv5-ab-MAW"/>
-                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="centerX" secondItem="ftR-cT-mhI" secondAttribute="centerX" id="plx-of-89a"/>
-                            <constraint firstItem="rIX-j4-Cb7" firstAttribute="centerY" secondItem="0fi-LN-Dax" secondAttribute="centerY" constant="-39" id="w5o-U1-N9g"/>
+                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="leading" secondItem="rIX-j4-Cb7" secondAttribute="leading" id="2V9-Yn-dcV"/>
+                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="top" secondItem="0fi-LN-Dax" secondAttribute="top" id="7rC-B2-8ag"/>
+                            <constraint firstItem="ftR-cT-mhI" firstAttribute="top" secondItem="pe3-Q0-XyV" secondAttribute="top" constant="450" id="ElD-EN-gpr"/>
+                            <constraint firstAttribute="trailing" secondItem="KKh-Bk-qYi" secondAttribute="trailing" id="P3B-Oh-Pzi"/>
+                            <constraint firstItem="pe3-Q0-XyV" firstAttribute="bottom" secondItem="ftR-cT-mhI" secondAttribute="bottom" constant="69" id="TF6-fp-m7j"/>
+                            <constraint firstItem="rIX-j4-Cb7" firstAttribute="bottom" secondItem="KKh-Bk-qYi" secondAttribute="bottom" id="WXs-77-xUY"/>
+                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="leading" secondItem="0fi-LN-Dax" secondAttribute="leading" id="g7a-iM-UNo"/>
+                            <constraint firstItem="ftR-cT-mhI" firstAttribute="leading" secondItem="pe3-Q0-XyV" secondAttribute="leading" constant="67" id="iYf-gc-TB3"/>
+                            <constraint firstItem="rIX-j4-Cb7" firstAttribute="top" secondItem="pe3-Q0-XyV" secondAttribute="top" id="lAN-by-xVd"/>
+                            <constraint firstItem="rIX-j4-Cb7" firstAttribute="bottom" secondItem="pe3-Q0-XyV" secondAttribute="bottom" id="sPp-ly-aIH"/>
+                            <constraint firstItem="KKh-Bk-qYi" firstAttribute="trailing" secondItem="rIX-j4-Cb7" secondAttribute="trailing" id="wtk-ss-ylX"/>
+                            <constraint firstItem="rIX-j4-Cb7" firstAttribute="centerX" secondItem="ftR-cT-mhI" secondAttribute="centerX" id="zrN-TE-POH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pe3-Q0-XyV"/>
                     </view>
@@ -1614,9 +1615,9 @@
     </scenes>
     <resources>
         <image name="AddMeLogo-1" width="417" height="417"/>
-        <image name="AddMeLogo-2" width="417" height="417"/>
         <image name="Icon-20" width="20" height="27"/>
         <image name="Instagram_icon" width="599" height="600"/>
+        <image name="Logo" width="1024" height="1024"/>
         <image name="baseline_group_black_24pt" width="24" height="24"/>
         <image name="baseline_keyboard_arrow_right_black_18dp" width="18" height="18"/>
         <image name="custom" width="512" height="512"/>
@@ -1633,7 +1634,6 @@
         <image name="ic_screen_share" width="24" height="24"/>
         <image name="ic_settings" width="24" height="24"/>
         <image name="icon" width="60" height="60"/>
-        <image name="launch_logo" width="60" height="60"/>
         <image name="linked_in_logo" width="597" height="336"/>
         <image name="play-station" width="2000" height="1522"/>
         <image name="snapchat_icon" width="400" height="400"/>

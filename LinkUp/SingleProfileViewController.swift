@@ -133,7 +133,7 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
             let cell = profileTableView.cellForRow(at: indexPath) as! ScannedProfileTableViewCell
             let url = URL(string: cell.url!)!
             if(UIApplication.shared.canOpenURL(url)){
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             } else {
                 let svc = SFSafariViewController(url: url)
                 svc.delegate = self
@@ -183,7 +183,7 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
         gradientView.frame = self.view.bounds
         gradientView.layer.addSublayer(gradient)
         self.view.addSubview(gradientView)
-        self.view.sendSubview(toBack: gradientView)
+        self.view.sendSubviewToBack(gradientView)
     }
     
     /*
@@ -196,4 +196,9 @@ class SingleProfileViewController: UIViewController, SFSafariViewControllerDeleg
     }
     */
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

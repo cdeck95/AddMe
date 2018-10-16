@@ -8,7 +8,6 @@
 
 import UIKit
 import AWSCognito
-import CDAlertView
 import FCAlertView
 import Sheeeeeeeeet
 

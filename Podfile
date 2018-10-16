@@ -14,7 +14,6 @@ target 'LinkUp' do
   use_frameworks!
 
     pod 'SDWebImage', '~> 4.0'
-    pod 'SideMenuSwift'
     pod 'AWSUserPoolsSignIn', '~> 2.6.6'
     pod 'AWSAuthUI'
     pod 'AWSMobileClient', '~> 2.6.6'
@@ -24,18 +23,9 @@ target 'LinkUp' do
     pod 'AWSCognito'
     pod 'FBSDKLoginKit'
     pod 'FacebookCore'
-    pod 'AWSDynamoDB'
-    pod "CDAlertView"
-    pod 'SwipeableTabBarController', :git => 'https://github.com/marcosgriselli/SwipeableTabBarController.git', :branch => 'fix/48_freeze'
     pod 'Google-Mobile-Ads-SDK'
     pod 'TransitionButton'
     pod 'FCAlertView'
-    pod 'SkyFloatingLabelTextField', '~> 3.0'
-    pod "KSSwipeStack"
     pod 'Sheeeeeeeeet'
-    pod 'PMSuperButton'
-    pod "ESTabBarController-swift"
-    pod 'ACFloatingTextfield-Objc', '~> 1.7'
-    pod "EFQRCode", '~> 4.2.2'
 
 end

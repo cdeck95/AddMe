@@ -8,7 +8,6 @@
 
 import UIKit
 import FCAlertView
-import CDAlertView
 
 class AccountsForProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FCAlertViewDelegate {
 
@@ -235,7 +234,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         gradientView.frame = self.view.bounds
         gradientView.layer.addSublayer(gradient)
         self.view.addSubview(gradientView)
-        self.view.sendSubview(toBack: gradientView)
+        self.view.sendSubviewToBack(gradientView)
     }
     @IBAction func save(_ sender: Any) {
         //call API to update
@@ -335,9 +334,11 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         if(success){
-            CDAlertView(title: "Success!", message: "Your profile has been updated", type: .success).show()
+            //TODO: make FCAlertView
+            //CDAlertView(title: "Success!", message: "Your profile has been updated", type: .success).show()
         } else{
-            CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+            //TODO: make FCAlertView
+            //CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
         }
     }
     
