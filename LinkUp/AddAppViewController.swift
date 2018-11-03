@@ -12,7 +12,6 @@ import AWSFacebookSignIn
 import AWSAuthUI
 import FacebookCore
 import AWSDynamoDB
-import CDAlertView
 import FBSDKLoginKit
 import FCAlertView
 
@@ -351,10 +350,6 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
-    @IBAction func addApp(_ sender: Any) {
-       
-    }
-    
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
         request.start { (response, result) in
@@ -401,7 +396,15 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             print(responseOne!)
         })
         task.resume()
-        CDAlertView(title: "Success!", message: "Your account is now added to the database", type: .success).show()
+        let alert = FCAlertView()
+        alert.delegate = self
+        alert.colorScheme = Color.bondiBlue.value
+        alert.showAlert(inView: self,
+                        withTitle: "Success!",
+                        withSubtitle: "Your account is now added to the database.",
+                        withCustomImage: #imageLiteral(resourceName: "fb-icon"),
+                        withDoneButtonTitle: "Okay",
+                        andButtons: ["Cancel"])
     }
     
     // This will check some things to avoid adding duplicate entries for a user.

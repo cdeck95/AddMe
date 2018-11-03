@@ -8,7 +8,6 @@
 
 import UIKit
 import FCAlertView
-import CDAlertView
 
 class AccountsForProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, HalfModalPresentable, FCAlertViewDelegate {
 
@@ -213,6 +212,10 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         
     }
     
+    @IBAction func addAction(_ sender: Any) {
+        
+    }
+    
     func fcAlertDoneButtonClicked(_ alertView: FCAlertView!) {
         print("done button clicked")
     }
@@ -241,11 +244,16 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
 
         let profileAccounts = accountsInProfile
         self.updateProfile(profileAccounts: profileAccounts, profileId: self.profileID)
-        self.dismiss(animated: true, completion: nil)
+        print("DISMISS THE DAMN VIEW PLEASE")
+        if let resultController = storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as? ViewController {
+            present(resultController, animated: true, completion: nil)
+        }
     }
     
     @IBAction func cancel(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        if let resultController = storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as? ViewController {
+            present(resultController, animated: true, completion: nil)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -325,9 +333,25 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         if(success){
-            CDAlertView(title: "Success!", message: "Your profile has been updated", type: .success).show()
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            alert.showAlert(inView: self,
+                            withTitle: "Success!",
+                            withSubtitle: "Your profile has been updated.",
+                            withCustomImage: #imageLiteral(resourceName: "fb-icon"),
+                            withDoneButtonTitle: "Okay",
+                            andButtons: [""])
         } else{
-            CDAlertView(title: "Oops!", message: "Something went wrong. Try again. If this keeps happening, contact support.", type: .error).show()
+            let alert = FCAlertView()
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            alert.showAlert(inView: self,
+                            withTitle: "Oops!",
+                            withSubtitle: "Something went wrong. Try again. If this keeps happening, contact support.",
+                            withCustomImage: #imageLiteral(resourceName: "fb-icon"),
+                            withDoneButtonTitle: "Okay",
+                            andButtons: [""])
         }
     }
     
