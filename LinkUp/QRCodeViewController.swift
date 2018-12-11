@@ -12,7 +12,7 @@ import AWSCognito
 import EFQRCode
 import FCAlertView
 
-class QRCodeViewController: UIViewController, HalfModalPresentable {
+class QRCodeViewController: UIViewController,  FCAlertViewDelegate, HalfModalPresentable {
 
     @IBOutlet weak var QRCode: UIImageView!
     var dataset: AWSCognitoDataset!
@@ -211,7 +211,6 @@ class QRCodeViewController: UIViewController, HalfModalPresentable {
                     self.dismiss(animated: false, completion: nil)
                 }
             } else {
-                let alert = FCAlertView()
                 alert.delegate = self as! FCAlertViewDelegate
                 alert.colorScheme = Color.bondiBlue.value
                 alert.showAlert(inView: self,
