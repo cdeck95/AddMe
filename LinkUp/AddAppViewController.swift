@@ -211,10 +211,6 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
-    @IBAction func addApp(_ sender: Any) {
-       
-    }
-    
     func getFBUserInfo(params: String, dataset: AWSCognitoDataset) {
         let request = GraphRequest(graphPath: "me", parameters: ["fields":params], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
         request.start { (response, result) in
@@ -267,9 +263,10 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
         alert.showAlert(inView: self,
                         withTitle: "Success!",
                         withSubtitle: "Your account is now added to the database.",
-                        withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
-                        withDoneButtonTitle: nil,
-                        andButtons: ["Ok"])
+                        withCustomImage: #imageLiteral(resourceName: "fb-icon"),
+                        withDoneButtonTitle: "Okay",
+                        andButtons: ["Cancel"])
+
     }
     
     // This will check some things to avoid adding duplicate entries for a user.

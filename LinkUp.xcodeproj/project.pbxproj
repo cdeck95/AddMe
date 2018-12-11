@@ -64,7 +64,8 @@
 		DAE3A2B32093D7F5002689BA /* HalfModalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */; };
 		DAF0791E21265CD90001B961 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0791D21265CD90001B961 /* Extensions.swift */; };
 		DAF079202126FBBE0001B961 /* AccountsForProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF0791F2126FBBE0001B961 /* AccountsForProfileViewController.swift */; };
-		E231768E216D934A00A32861 /* APIMessageParser .swift in Sources */ = {isa = PBXBuildFile; fileRef = E231768D216D934A00A32861 /* APIMessageParser .swift */; };
+		E216FC03217FF8DA007A2275 /* APICodeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E216FC02217FF8DA007A2275 /* APICodeParser.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,7 +131,8 @@
 		DAE3A2B22093D7F5002689BA /* HalfModalTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfModalTransitioningDelegate.swift; sourceTree = "<group>"; };
 		DAF0791D21265CD90001B961 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DAF0791F2126FBBE0001B961 /* AccountsForProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsForProfileViewController.swift; sourceTree = "<group>"; };
-		E231768D216D934A00A32861 /* APIMessageParser .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIMessageParser .swift"; sourceTree = "<group>"; };
+		E216FC02217FF8DA007A2275 /* APICodeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICodeParser.swift; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +193,7 @@
 			children = (
 				DACCF2652131DBAE00FAD6B5 /* Fonts */,
 				DAF0791F2126FBBE0001B961 /* AccountsForProfileViewController.swift */,
+				E216FC02217FF8DA007A2275 /* APICodeParser.swift */,
 				DA6A7EE92037859800E79B47 /* AppDelegate.swift */,
 				DAD96CFD2045F0ED00F1525E /* AddAppViewController.swift */,
 				DAD96D092046399500F1525E /* AppsTableViewCell.swift */,
@@ -466,6 +469,7 @@
 				DA72C40C213E07320053F672 /* Scan.swift in Sources */,
 				DA6A7EEA2037859800E79B47 /* AppDelegate.swift in Sources */,
 				DA68505D205B5FA300BA36DE /* HelpViewController.swift in Sources */,
+				E216FC03217FF8DA007A2275 /* APICodeParser.swift in Sources */,
 				DAE3A2AB2093D730002689BA /* HalfModalPresentationController.swift in Sources */,
 				DA72C4142141E45A0053F672 /* ScannedProfileTableViewCell.swift in Sources */,
 				DA72C40E213F65DB0053F672 /* Accounts.swift in Sources */,

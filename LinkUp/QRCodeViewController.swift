@@ -73,40 +73,38 @@ class QRCodeViewController: UIViewController,  FCAlertViewDelegate, HalfModalPre
             if (error == nil) {
                 if (activityType == UIActivity.ActivityType.saveToCameraRoll) {
                     let alert = FCAlertView()
-                    alert.delegate = self
+                    alert.delegate = self as! FCAlertViewDelegate
                     alert.colorScheme = Color.bondiBlue.value
                     alert.showAlert(inView: self,
                                     withTitle: "Success!",
                                     withSubtitle: "Your QR code is now saved to your camera roll!",
-                                    withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                    withCustomImage: #imageLiteral(resourceName: "fb-icon"),
                                     withDoneButtonTitle: "Okay",
-                                    andButtons: [])
-                    
+                                    andButtons: [""])
                     return
                 } else if (activityType == UIActivity.ActivityType.copyToPasteboard) {
                     let alert = FCAlertView()
-                    alert.delegate = self
+                    alert.delegate = self as! FCAlertViewDelegate
                     alert.colorScheme = Color.bondiBlue.value
                     alert.showAlert(inView: self,
                                     withTitle: "Success!",
-                                    withSubtitle: "Your QR code is now copied to your Pasteboard!",
-                                    withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                    withSubtitle: "Your QR code is now copied to your paseboard!",
+                                    withCustomImage: #imageLiteral(resourceName: "fb-icon"),
                                     withDoneButtonTitle: "Okay",
-                                    andButtons: [])
+                                    andButtons: [""])
                     return
                 } else if (activityType == UIActivity.ActivityType.message) {
                     self.dismiss(animated: false, completion: nil)
                 }
             } else {
-                let alert = FCAlertView()
-                alert.delegate = self
+                alert.delegate = self as! FCAlertViewDelegate
                 alert.colorScheme = Color.bondiBlue.value
                 alert.showAlert(inView: self,
-                                withTitle: "Uh Oh!",
+                                withTitle: "Uh oh!",
                                 withSubtitle: "Something went wrong. Please try again. If this keeps happening, contact our support team and we will be happy to assist.",
-                                withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                withCustomImage: #imageLiteral(resourceName: "fb-icon"),
                                 withDoneButtonTitle: "Okay",
-                                andButtons: [])
+                                andButtons: [""])
                 print(error)
                 return
             }

@@ -215,6 +215,10 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
         
     }
     
+    @IBAction func addAction(_ sender: Any) {
+        
+    }
+    
     func fcAlertDoneButtonClicked(_ alertView: FCAlertView!) {
         print("done button clicked")
         if(self.flag == 1){
@@ -249,12 +253,19 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
 
         let profileAccounts = accountsInProfile
         self.updateProfile(profileAccounts: profileAccounts, profileId: self.profileID)
-        self.dismiss(animated: true, completion: nil)
+        print("DISMISS THE DAMN VIEW PLEASE")
+        if let resultController = storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as? ViewController {
+            present(resultController, animated: true, completion: nil)
+        }
     }
     
     @IBAction func cancel(_ sender: Any) {
+        if let resultController = storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as? ViewController {
+            present(resultController, animated: true, completion: nil)
+        }
         print("cancel hit")
        self.dismiss(animated: true, completion: nil) //self.navigationController?.popViewController(animated: true)
+
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -340,9 +351,9 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
             alert.showAlert(inView: self,
                             withTitle: "Success!",
                             withSubtitle: "Your profile has been updated.",
-                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withCustomImage: #imageLiteral(resourceName: "fb-icon"),
                             withDoneButtonTitle: "Okay",
-                            andButtons: [])
+                            andButtons: [""])
         } else{
             let alert = FCAlertView()
             alert.delegate = self
@@ -350,9 +361,10 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
             alert.showAlert(inView: self,
                             withTitle: "Oops!",
                             withSubtitle: "Something went wrong. Try again. If this keeps happening, contact support.",
-                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withCustomImage: #imageLiteral(resourceName: "fb-icon"),
                             withDoneButtonTitle: "Okay",
-                            andButtons: [])
+                            andButtons: [""])
+
         }
     }
 }

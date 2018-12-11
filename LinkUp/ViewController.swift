@@ -27,6 +27,7 @@ var apps: [PagedAccounts.Accounts] = []
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, FCAlertViewDelegate, UIScrollViewDelegate {
 
+    var FCAction: String = ""
     var profiles: [PagedProfile.Profile]!
     var bannerView: DFPBannerView!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
@@ -328,11 +329,15 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         return 10.0
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = profiles.count + 1
-        pageControl.numberOfPages = count
-        return profiles.count + 1
-    }
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//            let count = profiles.count + 1
+            let count = profiles.count
+            pageControl.numberOfPages = count
+            print(profiles)
+            print("--------------------")
+//            return profiles.count + 1
+            return profiles.count
+        }
     
     @objc func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
@@ -340,11 +345,11 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
        // cell.nameLabel.textColor = Color.glass.value
        // cell.descLabel.textColor = Color.glass.value
         if indexPath.item == profiles.count {
-            cell.profileImage.image = UIImage(named: "add_more.png")
-            //cell.profileImage.frame = cell.bounds
-            cell.nameLabel.text = "Add a Profile"
-            cell.descLabel.isHidden = true
-            cell.openButton.setImage(UIImage(named: "ic_add_circle"), for: .normal)
+//            cell.profileImage.image = UIImage(named: "add_more.png")
+//            //cell.profileImage.frame = cell.bounds
+//            cell.nameLabel.text = "Add a Profile"
+//            cell.descLabel.isHidden = true
+//            cell.openButton.setImage(UIImage(named: "ic_add_circle"), for: .normal)
         } else {
             print(profiles[indexPath.row])
             cell.populateWith(card: profiles[indexPath.row])
@@ -357,22 +362,24 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(indexPath.row == profiles.count){
-            let alert = FCAlertView()
-            alert.delegate = self
-            alert.colorScheme = Color.bondiBlue.value
-            alert.addTextField(withPlaceholder: "Name (i.e. Going Out") { (text) in
-                self.newProfileName = text!
-            }
-            alert.addTextField(withPlaceholder: "Description (i.e. Facebook, Snap") { (text) in
-                self.newProfileDesc = text!
-            }
-            
-            alert.showAlert(inView: self,
-                            withTitle: "Add Profile",
-                            withSubtitle: "Enter your details below",
-                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
-                            withDoneButtonTitle: "Add",
-                            andButtons: ["Cancel"])
+//            print("will show add more")
+//            FCAction = "add"
+//            let alert = FCAlertView()
+//            alert.delegate = self
+//            alert.colorScheme = Color.bondiBlue.value
+//            alert.addTextField(withPlaceholder: "Name (i.e. Going Out") { (text) in
+//                self.newProfileName = text!
+//            }
+//            alert.addTextField(withPlaceholder: "Description (i.e. Facebook, Snap") { (text) in
+//                self.newProfileDesc = text!
+//            }
+//
+//            alert.showAlert(inView: self,
+//                            withTitle: "Add Profile",
+//                            withSubtitle: "Enter your details below",
+//                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+//                            withDoneButtonTitle: "Add",
+//                            andButtons: ["Cancel"])
             return
         } else {
             let actionSheet = createStandardActionSheet(indexPath: indexPath)
@@ -387,10 +394,18 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         print(profileName)
         let profileDescription = newProfileDesc
         print(profileDescription)
-        if ((profileName?.count)! > 0 && (profileDescription?.count)! > 0){
+        switch(FCAction){
+        case "add":
             self.addProfile(profileName: profileName!, profileDescription: profileDescription!)
-        }else{
-            print("Empty fields while adding a new profile")
+//            refreshAppData(self)
+//            fetchAppData()
+            break
+        case "delete":
+            break
+        case "error":
+            break
+        default:
+            break
         }
     }
     
@@ -447,6 +462,46 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         }
     }
     
+    func createAddAppActionSheet() -> ActionSheet {
+        let title = ActionSheetTitle(title: "Select an option")
+        let item1 = ActionSheetItem(title: "Add App", value: "1", image: UIImage(named: "baseline_pageview_black_18pt"))
+        let item2 = ActionSheetItem(title: "Add Profile", value: "2", image: UIImage(named: "baseline_create_black_18pt"))
+        let button = ActionSheetOkButton(title: "Cancel")
+        return ActionSheet(items: [title, item1, item2, button]) { _, item in
+            
+            guard let value = item.value as? String else {
+                return
+            }
+            
+            if value == "1" {
+                let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AddAppViewController") as! AddAppViewController
+                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
+                modalVC.modalPresentationStyle = .custom
+                modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
+                self.present(modalVC, animated: true, completion: nil)
+            } else if value == "2" {
+                print("will show add more")
+                self.FCAction = "add"
+                let alert = FCAlertView()
+                alert.delegate = self
+                alert.colorScheme = Color.bondiBlue.value
+                alert.addTextField(withPlaceholder: "Name (i.e. Going Out") { (text) in
+                    self.newProfileName = text!
+                }
+                alert.addTextField(withPlaceholder: "Description (i.e. Facebook, Snap") { (text) in
+                    self.newProfileDesc = text!
+                }
+                
+                alert.showAlert(inView: self,
+                                withTitle: "Add Profile",
+                                withSubtitle: "Enter your details below",
+                                withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                withDoneButtonTitle: "Add",
+                                andButtons: ["Cancel"])
+            }
+        }
+    }
+    
     @objc private func refreshAppData(_ sender: Any) {
         if AWSSignInManager.sharedInstance().isLoggedIn {
             fetchAppData()
@@ -466,6 +521,17 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         } else {
             collectionView.addSubview(refreshControl)
         }
+    }
+    
+    @IBAction func addAction(_ sender: Any) {
+        print("The PLUS (+) button was hit")
+//        if let mvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AddAppViewController") as?AddAppViewController {
+//            self.present(mvc, animated: true, completion: nil)
+//        }
+        let actionSheet = createAddAppActionSheet()
+        actionSheet.present(in: self, from: self.view)
+        // AddAppViewController
+        // Present modally
     }
     
     func loadProfiles(){
@@ -488,7 +554,8 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             //////////////////////// New stuff from Tom
             do {
                 let decoder = JSONDecoder()
-                let parser = APIMessageParser(received: response.debugDescription, parent: self)
+                let codeParser = APICodeParser(message: "\(response)")
+                print (codeParser.getErrorCode())
                 let JSONdata = try decoder.decode(PagedProfile.self, from: data!)
                 for index in 0...JSONdata.profiles.count - 1 {
                     let profile = JSONdata.profiles[index]
@@ -583,6 +650,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 //            let jsonString = String(data: jsonData, encoding: .utf8)!
 //            print(jsonString)
             //print(postString)
+            print("Got here")
             request.httpBody = json //jsonString.data(using: String.Encoding.utf8)
             var profile:SingleProfile!
             let task = URLSession.shared.dataTask(with: request, completionHandler: {
@@ -623,6 +691,17 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             task.resume()
         sema.wait(timeout: DispatchTime.distantFuture)
         if(success){
+            print("Successful addition")
+            let alert = FCAlertView()
+            FCAction = "" // Was 'Add' but that was causing it to add the profile twice.
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            alert.showAlert(inView: self,
+                            withTitle: "Success!",
+                            withSubtitle: "Your account is now added to the database.",
+                            withCustomImage: #imageLiteral(resourceName: "fb-icon"),
+                            withDoneButtonTitle: "Okay",
+                            andButtons: [""])
             let modalVC = self.storyboard?.instantiateViewController(withIdentifier: "AccountsForProfileViewController") as! AccountsForProfileViewController
             self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: modalVC)
             modalVC.allAccounts = allAccounts
@@ -635,16 +714,16 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             modalVC.transitioningDelegate = self.halfModalTransitioningDelegate
             self.present(modalVC, animated: true, completion: nil)
         } else{
-            print("Need to handle error here")
-//            let alert = FCAlertView()
-//            alert.delegate = self
-//            alert.colorScheme = Color.bondiBlue.value
-//            alert.showAlert(inView: self,
-//                            withTitle: "Oops!",
-//                            withSubtitle: "Something went wrong. Please try again. If this keeps happening, contact our support team and we will be happy to assist.",
-//                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
-//                            withDoneButtonTitle: nil,
-//                            andButtons: [])
+            let alert = FCAlertView()
+            FCAction = "error"
+            alert.delegate = self
+            alert.colorScheme = Color.bondiBlue.value
+            alert.showAlert(inView: self,
+                            withTitle: "Oops!",
+                            withSubtitle: "Something went wrong. Try again. If this keeps happening, contact our support team.",
+                            withCustomImage: #imageLiteral(resourceName: "fb-icon"),
+                            withDoneButtonTitle: "Okay",
+                            andButtons: [""])
         }
     }
     
@@ -674,27 +753,28 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         sema.wait(timeout: DispatchTime.distantFuture)
         if(success){
             let alert = FCAlertView()
+            FCAction = "delete"
             alert.delegate = self
             alert.colorScheme = Color.bondiBlue.value
             alert.showAlert(inView: self,
                             withTitle: "Success!",
-                            withSubtitle: "Your account has been deleted.",
-                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
-                            withDoneButtonTitle: nil,
-                            andButtons: ["Ok"])
-            alert.hideDoneButton = true
-            loadProfiles()
+                            withSubtitle: "Your account is now deleted from the database.",
+                            withCustomImage: #imageLiteral(resourceName: "fb-icon"),
+                            withDoneButtonTitle: "Okay",
+                            andButtons: [""])
+            refreshAppData(self)
+            fetchAppData()
         } else{
             let alert = FCAlertView()
+            FCAction = "error"
             alert.delegate = self
             alert.colorScheme = Color.bondiBlue.value
             alert.showAlert(inView: self,
-                            withTitle: "Uh Oh!",
-                            withSubtitle: "Something went wrong. Please try again. If this keeps happening, contact our support team and we will be happy to assist.",
-                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
-                            withDoneButtonTitle: nil,
-                            andButtons: ["Ok"])
-            alert.hideDoneButton = true
+                            withTitle: "Oops!",
+                            withSubtitle: "Something went wrong. Try again. If this keeps happening, contact our support team.",
+                            withCustomImage: #imageLiteral(resourceName: "fb-icon"),
+                            withDoneButtonTitle: "Okay",
+                            andButtons: [""])
         }
     }
 }
