@@ -36,7 +36,7 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(self, action:
                 #selector(ScansTableViewController.handleRefresh(_:)),
-                                     for: UIControlEvents.valueChanged)
+                                     for: UIControl.Event.valueChanged)
             refreshControl.tintColor = Color.coral.value
             
             return refreshControl
@@ -333,7 +333,7 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
         gradientView.frame = self.view.bounds
         gradientView.layer.addSublayer(gradient)
         self.view.addSubview(gradientView)
-        self.view.sendSubview(toBack: gradientView)
+        self.view.sendSubviewToBack(gradientView)
     }
 
 }

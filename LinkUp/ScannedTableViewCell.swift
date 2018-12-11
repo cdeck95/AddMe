@@ -29,7 +29,7 @@ class ScannedTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         print("AppTableViewCell.swift setSelected()")
         super.setSelected(selected, animated: animated)
-        self.bringSubview(toFront: openButton)
+        self.bringSubviewToFront(openButton)
         
         layer.cornerRadius = cornerRadius
         let shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
