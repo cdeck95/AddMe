@@ -97,6 +97,7 @@ class QRCodeViewController: UIViewController,  FCAlertViewDelegate, HalfModalPre
                     self.dismiss(animated: false, completion: nil)
                 }
             } else {
+                let alert = FCAlertView()
                 alert.delegate = self as! FCAlertViewDelegate
                 alert.colorScheme = Color.bondiBlue.value
                 alert.showAlert(inView: self,

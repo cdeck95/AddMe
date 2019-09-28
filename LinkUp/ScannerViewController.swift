@@ -331,7 +331,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 //////////////////////// New stuff from Tom
                 do {
                     let decoder = JSONDecoder()
-                    let parser = APIMessageParser(received: response.debugDescription, parent: self)
+                    let parser = APICodeParser(message: response.debugDescription)
                     let profile = try decoder.decode(SingleProfile.self, from: data!)
                     //let profile = (try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)) //as? SingleProfile
                     print(profile)

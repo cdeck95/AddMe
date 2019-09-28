@@ -336,7 +336,7 @@ class AddAppViewController: UIViewController, UICollectionViewDelegate, UICollec
             //////////////////////// New stuff from Tom
             do {
                 let decoder = JSONDecoder()
-                let parser = APIMessageParser(received: response.debugDescription, parent: self.inputViewController!)
+                let parser = APICodeParser(message: response.debugDescription)
                 let JSONdata = try decoder.decode(PagedAccounts.self, from: data!)
                 //=======
                 for index in 0...JSONdata.accounts.count - 1 {

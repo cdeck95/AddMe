@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <array>
-        <dict>
-            <key>name</key>
-            <string>Nelson</string>
-            <key>qrCodeString</key>
-            <string>nothing</string>
-            <key>image</key>
-            <string>AddMeLogo-2</string>
-            <key>info</key>
-            <string>Shoplifting is a victimless crime. Like punching someone in the dark.</string>
-        </dict>
-        <dict>
-            <key>name</key>
-            <string>Bart</string>
-            <key>qrCodeString</key>
-            <string>nothing</string>
-            <key>image</key>
-            <string>AddMeLogo-2</string>
-            <key>info</key>
-            <string>Aren&apos;t we forgetting the true meaning of Christmas: the birth of Santa. I didn&apos;t do it. Ay caramba.</string>
-        </dict>
-        <dict>
-            <key>name</key>
-            <string>Sideshow Bob</string>
-            <key>qrCodeString</key>
-            <string>nothing</string>
-            <key>image</key>
-            <string>AddMeLogo-2</string>
-            <key>info</key>
-            <string>I did once try to kill the world&apos;s greatest lover. But then I realized there are laws against suicide.</string>
-        </dict>
-        <dict>
-            <key>name</key>
-            <string>Homer J.</string>
-            <key>qrCodeString</key>
-            <string>nothing</string>
-            <key>image</key>
-            <string>AddMeLogo-2</string>
-            <key>info</key>
-            <string>Now, son, you don&apos;t want to drink beer. That&apos;s for daddies, and kids with fake IDs.</string>
-        </dict>
-    </array>
+<array>
+	<dict>
+		<key>name</key>
+		<string>Nelson</string>
+		<key>qrCodeString</key>
+		<string>nothing</string>
+		<key>image</key>
+		<string>AppIcon</string>
+		<key>info</key>
+		<string>Shoplifting is a victimless crime. Like punching someone in the dark.</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Bart</string>
+		<key>qrCodeString</key>
+		<string>nothing</string>
+		<key>image</key>
+		<string>AppIcon</string>
+		<key>info</key>
+		<string>Aren&apos;t we forgetting the true meaning of Christmas: the birth of Santa. I didn&apos;t do it. Ay caramba.</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Sideshow Bob</string>
+		<key>qrCodeString</key>
+		<string>nothing</string>
+		<key>image</key>
+		<string>AppIcon</string>
+		<key>info</key>
+		<string>I did once try to kill the world&apos;s greatest lover. But then I realized there are laws against suicide.</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Homer J.</string>
+		<key>qrCodeString</key>
+		<string>nothing</string>
+		<key>image</key>
+		<string>AppIcon</string>
+		<key>info</key>
+		<string>Now, son, you don&apos;t want to drink beer. That&apos;s for daddies, and kids with fake IDs.</string>
+	</dict>
+</array>
 </plist>

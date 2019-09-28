@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import SafariServices
 import GoogleMobileAds
-import TransitionButton
+//import TransitionButton
 import FCAlertView
 
 class CameraViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, SFSafariViewControllerDelegate, GADInterstitialDelegate, UIPopoverControllerDelegate, FCAlertViewDelegate {
@@ -299,7 +299,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 //////////////////////// New stuff from Tom
                 do {
                     let decoder = JSONDecoder()
-                    let parser = APIMessageParser(received: response.debugDescription, parent: self.inputViewController!)
+                    let parser = APICodeParser(message: response.debugDescription)
                     print(data)
                     print(response)
                     let profile = try decoder.decode(SingleProfile.self, from: data!)
