@@ -355,7 +355,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
             //////////////////////// New stuff from Tom
             do {
                 let decoder = JSONDecoder()
-                let parser = APIMessageParser(received: response.debugDescription, parent: self.inputViewController!)
+                let parser = APICodeParser(message: response.debugDescription)
                 let pagedAccounts = try decoder.decode(PagedAccounts.self, from: data!)
                 //=======
                 for index in 0...pagedAccounts.accounts.count - 1 {

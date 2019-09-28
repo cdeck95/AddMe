@@ -199,7 +199,7 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
             //////////////////////// New stuff from Tom
             do {
                 let decoder = JSONDecoder()
-                let parser = APIMessageParser(received: response.debugDescription, parent: self.inputViewController!)
+                let parser = APICodeParser(message: response.debugDescription)
                 let JSONdata = try decoder.decode(PagedScans.self, from: data!)
                 //=======
                 if(JSONdata.scanned_profiles.count > 0){
@@ -301,7 +301,7 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
             alert.showAlert(inView: self,
                             withTitle: "Success",
                             withSubtitle: "The scan was successfully removed from your history.",
-                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withCustomImage: #imageLiteral(resourceName: "AppIcon"),
                             withDoneButtonTitle: "Got it!",
                             andButtons: [])
             loadProfiles()
@@ -313,7 +313,7 @@ class ScansTableViewController: UITableViewController, FCAlertViewDelegate {
             alert.showAlert(inView: self,
                             withTitle: "Oops!",
                             withSubtitle: "Something went wrong. If this keeps happening, please contact support.",
-                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                            withCustomImage: #imageLiteral(resourceName: "AppIcon"),
                             withDoneButtonTitle: "Got it!",
                             andButtons: [])
             loadProfiles()

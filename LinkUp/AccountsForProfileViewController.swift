@@ -181,7 +181,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                 alert.showAlert(inView: self,
                                 withTitle: "Edit Profile",
                                 withSubtitle: "Please update your profile name.",
-                                withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                withCustomImage: #imageLiteral(resourceName: "AppIcon"),
                                 withDoneButtonTitle: "Update",
                                 andButtons: ["Cancel"])
                 return
@@ -203,7 +203,7 @@ class AccountsForProfileViewController: UIViewController, UITableViewDelegate, U
                 alert.showAlert(inView: self,
                                 withTitle: "Edit Profile",
                                 withSubtitle: "Please update your profile description.",
-                                withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                withCustomImage: #imageLiteral(resourceName: "AppIcon"),
                                 withDoneButtonTitle: "Update",
                                 andButtons: ["Cancel"])
                 return

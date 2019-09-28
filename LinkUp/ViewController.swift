@@ -103,7 +103,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         config.enableUserPoolsUI = true
         config.addSignInButtonView(class: AWSFacebookSignInButton.self)
         config.addSignInButtonView(class: AWSGoogleSignInButton.self)
-        config.logoImage = UIImage(named: "Logo")
+        config.logoImage = UIImage(named: "AppIcon")
         config.backgroundColor = UIColor.white
         config.font = UIFont (name: "Helvetica Neue", size: 14)
         config.canCancel = true
@@ -150,7 +150,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                                 let params: String = "name,email,picture"
                                 self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
                             } else {
-                                self.profileImage.image = UIImage(named: "launch_logo")
+                                self.profileImage.image = UIImage(named: "AppIconTransparent")
                                 self.profileImage.center = self.view.center
                                 //self.navigationItem.leftBarButtonItem = self.uploadImageButton
                                 //query the db for an image
@@ -377,7 +377,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 //            alert.showAlert(inView: self,
 //                            withTitle: "Add Profile",
 //                            withSubtitle: "Enter your details below",
-//                            withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+//                            withCustomImage: #imageLiteral(resourceName: "AppIcon"),
 //                            withDoneButtonTitle: "Add",
 //                            andButtons: ["Cancel"])
             return
@@ -495,7 +495,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 alert.showAlert(inView: self,
                                 withTitle: "Add Profile",
                                 withSubtitle: "Enter your details below",
-                                withCustomImage: #imageLiteral(resourceName: "AddMeLogo-1"),
+                                withCustomImage: nil,
                                 withDoneButtonTitle: "Add",
                                 andButtons: ["Cancel"])
             }
@@ -605,7 +605,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             //////////////////////// New stuff from Tom
             do {
                 let decoder = JSONDecoder()
-                let parser = APIMessageParser(received: response.debugDescription, parent: self)
+                let parser = APICodeParser(message: response.debugDescription)
                 let JSONdata = try decoder.decode(PagedAccounts.self, from: data!)
                 for index in 0...JSONdata.accounts.count - 1 {
                     let account = JSONdata.accounts[index]
