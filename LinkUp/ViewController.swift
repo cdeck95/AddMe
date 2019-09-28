@@ -103,7 +103,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         config.enableUserPoolsUI = true
         config.addSignInButtonView(class: AWSFacebookSignInButton.self)
         config.addSignInButtonView(class: AWSGoogleSignInButton.self)
-        config.logoImage = UIImage(named: "AppIcon")
+        config.logoImage = UIImage(named: "LogoTransparent")
         config.backgroundColor = UIColor.white
         config.font = UIFont (name: "Helvetica Neue", size: 14)
         config.canCancel = true
