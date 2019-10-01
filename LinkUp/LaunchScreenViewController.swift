@@ -20,7 +20,8 @@ class LaunchScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createGradientLayer()
+        showSplashViewController()
+       // createGradientLayer()
         self.navigationController?.navigationBar.isHidden = true
         
         // Do any additional setup after loading the view.
@@ -28,19 +29,22 @@ class LaunchScreenViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        createGradientLayer()
-        self.imageView.backgroundColor = UIColor.clear
-        animatedView = AnimatedLaunchScreen(containerView: animationView)
-        self.animationView.addSubview(animatedView)
-        self.animationView.bringSubviewToFront(animatedView)
-        //self.view.bringSubviewToFront(animationView)
-        gradient.frame = imageView.bounds
-        animatedView.animate()
-        showSplashViewController()
+//        createGradientLayer()
+//        //self.imageView.backgroundColor = UIColor.clear
+//        animatedView = AnimatedLaunchScreen(containerView: animationView)
+//        self.animationView.addSubview(animatedView)
+//        //self.animationView.bringSubviewToFront(animatedView)
+//        self.view.bringSubviewToFront(imageView)
+//        //self.view.bringSubviewToFront(imageView)
+//        //self.view.bringSubviewToFront(animationView)
+//        gradient.frame = self.view.bounds
+//        gradientView.bringSubviewToFront(imageView)
+//        animatedView.animate()
+       // showSplashViewController()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.animatedView.removeFromSuperview()
+        //self.animatedView.removeFromSuperview()
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,10 +54,11 @@ class LaunchScreenViewController: UIViewController {
     
     /// Simulates an API handshake success and transitions to MapViewController
     func showSplashViewController() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // change 2 to desired number of seconds
-            print("showing...")
-            self.showViewController()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // change 2 to desired number of seconds
+//            print("showing...")
+//            self.showViewController()
+//        }
+        self.showViewController()
     }
     
 

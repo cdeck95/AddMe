@@ -16,17 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconWithWords" translatesAutoresizingMaskIntoConstraints="NO" id="P3N-Ks-gzH">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoTransparentWithWords" translatesAutoresizingMaskIntoConstraints="NO" id="P3N-Ks-gzH">
+                                <rect key="frame" x="16" y="11" width="343" height="636"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="P3N-Ks-gzH" firstAttribute="top" secondItem="YdH-LK-PXg" secondAttribute="top" id="1D8-E0-gGt"/>
-                            <constraint firstAttribute="bottom" secondItem="P3N-Ks-gzH" secondAttribute="bottom" id="Gwu-Fh-Xju"/>
-                            <constraint firstAttribute="trailing" secondItem="P3N-Ks-gzH" secondAttribute="trailing" id="PaN-i5-M5N"/>
-                            <constraint firstItem="P3N-Ks-gzH" firstAttribute="leading" secondItem="YdH-LK-PXg" secondAttribute="leading" id="Spe-pd-f50"/>
+                            <constraint firstItem="P3N-Ks-gzH" firstAttribute="top" secondItem="YdH-LK-PXg" secondAttribute="top" constant="11" id="1D8-E0-gGt"/>
+                            <constraint firstAttribute="bottom" secondItem="P3N-Ks-gzH" secondAttribute="bottom" constant="20" id="Gwu-Fh-Xju"/>
+                            <constraint firstAttribute="trailing" secondItem="P3N-Ks-gzH" secondAttribute="trailing" constant="16" id="PaN-i5-M5N"/>
+                            <constraint firstItem="P3N-Ks-gzH" firstAttribute="leading" secondItem="YdH-LK-PXg" secondAttribute="leading" constant="16" id="Spe-pd-f50"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Agq-ry-uxv"/>
                     </view>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppIconWithWords" width="16" height="16"/>
+        <image name="LogoTransparentWithWords" width="6709" height="7459"/>
     </resources>
 </document>

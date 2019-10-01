@@ -103,7 +103,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         config.enableUserPoolsUI = true
         config.addSignInButtonView(class: AWSFacebookSignInButton.self)
         config.addSignInButtonView(class: AWSGoogleSignInButton.self)
-        config.logoImage = UIImage(named: "AppIcon")
+        config.logoImage = UIImage(named: "LogoTransparent")
         config.backgroundColor = UIColor.white
         config.font = UIFont (name: "Helvetica Neue", size: 14)
         config.canCancel = true
@@ -124,7 +124,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.navigationController?.popToRootViewController(animated: true)// Initialize the Cognito Sync client
             credentialsManager.createCredentialsProvider()
             //credentialsManager.credentialsProvider.getIdentityId()
-            credentialsManager.credentialsProvider.identityProvider.logins().continueWith { (task: AWSTask!) -> AnyObject! in
+            credentialsManager.credentialsProvider.identityProvider.logins().continueWith { (task: AWSTask!) -> AnyObject? in
                 
                 if (task.error != nil) {
                     print("ERROR: Unable to get logins. Description: \(task.error!)")
@@ -132,7 +132,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 } else {
                     if task.result != nil{
                     }
-                    self.credentialsManager.credentialsProvider.getIdentityId().continueWith { (task: AWSTask!) -> AnyObject! in
+                    self.credentialsManager.credentialsProvider.getIdentityId().continueWith { (task: AWSTask!) -> AnyObject? in
                         
                         if (task.error != nil) {
                             print("ERROR: Unable to get ID. Error description: \(task.error!)")
@@ -150,7 +150,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                                 let params: String = "name,email,picture"
                                 self.getFBUserInfo(params: params, dataset: self.datasetManager.dataset)
                             } else {
-                                self.profileImage.image = UIImage(named: "AppIconTransparent")
+                                self.profileImage.image = UIImage(named: "LogoTransparent")
                                 self.profileImage.center = self.view.center
                                 //self.navigationItem.leftBarButtonItem = self.uploadImageButton
                                 //query the db for an image
@@ -550,6 +550,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 return
             } else {
                 print("---no error----")
+                print(response?.debugDescription)
             }
             //////////////////////// New stuff from Tom
             do {
